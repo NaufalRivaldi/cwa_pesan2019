@@ -1,0 +1,45 @@
+.footer {
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+/* component */
+.hr-yellow {
+    background: #f1c40f;
+    height: 3px;
+    width: 70%;
+    float: left;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.box-login {
+    width: 90%;
+    height: auto;
+    margin: auto;
+    background: #ecf0f1;
+}
+
+.box-left {
+    float: left;
+    width: 50%;
+    height: 400px;
+}
+
+.box-right {
+    float: left;
+    width: 50%;
+    height: 400px;
+    background: url('/img/bg-cab.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: grid;
+    align-items: center;
+    padding: 2%;
+}
