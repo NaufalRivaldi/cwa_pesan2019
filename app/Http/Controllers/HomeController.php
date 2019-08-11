@@ -40,4 +40,8 @@ class HomeController extends Controller
     public function login(){
         return view('frontend.login');
     }
+
+    public function inbox(){
+        return view('admin.inbox');
+    }
 }

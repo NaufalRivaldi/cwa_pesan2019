@@ -14,4 +14,15 @@
 // home
 Route::get('/', 'HomeController@index');
 Route::get('/scoreboard', 'HomeController@scoreboard');
-Route::get('/login', 'HomeController@login');
+Route::get('/login', 'HomeController@login')->name('login');
+
+// login & logout
+Route::post('/postlogin', 'AuthController@postlogin');
+Route::get('/logout', 'AuthController@logout');
+
+// admin
+Route::group(['middleware' => 'auth'], function(){
+    Route::group(['prefix' => '/admin'], function(){
+        Route::get('/inbox', 'HomeController@inbox');
+    });
+});
