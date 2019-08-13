@@ -181,6 +181,14 @@ ul.CTAs a {
     margin: 5px auto;
 }
 
+.custom-table {
+    font-size: .8em;
+}
+
+.a-block {
+    display: block
+}
+
 
 /* ---------------------------------------------------
     MEDIAQUERIES

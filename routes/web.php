@@ -24,5 +24,12 @@ Route::get('/logout', 'AuthController@logout');
 Route::group(['middleware' => 'auth'], function(){
     Route::group(['prefix' => '/admin'], function(){
         Route::get('/inbox', 'HomeController@inbox');
+
+        // pengumuman
+        Route::group(['prefix' => '/pengumuman'], function(){
+            Route::get('/', 'PengumumanController@index');
+            Route::get('/form', 'PengumumanController@form');
+            Route::post('/store', 'PengumumanController@store');
+        });
     });
 });

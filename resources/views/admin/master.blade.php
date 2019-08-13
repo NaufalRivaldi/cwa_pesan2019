@@ -11,6 +11,9 @@
         <link rel="stylesheet" href="{{ asset('css/all.css') }}">
         <link rel="icon" href="{{ asset('/img/logo-cwa.png') }}">
 
+        <!-- data table -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
         <title>Admin Portal CWJA @yield('title')</title>
     </head>
     <body>
@@ -44,7 +47,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><i class="fas fa-bullhorn"></i> Pengumuman</a>
+                        <a href="{{ url('admin/pengumuman') }}"><i class="fas fa-bullhorn"></i> Pengumuman</a>
                     </li>
                     <li>
                         <a href="#"><i class="fas fa-star"></i> Scoreboard Penjualan</a>
@@ -105,6 +108,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+        <!-- data table -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+        <!-- tinymce -->
+        <script src="https://cdn.tiny.cloud/1/8umgjhgub5p9ybjnnc9zo5xwvo264tfnvficzvbynegdl1c4/tinymce/5/tinymce.min.js"></script>
+
+
         <!-- Custom JS -->
         <script type="text/javascript">
             $(document).ready(function () {
@@ -112,6 +122,17 @@
                     $('#sidebar').toggleClass('active');
                     $(this).toggleClass('active');
                 });
+
+                // data table
+                $('#myTable').DataTable();
+            });
+
+            // tinymce
+            tinymce.init({
+                selector: '#mytextarea',
+                menubar: false,
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons',
+                plugins: 'lists, advlist'
             });
         </script>
     </body>
