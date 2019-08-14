@@ -29,7 +29,13 @@ Route::group(['middleware' => 'auth'], function(){
         Route::group(['prefix' => '/pengumuman'], function(){
             Route::get('/', 'PengumumanController@index');
             Route::get('/form', 'PengumumanController@form');
+            Route::get('/detail/{id}', 'PengumumanController@detail');
+            Route::get('/edit/{id}', 'PengumumanController@edit');
+            Route::get('/active/{id}', 'PengumumanController@active');
+            Route::get('/nonactive/{id}', 'PengumumanController@nonactive');
+            Route::get('/delete/{id}', 'PengumumanController@delete');
             Route::post('/store', 'PengumumanController@store');
+            Route::put('/update', 'PengumumanController@update');
         });
     });
 });

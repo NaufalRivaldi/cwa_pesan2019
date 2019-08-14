@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', '- Dashboard')
+@section('title', '- Pengumuman')
 
 @section('content')
     <div class="row">
@@ -8,14 +8,14 @@
             <h2>Pengumuman</h2>
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ url('/admin/pengumuman/form') }}" class="btn btn-primary">Buat Pengumuman</a>
+                    <a href="{{ url('/admin/pengumuman/form') }}" class="btn btn-primary btn-sm">Buat Pengumuman</a>
                 </div>
                 <div class="card-body">
                     <table id="myTable" class="custom-table table table-hover">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Tgl</th>
+                                <th>No</th>
+                                <th>Tanggal</th>
                                 <th>Subject</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -25,9 +25,7 @@
                             @if(!empty($pengumuman))
                                 @foreach($pengumuman as $row)
                                     <tr>
-                                        <td>
-                                            <input type="checkbox" name="id_delete" value="{{ $row->id }}">
-                                        </td>
+                                        <td>{{ $no++ }}</td>
                                         <td>
                                             <a href="{{ url('/admin/pengumuman/detail/'.    $row->id) }}" class="a-block">{{ $row->tgl }}</a>
                                         </td>
@@ -38,12 +36,19 @@
                                             @if($row->stat == 1)
                                                 <span class="badge badge-success">Active</span>
                                             @else
-                                                <span class="badge badge-danger">Inactive</span>
+                                                <span class="badge badge-danger">Nonactive</span>
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ url('/admin/pengumuman/edit/'.$row->id) }}" class="btn btn-success btn-sm">Edit</a>
-                                            <a href="{{ url('/admin/pengumuman/delete/'.$row->id) }}" class="btn btn-danger btn-sm">Hapus</a>
+                                            <!-- stat -->
+                                            @if($row->stat == 1)
+                                                <a href="{{ url('/admin/pengumuman/nonactive/'.$row->id) }}" class="btn btn-success btn-sm">Nonactive</a>
+                                            @else
+                                                <a href="{{ url('/admin/pengumuman/active/'.$row->id) }}" class="btn btn-success btn-sm">Active</a>
+                                            @endif
+
+                                            <a href="{{ url('/admin/pengumuman/edit/'.$row->id) }}" class="btn btn-success btn-sm"><i class="fas fa-cog"></i></a>
+                                            <a href="{{ url('/admin/pengumuman/delete/'.$row->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data?')"><i class="fas fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
