@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Pengumuman;
+use App\AttachPengumuman;
 
 class PengumumanController extends Controller
 {
@@ -19,7 +21,8 @@ class PengumumanController extends Controller
 
     public function detail($id){
         $pengumuman = Pengumuman::find($id);
-        return view('admin.pengumuman.detail', compact('pengumuman'));
+        $file = AttachPengumuman::where('pengumuman_id', $id)->get();
+        return view('admin.pengumuman.detail', compact('pengumuman', 'file'));
     }
 
     public function edit($id){
@@ -37,6 +40,32 @@ class PengumumanController extends Controller
             'stat' => 1,
             'users_id' => auth()->user()->id
         ]);
+
+        // get id
+        $pengumuman = Pengumuman::latest()->first();
+        $id = $pengumuman->id;
+
+
+        // Upload File
+        $this->validate($req, [
+            'file' => 'required',
+            'file.*' => 'mimes:doc,pdf,docx,zip,rar'
+        ]);
+
+        if($req->hasfile('file')){
+            foreach($req->file('file') as $file){
+                $ext = $file->getClientOriginalExtension();
+                $name = Str::random(32).'.'.$ext;
+                $file->move(public_path().'/Upengumuman/', $name);
+                
+                // save to database
+                AttachPengumuman::create([
+                    'nama' => $file->getClientOriginalName(),
+                    'nama_file' => $name,
+                    'pengumuman_id' => $id
+                ]);
+            }
+        }
 
         return redirect('/admin/pengumuman');
     }

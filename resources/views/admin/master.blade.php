@@ -13,6 +13,10 @@
 
         <!-- data table -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+        
+        <!-- fileupload -->
+        <link href="{{ asset('dist/font/font-fileuploader.css') }}" media="all" rel="stylesheet">
+        <link href="{{ asset('dist/jquery.fileuploader.min.css') }}" media="all" rel="stylesheet">
 
         <title>Admin Portal CWJA @yield('title')</title>
     </head>
@@ -89,7 +93,10 @@
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <div class="navbar-nav ml-auto">
-                                <span class="navbar-text">Halo, {{ auth()->user()->nama }} &nbsp;</span>
+                            <img src="{{ asset('img/user.png') }}" alt="logo-cwa" width="40">
+                                <span class="navbar-text">
+                                    Halo, {{ auth()->user()->nama }} &nbsp;
+                                </span>
                                 <a class="nav-item btn btn-danger" href="{{ url('logout') }}"><i class="fas fa-power-off"></i> Logout</a>
                             </div>
                         </div>
@@ -114,6 +121,8 @@
         <!-- tinymce -->
         <script src="https://cdn.tiny.cloud/1/8umgjhgub5p9ybjnnc9zo5xwvo264tfnvficzvbynegdl1c4/tinymce/5/tinymce.min.js"></script>
 
+        <!-- fileupload -->
+        <script src="{{ asset('dist/jquery.fileuploader.min.js') }}" type="text/javascript"></script>
 
         <!-- Custom JS -->
         <script type="text/javascript">
@@ -133,6 +142,14 @@
                 menubar: false,
                 toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons',
                 plugins: 'lists, advlist'
+            });
+
+            // fileupload
+            $(document).ready(function() {
+                $('input[name="file[]"]').fileuploader({
+                    theme: 'default',
+                    changeInput: true
+                });
             });
         </script>
     </body>

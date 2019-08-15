@@ -43,6 +43,14 @@
                                 @endif
                             </td>
                         </tr>
+                        <tr>
+                            <td width="15%" align="right">Lampiran :</td>
+                            <td>
+                                @foreach($file as $f)
+                                    <a href="{{ url('/Upengumuman/'.$f->nama_file) }}" class="btn btn-info btn-sm">{{ $f->nama }}</a>
+                                @endforeach
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>

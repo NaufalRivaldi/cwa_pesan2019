@@ -11,7 +11,7 @@
                     <a href="{{ url('/admin/pengumuman') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('/admin/pengumuman/store') }}" method="POST">
+                    <form action="{{ url('/admin/pengumuman/store') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         <div class="form-group row">
@@ -36,6 +36,12 @@
                                         {{ $errors->first('pesan') }}
                                     </div>
                                 @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">File</label>
+                            <div class="col-sm-10">
+                                <input type="file" name="file[]">
                             </div>
                         </div>
                         <div class="form-group row">
