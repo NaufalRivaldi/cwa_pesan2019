@@ -124,6 +124,10 @@
         <!-- fileupload -->
         <script src="{{ asset('dist/jquery.fileuploader.min.js') }}" type="text/javascript"></script>
 
+        <!-- sweetalert -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="{{ asset('js/sweetalert.js') }}"></script>
+
         <!-- Custom JS -->
         <script type="text/javascript">
             $(document).ready(function () {

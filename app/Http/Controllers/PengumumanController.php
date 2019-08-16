@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+
 use App\Pengumuman;
 use App\AttachPengumuman;
+use File;
 
 class PengumumanController extends Controller
 {
@@ -26,8 +28,9 @@ class PengumumanController extends Controller
     }
 
     public function edit($id){
+        $file = AttachPengumuman::where('pengumuman_id', $id)->get();
         $pengumuman = Pengumuman::find($id);
-        return view('admin.pengumuman.edit', compact('pengumuman'));
+        return view('admin.pengumuman.edit', compact('pengumuman', 'file'));
     }
 
     public function store(Request $req){
@@ -47,25 +50,7 @@ class PengumumanController extends Controller
 
 
         // Upload File
-        $this->validate($req, [
-            'file' => 'required',
-            'file.*' => 'mimes:doc,pdf,docx,zip,rar'
-        ]);
-
-        if($req->hasfile('file')){
-            foreach($req->file('file') as $file){
-                $ext = $file->getClientOriginalExtension();
-                $name = Str::random(32).'.'.$ext;
-                $file->move(public_path().'/Upengumuman/', $name);
-                
-                // save to database
-                AttachPengumuman::create([
-                    'nama' => $file->getClientOriginalName(),
-                    'nama_file' => $name,
-                    'pengumuman_id' => $id
-                ]);
-            }
-        }
+        $this->upload($id, $req);
 
         return redirect('/admin/pengumuman');
     }
@@ -77,6 +62,9 @@ class PengumumanController extends Controller
         $pengumuman->subject = $req->subject;
         $pengumuman->pesan = $req->pesan;
         $pengumuman->save();
+
+        // uplaod file
+        $this->upload($req->id, $req);
 
         return redirect('/admin/pengumuman');
     }
@@ -98,10 +86,30 @@ class PengumumanController extends Controller
     }
 
     public function delete($id){
+        // delete file
+        $file = AttachPengumuman::where('pengumuman_id', $id)->get();
+        foreach($file as $f){
+            $attc = AttachPengumuman::find($f->id);
+            // delete file
+            File::delete('Upengumuman/'.$attc->nama_file);
+            $attc->delete();
+        }
+        
         $pengumuman = Pengumuman::find($id);
         $pengumuman->delete();
 
         return redirect('/admin/pengumuman');
+    }
+
+    public function delattc($id){
+        $attc = AttachPengumuman::find($id);
+
+        // delete file
+        File::delete('Upengumuman/'.$attc->nama_file);
+        
+        $attc->delete();
+
+        return back();
     }
 
     
@@ -111,5 +119,22 @@ class PengumumanController extends Controller
             'subject' => 'required',
             'pesan' => 'required'
         ]);
+    }
+
+    public function upload($id, $req){
+        if($req->hasfile('file')){
+            foreach($req->file('file') as $file){
+                $ext = $file->getClientOriginalExtension();
+                $name = Str::random(32).'.'.$ext;
+                $file->move(public_path().'/Upengumuman/', $name);
+                
+                // save to database
+                AttachPengumuman::create([
+                    'nama' => $file->getClientOriginalName(),
+                    'nama_file' => $name,
+                    'pengumuman_id' => $id
+                ]);
+            }
+        }
     }
 }

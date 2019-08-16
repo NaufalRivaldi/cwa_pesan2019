@@ -33,6 +33,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/active/{id}', 'PengumumanController@active');
         Route::get('/nonactive/{id}', 'PengumumanController@nonactive');
         Route::get('/delete/{id}', 'PengumumanController@delete');
+        Route::get('/delattc/{id}', 'PengumumanController@delattc');
         Route::post('/store', 'PengumumanController@store');
         Route::put('/update', 'PengumumanController@update');
     });

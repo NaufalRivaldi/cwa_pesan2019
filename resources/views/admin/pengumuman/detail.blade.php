@@ -17,7 +17,7 @@
                     @endif
 
                     <a href="{{ url('/admin/pengumuman/edit/'.$pengumuman->id) }}" class="btn btn-success btn-sm"><i class="fas fa-cog"></i></a>
-                    <a href="{{ url('/admin/pengumuman/delete/'.$pengumuman->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data?')"><i class="fas fa-trash-alt"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm remove-pengumuman" data-id="{{ $pengumuman->id }}"><i class="fas fa-trash-alt"></i></a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
