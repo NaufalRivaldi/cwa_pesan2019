@@ -4,10 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Pengumuman;
+use App\AttachPengumuman;
+
 class HomeController extends Controller
 {
     public function index(){
-        return view('frontend.index');
+        $date_now = date('Y-m-d H:i:s');
+        $pengumuman = Pengumuman::orderBy('tgl', 'desc')->paginate(10);
+        return view('frontend.index', compact('pengumuman', 'date_now'));
+    }
+
+    public function detail($id){
+        $pengumuman = Pengumuman::find($id);
+        $file = AttachPengumuman::where('pengumuman_id', $id)->get();
+        return view('frontend.detail', compact('pengumuman', 'file'));
     }
 
     public function scoreboard(){

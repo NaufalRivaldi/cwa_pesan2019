@@ -43,3 +43,46 @@
     align-items: center;
     padding: 2%;
 }
+
+.col-pnm {
+    color: #000;
+    border-bottom: 2px solid #95a5a6;
+    padding: 1%;
+    font-size: 1.2em;
+}
+
+.row a:hover {
+    text-decoration: none;
+}
+
+.text-blink {
+    animation: blinkText 1s infinite;
+}
+
+.pagination {
+    float: right;
+}
+
+
+/* keyframe */
+@keyframes blinkText {
+    0% {
+        color: #000;
+    }
+
+    49% {
+        color: transparent;
+    }
+
+    50% {
+        color: transparent;
+    }
+
+    99% {
+        color: transparent;
+    }
+
+    100% {
+        color: #000;
+    }
+}

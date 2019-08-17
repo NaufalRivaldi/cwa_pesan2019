@@ -14,7 +14,33 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut facilis eum maxime eligendi ad dolorum, est eos ratione eaque officiis porro nemo aspernatur, cumque culpa vero possimus deserunt corporis explicabo.</p>
+                        @foreach($pengumuman as $r)
+                            <div class="row">
+                                <div class="col-12">
+                                    <a href="{{ url('/detail/'.$r->id) }}">
+                                        <div class="col-pnm">
+                                            <span class="badge badge-info">
+                                                {{ date('l, d F Y', strtotime($r->tgl)) }}
+                                            </span>
+                                            {{ $r->subject }}
+                                            <?php  
+                                                $date1 = new DateTime($r->tgl);
+                                                $date2 = new DateTime($date_now);
+                                                $diff = $date1->diff($date2);
+                                            ?>
+                                            @if($diff->days < 2)
+                                                <span class="text-blink">New!</span>
+                                            @endif
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
+                        <div class="row" style="margin-top:1%">
+                            <div class="col-12">
+                                {{ $pengumuman->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

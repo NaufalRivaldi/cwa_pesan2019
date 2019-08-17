@@ -13,6 +13,7 @@
 
 // home
 Route::get('/', 'HomeController@index');
+Route::get('/detail/{id}', 'HomeController@detail');
 Route::get('/scoreboard', 'HomeController@scoreboard');
 Route::get('/login', 'HomeController@login')->name('login');
 

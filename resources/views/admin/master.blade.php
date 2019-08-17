@@ -48,6 +48,9 @@
                             <li>
                                 <a href="#">Pesan Keluar</a>
                             </li>
+                            <li>
+                                <a href="#">Tempat Sampah</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -56,7 +59,6 @@
                     <li>
                         <a href="#"><i class="fas fa-star"></i> Scoreboard Penjualan</a>
                         <a href="#"><i class="fas fa-star"></i> Total Penjualan</a>
-                        <a href="#"><i class="fas fa-trash-alt"></i> Tempat Sampah</a>
                         <a href="#"><i class="fas fa-file"></i> Finance</a>
                         <a href="#"><i class="fas fa-file-download"></i> Update Master</a>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> E-Form</a>
