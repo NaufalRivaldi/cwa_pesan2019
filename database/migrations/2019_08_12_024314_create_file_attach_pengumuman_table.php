@@ -15,6 +15,7 @@ class CreateFileAttachPengumumanTable extends Migration
     {
         Schema::create('file_attach_pengumuman', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nama', 50);
             $table->string('nama_file');
             $table->unsignedInteger('pengumuman_id')->nullable();
             $table->timestamps();

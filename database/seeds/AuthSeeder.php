@@ -11,7 +11,7 @@ class AuthSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
+        DB::table('user')->insert([
             'nama' => 'IT',
             'email' => 'it@cwabali.com',
             'email_verified_at' => NOW(),

@@ -38,4 +38,10 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::post('/store', 'PengumumanController@store');
         Route::put('/update', 'PengumumanController@update');
     });
+
+    // ubah password
+    Route::group(['prefix' => '/repassword'], function(){
+        Route::get('/', 'RepasswordController@index');
+        Route::post('/save', 'repasswordController@save');
+    });
 });

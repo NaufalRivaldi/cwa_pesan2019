@@ -13,7 +13,7 @@ class PengumumanController extends Controller
 {
     public function index(){
         $no = 1;
-        $pengumuman = Pengumuman::where('users_id', auth()->user()->id)->orderBy('tgl', 'desc')->get();
+        $pengumuman = Pengumuman::where('user_id', auth()->user()->id)->orderBy('tgl', 'desc')->get();
         return view('admin.pengumuman.index', compact('no', 'pengumuman'));
     }
 
@@ -41,7 +41,7 @@ class PengumumanController extends Controller
             'tgl' => date('Y-m-d H:i:s'),
             'pesan' => $req->pesan,
             'stat' => 1,
-            'users_id' => auth()->user()->id
+            'user_id' => auth()->user()->id
         ]);
 
         // get id

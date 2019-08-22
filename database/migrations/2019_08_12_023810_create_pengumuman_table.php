@@ -19,13 +19,13 @@ class CreatePengumumanTable extends Migration
             $table->dateTime('tgl');
             $table->text('pesan');
             $table->enum('stat', ['1', '2']);
-            $table->unsignedInteger('users_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
 
             // FK
-            $table->foreign('users_id')
+            $table->foreign('user_id')
                     ->references('id')
-                    ->on('users')
+                    ->on('user')
                     ->onUpdate('cascade');
         });
     }

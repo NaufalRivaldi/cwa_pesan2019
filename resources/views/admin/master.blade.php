@@ -72,7 +72,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><i class="fas fa-cog"></i> Ubah Password</a>
+                        <a href="{{ url('admin/repassword') }}"><i class="fas fa-cog"></i> Ubah Password</a>
                     </li>
                 </ul>
                 <p class="footer">Copyright © 2019. Naufal Rivaldi.</p>

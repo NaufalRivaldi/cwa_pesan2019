@@ -16,7 +16,7 @@ class CreatePenerimaTable extends Migration
         Schema::create('penerima', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('pesan_id')->nullable();
-            $table->unsignedInteger('users_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
 
             // fk
@@ -25,9 +25,9 @@ class CreatePenerimaTable extends Migration
                     ->on('pesan')
                     ->onUpdate('cascade');
             
-            $table->foreign('users_id')
+            $table->foreign('user_id')
                     ->references('id')
-                    ->on('users')
+                    ->on('user')
                     ->onUpdate('cascade');
         });
     }

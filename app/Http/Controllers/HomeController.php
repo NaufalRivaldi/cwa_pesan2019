@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Pengumuman;
+use App\User;
 use App\AttachPengumuman;
 
 class HomeController extends Controller

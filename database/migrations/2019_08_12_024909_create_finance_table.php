@@ -18,13 +18,13 @@ class CreateFinanceTable extends Migration
             $table->dateTime('tgl');
             $table->integer('nama');
             $table->string('file_name', 20);
-            $table->unsignedInteger('users_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
 
             // fk
-            $table->foreign('users_id')
+            $table->foreign('user_id')
                     ->references('id')
-                    ->on('users')
+                    ->on('user')
                     ->onUpdate('cascade');
         });
     }

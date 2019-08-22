@@ -12,6 +12,7 @@
         </div>
         <div class="row">
             <div class="col-12">
+                <a href="{{ url()->previous() }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a><hr>
                 <div class="card">
                     <div class="card-header">
                         <h2>{{ $pengumuman->subject }}</h2>
