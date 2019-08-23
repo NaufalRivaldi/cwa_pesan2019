@@ -51,6 +51,10 @@
     font-size: 1em;
 }
 
+.col-pnm :hover {
+    background: #d4dedf;
+}
+
 .row a:hover {
     text-decoration: none;
 }

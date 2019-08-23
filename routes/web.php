@@ -44,4 +44,10 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/', 'RepasswordController@index');
         Route::post('/save', 'repasswordController@save');
     });
+
+    // Update Master
+    Route::group(['prefix' => '/master', 'middleware' => ['checkDep:IT,Gudang,Cabang']], function(){
+        Route::get('/', 'UpdateMasterController@index');
+        Route::post('/save', 'UpdateMastercontroller@save');
+    });
 });

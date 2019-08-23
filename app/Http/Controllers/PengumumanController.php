@@ -115,10 +115,14 @@ class PengumumanController extends Controller
     
     // Function tambahan
     public function val($req){
+        $message = [
+            'required' => ':attribute tidak boleh kosong!'
+        ];
+
         $this->validate($req, [
             'subject' => 'required',
             'pesan' => 'required'
-        ]);
+        ], $message);
     }
 
     public function upload($id, $req){
