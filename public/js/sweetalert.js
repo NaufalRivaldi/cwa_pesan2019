@@ -15,4 +15,16 @@ $(document).ready(function () {
                 }
             });
     });
+
+    // normal alert
+    const flash = $('.flash').data('status');
+
+    if (flash == 'simpan-success') {
+        swal({
+            title: "Success",
+            text: "Simpan Telah Tersimpan",
+            icon: "success",
+            button: "OK",
+        });
+    }
 });

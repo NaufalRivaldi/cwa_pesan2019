@@ -54,7 +54,7 @@ class UpdateMasterController extends Controller
             ]);
         }
 
-        return redirect('/admin/master');
+        return redirect('/admin/master')->with('status', 'simpan-success');
     }
 
     // function

@@ -59,7 +59,7 @@
                     <li>
                         <a href="#"><i class="fas fa-star"></i> Scoreboard Penjualan</a>
                         <a href="#"><i class="fas fa-star"></i> Total Penjualan</a>
-                        <a href="#"><i class="fas fa-file"></i> Finance</a>
+                        <a href="{{ url('/admin/finance') }}"><i class="fas fa-file"></i> Finance</a>
                         <a href="{{ url('/admin/master') }}"><i class="fas fa-file-download"></i> Update Master</a>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> E-Form</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu">
@@ -110,6 +110,9 @@
                 </div>
             </div>
         </div>
+
+        <!-- Flash Data -->
+        <span class="flash" data-status="{{ session('status') }}"></span>
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

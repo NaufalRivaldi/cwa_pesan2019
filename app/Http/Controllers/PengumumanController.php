@@ -52,7 +52,7 @@ class PengumumanController extends Controller
         // Upload File
         $this->upload($id, $req);
 
-        return redirect('/admin/pengumuman');
+        return redirect('/admin/pengumuman')->with('status', 'simpan-success');
     }
 
     public function update(Request $req){

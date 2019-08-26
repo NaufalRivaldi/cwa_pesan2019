@@ -50,4 +50,11 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/', 'UpdateMasterController@index');
         Route::post('/save', 'UpdateMastercontroller@save');
     });
+
+    // Finance
+    Route::group(['prefix' => '/finance', 'middleware' => ['checkDep:IT,Finance,Cabang']], function(){
+        Route::get('/', 'FinanceController@index');
+        Route::post('/save', 'FinanceController@save');
+        Route::get('/detail/{nama}', 'FinanceController@detail');
+    });
 });
