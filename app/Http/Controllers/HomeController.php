@@ -56,4 +56,9 @@ class HomeController extends Controller
     public function inbox(){
         return view('admin.inbox');
     }
+
+    // backend
+    public function backend(){
+        return view('backend.login');
+    }
 }

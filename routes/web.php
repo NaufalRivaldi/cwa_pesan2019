@@ -58,3 +58,17 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/detail/{nama}', 'FinanceController@detail');
     });
 });
+
+
+// Backend
+Route::group(['prefix' => '/backend'], function(){
+    Route::get('/', 'HomeController@backend');
+    Route::post('/postlogin', 'AuthController@postloginbackend');
+    Route::get('/logout', 'AuthController@logoutbackend');
+    
+    // scoreboard
+    Route::group(['prefix' => '/scoreboard'], function(){
+        Route::get('/', 'ScoreboardController@index');
+        Route::post('/save', 'ScoreboardController@save');
+    });
+});
