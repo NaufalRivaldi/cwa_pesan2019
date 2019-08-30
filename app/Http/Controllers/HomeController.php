@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Pengumuman;
 use App\User;
 use App\AttachPengumuman;
+use App\Setting;
+use App\HistoryJual;
 
 class HomeController extends Controller
 {
@@ -46,7 +48,10 @@ class HomeController extends Controller
             'CL1' => 'CW Lombok'
         );
 
-        return view('frontend.score', compact('divisi'));
+        $setting = Setting::find(1);
+        $score = HistoryJual::orderBy('tgl', 'desc')->first();
+
+        return view('frontend.score', compact('divisi', 'setting', 'score'));
     }
 
     public function login(){

@@ -22,8 +22,35 @@ $(document).ready(function () {
     if (flash == 'simpan-success') {
         swal({
             title: "Success",
-            text: "Simpan Telah Tersimpan",
+            text: "Data Telah Tersimpan",
             icon: "success",
+            button: "OK",
+        });
+    }
+
+    if (flash == 'fail-login') {
+        swal({
+            title: "Login Gagal",
+            text: "Username dan password tidak terdaftar.",
+            icon: "error",
+            button: "OK",
+        });
+    }
+
+    if (flash == 'success-score') {
+        swal({
+            title: "Success",
+            text: "Score telah tersimpan",
+            icon: "success",
+            button: "OK",
+        });
+    }
+
+    if (flash == 'error-score') {
+        swal({
+            title: "Error",
+            text: "Score gagal tersimpan!",
+            icon: "error",
             button: "OK",
         });
     }

@@ -44,7 +44,7 @@ class AuthController extends Controller
         $password = $req->password;
         if($username == 'it' && $password == '1sampai9'){
             session('username', $username);
-            return redirect('/backend/scoreboard')->with('status', 'success-login');
+            return redirect('/backend/scoreboard');
         }
 
         return redirect('/backend')->with('status', 'fail-login');

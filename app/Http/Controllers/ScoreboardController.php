@@ -10,6 +10,8 @@ use DB;
 use App\Karyawan;
 use App\HistoryJual;
 use App\RecordScore;
+use App\Kriteria;
+use App\Setting;
 
 class ScoreboardController extends Controller
 {
@@ -25,7 +27,7 @@ class ScoreboardController extends Controller
             $ext = $file->getClientOriginalExtension();
             $name = strtolower($file->getClientOriginalName());
 
-            // cek extension
+            // cek extension .cwa
             if($ext != 'cwa'){
                 return redirect('/backend/scoreboard')->with('status', 'fail-score');
             }
@@ -33,7 +35,7 @@ class ScoreboardController extends Controller
             // upload
             $file->move(public_path().'/file-score/', $name);
 
-            // getjson
+            // getjson data untuk query
             $text = file_get_contents(public_path().'/file-score/'.$name);
             $array = json_decode($text, true);
 
@@ -43,16 +45,30 @@ class ScoreboardController extends Controller
             $addQuery = $array['query'];
             $kriteria = $array['kriteria'];
 
-            // print_r($skor);
-            // logica
+            // logika simpan karyawan, simpan score, simpan record score per orang, simpan kritria barang.
             if($this->update_karyawan($karyawan)){
-                // if($this->update_score($skor, $addQuery)){
-                    if($this->record_score($addQuery)){
-                        
+                if($this->update_score($skor, $addQuery)){
+                    // update setting
+                    $set = Setting::all()->count();
+                    if($set == 0){
+                        Setting::insert([
+                            'last_update_score' => date('Y-m-d H:i:s'),
+                            'last_update_member' => date('Y-m-d H:i:s')
+                        ]);
+                    }else{
+                        $setting = Setting::find(1);
+                        $setting->last_update_score = date('Y-m-d H:i:s');
+                        $setting->save();
                     }
-                // }
+
+                    if($this->record_score($addQuery)){
+                        $this->kriteria($kriteria);
+                        return redirect('/backend/scoreboard')->with('status', 'success-score');
+                    }
+                }
             }
-            die();
+            
+            return redirect('/backend/scoreboard')->with('status', 'error-score');
         }
     }
 
@@ -137,6 +153,31 @@ class ScoreboardController extends Controller
         }
 
         RecordScore::insert($data);
+
+        return true;
+    }
+
+    function kriteria($kriteria){
+        // hapus kriteria lama
+        Kriteria::truncate();
+
+        // insert kriteria baru
+        $data = array();
+        foreach($kriteria as $row){
+            $data[] = [
+                'rule_name' => $row['rule_name'],
+                'kd_barang' => $row['kd_barang'],
+                'kd_merk' => $row['kd_merk'],
+                'kd_golongan' => $row['kd_golongan'],
+                'kd_satuan' => $row['kd_satuan'],
+                'kd_jenis' => $row['kd_jenis'],
+                'skor' => $row['skor'],
+                'stat' => $row['stat']
+            ];
+
+        }
+
+        Kriteria::insert($data);
 
         return true;
     }
