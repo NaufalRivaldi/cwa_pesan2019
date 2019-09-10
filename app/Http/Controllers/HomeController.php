@@ -9,6 +9,10 @@ use App\User;
 use App\AttachPengumuman;
 use App\Setting;
 use App\HistoryJual;
+use App\Karyawan;
+
+use DateTime;
+use DB;
 
 class HomeController extends Controller
 {
@@ -24,7 +28,7 @@ class HomeController extends Controller
         return view('frontend.detail', compact('pengumuman', 'file'));
     }
 
-    public function scoreboard(){
+    public function scoreboard(Request $req){
         $divisi = array(
             'CW1' => 'CW 1',
             'CW2' => 'CW 2',
@@ -50,14 +54,26 @@ class HomeController extends Controller
 
         $setting = Setting::find(1);
         $score = HistoryJual::orderBy('tgl', 'desc')->first();
+        $diff = $this->date($setting->last_update_score);
 
-        return view('frontend.score', compact('divisi', 'setting', 'score'));
+        // get
+        $score_jual = "";
+        $no = 1;
+        if($req){
+            $tgl_a = $req->input('dari_tgl');
+            $tgl_b = $req->input('sampai_tgl');
+
+            $karyawan = $this->karyawan();
+            $score_jual = HistoryJual::select('kd_sales', 'tgl', 'divisi', DB::raw('SUM(skor) AS total_skor'))->whereBetween('tgl', [$tgl_a, $tgl_b])->groupBy('divisi')->orderBy('total_skor', 'desc')->get();
+        }
+
+        return view('frontend.score', compact('divisi', 'setting', 'score', 'diff', 'score_jual', 'no'));
     }
 
     public function login(){
         return view('frontend.login');
     }
-
+    
     public function inbox(){
         return view('admin.inbox');
     }
@@ -65,5 +81,23 @@ class HomeController extends Controller
     // backend
     public function backend(){
         return view('backend.login');
+    }
+
+    // function tambahan
+    public function date($past){
+        $past = new DateTime($past);
+        $now = new DateTime();
+
+        $diff = $past->diff($now);
+        return $diff->d;
+    }
+    public function karyawan(){
+        $karyawan = Karyawan::where('stat', '1')->get();
+        $arr = [];
+        foreach($karyawan as $row){
+            $arr[$row->kd_sales] = $row->nama;
+        }
+
+        return $arr;
     }
 }

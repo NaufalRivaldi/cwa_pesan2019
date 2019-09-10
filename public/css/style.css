@@ -1,3 +1,8 @@
+/* card */
+.cardhead {
+    background: #fef100;
+}
+
 .footer {
     height: 50px;
     line-height: 50px;
@@ -65,6 +70,10 @@
 
 .pagination {
     float: right;
+}
+
+.tr_juara {
+    background: #2ecc71;
 }
 
 
