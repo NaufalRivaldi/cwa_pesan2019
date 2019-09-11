@@ -60,11 +60,21 @@ class HomeController extends Controller
         $score_jual = "";
         $no = 1;
         if($req){
+            // deklarasi variabel
             $tgl_a = $req->input('dari_tgl');
             $tgl_b = $req->input('sampai_tgl');
-
+            $div = '';
             $karyawan = $this->karyawan();
-            $score_jual = HistoryJual::select('kd_sales', 'tgl', 'divisi', DB::raw('SUM(skor) AS total_skor'))->whereBetween('tgl', [$tgl_a, $tgl_b])->groupBy('divisi')->orderBy('total_skor', 'desc')->get();
+            if(!empty($req->input('divisi'))){
+                $div = $req->input('divisi');
+            }
+
+            // query jika group dan tidak
+            if(!empty($req->input('group'))){
+                $score_jual = HistoryJual::select('kd_sales', 'tgl', 'divisi', DB::raw('SUM(skor) AS total_skor'))->whereBetween('tgl', [$tgl_a, $tgl_b])->groupBy('divisi')->Where('divisi', 'like', '%'.$div.'%')->orderBy('total_skor', 'desc')->get();
+            }else{
+                $score_jual = HistoryJual::select('kd_sales', 'tgl', 'divisi', DB::raw('SUM(skor) AS total_skor'))->whereBetween('tgl', [$tgl_a, $tgl_b])->groupBy('kd_sales')->Where('divisi', 'like', '%'.$div.'%')->orderBy('total_skor', 'desc')->get();
+            }
         }
 
         return view('frontend.score', compact('divisi', 'setting', 'score', 'diff', 'score_jual', 'no'));

@@ -42,7 +42,7 @@
                                         <select name="divisi" id="" class="form-control">
                                             <option value="">Semua Divisi</option>
                                             @foreach($divisi as $r => $i)
-                                            <option value="{{ $r }}">{{ $i }}</option>
+                                            <option value="{{ $r }}" <?= (!empty($_GET['divisi'])) ? ($_GET['divisi'] == $r) ? 'selected' : '' : '' ?>>{{ $i }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -51,7 +51,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <input type="submit" value="Proses" class="btn btn-primary">
+                                        <input type="submit" value="Proses" class="btn btn-success">
                                     </div>
                                 </div>
                             </div>
@@ -80,28 +80,52 @@
                             @endif
 
                             @if(isset($_GET['group']))
+                                <?php
+                                    $total = 0;
+                                ?>
                                 <tbody>
                                     @foreach($score_jual as $row)
-                                    <tr class="{{ ($no <= 3) ? 'tr_juara' : '' }}">
+                                    <?php
+                                        $total += $row->total_skor;
+                                    ?>
+                                    <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ Helper::get_divisi($row->divisi) }}</td>
                                         <td>
                                             {{ number_format($row->total_skor) }}<br>
                                             <div class="progress">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{ Helper::get_val($row->total_skor) }}%"></div>
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ helper::get_color(Helper::get_val($row->total_skor)) }}" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{ Helper::get_val($row->total_skor) }}%"></div>
                                             </div>
                                         </td>
                                     </tr>
                                     @endforeach
+                                    <tr>
+                                        <td colspan="2" align="right">
+                                            <b>Total Score : </b>
+                                        </td>
+                                        <td>
+                                            <b>{{ number_format($total) }}</b>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             @else
                                 <tbody>
+                                    @foreach($score_jual as $row)
                                     <tr>
-                                        <td>NO</td>
-                                        <td>NAMA KARYAWAN</td>
-                                        <td>NAMA CABANG</td>
-                                        <td>SKOR</td>
+                                        <td>{{ $no++ }}</td>
+                                        <td>
+                                            {{ Helper::get_karyawan($row->kd_sales) }} 
+                                            <span class="badge badge-primary">{{ $row->kd_sales }}</span>
+                                        </td>
+                                        <td>{{ Helper::get_divisi($row->divisi) }}</td>
+                                        <td>
+                                            {{ number_format($row->total_skor) }}<br>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ helper::get_color(Helper::get_val2($row->total_skor)) }}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{ Helper::get_val2($row->total_skor) }}%"></div>
+                                            </div>
+                                        </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             @endif
                             </table>

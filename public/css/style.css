@@ -1,6 +1,7 @@
 /* card */
 .cardhead {
-    background: #fef100;
+    background: #2d3436;
+    color: white;
 }
 
 .footer {
@@ -73,7 +74,7 @@
 }
 
 .tr_juara {
-    background: #2ecc71;
+    background: #44bd32;
 }
 
 

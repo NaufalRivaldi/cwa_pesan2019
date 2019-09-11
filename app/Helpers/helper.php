@@ -3,6 +3,9 @@ namespace App\Helpers;
 
 use Illuminate\Support\Facades\DB;
 
+// model
+use App\Karyawan;
+
 class helper{
     // get divisi name
     public static function get_divisi($inisial){
@@ -12,7 +15,32 @@ class helper{
 
     // get value of loadingbar
     public static function get_val($score){
-        $score = $score / 1000;
+        $score = $score / 800;
         return (int)$score;
     }
+
+    public static function get_val2($score){
+        $score = $score / 250;
+        return (int)$score;
+    }
+
+    // get color of loadingbar
+    public static function get_color($val){
+        if($val > 50){
+            return "bg-primary";
+        }else if($val > 35){
+            return "bg-success";
+        }else if($val > 25){
+            return "bg-warning";
+        }else{
+            return "bg-danger";
+        }
+    }
+
+    // get karyawan name
+    public static function get_karyawan($kd_sales){
+        $karyawan = Karyawan::where('stat', '1')->where('kd_sales', $kd_sales)->first();
+
+        return $karyawan->nama;
+    } 
 }
