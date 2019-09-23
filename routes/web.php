@@ -15,6 +15,7 @@
 Route::get('/', 'HomeController@index');
 Route::get('/detail/{id}', 'HomeController@detail');
 Route::get('/scoreboard', 'HomeController@scoreboard');
+Route::get('/scoreboarddetail', 'HomeController@scoreboarddetail');
 Route::get('/login', 'HomeController@login')->name('login');
 
 // login & logout

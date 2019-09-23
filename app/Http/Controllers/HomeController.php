@@ -14,6 +14,9 @@ use App\Karyawan;
 use DateTime;
 use DB;
 
+// helper
+use App\Helpers\helper;
+
 class HomeController extends Controller
 {
     public function index(){
@@ -78,6 +81,27 @@ class HomeController extends Controller
         }
 
         return view('frontend.score', compact('divisi', 'setting', 'score', 'diff', 'score_jual', 'no'));
+    }
+
+    public function scoreboarddetail(Request $req){
+        // variable
+        $tgl_a = $req->input('dari_tgl');
+        $tgl_b = $req->input('sampai_tgl');
+        $divisi = $req->input('divisi');
+        $kd_sales = $req->input('kd_sales');
+
+        $setting = Setting::find(1);
+        $score = HistoryJual::orderBy('tgl', 'desc')->first();
+        $diff = $this->date($setting->last_update_score);
+
+        // query
+        $karyawan = Karyawan::where('kd_sales', $kd_sales)->where('divisi', $divisi)->first();
+        $score_jual = "";
+
+        // covert divisi
+        $divisi = helper::get_divisi($divisi);
+
+        return view('frontend.score-detail', compact('setting', 'score', 'diff', 'divisi', 'score_jual', 'karyawan'));
     }
 
     public function login(){

@@ -77,6 +77,11 @@
     background: #44bd32;
 }
 
+.link-table a {
+    color: #000;
+    display: block;
+}
+
 
 /* keyframe */
 @keyframes blinkText {

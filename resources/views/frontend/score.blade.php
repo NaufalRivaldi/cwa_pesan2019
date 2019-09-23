@@ -27,7 +27,7 @@
                                     <div class="form-group">
                                         <label for="" class="text-bold">Dari Tanggal</label>
                                         <input type="date" name="dari_tgl" class="form-control" value="{{ (isset($_GET['dari_tgl'])) ? $_GET['dari_tgl'] : $score->tgl }}">
-                                        <input type="checkbox" name="group" value="1" <?= (isset($_GET['group'])) ? 'checked' : '' ?>> Gabungkan Skor Per Divisi.
+                                        <input type="checkbox" name="group" value="1" checked> Gabungkan Skor Per Divisi.
                                     </div>
                                 </div>
                                 <div class="col-4">
@@ -83,19 +83,24 @@
                                 <?php
                                     $total = 0;
                                 ?>
-                                <tbody>
+                                <tbody class="link-table">
                                     @foreach($score_jual as $row)
                                     <?php
                                         $total += $row->total_skor;
+                                        $url = 'scoreboard?dari_tgl='.$_GET['dari_tgl'].'&sampai_tgl='.$_GET['sampai_tgl'].'&divisi='.$row->divisi;
                                     ?>
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ Helper::get_divisi($row->divisi) }}</td>
                                         <td>
-                                            {{ number_format($row->total_skor) }}<br>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ helper::get_color(Helper::get_val($row->total_skor)) }}" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{ Helper::get_val($row->total_skor) }}%"></div>
-                                            </div>
+                                            <a href="{{ url($url) }}">{{ Helper::get_divisi($row->divisi) }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ url($url) }}">
+                                                {{ number_format($row->total_skor) }}<br>
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated {{ helper::get_color(Helper::get_val($row->total_skor)) }}" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{ Helper::get_val($row->total_skor) }}%"></div>
+                                                </div>
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -109,23 +114,46 @@
                                     </tr>
                                 </tbody>
                             @else
-                                <tbody>
+                                <tbody class="link-table">
+                                    <?php
+                                        $total = 0;
+                                    ?>
                                     @foreach($score_jual as $row)
+                                    <?php
+                                        $total += $row->total_skor;
+                                        $url = 'scoreboarddetail?dari_tgl='.$_GET['dari_tgl'].'&sampai_tgl='.$_GET['sampai_tgl'].'&divisi='.$row->divisi.'&kd_sales='.$row->kd_sales;
+                                    ?>
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>
-                                            {{ Helper::get_karyawan($row->kd_sales) }} 
-                                            <span class="badge badge-primary">{{ $row->kd_sales }}</span>
+                                            <a href="{{ url($url) }}">
+                                                {{ Helper::get_karyawan($row->kd_sales) }} 
+                                                <span class="badge badge-primary">{{ $row->kd_sales }}</span>
+                                            </a>
                                         </td>
-                                        <td>{{ Helper::get_divisi($row->divisi) }}</td>
                                         <td>
-                                            {{ number_format($row->total_skor) }}<br>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ helper::get_color(Helper::get_val2($row->total_skor)) }}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{ Helper::get_val2($row->total_skor) }}%"></div>
-                                            </div>
+                                            <a href="{{ url($url) }}">
+                                                {{ Helper::get_divisi($row->divisi) }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ url($url) }}">
+                                                {{ number_format($row->total_skor) }}<br>
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated {{ helper::get_color(Helper::get_val2($row->total_skor)) }}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{ Helper::get_val2($row->total_skor) }}%"></div>
+                                                </div>
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach
+                                    <tr>
+                                        <td colspan="3" align="right">
+                                            <b>Total Score : </b>
+                                        </td>
+                                        <td>
+                                            <b>{{ number_format($total) }}</b>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             @endif
                             </table>
