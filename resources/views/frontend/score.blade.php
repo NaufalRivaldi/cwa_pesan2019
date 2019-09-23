@@ -146,14 +146,6 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                    <tr>
-                                        <td colspan="3" align="right">
-                                            <b>Total Score : </b>
-                                        </td>
-                                        <td>
-                                            <b>{{ number_format($total) }}</b>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             @endif
                             </table>

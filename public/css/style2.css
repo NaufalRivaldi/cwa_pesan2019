@@ -205,6 +205,11 @@ ul.CTAs a {
     font-weight: 350;
 }
 
+.link-table a {
+    color: #000;
+    display: block;
+}
+
 
 /* ---------------------------------------------------
     MEDIAQUERIES
