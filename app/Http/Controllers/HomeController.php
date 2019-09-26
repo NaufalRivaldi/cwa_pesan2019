@@ -52,7 +52,8 @@ class HomeController extends Controller
             'CA7' => 'CW 17',
             'CA8' => 'CW 18',
             'CA9' => 'CW 19',
-            'CL1' => 'CW Lombok'
+            'CL1' => 'CW Lombok',
+            'CS1' => 'CW Makassar'
         );
 
         $setting = Setting::find(1);
@@ -72,7 +73,7 @@ class HomeController extends Controller
                 $div = $req->input('divisi');
             }
 
-            // query jika group dan tidak
+            // query jika group dan tidak group
             if(!empty($req->input('group'))){
                 $score_jual = HistoryJual::select('kd_sales', 'tgl', 'divisi', DB::raw('SUM(skor) AS total_skor'))->whereBetween('tgl', [$tgl_a, $tgl_b])->groupBy('divisi')->Where('divisi', 'like', '%'.$div.'%')->orderBy('total_skor', 'desc')->get();
             }else{
@@ -119,6 +120,7 @@ class HomeController extends Controller
 
     // function tambahan
     public function date($past){
+        // selisih tgl
         $past = new DateTime($past);
         $now = new DateTime();
 

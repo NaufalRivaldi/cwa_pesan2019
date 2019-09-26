@@ -80,7 +80,7 @@
                                     <td>{{ $no++ }}</td>
                                     <td>{{ date('d F Y', strtotime($row->tgl)) }}</td>
                                     <td>{{ $row->kd_barang }}</td>
-                                    <td>{{ $row->kd_barang }}</td>
+                                    <td>{{ Helper::nama_barang($row->kd_barang) }}</td>
                                     <td>{{ $row->total_jml }}</td>
                                     <td>{{ $row->total_skor }}</td>
                                 </tr>

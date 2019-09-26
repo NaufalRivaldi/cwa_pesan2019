@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 // model
 use App\Karyawan;
+use App\KodeBarang;
 
 class helper{
     // get divisi name
@@ -43,4 +44,11 @@ class helper{
 
         return $karyawan->nama;
     } 
+
+    // ubah nama barang
+    public static function nama_barang($kd_barang){
+        $kode_barang = KodeBarang::where('kdbr', $kd_barang)->first();
+
+        return $kode_barang['nmbr'];
+    }
 }
