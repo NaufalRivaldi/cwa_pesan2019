@@ -41,8 +41,8 @@
                                         <label for="" class="text-bold">Divisi</label>
                                         <select name="divisi" id="" class="form-control">
                                             <option value="">Semua Divisi</option>
-                                            @foreach($divisi as $r => $i)
-                                            <option value="{{ $r }}" <?= (!empty($_GET['divisi'])) ? ($_GET['divisi'] == $r) ? 'selected' : '' : '' ?>>{{ $i }}</option>
+                                            @foreach($divisi as $r)
+                                            <option value="{{ $r }}" <?= (!empty($_GET['divisi'])) ? ($_GET['divisi'] == $r) ? 'selected' : '' : '' ?>>{{ $r->divisi }}</option>
                                             @endforeach
                                         </select>
                                     </div>
