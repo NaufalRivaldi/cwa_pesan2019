@@ -14,8 +14,8 @@
 // home
 Route::get('/', 'HomeController@index');
 Route::get('/detail/{id}', 'HomeController@detail');
-Route::get('/scoreboard', 'HomeController@scoreboard');
-Route::get('/scoreboarddetail', 'HomeController@scoreboarddetail');
+Route::get('/scoreboard', 'ScoreboardController@scoreboard');
+Route::get('/scoreboarddetail', 'ScoreboardController@scoreboarddetail');
 Route::get('/login', 'HomeController@login')->name('login');
 
 // login & logout
@@ -39,6 +39,13 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::post('/store', 'PengumumanController@store');
         Route::put('/update', 'PengumumanController@update');
     });
+
+    // scoreboard
+    Route::get('/scoreboard', 'ScoreboardController@scoreboard');
+    Route::get('/scoreboarddetail', 'ScoreboardController@scoreboarddetail');
+
+    // total penjualan
+    
 
     // ubah password
     Route::group(['prefix' => '/repassword'], function(){

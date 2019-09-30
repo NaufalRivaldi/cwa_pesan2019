@@ -53,14 +53,25 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li <?= ($menu == '2') ? 'class="active"' : '' ?>>
                         <a href="{{ url('admin/pengumuman') }}"><i class="fas fa-bullhorn"></i> Pengumuman</a>
                     </li>
-                    <li>
-                        <a href="#"><i class="fas fa-star"></i> Scoreboard Penjualan</a>
+                    <li <?= ($menu == '3') ? 'class="active"' : '' ?>>
+                        <a href="{{ url('admin/scoreboard') }}"><i class="fas fa-star"></i> Scoreboard Penjualan</a>
+                    </li>
+                    <li <?= ($menu == '4') ? 'class="active"' : '' ?>>
                         <a href="#"><i class="fas fa-star"></i> Total Penjualan</a>
+                    </li>
+                    <li <?= ($menu == '5') ? 'class="active"' : '' ?>>
                         <a href="{{ url('/admin/finance') }}"><i class="fas fa-file"></i> Finance</a>
+                    </li>
+                    <li <?= ($menu == '6') ? 'class="active"' : '' ?>>
                         <a href="{{ url('/admin/master') }}"><i class="fas fa-file-download"></i> Update Master</a>
+                    </li>
+                    <li <?= ($menu == '7') ? 'class="active"' : '' ?>>
+                        <a href="{{ url('admin/repassword') }}"><i class="fas fa-cog"></i> Ubah Password</a>
+                    </li>
+                    <li <?= ($menu == '8') ? 'class="active"' : '' ?>>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> E-Form</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu">
                             <li>
@@ -70,9 +81,6 @@
                                 <a href="#">IT</a>
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="{{ url('admin/repassword') }}"><i class="fas fa-cog"></i> Ubah Password</a>
                     </li>
                 </ul>
                 <p class="footer">Copyright © 2019. Naufal Rivaldi.</p>

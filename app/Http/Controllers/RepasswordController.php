@@ -9,7 +9,8 @@ use App\User;
 class RepasswordController extends Controller
 {
     public function index(){
-        return view('admin.repassword.index');
+        $menu = 7;
+        return view('admin.repassword.index', compact('menu'));
     }
 
     public function save(Request $req){

@@ -10,10 +10,11 @@ use File;
 class FinanceController extends Controller
 {
     public function index(){
+        $menu = 5;
         $dep = auth()->user()->dep;
         $no = 1;
         $finance = Finance::groupBy('nama')->orderBy('nama', 'desc')->get();
-        return view('admin.finance.index', compact('dep', 'finance', 'no'));
+        return view('admin.finance.index', compact('dep', 'finance', 'no', 'menu'));
     }
 
     public function save(Request $req){
@@ -47,10 +48,11 @@ class FinanceController extends Controller
     }
 
     public function detail($nama){
+        $menu = 5;
         $dep = auth()->user()->dep;
         $no = 1;
         $finance = Finance::where('nama', '=', $nama)->get();
-        return view('admin.finance.detail', compact('dep', 'no', 'finance'));
+        return view('admin.finance.detail', compact('dep', 'no', 'finance', 'menu'));
     }
 
     public function val($req){

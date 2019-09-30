@@ -12,6 +12,7 @@ use DateTime;
 class UpdateMasterController extends Controller
 {
     public function index(){
+        $menu = 6;
         $dep = auth()->user()->dep;
         $file = UpdateMaster::all();
         foreach($file as $r){
@@ -26,7 +27,7 @@ class UpdateMasterController extends Controller
         $date2 = new DateTime($date_now);
         $diff = $date1->diff($date2);
 
-        return view('admin.master.index', compact('dep', 'data', 'diff'));
+        return view('admin.master.index', compact('dep', 'data', 'diff', 'menu'));
     }
 
     public function save(Request $req){

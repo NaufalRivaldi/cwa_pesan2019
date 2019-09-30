@@ -12,25 +12,29 @@ use File;
 class PengumumanController extends Controller
 {
     public function index(){
+        $menu = 2;
         $no = 1;
         $pengumuman = Pengumuman::where('user_id', auth()->user()->id)->orderBy('tgl', 'desc')->get();
-        return view('admin.pengumuman.index', compact('no', 'pengumuman'));
+        return view('admin.pengumuman.index', compact('no', 'pengumuman', 'menu'));
     }
 
     public function form(){
-        return view('admin.pengumuman.form');
+        $menu = 2;
+        return view('admin.pengumuman.form', compact('menu'));
     }
 
     public function detail($id){
+        $menu = 2;
         $pengumuman = Pengumuman::find($id);
         $file = AttachPengumuman::where('pengumuman_id', $id)->get();
-        return view('admin.pengumuman.detail', compact('pengumuman', 'file'));
+        return view('admin.pengumuman.detail', compact('pengumuman', 'file', 'menu'));
     }
 
     public function edit($id){
+        $menu = 2;
         $file = AttachPengumuman::where('pengumuman_id', $id)->get();
         $pengumuman = Pengumuman::find($id);
-        return view('admin.pengumuman.edit', compact('pengumuman', 'file'));
+        return view('admin.pengumuman.edit', compact('pengumuman', 'file', 'menu'));
     }
 
     public function store(Request $req){

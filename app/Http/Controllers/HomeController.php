@@ -31,58 +31,6 @@ class HomeController extends Controller
         return view('frontend.detail', compact('pengumuman', 'file'));
     }
 
-    public function scoreboard(Request $req){
-        $divisi = Karyawan::select('divisi')->groupBy('divisi')->orderBy('divisi')->get();
-
-        $setting = Setting::find(1);
-        $score = HistoryJual::orderBy('tgl', 'desc')->first();
-        $diff = $this->date($setting->last_update_score);
-
-        // get
-        $score_jual = "";
-        $no = 1;
-        if($req){
-            // deklarasi variabel
-            $tgl_a = $req->input('dari_tgl');
-            $tgl_b = $req->input('sampai_tgl');
-            $div = '';
-            $karyawan = $this->karyawan();
-            if(!empty($req->input('divisi'))){
-                $div = $req->input('divisi');
-            }
-
-            // query jika group dan tidak group
-            if(!empty($req->input('group'))){
-                $score_jual = HistoryJual::select('kd_sales', 'tgl', 'divisi', DB::raw('SUM(skor) AS total_skor'))->whereBetween('tgl', [$tgl_a, $tgl_b])->groupBy('divisi')->Where('divisi', 'like', '%'.$div.'%')->orderBy('total_skor', 'desc')->get();
-            }else{
-                $score_jual = HistoryJual::select('kd_sales', 'tgl', 'divisi', DB::raw('SUM(skor) AS total_skor'))->whereBetween('tgl', [$tgl_a, $tgl_b])->groupBy('kd_sales')->Where('divisi', 'like', '%'.$div.'%')->orderBy('total_skor', 'desc')->get();
-            }
-        }
-
-        return view('frontend.score', compact('divisi', 'setting', 'score', 'diff', 'score_jual', 'no'));
-    }
-
-    public function scoreboarddetail(Request $req){
-        // variable
-        $tgl_a = $req->input('dari_tgl');
-        $tgl_b = $req->input('sampai_tgl');
-        $divisi = $req->input('divisi');
-        $kd_sales = $req->input('kd_sales');
-
-        $setting = Setting::find(1);
-        $score = HistoryJual::orderBy('tgl', 'desc')->first();
-        $diff = $this->date($setting->last_update_score);
-
-        // query
-        $karyawan = Karyawan::where('kd_sales', $kd_sales)->where('divisi', $divisi)->first();
-        $score_jual = HistoryJual::select('tgl', 'kd_barang', DB::raw('SUM(jml) AS total_jml'), DB::raw('SUM(skor) AS total_skor'))->whereBetween('tgl', [$tgl_a, $tgl_b])->groupBy('kd_barang')->where('kd_sales', $kd_sales)->orderBy('tgl', 'desc')->get();
-
-        // covert divisi
-        $divisi = helper::get_divisi($divisi);
-
-        return view('frontend.score-detail', compact('setting', 'score', 'diff', 'divisi', 'score_jual', 'karyawan'));
-    }
-
     public function login(){
         return view('frontend.login');
     }
@@ -94,24 +42,5 @@ class HomeController extends Controller
     // backend
     public function backend(){
         return view('backend.login');
-    }
-
-    // function tambahan
-    public function date($past){
-        // selisih tgl
-        $past = new DateTime($past);
-        $now = new DateTime();
-
-        $diff = $past->diff($now);
-        return $diff->d;
-    }
-    public function karyawan(){
-        $karyawan = Karyawan::where('stat', '1')->get();
-        $arr = [];
-        foreach($karyawan as $row){
-            $arr[$row->kd_sales] = $row->nama;
-        }
-
-        return $arr;
     }
 }
