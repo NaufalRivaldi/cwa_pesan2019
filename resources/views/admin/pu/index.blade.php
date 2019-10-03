@@ -53,6 +53,8 @@
                 </div>
                 <div class="card-body">
                     @if($_GET)
+                        <a href="{{ url('admin/penjualanpu/expall?dari_tgl='.$_GET['dari_tgl'].'&sampai_tgl='.$_GET['sampai_tgl']) }}" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Export Excel</a>
+                        <hr>
                         <table id="<?= (isset($_GET['group'])) ? '' : 'myTable' ?>" class="custom-table table table-hover">
                         <thead>
                             <tr>
@@ -68,7 +70,7 @@
                             @foreach($score_jual as $row)
                             <?php
                                 $total += $row->total_brt;
-                                $url = 'admin/scoreboard?dari_tgl='.$_GET['dari_tgl'].'&sampai_tgl='.$_GET['sampai_tgl'].'&divisi='.$row->divisi;
+                                $url = 'admin/penjualanpu/detail?dari_tgl='.$_GET['dari_tgl'].'&sampai_tgl='.$_GET['sampai_tgl'].'&divisi='.$row->divisi;
                             ?>
                             <tr>
                                 <td>{{ $no++ }}</td>

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 // model
 use App\Karyawan;
 use App\KodeBarang;
+use App\Kriteria;
 
 class helper{
     // get divisi name
@@ -55,5 +56,26 @@ class helper{
         $kode_barang = KodeBarang::where('kdbr', $kd_barang)->first();
 
         return $kode_barang['nmbr'];
+    }
+
+    // panggil nama kriteria
+    public static function nama_kriteria($mrbr, $kdbr){
+        $nama = '';
+        
+        $kriteria = Kriteria::orWhere('kd_merk', 'like', '%'.$mrbr.'%')->first();
+        
+        // jika dia ada untuk mrbr
+        if(!empty($kriteria)){
+            $nama = $kriteria->rule_name;
+        }else{
+            $kriteria = Kriteria::orWhere('kd_barang', 'like', '%'.$kdbr.'%')->first();
+            if(!empty($kriteria)){
+                $nama = $kriteria->rule_name;
+            }else{
+                $nama = $kdbr;
+            }
+        }
+
+        return $nama;
     }
 }

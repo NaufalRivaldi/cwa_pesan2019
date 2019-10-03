@@ -7,12 +7,16 @@ use Illuminate\Http\Request;
 use File;
 use DB;
 use DateTime;
+// excel
+use Excel;
+use App\Exports\PUExport;
 
 use App\Karyawan;
 use App\HistoryJual;
 use App\RecordScore;
 use App\Kriteria;
 use App\Setting;
+use App\Cabang;
 
 // helper
 use App\Helpers\helper;
@@ -51,20 +55,30 @@ class PenjualanPUController extends Controller
         $tgl_a = $req->input('dari_tgl');
         $tgl_b = $req->input('sampai_tgl');
         $divisi = $req->input('divisi');
-        $kd_sales = $req->input('kd_sales');
 
         $setting = Setting::find(1);
         $score = HistoryJual::orderBy('tgl', 'desc')->first();
         $diff = $this->date($setting->last_update_score);
 
         // query
-        $karyawan = Karyawan::where('kd_sales', $kd_sales)->where('divisi', $divisi)->first();
-        $score_jual = HistoryJual::select('tgl', 'kd_barang', DB::raw('SUM(jml) AS total_jml'), DB::raw('SUM(skor) AS total_skor'))->whereBetween('tgl', [$tgl_a, $tgl_b])->groupBy('kd_barang')->where('kd_sales', $kd_sales)->orderBy('tgl', 'desc')->get();
+        $score_jual = DB::table('history_jual')
+                        ->join('kode_barang', 'history_jual.kd_barang', '=', 'kode_barang.kdbr')
+                        ->select('history_jual.tgl', 'history_jual.kd_barang', DB::raw('SUM(history_jual.jml) AS total_jml'), DB::raw('SUM(history_jual.brt * history_jual.jml) AS total_brt'), 'kode_barang.mrbr')
+                        ->whereBetween('history_jual.tgl', [$tgl_a, $tgl_b])
+                        ->where('divisi', $divisi)
+                        ->groupBy('kode_barang.mrbr')
+                        ->orderBy('kode_barang.mrbr')
+                        ->get();
 
         // covert divisi
         $divisi = helper::get_divisi($divisi);
 
-        return view((empty(auth()->user())) ? 'frontend.score-detail' : 'admin.score.detail', compact('setting', 'score', 'diff', 'divisi', 'score_jual', 'karyawan', 'menu'));
+        return view('admin.pu.detail', compact('setting', 'score', 'diff', 'divisi', 'score_jual', 'menu'));
+    }
+
+    // export all
+    public function expall(){
+        return (new PUExport)->download('penjualanPU.xlsx');
     }
 
     // function tambahan

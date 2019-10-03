@@ -45,7 +45,11 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
     Route::get('/scoreboarddetail', 'ScoreboardController@scoreboarddetail');
 
     // penjualan PU
-    Route::get('/penjualanpu', 'PenjualanPUController@index');
+    Route::group(['prefix' => '/penjualanpu', 'middleware' => ['checkDep:IT,SCM']], function(){
+        Route::get('/', 'PenjualanPUController@index');
+        Route::get('/detail', 'PenjualanPUController@detail');
+        Route::get('/expall', 'PenjualanPUController@expall');
+    });
 
     // ubah password
     Route::group(['prefix' => '/repassword'], function(){
