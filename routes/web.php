@@ -44,8 +44,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
     Route::get('/scoreboard', 'ScoreboardController@scoreboard');
     Route::get('/scoreboarddetail', 'ScoreboardController@scoreboarddetail');
 
-    // total penjualan
-    
+    // penjualan PU
+    Route::get('/penjualanpu', 'PenjualanPUController@index');
 
     // ubah password
     Route::group(['prefix' => '/repassword'], function(){

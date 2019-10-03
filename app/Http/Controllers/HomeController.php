@@ -36,7 +36,8 @@ class HomeController extends Controller
     }
     
     public function inbox(){
-        return view('admin.inbox');
+        $menu = 1;
+        return view('admin.inbox', compact('menu'));
     }
 
     // backend

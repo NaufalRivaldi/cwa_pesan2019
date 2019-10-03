@@ -20,6 +20,11 @@ class helper{
         return (int)$score;
     }
 
+    public static function get_valPU($score){
+        $score = $score / 20;
+        return (int)$score;
+    }
+
     public static function get_val2($score){
         $score = $score / 250;
         return (int)$score;

@@ -39,7 +39,7 @@
                     <p>
                         <a href="#" class="btn btn-warning btn-lg btn-block"><i class="fas fa-envelope"></i> Buat Pesan Baru</a>
                     </p>
-                    <li>
+                    <li <?= ($menu == '1') ? 'class="active"' : '' ?>>
                         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-envelope"></i> Pesan</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                             <li>
@@ -60,7 +60,7 @@
                         <a href="{{ url('admin/scoreboard') }}"><i class="fas fa-star"></i> Scoreboard Penjualan</a>
                     </li>
                     <li <?= ($menu == '4') ? 'class="active"' : '' ?>>
-                        <a href="#"><i class="fas fa-star"></i> Total Penjualan</a>
+                        <a href="{{ url('admin/penjualanpu') }}"><i class="fas fa-star"></i> Penjualan PU</a>
                     </li>
                     <li <?= ($menu == '5') ? 'class="active"' : '' ?>>
                         <a href="{{ url('/admin/finance') }}"><i class="fas fa-file"></i> Finance</a>
