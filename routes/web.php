@@ -24,7 +24,7 @@ Route::get('/logout', 'AuthController@logout');
 
 // admin
 Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
-    Route::get('/inbox', 'HomeController@inbox');
+    Route::get('/inbox', 'PesanController@inbox');
 
     // pengumuman
     Route::group(['prefix' => '/pengumuman'], function(){

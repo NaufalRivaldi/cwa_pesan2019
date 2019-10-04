@@ -210,6 +210,10 @@ ul.CTAs a {
     display: block;
 }
 
+.tb-active {
+    background: rgb(207, 207, 207) !important;
+}
+
 
 /* ---------------------------------------------------
     MEDIAQUERIES

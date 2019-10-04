@@ -43,13 +43,13 @@
                         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-envelope"></i> Pesan</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                             <li>
-                                <a href="#">Pesan Masuk</a>
+                                <a href="{{ url('admin/inbox') }}">Pesan Masuk</a>
                             </li>
                             <li>
-                                <a href="#">Pesan Keluar</a>
+                                <a href="{{ url('admin/outbox') }}">Pesan Keluar</a>
                             </li>
                             <li>
-                                <a href="#">Tempat Sampah</a>
+                                <a href="{{ url('admin/trash') }}">Tempat Sampah</a>
                             </li>
                         </ul>
                     </li>
@@ -142,32 +142,6 @@
         <script src="{{ asset('js/sweetalert.js') }}"></script>
 
         <!-- Custom JS -->
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#sidebarCollapse').on('click', function () {
-                    $('#sidebar').toggleClass('active');
-                    $(this).toggleClass('active');
-                });
-
-                // data table
-                $('#myTable').DataTable();
-            });
-
-            // tinymce
-            tinymce.init({
-                selector: '#mytextarea',
-                menubar: false,
-                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons',
-                plugins: 'lists, advlist'
-            });
-
-            // fileupload
-            $(document).ready(function() {
-                $('input[name="file[]"]').fileuploader({
-                    theme: 'default',
-                    changeInput: true
-                });
-            });
-        </script>
+        <script src="{{ asset('js/custom.js') }}"></script>
     </body>
 </html>

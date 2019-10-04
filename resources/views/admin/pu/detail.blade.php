@@ -23,7 +23,6 @@
                     </table>
                 </div>
                 <div class="card-body">
-                    <a href="#" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Export Excel</a>
                     <hr>
                     <table class="table table-striped">
                         <thead>
