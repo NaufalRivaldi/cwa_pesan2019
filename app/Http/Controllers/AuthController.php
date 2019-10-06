@@ -12,7 +12,7 @@ class AuthController extends Controller
         $this->val($req);
         
         if(Auth::attempt($req->only('email', 'password'))){
-            return redirect('/admin/inbox');
+            return redirect('/admin/pesan/inbox');
         }
 
         return redirect('/login');

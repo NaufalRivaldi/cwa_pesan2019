@@ -10,4 +10,9 @@ class PesanController extends Controller
         $menu = 1;
         return view('admin.pesan.inbox', compact('menu'));
     }
+
+    public function form(){
+        $menu = 1;
+        return view('admin.pesan.form', compact('menu'));
+    }
 }

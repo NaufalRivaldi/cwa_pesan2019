@@ -10,8 +10,8 @@
                     <div class="card-header">
                         <h2>Pesan Masuk</h2>
                     </div>
-                    <div class="card-header">
-                        Menu :
+                    <div class="card-header insert-menu">
+                        <a href="{{ url('admin/pesan/form') }}" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Buat Pesan</a>
                     </div>
                     <div class="card-body">
                         <table id="myTable" class="custom-table table table-hover">
