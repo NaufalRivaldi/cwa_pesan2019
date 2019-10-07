@@ -26,7 +26,7 @@
                             <tbody>
                                 <tr class="active-1">
                                     <td>
-                                        <input type="checkbox" class="chcks" value="active-1">
+                                        <input type="checkbox" class="chcks" value="ID" data-class="active-1" name="chckdel">
                                     </td>
                                     <td>
                                         <a href="#" class="a-block">naufal@cwabali.com</a>
@@ -44,7 +44,7 @@
                                 </tr>
                                 <tr class="active-2">
                                     <td>
-                                        <input type="checkbox" class="chcks" value="active-2">
+                                        <input type="checkbox" class="chcks" value="ID" data-class="active-2" name="chckdel">
                                     </td>
                                     <td>
                                         <a href="#" class="a-block">naufal@cwabali.com</a>

@@ -18,10 +18,10 @@ $(document).ready(function () {
     var x = '';
     $('.chcks').click(function () {
         if ($(this).is(':checked')) {
-            x = $(this).val();
+            x = $(this).data('class');
             $('.' + x).addClass('tb-active');
         } else {
-            x = $(this).val();
+            x = $(this).data('class');
             $('.' + x).removeClass('tb-active');
         }
     });
@@ -37,6 +37,20 @@ $(document).ready(function () {
         // } else {
 
         // }
+    });
+
+    // Select2
+    $(".js-example-responsive").select2();
+
+    // select all
+    $('#chckAll').click(function () {
+        if ($('#chckAll').is(':checked')) {
+            $("#selectAll > option").prop("selected", "selected");
+            $("#selectAll").trigger("change");
+        } else {
+            $("#selectAll > option").prop("selected", false);
+            $("#selectAll").trigger("change");
+        }
     });
 });
 

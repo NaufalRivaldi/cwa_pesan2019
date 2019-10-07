@@ -18,6 +18,9 @@
         <link href="{{ asset('dist/font/font-fileuploader.css') }}" media="all" rel="stylesheet">
         <link href="{{ asset('dist/jquery.fileuploader.min.css') }}" media="all" rel="stylesheet">
 
+        <!-- Select2 -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+
         <title>Admin Portal CWJA @yield('title')</title>
     </head>
     <body>
@@ -37,7 +40,7 @@
 
                 <ul class="list-unstyled components">
                     <p>
-                        <a href="#" class="btn btn-warning btn-lg btn-block"><i class="fas fa-envelope"></i> Buat Pesan Baru</a>
+                        <a href="{{ url('admin/pesan/form') }}" class="btn btn-warning btn-lg btn-block"><i class="fas fa-envelope"></i> Buat Pesan Baru</a>
                     </p>
                     <li <?= ($menu == '1') ? 'class="active"' : '' ?>>
                         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-envelope"></i> Pesan</a>
@@ -140,6 +143,9 @@
         <!-- sweetalert -->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="{{ asset('js/sweetalert.js') }}"></script>
+
+        <!-- select2 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
 
         <!-- Custom JS -->
         <script src="{{ asset('js/custom.js') }}"></script>
