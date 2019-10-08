@@ -10,4 +10,8 @@ class Attachment extends Model
     protected $fillable = [
         'nama', 'nama_file', 'pesan_id'
     ];
+
+    public function pesan(){
+        return $this->belongsTo('App\Pesan');
+    }
 }

@@ -17,49 +17,41 @@
                         <table id="myTable" class="custom-table table table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Dari</th>
-                                    <th>Isi</th>
+                                    <th width="5%">#</th>
+                                    <th width="20%">Dari</th>
+                                    <th>Subject</th>
                                     <th>Tanggal</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="active-1">
+                                @foreach($pesan as $data)
+                                <tr class="active-{{$idx}}">
                                     <td>
-                                        <input type="checkbox" class="chcks" value="ID" data-class="active-1" name="chckdel">
+                                        <input type="checkbox" class="chcks" value="ID" data-class="active-{{$idx++}}" name="chckdel">
                                     </td>
                                     <td>
-                                        <a href="#" class="a-block">naufal@cwabali.com</a>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="a-block">
-                                            <b>test email internal</b> 
-                                            - Hello world asdasd<br>
-                                        </a>
-                                        <span class="badge badge-warning">aya.exe</span> <span class="badge badge-warning">Warning.exe</span>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="a-block">26 Okt<br>15:30:15</a>
-                                    </td>
-                                </tr>
-                                <tr class="active-2">
-                                    <td>
-                                        <input type="checkbox" class="chcks" value="ID" data-class="active-2" name="chckdel">
-                                    </td>
-                                    <td>
-                                        <a href="#" class="a-block">naufal@cwabali.com</a>
+                                        <a href="#" class="a-block">{{ $data->user->email }}</a>
                                     </td>
                                     <td>
                                         <a href="#" class="a-block">
-                                            <b>test email internal</b> 
-                                            - Hello world asdasd<br>
+                                            <b>{{ $data->subject }}</b>
+                                            <?php
+                                                $text = strip_tags($data->message);
+                                                $text = str_replace('&nbsp;', '', $text);
+                                            ?>
+                                            - {{ substr($text, 0, 50) }} ...
                                         </a>
-                                        <span class="badge badge-warning">aya.exe</span> <span class="badge badge-warning">Warning.exe</span>
+                                        @foreach($data->attach as $att)
+                                            <a href="{{ asset('Upesan/'.$att->nama_file) }}">
+                                                <span class="badge badge-warning">{{ $att->nama }}</span>
+                                            </a> 
+                                        @endforeach
                                     </td>
                                     <td>
-                                        <a href="#" class="a-block">26 Okt<br>15:30:15</a>
+                                        <a href="#" class="a-block">{{ date('d F Y', strtotime($data->tgl)) }}<br>{{ date('H:i:s', strtotime($data->tgl)) }}</a>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

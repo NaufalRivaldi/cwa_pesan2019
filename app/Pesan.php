@@ -8,6 +8,16 @@ class Pesan extends Model
 {
     protected $table = 'pesan';
     protected $fillable = [
-        'subject', 'massage', 'tgl', 'stat', 'user_id'
+        'subject', 'message', 'tgl', 'stat', 'user_id'
     ];
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+
+    public function attach(){
+        return $this->hasMany('App\Attachment');
+    }
+
+
 }

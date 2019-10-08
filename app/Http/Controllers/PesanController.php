@@ -10,12 +10,16 @@ use App\Attachment;
 use App\Pesan;
 use App\Penerima;
 
+use DB;
+
 class PesanController extends Controller
 {
     public function inbox(){
         $menu = 1;
-        $id = 
-        return view('admin.pesan.inbox', compact('menu'));
+        $idx = 1;
+        $id = Penerima::select('pesan_id')->where('user_id', auth()->user()->id)->get()->toArray();
+        $pesan = Pesan::whereIn('id', $id)->get();
+        return view('admin.pesan.inbox', compact('menu', 'pesan', 'idx'));
     }
 
     public function form(){
