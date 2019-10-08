@@ -13,62 +13,63 @@
                         <h2>Pesan</h2>
                     </div>
                     <div class="card-body">
-                        <form action="{{ url('admin/pesan/post) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('admin/pesan/store') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Kepada</label>
-                            <div class="col-sm-10">
-                            <select class="js-example-responsive" multiple="multiple" name="kepada" class="form-control" style="width: 100%" id="selectAll">
-                                @foreach($user as $row)
-                                <option value="{{ $row->id }}">{{ $row->email }}</option>
-                                @endforeach
-                            </select>
-                            <input type="checkbox" name="chckAll" id="chckAll"> Bagikan ke semua?
-                                <!-- error -->
-                                @if($errors->has('kepada'))
-                                    <div class="text-danger">
-                                        {{ $errors->first('kepada') }}
-                                    </div>
-                                @endif
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Kepada</label>
+                                <div class="col-sm-10">
+                                <select class="js-example-responsive" multiple="multiple" name="kepada[]" class="form-control" style="width: 100%" id="selectAll">
+                                    @foreach($user as $row)
+                                        @if($row->email != auth()->user()->email)
+                                            <option value="{{ $row->id }}">{{ $row->email }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <input type="checkbox" name="chckAll" id="chckAll"> Bagikan ke semua?
+                                    <!-- error -->
+                                    @if($errors->has('kepada'))
+                                        <div class="text-danger">
+                                            {{ $errors->first('kepada') }}
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Subject</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="subject" class="form-control">
-                                <!-- error -->
-                                @if($errors->has('subject'))
-                                    <div class="text-danger">
-                                        {{ $errors->first('subject') }}
-                                    </div>
-                                @endif
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Subject</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="subject" class="form-control">
+                                    <!-- error -->
+                                    @if($errors->has('subject'))
+                                        <div class="text-danger">
+                                            {{ $errors->first('subject') }}
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Isi</label>
-                            <div class="col-sm-10">
-                                <textarea name="pesan" id="mytextarea"></textarea>
-                                <!-- error -->
-                                @if($errors->has('pesan'))
-                                    <div class="text-danger">
-                                        {{ $errors->first('pesan') }}
-                                    </div>
-                                @endif
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Isi</label>
+                                <div class="col-sm-10">
+                                    <textarea name="message" id="mytextarea"></textarea>
+                                    <!-- error -->
+                                    @if($errors->has('pesan'))
+                                        <div class="text-danger">
+                                            {{ $errors->first('pesan') }}
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">File</label>
-                            <div class="col-sm-10">
-                                <input type="file" name="file[]">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">File</label>
+                                <div class="col-sm-10">
+                                    <input type="file" name="file[]" data-fileuploader-fileMaxSize="5">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label"></label>
-                            <div class="col-sm-10">
-                                <input type="submit" value="Kirim Pesan" class="btn btn-primary">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label"></label>
+                                <div class="col-sm-10">
+                                    <input type="submit" value="Kirim Pesan" class="btn btn-primary">
+                                </div>
                             </div>
-                        </div>
                         </form>
                     </div>
                 </div>

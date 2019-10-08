@@ -54,4 +54,13 @@ $(document).ready(function () {
             button: "OK",
         });
     }
+
+    if (flash == 'success-pesan') {
+        swal({
+            title: "Success",
+            text: "Pesan telah terkirim.",
+            icon: "success",
+            button: "OK",
+        });
+    }
 });

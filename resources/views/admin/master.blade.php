@@ -46,13 +46,13 @@
                         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-envelope"></i> Pesan</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                             <li>
-                                <a href="{{ url('admin/inbox') }}">Pesan Masuk</a>
+                                <a href="{{ url('admin/pesan/inbox') }}">Pesan Masuk</a>
                             </li>
                             <li>
-                                <a href="{{ url('admin/outbox') }}">Pesan Keluar</a>
+                                <a href="{{ url('admin/pesan/outbox') }}">Pesan Keluar</a>
                             </li>
                             <li>
-                                <a href="{{ url('admin/trash') }}">Tempat Sampah</a>
+                                <a href="{{ url('admin/pesan/trash') }}">Tempat Sampah</a>
                             </li>
                         </ul>
                     </li>

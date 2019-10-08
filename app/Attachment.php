@@ -8,6 +8,6 @@ class Attachment extends Model
 {
     protected $table = 'attachment';
     protected $fillable = [
-        'nama_file', 'pesan_id'
+        'nama', 'nama_file', 'pesan_id'
     ];
 }
