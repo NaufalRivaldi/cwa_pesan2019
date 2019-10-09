@@ -26,6 +26,7 @@ Route::get('/logout', 'AuthController@logout');
 Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
     Route::group(['prefix' => '/pesan'], function(){
         Route::get('/inbox', 'PesanController@inbox');
+        Route::get('/inbox/detail/{pesan_id}', 'PesanController@detail');
         Route::get('/form', 'PesanController@form');
         Route::post('/store', 'PesanController@store');
     });

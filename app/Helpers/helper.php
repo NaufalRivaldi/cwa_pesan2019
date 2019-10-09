@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Karyawan;
 use App\KodeBarang;
 use App\Kriteria;
+use App\Penerima;
 
 class helper{
     // get divisi name
@@ -77,5 +78,27 @@ class helper{
         }
 
         return $nama;
+    }
+
+    // ubah text menjadi descripsi singkat
+    public static function setDesc($text){
+        $text = strip_tags($text);
+        $text = str_replace('&nbsp;', '', $text);
+
+        return substr($text, 0, 50);
+    }
+
+    // check read
+    public static function read($pesan_id, $user_id){
+        $class = '';
+        $cek = Penerima::where('pesan_id', $pesan_id)
+                        ->where('user_id', $user_id)
+                        ->where('read_user', 'n')
+                        ->first();
+        if(!empty($cek)){
+            $class = 'pesan-baru';
+        }
+
+        return $class;
     }
 }

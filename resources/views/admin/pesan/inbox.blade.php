@@ -25,21 +25,20 @@
                             </thead>
                             <tbody>
                                 @foreach($pesan as $data)
-                                <tr class="active-{{$idx}}">
+                                <?php
+                                    $url = 'admin/pesan/inbox/detail/'.$data->id;
+                                ?>
+                                <tr class="active-{{$idx}} {{ Helper::read($data->id, auth()->user()->id) }}">
                                     <td>
                                         <input type="checkbox" class="chcks" value="ID" data-class="active-{{$idx++}}" name="chckdel">
                                     </td>
                                     <td>
-                                        <a href="#" class="a-block">{{ $data->user->email }}</a>
+                                        <a href="{{ url($url) }}" class="a-block">{{ $data->user->email }}</a>
                                     </td>
                                     <td>
-                                        <a href="#" class="a-block">
+                                        <a href="{{ url($url) }}" class="a-block">
                                             <b>{{ $data->subject }}</b>
-                                            <?php
-                                                $text = strip_tags($data->message);
-                                                $text = str_replace('&nbsp;', '', $text);
-                                            ?>
-                                            - {{ substr($text, 0, 50) }} ...
+                                            - {{ Helper::setDesc($data->message) }} ...
                                         </a>
                                         @foreach($data->attach as $att)
                                             <a href="{{ asset('Upesan/'.$att->nama_file) }}">
@@ -48,7 +47,7 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                        <a href="#" class="a-block">{{ date('d F Y', strtotime($data->tgl)) }}<br>{{ date('H:i:s', strtotime($data->tgl)) }}</a>
+                                        <a href="{{ url($url) }}" class="a-block">{{ date('d F Y', strtotime($data->tgl)) }}<br>{{ date('H:i:s', strtotime($data->tgl)) }}</a>
                                     </td>
                                 </tr>
                                 @endforeach

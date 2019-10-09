@@ -18,7 +18,7 @@ class PesanController extends Controller
         $menu = 1;
         $idx = 1;
         $id = Penerima::select('pesan_id')->where('user_id', auth()->user()->id)->get()->toArray();
-        $pesan = Pesan::whereIn('id', $id)->get();
+        $pesan = Pesan::whereIn('id', $id)->orderBy('tgl', 'desc')->get();
         return view('admin.pesan.inbox', compact('menu', 'pesan', 'idx'));
     }
 
@@ -48,6 +48,12 @@ class PesanController extends Controller
         $this->penerima($id->id, $req);
         
         return redirect('/admin/pesan/inbox')->with('status', 'success-pesan');
+    }
+
+    public function detail($pesan_id){
+        $menu = '1';
+        $pesan = Pesan::where('id', $pesan_id)->first();
+        return view('admin.pesan.detail', compact('menu', 'pesan'));
     }
 
     // fungsi tambahan
@@ -83,7 +89,9 @@ class PesanController extends Controller
         foreach($req->kepada as $r){
             Penerima::create([
                 'pesan_id' => $id,
-                'user_id' => $r
+                'user_id' => $r,
+                'stat' => 1,
+                'read_user' => 'n'
             ]);
         }
     }

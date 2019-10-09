@@ -214,6 +214,30 @@ ul.CTAs a {
     background: rgb(207, 207, 207) !important;
 }
 
+.pesan-baru {
+    font-weight: bold;
+}
+
+.lampiran {
+    width: 15%;
+    height: 120px;
+    background: #999;
+    float: left;
+    border-radius: 5%;
+    text-align: center;
+    padding: 1%;
+    display: grid;
+    justify-content: center;
+    margin-right: 2%;
+}
+
+.icon-lampiran {
+    font-size: 2em;
+}
+
+.text-lampiran {
+    font-size: 0.7em;
+}
 
 /* ---------------------------------------------------
     MEDIAQUERIES
