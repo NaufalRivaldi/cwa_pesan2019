@@ -49,7 +49,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Isi</label>
                                 <div class="col-sm-10">
-                                    <textarea name="message" id="mytextarea" rows="15"></textarea>
+                                    <textarea name="message" id="mytextarea" rows="15">{{ $text }}</textarea>
                                     <!-- error -->
                                     @if($errors->has('pesan'))
                                         <div class="text-danger">

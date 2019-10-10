@@ -88,6 +88,14 @@ class helper{
         return substr($text, 0, 50);
     }
 
+    // ubah text menjadi descripsi text biasa
+    public static function setText($text){
+        $text = strip_tags($text);
+        $text = str_replace('&nbsp;', '', $text);
+
+        return $text;
+    }
+
     // check read
     public static function read($pesan_id, $user_id){
         $class = '';

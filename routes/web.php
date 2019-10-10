@@ -25,10 +25,16 @@ Route::get('/logout', 'AuthController@logout');
 // admin
 Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
     Route::group(['prefix' => '/pesan'], function(){
+        // inbox
         Route::get('/inbox', 'PesanController@inbox');
         Route::get('/inbox/detail/{pesan_id}', 'PesanController@detail');
+        Route::get('/inbox/hapus/{pesan_id}', 'PesanController@hapus');
+
+        // post pesan
         Route::get('/form', 'PesanController@form');
         Route::post('/store', 'PesanController@store');
+        Route::get('/balas/{pesan_Id}', 'PesanController@balas');
+        Route::get('/forward/{pesan_Id}', 'PesanController@forward');
     });
 
     // pengumuman

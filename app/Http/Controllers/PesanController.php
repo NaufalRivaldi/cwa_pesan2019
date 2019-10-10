@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Helpers\helper;
 
 use App\User;
 use App\Attachment;
@@ -17,7 +18,7 @@ class PesanController extends Controller
     public function inbox(){
         $menu = 1;
         $idx = 1;
-        $id = Penerima::select('pesan_id')->where('user_id', auth()->user()->id)->get()->toArray();
+        $id = Penerima::select('pesan_id')->where('user_id', auth()->user()->id)->where('stat', '1')->get()->toArray();
         $pesan = Pesan::whereIn('id', $id)->orderBy('tgl', 'desc')->get();
         return view('admin.pesan.inbox', compact('menu', 'pesan', 'idx'));
     }
@@ -53,7 +54,48 @@ class PesanController extends Controller
     public function detail($pesan_id){
         $menu = '1';
         $pesan = Pesan::where('id', $pesan_id)->first();
+
+        // ubah status read
+        $read = Penerima::where('pesan_id', $pesan_id)->where('user_id', auth()->user()->id)->first();
+        $read->read_user = 'y';
+        $read->save();
         return view('admin.pesan.detail', compact('menu', 'pesan'));
+    }
+
+    public function hapus($pesan_id){
+        $pesan = Penerima::find($pesan_id);
+        $pesan->stat = 2;
+        $pesan->save();
+        return redirect('/admin/pesan/inbox')->with('status', 'delete-pesan');
+    }
+
+    public function balas($pesan_id){
+        $menu = '1';
+        $pesan = Pesan::find($pesan_id);
+
+        return view('admin.pesan.balas', compact('menu', 'pesan'));
+    }
+
+    public function forward($pesan_id){
+        $menu = 1;
+        $user = User::select('id', 'email')->orderBy('email', 'asc')->get();
+        $pesan = Pesan::find($pesan_id);
+        $penerima = Penerima::where('pesan_id', $pesan_id)->get();
+        $untuk = "";
+        foreach($penerima as $row){
+            $untuk = $untuk.$row->user->email.",";
+        }
+
+        $text = "
+            <p style='color: grey !important'>--- Forwarded Message ---<br>
+            Dari : ".$pesan->user->email."<br>
+            Tanggal : ".$pesan->tgl."<br>
+            Subject : ".$pesan->subject."<br>
+            Untuk : ".substr($untuk, 0, -1)."<br><br>
+            ".helper::setText($pesan->message)."</p>
+
+        ";
+        return view('admin.pesan.forward', compact('menu', 'user', 'pesan', 'text'));
     }
 
     // fungsi tambahan

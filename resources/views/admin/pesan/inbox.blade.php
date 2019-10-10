@@ -21,6 +21,7 @@
                                     <th width="20%">Dari</th>
                                     <th>Subject</th>
                                     <th>Tanggal</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,6 +49,9 @@
                                     </td>
                                     <td>
                                         <a href="{{ url($url) }}" class="a-block">{{ date('d F Y', strtotime($data->tgl)) }}<br>{{ date('H:i:s', strtotime($data->tgl)) }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-danger btn-sm remove-pesan" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

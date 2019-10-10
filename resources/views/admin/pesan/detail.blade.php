@@ -61,8 +61,8 @@
                             </div>
                             <div class="row" style="margin-top:2%">
                                 <div class="col-md-12">
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fas fa-reply"></i> Balas</a> 
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fas fa-share"></i> Forward</a>
+                                    <a href="{{ url('admin/pesan/balas/'.$pesan->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-reply"></i> Balas</a> 
+                                    <a href="{{ url('admin/pesan/forward/'.$pesan->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-share"></i> Forward</a>
                                 </div>
                             </div>
                         </div>

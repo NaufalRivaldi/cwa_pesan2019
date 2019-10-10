@@ -19,25 +19,20 @@
                                 <label class="col-sm-2 col-form-label">Kepada</label>
                                 <div class="col-sm-10">
                                 <select class="js-example-responsive" multiple="multiple" name="kepada[]" class="form-control" style="width: 100%" id="selectAll">
-                                    @foreach($user as $row)
-                                        @if($row->email != auth()->user()->email)
-                                            <option value="{{ $row->id }}">{{ $row->email }}</option>
-                                        @endif
-                                    @endforeach
+                                    <option value="{{ $pesan->user->id }}" selected>{{ $pesan->user->email }}</option>
                                 </select>
-                                <input type="checkbox" name="chckAll" id="chckAll"> Bagikan ke semua?
-                                    <!-- error -->
-                                    @if($errors->has('kepada'))
-                                        <div class="text-danger">
-                                            {{ $errors->first('kepada') }}
-                                        </div>
-                                    @endif
-                                </div>
+                                <!-- error -->
+                                @if($errors->has('kepada'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('kepada') }}
+                                    </div>
+                                @endif
+                            </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Subject</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="subject" class="form-control">
+                                    <input type="text" name="subject" class="form-control" value="RE : {{ $pesan->subject }}" readonly>
                                     <!-- error -->
                                     @if($errors->has('subject'))
                                         <div class="text-danger">

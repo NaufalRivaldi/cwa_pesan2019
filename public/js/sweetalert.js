@@ -16,6 +16,23 @@ $(document).ready(function () {
             });
     });
 
+    // remove pesan
+    $('.remove-pesan').click(function () {
+        var postId = $(this).data('id');
+        swal({
+                title: "Hapus pesan?",
+                text: "Pesan akan terhapus secara permanen.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = "/admin/pesan/inbox/hapus/" + postId;
+                }
+            });
+    });
+
     // normal alert
     const flash = $('.flash').data('status');
 
@@ -59,6 +76,15 @@ $(document).ready(function () {
         swal({
             title: "Success",
             text: "Pesan telah terkirim.",
+            icon: "success",
+            button: "OK",
+        });
+    }
+
+    if (flash == 'delete-pesan') {
+        swal({
+            title: "Success",
+            text: "Pesan telah dihapus.",
             icon: "success",
             button: "OK",
         });
