@@ -13,8 +13,9 @@
                         <h2>Pesan</h2>
                     </div>
                     <div class="card-body">
-                        <form action="{{ url('admin/pesan/store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('admin/pesan/storefwd') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
+                            <input type="hidden" name="pesan_id" value="{{ $pesan->id }}">
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Kepada</label>
                                 <div class="col-sm-10">
@@ -37,7 +38,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Subject</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="subject" class="form-control">
+                                    <input type="text" name="subject" class="form-control" value="fwd : {{ $pesan->subject }}">
                                     <!-- error -->
                                     @if($errors->has('subject'))
                                         <div class="text-danger">
@@ -49,7 +50,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Isi</label>
                                 <div class="col-sm-10">
-                                    <textarea name="message" id="mytextarea" rows="15">{{ $text }}</textarea>
+                                    <textarea name="message" id="mytextarea" rows="20">{{ $text }}</textarea>
                                     <!-- error -->
                                     @if($errors->has('pesan'))
                                         <div class="text-danger">
@@ -61,7 +62,27 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">File</label>
                                 <div class="col-sm-10">
-                                    <input type="file" name="file[]" data-fileuploader-fileMaxSize="5">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            @foreach($pesan->attach as $att)
+                                                <a href="{{ asset('Upesan/'.$att->nama_file) }}">
+                                                    <div class="lampiran">
+                                                        <div class="icon-lampiran">
+                                                            <i class="fas fa-file"></i>
+                                                        </div>
+                                                        <div class="text-lampiran">
+                                                            {{ $att->nama }}
+                                                        </div>
+                                                    </div>
+                                                </a> 
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="file" name="file[]" data-fileuploader-fileMaxSize="5">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">

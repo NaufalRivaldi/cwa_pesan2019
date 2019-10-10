@@ -33,6 +33,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         // post pesan
         Route::get('/form', 'PesanController@form');
         Route::post('/store', 'PesanController@store');
+        Route::post('/storefwd', 'PesanController@storeFwd');
         Route::get('/balas/{pesan_Id}', 'PesanController@balas');
         Route::get('/forward/{pesan_Id}', 'PesanController@forward');
     });

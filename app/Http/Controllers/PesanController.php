@@ -51,6 +51,29 @@ class PesanController extends Controller
         return redirect('/admin/pesan/inbox')->with('status', 'success-pesan');
     }
 
+    public function storeFwd(Request $req){
+        $this->val($req);
+
+        // insert pesan
+        Pesan::create([
+            'subject' => $req->subject,
+            'message' => $req->message,
+            'tgl' => date('Y-m-d H:i:s'),
+            'stat' => 1,
+            'user_id' => auth()->user()->id
+        ]);
+        
+        // upload attachment
+        $id = Pesan::select('id')->latest('id')->first();
+        $this->upSameAttach($id->id, $req->pesan_id);
+        $this->upload($id->id, $req);
+
+        // set penerima
+        $this->penerima($id->id, $req);
+        
+        return redirect('/admin/pesan/inbox')->with('status', 'success-pesan');
+    }
+
     public function detail($pesan_id){
         $menu = '1';
         $pesan = Pesan::where('id', $pesan_id)->first();
@@ -87,12 +110,14 @@ class PesanController extends Controller
         }
 
         $text = "
-            <p style='color: grey !important'>--- Forwarded Message ---<br>
+            <p>--- Forwarded Message ---<br>
             Dari : ".$pesan->user->email."<br>
             Tanggal : ".$pesan->tgl."<br>
             Subject : ".$pesan->subject."<br>
             Untuk : ".substr($untuk, 0, -1)."<br><br>
-            ".helper::setText($pesan->message)."</p>
+            ".helper::setText($pesan->message)."<br>
+            <hr>
+            </p>
 
         ";
         return view('admin.pesan.forward', compact('menu', 'user', 'pesan', 'text'));
@@ -124,6 +149,17 @@ class PesanController extends Controller
                     'pesan_id' => $id
                 ]);
             }
+        }
+    }
+
+    public function upSameAttach($pesan_id, $pesan_idOld){
+        $attach = Attachment::where('pesan_id', $pesan_idOld)->get();
+        foreach ($attach as $row) {
+            Attachment::create([
+                'nama' => $row->nama,
+                'nama_file' => $row->nama_file,
+                'pesan_id' => $pesan_id
+            ]);
         }
     }
 
