@@ -21,7 +21,7 @@ $(document).ready(function () {
         var postId = $(this).data('id');
         swal({
                 title: "Hapus pesan?",
-                text: "Pesan akan terhapus secara permanen.",
+                text: "Pesan akan terhapus ke tempat sampah.",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -29,6 +29,29 @@ $(document).ready(function () {
             .then((willDelete) => {
                 if (willDelete) {
                     window.location.href = "/admin/pesan/inbox/hapus/" + postId;
+                }
+            });
+    });
+
+    // remove pesan checked
+    $(document).on('click', '.remove-pesan-checked', function () {
+        // masukkan ke array dulu data idnya
+        var id = $('.chcks').map(function () {
+            if ($(this).is(':checked')) {
+                return $(this).val();
+            }
+        }).get();
+
+        swal({
+                title: "Hapus pesan?",
+                text: "Pesan akan terhapus ke tempat sampah.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = "/admin/pesan/inbox/hapuscek/" + id;
                 }
             });
     });

@@ -26,17 +26,23 @@ $(document).ready(function () {
         }
     });
 
-    // tampil menu hapus
-    $('.chcks').click(function () {
-        var link = '';
-        link = link + '?p1=' +
-            console.log(link);
-        // var link = '';
-        // if ($('.chcks').is(':checked')) {
-        //     $('.insert-menu').append('<a href="{{ url("admin/pesan/delete?'++'") }}" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Buat Pesan</a>');
-        // } else {
+    // select all pesan
+    $('.chckall').click(function () {
+        if ($(this).is(':checked')) {
+            $('.chcks').prop('checked', true);
+            $('.tr-checked').addClass('tb-active');
+        } else {
+            $('.chcks').prop('checked', false);
+            $('.tr-checked').removeClass('tb-active');
+        }
+    });
 
-        // }
+    // tampil menu hapus
+    $('.chcks').change(function () {
+        cekChecked();
+    });
+    $('.chckall').change(function () {
+        cekChecked();
     });
 
     // Select2
@@ -52,6 +58,17 @@ $(document).ready(function () {
             $("#selectAll").trigger("change");
         }
     });
+
+
+    // function tambahan
+    function cekChecked() {
+        if ($('.chcks').is(':checked')) {
+            $('#insert-menu').empty();
+            $('#insert-menu').append('<a href="#" class="btn btn-danger btn-sm remove-pesan-checked" data-id="{{ $data->id }}"><i class="fas fa-trash"></i> Hapus yang ditandai</a>');
+        } else {
+            $('#insert-menu').empty();
+        }
+    }
 });
 
 // tinymce

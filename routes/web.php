@@ -29,12 +29,12 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/inbox', 'PesanController@inbox');
         Route::get('/inbox/detail/{pesan_id}', 'PesanController@detail');
         Route::get('/inbox/hapus/{pesan_id}', 'PesanController@hapus');
+        Route::get('/inbox/hapuscek/{pesan_id}', 'PesanController@hapuscek');
 
         // post pesan
         Route::get('/form', 'PesanController@form');
         Route::post('/store', 'PesanController@store');
         Route::post('/storefwd', 'PesanController@storeFwd');
-        Route::get('/balas/{pesan_Id}', 'PesanController@balas');
         Route::get('/forward/{pesan_Id}', 'PesanController@forward');
     });
 

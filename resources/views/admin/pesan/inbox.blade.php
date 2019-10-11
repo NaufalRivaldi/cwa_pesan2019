@@ -10,14 +10,17 @@
                     <div class="card-header">
                         <h2>Pesan Masuk</h2>
                     </div>
-                    <div class="card-header insert-menu">
-                        <a href="{{ url('admin/pesan/form') }}" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Buat Pesan</a>
+                    <div class="card-header">
+                        <a href="{{ url('admin/pesan/form') }}" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Buat Pesan</a> 
+                        <span id="insert-menu"></span>
                     </div>
                     <div class="card-body">
                         <table id="myTable" class="custom-table table table-hover">
                             <thead>
                                 <tr>
-                                    <th width="5%">#</th>
+                                    <th width="5%">
+                                        <input type="checkbox" class="chckall"k data-class="" name="chckall">
+                                    </th>
                                     <th width="20%">Dari</th>
                                     <th>Subject</th>
                                     <th>Tanggal</th>
@@ -29,9 +32,9 @@
                                 <?php
                                     $url = 'admin/pesan/inbox/detail/'.$data->id;
                                 ?>
-                                <tr class="active-{{$idx}} {{ Helper::read($data->id, auth()->user()->id) }}">
+                                <tr class="active-{{$idx}} {{ Helper::read($data->id, auth()->user()->id) }} tr-checked">
                                     <td>
-                                        <input type="checkbox" class="chcks" value="ID" data-class="active-{{$idx++}}" name="chckdel">
+                                        <input type="checkbox" class="chcks" value="{{ $data->id }}" data-class="active-{{$idx++}}" name="chckdel[]">
                                     </td>
                                     <td>
                                         <a href="{{ url($url) }}" class="a-block">{{ $data->user->email }}</a>

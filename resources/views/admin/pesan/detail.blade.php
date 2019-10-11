@@ -32,10 +32,7 @@
                     <div class="card-body">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-2">
-                                    Pesan :
-                                </div>
-                                <div class="col-md-10">
+                                <div class="col-md-12">
                                     {!! $pesan->message !!}
                                 </div>
                             </div>
@@ -59,9 +56,64 @@
                                     @endforeach
                                 </div>
                             </div>
+
+                            <!-- collapse balas -->
+                            <div class="collapse" id="collapseBalas" style="margin-top:2%">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h2>Balas Pesan</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="{{ url('admin/pesan/store') }}" method="POST" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+
+                                            <input type="hidden" name="kepada[]" value="{{ $pesan->user->id }}">
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Subject</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="subject" class="form-control" value="RE : {{ $pesan->subject }}" readonly>
+                                                    <!-- error -->
+                                                    @if($errors->has('subject'))
+                                                        <div class="text-danger">
+                                                            {{ $errors->first('subject') }}
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Isi</label>
+                                                <div class="col-sm-10">
+                                                    <textarea name="message" id="mytextarea" rows="15"></textarea>
+                                                    <!-- error -->
+                                                    @if($errors->has('pesan'))
+                                                        <div class="text-danger">
+                                                            {{ $errors->first('pesan') }}
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">File</label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" name="file[]" data-fileuploader-fileMaxSize="5">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label"></label>
+                                                <div class="col-sm-10">
+                                                    <input type="submit" value="Kirim Pesan" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- collapse balas -->
+
                             <div class="row" style="margin-top:2%">
                                 <div class="col-md-12">
-                                    <a href="{{ url('admin/pesan/balas/'.$pesan->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-reply"></i> Balas</a> 
+                                    <!-- <a href="{{ url('admin/pesan/balas/'.$pesan->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-reply"></i> Balas</a> -->
+                                    <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseBalas" aria-expanded="false" aria-controls="collapseBalas"><i class="fas fa-reply"></i> Balas</button>
                                     <a href="{{ url('admin/pesan/forward/'.$pesan->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-share"></i> Forward</a>
                                 </div>
                             </div>

@@ -86,9 +86,20 @@ class PesanController extends Controller
     }
 
     public function hapus($pesan_id){
-        $pesan = Penerima::find($pesan_id);
+        $pesan = Penerima::where('pesan_id', $pesan_id)->where('user_id', auth()->user()->id)->first();
         $pesan->stat = 2;
         $pesan->save();
+        return redirect('/admin/pesan/inbox')->with('status', 'delete-pesan');
+    }
+
+    public function hapuscek($pesan_id){
+        $pesan_id = explode(',', $pesan_id);
+        for($i = 0; $i < count($pesan_id); $i++){
+            $pesan = Penerima::where('pesan_id', $pesan_id[$i])->where('user_id', auth()->user()->id)->first();
+            $pesan->stat = 2;
+            $pesan->save();
+        }
+
         return redirect('/admin/pesan/inbox')->with('status', 'delete-pesan');
     }
 
