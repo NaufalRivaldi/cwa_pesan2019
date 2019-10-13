@@ -11,6 +11,7 @@ class Pesan extends Model
         'subject', 'message', 'tgl', 'stat', 'user_id'
     ];
 
+    // fk
     public function user(){
         return $this->belongsTo('App\User');
     }
@@ -19,5 +20,7 @@ class Pesan extends Model
         return $this->hasMany('App\Attachment');
     }
 
-
+    public function penerima(){
+        return $this->hasMany('App\Penerima');
+    }
 }

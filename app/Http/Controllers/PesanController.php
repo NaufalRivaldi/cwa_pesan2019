@@ -20,13 +20,13 @@ class PesanController extends Controller
         $idx = 1;
         $id = Penerima::select('pesan_id')->where('user_id', auth()->user()->id)->where('stat', '1')->get()->toArray();
         $pesan = Pesan::whereIn('id', $id)->orderBy('tgl', 'desc')->get();
-        return view('admin.pesan.inbox', compact('menu', 'pesan', 'idx'));
+        return view('admin.pesan.inbox.inbox', compact('menu', 'pesan', 'idx'));
     }
 
     public function form(){
         $menu = 1;
         $user = User::select('id', 'email')->orderBy('email', 'asc')->get();
-        return view('admin.pesan.form', compact('menu', 'user'));
+        return view('admin.pesan.inbox.form', compact('menu', 'user'));
     }
 
     public function store(Request $req){
@@ -82,7 +82,7 @@ class PesanController extends Controller
         $read = Penerima::where('pesan_id', $pesan_id)->where('user_id', auth()->user()->id)->first();
         $read->read_user = 'y';
         $read->save();
-        return view('admin.pesan.detail', compact('menu', 'pesan'));
+        return view('admin.pesan.inbox.detail', compact('menu', 'pesan'));
     }
 
     public function hapus($pesan_id){
@@ -107,7 +107,7 @@ class PesanController extends Controller
         $menu = '1';
         $pesan = Pesan::find($pesan_id);
 
-        return view('admin.pesan.balas', compact('menu', 'pesan'));
+        return view('admin.pesan.inbox.balas', compact('menu', 'pesan'));
     }
 
     public function forward($pesan_id){
@@ -131,7 +131,7 @@ class PesanController extends Controller
             </p>
 
         ";
-        return view('admin.pesan.forward', compact('menu', 'user', 'pesan', 'text'));
+        return view('admin.pesan.inbox.forward', compact('menu', 'user', 'pesan', 'text'));
     }
 
     // fungsi tambahan

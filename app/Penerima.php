@@ -11,7 +11,12 @@ class Penerima extends Model
         'pesan_id', 'user_id', 'read_user', 'stat'
     ];
 
+    // fk
     public function user(){
         return $this->belongsTo('App\User');
+    }
+
+    public function pesan(){
+        return $this->belongsTo('App\Pesan');
     }
 }
