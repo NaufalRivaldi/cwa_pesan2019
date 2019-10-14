@@ -18,7 +18,7 @@ class OutboxController extends Controller
         $menu = 1;
         $idx = 1;
 
-        $pesan = Pesan::where('user_id', auth()->user()->id)->orderBy('tgl', 'desc')->get();
+        $pesan = Pesan::where('user_id', auth()->user()->id)->where('stat', '1')->orderBy('tgl', 'desc')->get();
 
         return view('admin.pesan.outbox.index', compact('menu', 'pesan', 'idx'));
     }
@@ -28,5 +28,23 @@ class OutboxController extends Controller
         $pesan = Pesan::where('id', $pesan_id)->first();
 
         return view('admin.pesan.outbox.detail', compact('menu', 'pesan'));
+    }
+
+    public function hapus($pesan_id){
+        $pesan = Pesan::find($pesan_id);
+        $pesan->stat = 2;
+        $pesan->save();
+        return redirect('/admin/pesan/outbox')->with('status', 'delete-pesan');
+    }
+
+    public function hapuscek($pesan_id){
+        $pesan_id = explode(',', $pesan_id);
+        for($i = 0; $i < count($pesan_id); $i++){
+            $pesan = Pesan::find($pesan_id[$i]);
+            $pesan->stat = 2;
+            $pesan->save();
+        }
+
+        return redirect('/admin/pesan/outbox')->with('status', 'delete-pesan');
     }
 }
