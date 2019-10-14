@@ -43,7 +43,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/outbox/hapuscek/{pesan_id}', 'OutboxController@hapuscek');
 
         // Tempat sampah
-        
+        Route::get('/trash', 'TrashController@index');
     });
 
     // pengumuman

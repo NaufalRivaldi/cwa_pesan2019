@@ -14,7 +14,10 @@ $(document).ready(function () {
         changeInput: true
     });
 
-    // khusus inbox
+    // Select2
+    $(".js-example-responsive").select2();
+
+    // khusus inbox =================================================================
     // Pilih pesannya Inbox
     var x = '';
     $('.chcks').click(function () {
@@ -60,6 +63,7 @@ $(document).ready(function () {
         }
     });
 
+    // khusus outbox =================================================================
     // Pilih pesannya outbox
     var x = '';
     $('.chcksOutbox').click(function () {
@@ -91,8 +95,7 @@ $(document).ready(function () {
         cekCheckedOutbox();
     });
 
-    // Select2
-    $(".js-example-responsive").select2();
+    // end =================================================================
 
     // select all
     $('#chckAllOutbox').click(function () {
