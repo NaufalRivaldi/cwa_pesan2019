@@ -78,7 +78,7 @@
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> E-Form</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu">
                             <li>
-                                <a href="#">HRD</a>
+                                <a href="{{ url('admin/formhrd') }}">HRD</a>
                             </li>
                             <li>
                                 <a href="#">IT</a>

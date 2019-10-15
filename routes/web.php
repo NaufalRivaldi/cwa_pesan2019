@@ -93,6 +93,12 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::post('/save', 'FinanceController@save');
         Route::get('/detail/{nama}', 'FinanceController@detail');
     });
+
+    // form hrd
+    Route::group(['prefix' => '/formhrd'], function(){
+        Route::get('/', 'FormHRDController@index');
+        Route::get('/form', 'FormHRDController@form');
+    });
 });
 
 
