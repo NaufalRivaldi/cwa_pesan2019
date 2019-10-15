@@ -95,8 +95,6 @@ $(document).ready(function () {
         cekCheckedOutbox();
     });
 
-    // end =================================================================
-
     // select all
     $('#chckAllOutbox').click(function () {
         if ($('#chckAllOutbox').is(':checked')) {
@@ -108,6 +106,44 @@ $(document).ready(function () {
         }
     });
 
+    // end =================================================================
+
+    // khusus trash =================================================================
+    // Pilih pesannya trash
+    var x = '';
+    $('.chckstrash').click(function () {
+        if ($(this).is(':checked')) {
+            x = $(this).data('class');
+            $('.' + x).addClass('tb-active');
+        } else {
+            x = $(this).data('class');
+            $('.' + x).removeClass('tb-active');
+        }
+    });
+
+    // select all pesan
+    $('.chckalltrash').click(function () {
+        if ($(this).is(':checked')) {
+            $('.chckstrash').prop('checked', true);
+            $('.tr-checked').addClass('tb-active');
+        } else {
+            $('.chckstrash').prop('checked', false);
+            $('.tr-checked').removeClass('tb-active');
+        }
+    });
+
+    // select all
+    $('#chckAlltrash').click(function () {
+        if ($('#chckAlltrash').is(':checked')) {
+            $("#selectAll > option").prop("selected", "selected");
+            $("#selectAll").trigger("change");
+        } else {
+            $("#selectAll > option").prop("selected", false);
+            $("#selectAll").trigger("change");
+        }
+    });
+
+    // end =================================================================
 
     // function tambahan
     function cekChecked() {

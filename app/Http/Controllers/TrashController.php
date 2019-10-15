@@ -27,4 +27,48 @@ class TrashController extends Controller
 
         return view('admin.pesan.trash.index', compact('menu', 'outbox', 'inbox', 'idx'));
     }
+
+    public function hapusout($pesan_id){
+        $pesan_id = explode(',', $pesan_id);
+        for($i = 0; $i < count($pesan_id); $i++){
+            $pesan = Pesan::find($pesan_id[$i]);
+            $pesan->stat = 3;
+            $pesan->save();
+        }
+
+        return redirect('/admin/pesan/trash')->with('status', 'delete-pesan');
+    }
+
+    public function hapusin($pesan_id){
+        $pesan_id = explode(',', $pesan_id);
+        for($i = 0; $i < count($pesan_id); $i++){
+            $pesan = Penerima::where('pesan_id', $pesan_id[$i])->where('user_id', auth()->user()->id)->first();
+            $pesan->stat = 3;
+            $pesan->save();
+        }
+
+        return redirect('/admin/pesan/trash')->with('status', 'delete-pesan');
+    }
+
+    public function buInbox($pesan_id){
+        $pesan_id = explode(',', $pesan_id);
+        for($i = 0; $i < count($pesan_id); $i++){
+            $pesan = Penerima::where('pesan_id', $pesan_id[$i])->where('user_id', auth()->user()->id)->first();
+            $pesan->stat = 1;
+            $pesan->save();
+        }
+
+        return redirect('/admin/pesan/trash')->with('status', 'pulih-pesan');
+    }
+
+    public function buOutbox($pesan_id){
+        $pesan_id = explode(',', $pesan_id);
+        for($i = 0; $i < count($pesan_id); $i++){
+            $pesan = Pesan::find($pesan_id[$i]);
+            $pesan->stat = 1;
+            $pesan->save();
+        }
+
+        return redirect('/admin/pesan/trash')->with('status', 'pulih-pesan');
+    }
 }

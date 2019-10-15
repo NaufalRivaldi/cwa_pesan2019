@@ -44,6 +44,10 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
 
         // Tempat sampah
         Route::get('/trash', 'TrashController@index');
+        Route::get('/trash/hapusout/{pesan_id}', 'TrashController@hapusout');
+        Route::get('/trash/hapusin/{pesan_id}', 'TrashController@hapusin');
+        Route::get('/trash/buInbox/{pesan_id}', 'TrashController@buInbox');
+        Route::get('/trash/buOutbox/{pesan_id}', 'TrashController@buOutbox');
     });
 
     // pengumuman

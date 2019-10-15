@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', '- Outbox')
+@section('title', '- Trash')
 
 @section('content')
     <div class="row">
@@ -18,9 +18,9 @@
                             <thead>
                                 <tr>
                                     <th width="5%">
-                                        <input type="checkbox" class="chckallOutbox"k data-class="" name="chckall">
+                                        <input type="checkbox" class="chckalltrash"k data-class="" name="chckall">
                                     </th>
-                                    <th width="35%">Kepada</th>
+                                    <th>Kepada</th>
                                     <th>Subject</th>
                                     <th>Tanggal</th>
                                     <th></th>
@@ -34,7 +34,7 @@
                                 ?>
                                 <tr class="active-{{$idx}} tr-checked">
                                     <td>
-                                        <input type="checkbox" class="chcks" value="{{ $data->id }}" data-class="active-{{$idx++}}" name="chckdel[]">
+                                        <input type="checkbox" class="chckstrash" value="{{ $data->id }}" data-class="active-{{$idx++}}" name="chckdel[]">
                                     </td>
                                     <td>
                                         <a href="{{ url($url) }}" class="a-block">{{ $data->user->email }}</a>
@@ -54,7 +54,8 @@
                                         <a href="{{ url($url) }}" class="a-block">{{ date('d F Y', strtotime($data->tgl)) }}<br>{{ date('H:i:s', strtotime($data->tgl)) }}</a>
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-danger btn-sm remove-pesan" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></a>
+                                        <a href="{{ url('admin/pesan/trash/buInbox/'.$data->id) }}" class="btn btn-success btn-sm backup-pesan-outbox-inbox" data-id="{{ $data->id }}"><i class="fas fa-undo-alt"></i> Pulihkan</a>
+                                        <a href="#" class="btn btn-danger btn-sm remove-pesaninbox-trash" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -66,7 +67,7 @@
                                 ?>
                                 <tr class="active-{{$idx}} tr-checked">
                                     <td>
-                                        <input type="checkbox" class="chcksOutbox" value="{{ $data->id }}" data-class="active-{{$idx++}}" name="chckdel[]">
+                                        <input type="checkbox" class="chckstrash" value="{{ $data->id }}" data-class="active-{{$idx++}}" name="chckdel[]">
                                     </td>
                                     <td>
                                         <a href="{{ url($url) }}" class="a-block">
@@ -90,7 +91,9 @@
                                         <a href="{{ url($url) }}" class="a-block">{{ date('d F Y', strtotime($data->tgl)) }}<br>{{ date('H:i:s', strtotime($data->tgl)) }}</a>
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-danger btn-sm remove-pesan-outbox" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></a>
+                                        <a href="{{ url('admin/pesan/trash/buOutbox/'.$data->id) }}" class="btn btn-success btn-sm backup-pesan-outbox-outbox" data-id="{{ $data->id }}"><i class="fas fa-undo-alt"></i> Pulihkan</a>
+
+                                        <a href="#" class="btn btn-danger btn-sm remove-pesanoutbox-trash" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

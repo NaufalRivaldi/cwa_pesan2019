@@ -73,6 +73,40 @@ $(document).ready(function () {
             });
     });
 
+    // remove pesan trash
+    $('.remove-pesaninbox-trash').click(function () {
+        var postId = $(this).data('id');
+        swal({
+                title: "Hapus pesan?",
+                text: "Pesan akan terhapus permanen.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = "/admin/pesan/trash/hapusin/" + postId;
+                }
+            });
+    });
+
+    // remove pesan trash
+    $('.remove-pesanoutbox-trash').click(function () {
+        var postId = $(this).data('id');
+        swal({
+                title: "Hapus pesan?",
+                text: "Pesan akan terhapus permanen.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = "/admin/pesan/trash/hapusout/" + postId;
+                }
+            });
+    });
+
     // remove pesan checked outbox
     $(document).on('click', '.remove-pesan-checked-outbox', function () {
         // masukkan ke array dulu data idnya
@@ -92,6 +126,52 @@ $(document).ready(function () {
             .then((willDelete) => {
                 if (willDelete) {
                     window.location.href = "/admin/pesan/outbox/hapuscek/" + id;
+                }
+            });
+    });
+
+    // remove pesan checked trash
+    $(document).on('click', '.remove-pesan-checked-trash', function () {
+        // masukkan ke array dulu data idnya
+        var id = $('.chckstrash').map(function () {
+            if ($(this).is(':checked')) {
+                return $(this).val();
+            }
+        }).get();
+
+        swal({
+                title: "Hapus pesan?",
+                text: "Pesan akan terhapus permanen.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = "/admin/pesan/trash/hapuscek/" + id;
+                }
+            });
+    });
+
+    // remove pesan checked kembali
+    $(document).on('click', '.backup-pesan-checked-trash', function () {
+        // masukkan ke array dulu data idnya
+        var id = $('.chckstrash').map(function () {
+            if ($(this).is(':checked')) {
+                return $(this).val();
+            }
+        }).get();
+
+        swal({
+                title: "Kembalikan Pesan?",
+                text: "Pesan akan dipulihkan.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = "/admin/pesan/trash/pulihcek/" + id;
                 }
             });
     });
@@ -148,6 +228,15 @@ $(document).ready(function () {
         swal({
             title: "Success",
             text: "Pesan telah dihapus.",
+            icon: "success",
+            button: "OK",
+        });
+    }
+
+    if (flash == 'pulih-pesan') {
+        swal({
+            title: "Success",
+            text: "Pesan telah dikembalikan.",
             icon: "success",
             button: "OK",
         });
