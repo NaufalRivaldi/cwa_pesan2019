@@ -11,7 +11,10 @@ class FormHRDController extends Controller
 {
     public function index(){
         $menu = 8;
-        return view('admin.form.hrd.index', compact('menu'));
+        $no = 1;
+        $form = FormHRD::orderBy('created_at', 'desc')->get();
+
+        return view('admin.form.hrd.index', compact('menu', 'no', 'form'));
     }
 
     public function form(){

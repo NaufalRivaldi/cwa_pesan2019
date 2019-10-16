@@ -27,7 +27,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                @foreach($form as $row)
+                                    <tr>
+                                        <td>{{ $no++ }}</td>
+                                        <td>{{ $row->created_at }}</td>
+                                        <td>{{ $row->kategori }}</td>
+                                        <td>{{ $row->karyawan->nama }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
