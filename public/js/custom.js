@@ -163,6 +163,12 @@ $(document).ready(function () {
             $('#insert-menu').empty();
         }
     }
+
+    // sesuaikan tanggal gan
+    $('.tgl_a').change(function () {
+        var date = $(this).val();
+        $('.tgl_b').val(date);
+    });
 });
 
 // tinymce

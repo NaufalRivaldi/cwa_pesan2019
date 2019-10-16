@@ -17,7 +17,53 @@ class FormHRDController extends Controller
     public function form(){
         $menu = 8;
         $karyawan = KaryawanAll::where('dep', auth()->user()->dep)->get();
+        $kategori = $this->kategori();
 
-        return view('admin.form.hrd.form', compact('menu', 'karyawan'));
+        return view('admin.form.hrd.form', compact('menu', 'karyawan', 'kategori'));
+    }
+
+    public function store(Request $req){
+        $this->val($req);
+
+        FormHRD::create([
+            'kategori' => implode(',', $req->kategori),
+            'tgl_a' => $req->tgl_a,
+            'tgl_b' => $req->tgl_b,
+            'keterangan' => $req->keterangan,
+            'stat' => '1',
+            'user_id' => auth()->user()->id,
+            'karyawanall_id' => $req->karyawanall_id
+        ]);
+
+        return redirect('/admin/formhrd')->with('status', 'formhrd-success');
+    }
+
+    // function tambahan
+    private function kategori(){
+        $kategori = array(
+            '1' => 'Terlambat',
+            '2' => 'Dinas Keluar',
+            '3' => 'Izin Tidak Masuk Kerja',
+            '4' => 'Tidak Absen',
+            '5' => 'Pelanggaran',
+            '6' => 'Izin Keluar/Pulang',
+            '7' => 'Lembur',
+            '8' => 'Dll'
+        );
+
+        return (object) $kategori;
+    }
+
+    private function val($req){
+        $message = [
+            'required' => ':attribut tidak boleh kosong!'
+        ];
+
+        $this->validate($req, [
+            'kategori' => 'required',
+            'karyawanall_id' => 'required',
+            'tgl_a' => 'required',
+            'keterangan' => 'required'
+        ], $message);
     }
 }

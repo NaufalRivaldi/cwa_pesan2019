@@ -241,4 +241,13 @@ $(document).ready(function () {
             button: "OK",
         });
     }
+
+    if (flash == 'formhrd-success') {
+        swal({
+            title: "Success",
+            text: "Form telah diajukan.",
+            icon: "success",
+            button: "OK",
+        });
+    }
 });

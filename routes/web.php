@@ -98,6 +98,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
     Route::group(['prefix' => '/formhrd'], function(){
         Route::get('/', 'FormHRDController@index');
         Route::get('/form', 'FormHRDController@form');
+        Route::post('/store', 'FormHRDController@store');
     });
 });
 

@@ -1,53 +1,91 @@
 @extends('admin.master')
 
-@section('title', '- Pengumuman')
+@section('title', '- Form HRD')
 
 @section('content')
     <div class="row">
         <div class="col-12">
-            <h2>Form Pengumuman</h2>
+            <h2>Form HRD</h2>
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ url('/admin/pengumuman') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                    <a href="{{ url('/admin/formhrd') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('/admin/pengumuman/store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('/admin/formhrd/store') }}" method="POST">
                         {{ csrf_field() }}
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Subject</label>
+                            <label class="col-sm-2 col-form-label">Kategori <span class="text-danger">*</span></label>
                             <div class="col-sm-10">
-                                <input type="text" name="subject" class="form-control col-7">
+                                @foreach($kategori as $id => $nama)
+                                    <input type="checkbox" name="kategori[]" value="{{ $id }}"> {{ $nama }}<br>
+                                @endforeach
                                 <!-- error -->
-                                @if($errors->has('subject'))
+                                @if($errors->has('kategori'))
                                     <div class="text-danger">
-                                        {{ $errors->first('subject') }}
+                                        {{ $errors->first('kategori') }}
                                     </div>
                                 @endif
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Isi Pengumuman</label>
+                            <label class="col-sm-2 col-form-label">Nama <span class="text-danger">*</span></label>
                             <div class="col-sm-10">
-                                <textarea name="pesan" id="mytextarea"></textarea>
+                                <select name="karyawanall_id" class="form-control">
+                                    <option value="">Pilih Nama Karyawan</option>
+                                    @foreach($karyawan as $row)
+                                        <option value="{{ $row->id }}">{{ $row->nik." - ".$row->nama }}</option>
+                                    @endforeach
+                                </select>
                                 <!-- error -->
-                                @if($errors->has('pesan'))
+                                @if($errors->has('karyawanall_id'))
                                     <div class="text-danger">
-                                        {{ $errors->first('pesan') }}
+                                        {{ $errors->first('karyawanall_id') }}
                                     </div>
                                 @endif
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">File</label>
+                            <label class="col-sm-2 col-form-label">Tanggal & Waktu <span class="text-danger">*</span></label>
                             <div class="col-sm-10">
-                                <input type="file" name="file[]">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="datetime-local" name="tgl_a" class="form-control tgl_a">
+                                    </div>
+                                    <div class="col-md-1 text-center">
+                                        s/d
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="datetime-local" name="tgl_b" class="form-control tgl_b">
+                                    </div>
+                                </div>
+                                <p class="text-danger">
+                                    *tanggal pertama wajib diisi
+                                </p>
+                                <!-- error -->
+                                @if($errors->has('tgl_a'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('tgl_a') }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Keterangan <span class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                <textarea name="keterangan" id="mytextarea"></textarea>
+                                <!-- error -->
+                                @if($errors->has('keterangan'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('keterangan') }}
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label"></label>
                             <div class="col-sm-10">
-                                <input type="submit" value="Post Pengumuman" class="btn btn-primary">
+                                <input type="submit" value="Ajukan Form" class="btn btn-primary">
                             </div>
                         </div>
                     </form>
