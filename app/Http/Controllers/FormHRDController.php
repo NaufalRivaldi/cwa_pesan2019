@@ -25,6 +25,13 @@ class FormHRDController extends Controller
         return view('admin.form.hrd.form', compact('menu', 'karyawan', 'kategori'));
     }
 
+    public function detail($id){
+        $menu = 8;
+        $form = FormHRD::find($id);
+
+        return view('admin.form.hrd.detail', compact('menu', 'form'));
+    }
+
     public function store(Request $req){
         $this->val($req);
 

@@ -30,7 +30,7 @@
                             <tbody>
                                 @foreach($form as $row)
                                 <?php
-                                    $url = '';
+                                    $url = 'admin/formhrd/detail/'.$row->id;
                                 ?>
                                 <tr>
                                     <td>{{ $no++ }}</td>
@@ -53,7 +53,9 @@
                                     </td>
                                     
                                     <td>
-                                        <a href="#" class="btn btn-danger btn-sm delete_form_hrd" data-id="{{ $row->id }}"><i class="fas fa-trash"></i></a>
+                                        @if($row->stat == 1)
+                                            <a href="#" class="btn btn-danger btn-sm delete_form_hrd" data-id="{{ $row->id }}"><i class="fas fa-trash"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

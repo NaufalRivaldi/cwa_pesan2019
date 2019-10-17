@@ -118,6 +118,13 @@ class helper{
         return $date;
     }
 
+    // ubah format tanggal & jam
+    public static function setDateTime($date){
+        $date = date('d F Y, H:i:s', strtotime($date));
+
+        return $date;
+    }
+
     // set status form_hrd
     public static function setStatus($status){
         switch ($status) {
@@ -165,5 +172,27 @@ class helper{
         }
 
         return $setKategori;
+    }
+
+    // set jabatan
+    public static function setJabatan($val){
+        switch ($val) {
+            case '1':
+                $val = 'Staff';
+                break;
+            
+            case '2':
+                $val = 'Supervisor';
+                break;
+            
+            case '3':
+                $val = 'Manager';
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        return $val;
     }
 }

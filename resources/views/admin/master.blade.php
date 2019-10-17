@@ -128,6 +128,9 @@
         <!-- Flash Data -->
         <span class="flash" data-status="{{ session('status') }}"></span>
 
+        <!-- modal -->
+        @include('admin.modal');
+
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>

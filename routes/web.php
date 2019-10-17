@@ -99,6 +99,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/', 'FormHRDController@index');
         Route::get('/form', 'FormHRDController@form');
         Route::post('/store', 'FormHRDController@store');
+        Route::get('detail/{id}', 'FormHRDController@detail');
     });
 });
 
