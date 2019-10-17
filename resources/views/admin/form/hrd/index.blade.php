@@ -23,17 +23,39 @@
                                     <th>Kategori</th>
                                     <th>Nama</th>
                                     <th>Bagian/Jabatan</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($form as $row)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $row->created_at }}</td>
-                                        <td>{{ $row->kategori }}</td>
-                                        <td>{{ $row->karyawan->nama }}</td>
-                                    </tr>
+                                <?php
+                                    $url = '';
+                                ?>
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td>
+                                        <a href="{{ url($url) }}" class="a-block">
+                                            {{ Helper::setDate($row->created_at) }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ url($url) }}" class="a-block">{!! Helper::setKategori($row->kategori) !!}</a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ url($url) }}" class="a-block">{{ $row->karyawanAll->nama }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ url($url) }}" class="a-block">{{ $row->karyawanAll->dep }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ url($url) }}" class="a-block">{!! Helper::setStatus($row->stat) !!}</a>
+                                    </td>
+                                    
+                                    <td>
+                                        <a href="#" class="btn btn-danger btn-sm delete_form_hrd" data-id="{{ $row->id }}"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>

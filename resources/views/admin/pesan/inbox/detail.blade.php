@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', '- Buat Pesan')
+@section('title', '- Detail Pesan')
 
 @section('content')
     <div class="row">
@@ -20,7 +20,7 @@
                             <tr>
                                 <td>Kepada Saya</td>
                                 <td>:</td>
-                                <td>{{ $pesan->user->email }}</td>
+                                <td>{{ auth()->user()->email }}</td>
                             </tr>
                             <tr>
                                 <td>Diterima</td>

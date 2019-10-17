@@ -35,7 +35,7 @@ class FormHRDController extends Controller
             'keterangan' => $req->keterangan,
             'stat' => '1',
             'user_id' => auth()->user()->id,
-            'karyawanall_id' => $req->karyawanall_id
+            'karyawan_all_id' => $req->karyawanall_id
         ]);
 
         return redirect('/admin/formhrd')->with('status', 'formhrd-success');

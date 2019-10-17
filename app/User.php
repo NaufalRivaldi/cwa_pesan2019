@@ -51,4 +51,8 @@ class User extends Authenticatable
     public function penerima(){
         return $this->hasMany('App\Penerima');
     }
+
+    public function hrd(){
+        return $this->hasMany('App\FormHRD');
+    }
 }

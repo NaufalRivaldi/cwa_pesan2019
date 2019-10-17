@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 // model
 use App\Karyawan;
+use App\KaryawanAll;
 use App\KodeBarang;
 use App\Kriteria;
 use App\Penerima;
@@ -50,7 +51,7 @@ class helper{
         $karyawan = Karyawan::where('stat', '1')->where('kd_sales', $kd_sales)->first();
 
         return $karyawan->nama;
-    } 
+    }
 
     // ubah nama barang
     public static function nama_barang($kd_barang){
@@ -108,5 +109,61 @@ class helper{
         }
 
         return $class;
+    }
+
+    // ubah format tanggal
+    public static function setDate($date){
+        $date = date('d F Y', strtotime($date));
+
+        return $date;
+    }
+
+    // set status form_hrd
+    public static function setStatus($status){
+        switch ($status) {
+            case '1':
+                $status = '<span class="badge badge-primary">Menunggu Acc Kepala Bagian</span>';
+                break;
+
+            case '2':
+                $status = '<span class="badge badge-info">Menunggu Acc HRD</span>';
+                break;
+
+            case '3':
+                $status = '<span class="badge badge-success">Acc HRD</span>';
+                break;
+            
+            default:
+                $status = '<span class="badge badge-danger">Ditolak</span>';
+                break;
+        }
+
+        return $status;
+    }
+
+    // set kategori
+    public static function setKategori($data){
+        $setKategori = '';
+        $data = explode(',', $data);
+        $kategori = array(
+            '1' => 'Terlambat',
+            '2' => 'Dinas Keluar',
+            '3' => 'Izin Tidak Masuk Kerja',
+            '4' => 'Tidak Absen',
+            '5' => 'Pelanggaran',
+            '6' => 'Izin Keluar/Pulang',
+            '7' => 'Lembur',
+            '8' => 'Dll'
+        );
+
+        for($i = 0; $i < count($data); $i++){
+            foreach($kategori as $a => $nama){
+                if($a == $data[$i]){
+                    $setKategori = $setKategori.'<span class="badge badge-info">'.$nama.'</span><br>';
+                }
+            }
+        }
+
+        return $setKategori;
     }
 }
