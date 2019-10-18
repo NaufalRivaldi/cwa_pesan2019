@@ -13,6 +13,7 @@ use App\Karyawan;
 
 use DateTime;
 use DB;
+use Session;
 
 // helper
 use App\Helpers\helper;
@@ -29,10 +30,6 @@ class HomeController extends Controller
         $pengumuman = Pengumuman::find($id);
         $file = AttachPengumuman::where('pengumuman_id', $id)->get();
         return view('frontend.detail', compact('pengumuman', 'file'));
-    }
-
-    public function login(){
-        return view('frontend.login');
     }
     
     public function inbox(){

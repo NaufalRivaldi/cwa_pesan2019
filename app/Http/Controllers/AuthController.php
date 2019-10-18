@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Session;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 
 class AuthController extends Controller
 {
+    public function login(){
+        if(!empty(auth()->user()->email)){
+            return redirect('/admin/pesan/inbox');
+        }
+        return view('frontend.login');
+    }
+    
     public function postlogin(Request $req){
         $this->val($req);
         
@@ -43,7 +51,7 @@ class AuthController extends Controller
         $username = $req->username;
         $password = $req->password;
         if($username == 'it' && $password == '1sampai9'){
-            session('username', $username);
+            session(['username' => $username]);
             return redirect('/backend/scoreboard');
         }
 

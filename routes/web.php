@@ -11,14 +11,17 @@
 |
 */
 
-// home
-Route::get('/', 'HomeController@index');
-Route::get('/detail/{id}', 'HomeController@detail');
-Route::get('/scoreboard', 'ScoreboardController@scoreboard');
-Route::get('/scoreboarddetail', 'ScoreboardController@scoreboarddetail');
-Route::get('/login', 'HomeController@login')->name('login');
+Route::group(['middleware' => ['guest']], function(){
+    // home
+    Route::get('/', 'HomeController@index');
+    Route::get('/detail/{id}', 'HomeController@detail');
+    Route::get('/scoreboard', 'ScoreboardController@scoreboard');
+    Route::get('/scoreboarddetail', 'ScoreboardController@scoreboarddetail');
+    
+});
 
 // login & logout
+Route::get('/login', 'AuthController@login')->name('login');
 Route::post('/postlogin', 'AuthController@postlogin');
 Route::get('/logout', 'AuthController@logout');
 
@@ -108,11 +111,20 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
 Route::group(['prefix' => '/backend'], function(){
     Route::get('/', 'HomeController@backend');
     Route::post('/postlogin', 'AuthController@postloginbackend');
-    Route::get('/logout', 'AuthController@logoutbackend');
+
+    Route::group(['middleware' => ['checkUser:it']], function(){
+        Route::get('/logout', 'AuthController@logoutbackend');
     
-    // scoreboard
-    Route::group(['prefix' => '/scoreboard'], function(){
-        Route::get('/', 'ScoreboardController@index');
-        Route::post('/save', 'ScoreboardController@save');
+        // scoreboard
+        Route::group(['prefix' => '/scoreboard'], function(){
+            Route::get('/', 'ScoreboardController@index');
+            Route::post('/save', 'ScoreboardController@save');
+        });
+
+        // User
+        Route::group(['prefix' => 'user'], function(){
+            Route::get('/', 'UserController@index');
+            Route::post('/save', 'UserController@save');
+        });
     });
 });
