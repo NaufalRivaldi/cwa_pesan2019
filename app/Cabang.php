@@ -10,4 +10,5 @@ class Cabang extends Model
     protected $fillable = [
         'inisial', 'nama_cabang'
     ];
+    public $timestamps = false;
 }

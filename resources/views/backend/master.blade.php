@@ -40,7 +40,6 @@
                         <a class="nav-item nav-link" href="{{ url('/backend/user') }}"><i class="fas fa-user-plus"></i></i> User</a>
                         <a class="nav-item nav-link" href="{{ url('/backend/karyawan') }}"><i class="fas fa-user"></i></i> Karyawan</a>
                         <a class="nav-item nav-link" href="{{ url('/backend/cabang') }}"><i class="fas fa-store"></i> Cabang</a>
-                        <a class="nav-item nav-link" href="{{ url('/backend/user') }}"><i class="fas fa-user-plus"></i></i> User</a>
                         <a class="nav-item nav-link" href="{{ url('/backend/kodebarang') }}"><i class="fas fa-warehouse"></i> Kode Barang</a>
                         <a class="nav-item nav-link" href="{{ url('/backend/ultah') }}"><i class="fas fa-birthday-cake"></i> Ultah</a>
                         <a class="nav-item nav-link btn btn-danger" style="color:white" href="{{ url('/backend/logout') }}"><i class="fas fa-power-off"></i> Logout</a>

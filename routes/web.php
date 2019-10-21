@@ -138,5 +138,14 @@ Route::group(['prefix' => '/backend'], function(){
             Route::put('/update', 'KaryawanAllController@update');
             Route::get('/delete/{id}', 'KaryawanAllController@delete');
         });
+
+        // cabang
+        Route::group(['prefix' => 'cabang'], function(){
+            Route::get('/', 'CabangController@index');
+            Route::post('/save', 'CabangController@save');
+            Route::get('/edit/{id}', 'CabangController@edit');
+            Route::put('/update', 'CabangController@update');
+            Route::get('/delete/{id}', 'CabangController@delete');
+        });
     });
 });

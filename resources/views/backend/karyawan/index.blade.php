@@ -20,7 +20,6 @@
                         <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
                             Tambah Data
                         </button> 
-                        <a href="" class="btn btn-success btn-sm">Export Data</a>
                         <hr>
 
                         <!-- collpase -->
@@ -119,7 +118,7 @@
                                         <td>{!! Helper::statusKaryawan($row->stat) !!}</td>
                                         <td>
                                             <a href="{{ url('backend/karyawan/edit/'.$row->id) }}" class="btn btn-success btn-sm">Edit</a> 
-                                            <a href="{{ url('backend/karyawan/delete/'.$row->id) }}" class="btn btn-danger btn-sm">Delete</a>
+                                            <a href="{{ url('backend/karyawan/delete/'.$row->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data?')">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
