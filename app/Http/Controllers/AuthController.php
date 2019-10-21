@@ -18,12 +18,17 @@ class AuthController extends Controller
     
     public function postlogin(Request $req){
         $this->val($req);
+        $attempts = [
+            'email' => $req->email,
+            'password' => $req->password,
+            'stat' => 1
+        ];
         
-        if(Auth::attempt($req->only('email', 'password'))){
+        if(Auth::attempt($attempts)){
             return redirect('/admin/pesan/inbox');
         }
 
-        return redirect('/login');
+        return redirect()->back()->with('status', 'error-status');
     }
 
     public function logout(){

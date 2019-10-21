@@ -19,14 +19,27 @@
                     <div class="card-body">
                         <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
                             Tambah Data
-                        </button>
+                        </button> 
+                        <a href="" class="btn btn-success btn-sm">Export Data</a>
                         <hr>
 
                         <!-- collpase -->
                         <div class="collapse" id="collapseForm">
                             <div class="card card-body">
-                                <form action="{{ url('/backend/user/save') }}" method="POST">
+                                <form action="{{ url('/backend/karyawan/save') }}" method="POST">
                                 {{ csrf_field() }}
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">NIK</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="nik" class="form-control">
+                                            <!-- error -->
+                                            @if($errors->has('nik'))
+                                                <div class="text-danger">
+                                                    {{ $errors->first('nik') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Nama</label>
                                         <div class="col-sm-10">
@@ -35,18 +48,6 @@
                                             @if($errors->has('nama'))
                                                 <div class="text-danger">
                                                     {{ $errors->first('nama') }}
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Email</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="email" class="form-control">
-                                            <!-- error -->
-                                            @if($errors->has('email'))
-                                                <div class="text-danger">
-                                                    {{ $errors->first('email') }}
                                                 </div>
                                             @endif
                                         </div>
@@ -71,6 +72,22 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Jabatan</label>
+                                        <div class="col-sm-10">
+                                            <select name="stat" class="form-control">
+                                                <option value="1">Staff</option>
+                                                <option value="2">Supervisor</option>
+                                                <option value="3">Manager</option>
+                                            </select>
+                                            <!-- error -->
+                                            @if($errors->has('dep'))
+                                                <div class="text-danger">
+                                                    {{ $errors->first('dep') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">&nbsp;</label>
                                         <div class="col-sm-10">
                                             <input type="submit" name="btn" value="Simpan" class="btn btn-primary">
@@ -85,29 +102,24 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>NIK</th>
                                     <th>Nama</th>
-                                    <th>Email</th>
                                     <th>Departemen</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                               @foreach($data['user'] as $row)
+                               @foreach($data['karyawan'] as $row)
                                     <tr>
                                         <td>{{ $no++ }}</td>
+                                        <td>{{ $row->nik }}</td>
                                         <td>{{ $row->nama }}</td>
-                                        <td>{{ $row->email }}</td>
                                         <td>{{ $row->dep }}</td>
-                                        <td>{!! Helper::statusUser($row->stat) !!}</td>
+                                        <td>{!! Helper::statusKaryawan($row->stat) !!}</td>
                                         <td>
-                                            <a href="{{ url('backend/user/reset/'.$row->id) }}" class="btn btn-success btn-sm">Reset Password</a> 
-
-                                            @if($row->stat == 1)
-                                                <a href="{{ url('backend/user/nonactive/'.$row->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Nonaktifkan User?')">Nonactive</a>
-                                            @else
-                                                <a href="{{ url('backend/user/active/'.$row->id) }}" class="btn btn-info btn-sm" onclick="return confirm('Aktifkan User?')">Active</a>
-                                            @endif
+                                            <a href="{{ url('backend/karyawan/edit/'.$row->id) }}" class="btn btn-success btn-sm">Edit</a> 
+                                            <a href="{{ url('backend/karyawan/delete/'.$row->id) }}" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach

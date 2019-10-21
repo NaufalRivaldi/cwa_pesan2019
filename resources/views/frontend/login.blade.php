@@ -3,6 +3,8 @@
 @section('title', '- Scoreboard')
 
 @section('content')
+    <!-- Flash Data -->
+    <span class="flash" data-status="{{ session('status') }}"></span>
     <div class="container" style="margin-top:5%">
         <div class="row">
             <div class="box-login">

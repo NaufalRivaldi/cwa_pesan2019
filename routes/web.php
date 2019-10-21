@@ -125,6 +125,18 @@ Route::group(['prefix' => '/backend'], function(){
         Route::group(['prefix' => 'user'], function(){
             Route::get('/', 'UserController@index');
             Route::post('/save', 'UserController@save');
+            Route::get('/reset/{id}', 'UserController@resetPassword');
+            Route::get('/nonactive/{id}', 'UserController@nonactive');
+            Route::get('/active/{id}', 'UserController@active');
+        });
+
+        // Karyawan
+        Route::group(['prefix' => 'karyawan'], function(){
+            Route::get('/', 'KaryawanAllController@index');
+            Route::post('/save', 'KaryawanAllController@save');
+            Route::get('/edit/{id}', 'KaryawanAllController@edit');
+            Route::put('/update', 'KaryawanAllController@update');
+            Route::get('/delete/{id}', 'KaryawanAllController@delete');
         });
     });
 });

@@ -125,6 +125,30 @@ class helper{
         return $date;
     }
 
+    // set status user
+    public static function statusUser($val){
+        if($val == 1){
+            $val = '<span class="badge badge-info">Active</span>';
+        }else{
+            $val = '<span class="badge badge-danger">Nonactive</span>';
+        }
+
+        return $val;
+    }
+
+    // set status karyawan
+    public static function statusKaryawan($val){
+        if($val == 1){
+            $val = '<span class="badge badge-info">Staff</span>';
+        }else if($val == 2){
+            $val = '<span class="badge badge-info">Supervisor</span>';
+        }else{
+            $val = '<span class="badge badge-info">Manager</span>';
+        }
+
+        return $val;
+    }
+
     // set status form_hrd
     public static function setStatus($status){
         switch ($status) {

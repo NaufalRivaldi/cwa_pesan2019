@@ -25,12 +25,36 @@ class UserController extends Controller
             "nama" => $req->nama,
             "email" => $req->email,
             "email_verified_at" => date('Y-m-d H:i:s'),
-            "password" => bcrypt('123456'),
+            "password" => bcrypt('scm'),
             "dep" => $req->dep,
             "stat" => 1
         ]);
 
         return redirect('/backend/user')->with('status', 'simpan-success');
+    }
+
+    public function resetPassword($id){       
+        $user = User::find($id);
+        $user->password = bcrypt('123456');
+        $user->save();
+
+        return redirect('/backend/user')->with('status', 'reset-success');
+    }
+
+    public function nonactive($id){       
+        $user = User::find($id);
+        $user->stat = 2;
+        $user->save();
+
+        return redirect('/backend/user');
+    }
+
+    public function active($id){       
+        $user = User::find($id);
+        $user->stat = 1;
+        $user->save();
+
+        return redirect('/backend/user');
     }
 
     public function val($req){
