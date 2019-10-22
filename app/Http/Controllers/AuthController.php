@@ -28,7 +28,7 @@ class AuthController extends Controller
             return redirect('/admin/pesan/inbox');
         }
 
-        return redirect()->back()->with('status', 'error-status');
+        return redirect()->back()->with('status', 'fail-login');
     }
 
     public function logout(){

@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class KodeBarang extends Model
+class Ultah extends Model
 {
-    protected $table = 'kode_barang';
+    protected $table = "ultah";
     protected $fillable = [
-        'mrbr', 'glbr', 'kmbr', 'jnbr', 'kdbr', 'nmbr'
+        'nama', 'tgl', 'divisi'
     ];
 
     public $timestamps = false;

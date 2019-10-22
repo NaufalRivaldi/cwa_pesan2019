@@ -147,5 +147,17 @@ Route::group(['prefix' => '/backend'], function(){
             Route::put('/update', 'CabangController@update');
             Route::get('/delete/{id}', 'CabangController@delete');
         });
+
+        // kodebarang
+        Route::group(['prefix' => 'kodebarang'], function(){
+            Route::get('/', 'KodeBarangController@index');
+            Route::post('/save', 'KodeBarangController@save');
+        });
+
+        // ultah
+        Route::group(['prefix' => 'ultah'], function(){
+            Route::get('/', 'UltahController@index');
+            Route::post('/save', 'UltahController@save');
+        });
     });
 });

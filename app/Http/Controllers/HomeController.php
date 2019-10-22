@@ -10,6 +10,7 @@ use App\AttachPengumuman;
 use App\Setting;
 use App\HistoryJual;
 use App\Karyawan;
+use App\Ultah;
 
 use DateTime;
 use DB;
@@ -22,8 +23,10 @@ class HomeController extends Controller
 {
     public function index(){
         $date_now = date('Y-m-d H:i:s');
+        $now = date('m-d');
         $pengumuman = Pengumuman::orderBy('tgl', 'desc')->paginate(10);
-        return view('frontend.index', compact('pengumuman', 'date_now'));
+        $ultah = Ultah::where('tgl', 'like', '%'.$now.'%')->get();
+        return view('frontend.index', compact('pengumuman', 'date_now', 'ultah'));
     }
 
     public function detail($id){

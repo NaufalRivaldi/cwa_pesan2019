@@ -14,6 +14,17 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if(isset($ultah))
+                        <div class="alert alert-info" role="alert">
+                            <span class="text-blink">
+                                Happy birthday to 
+                                @foreach($ultah as $data)
+                                    {{ $data->nama.' ('.$data->divisi.'),' }}
+                                @endforeach
+                                Wish you all the best.
+                            </span>
+                        </div>
+                        @endif
                         @foreach($pengumuman as $r)
                             <div class="row">
                                 <div class="col-12">

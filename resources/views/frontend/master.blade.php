@@ -57,6 +57,10 @@
         <!-- data table -->
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
+        <!-- sweetalert -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="{{ asset('js/sweetalert.js') }}"></script>
+
         <!-- Custom JS -->
         <script type="text/javascript">
             $(document).ready(function () {

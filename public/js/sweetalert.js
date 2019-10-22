@@ -215,15 +215,6 @@ $(document).ready(function () {
         });
     }
 
-    if (flash == 'error-status) {
-        swal({
-            title: "Error",
-            text: "User sudah tidaks aktif!",
-            icon: "error",
-            button: "OK",
-        });
-    }
-
     if (flash == 'success-pesan') {
         swal({
             title: "Success",
@@ -264,6 +255,15 @@ $(document).ready(function () {
         swal({
             title: "Success",
             text: "Password telah direset.",
+            icon: "success",
+            button: "OK",
+        });
+    }
+
+    if (flash == 'import-success') {
+        swal({
+            title: "Success",
+            text: "Data berhasil di import.",
             icon: "success",
             button: "OK",
         });
