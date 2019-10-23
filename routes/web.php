@@ -104,6 +104,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::post('/store', 'FormHRDController@store');
         Route::get('/detail/{id}', 'FormHRDController@detail');
         Route::post('/accspv/{id}', 'FormHRDController@accspv');
+        Route::post('/accmng/{id}', 'FormHRDController@accmng');
     });
 });
 

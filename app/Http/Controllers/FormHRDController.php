@@ -56,11 +56,28 @@ class FormHRDController extends Controller
     }
 
     public function accspv(Request $req, $form_id){
-        $this->valSpv($req);
+        $this->valAcc($req);
         $nik = $req->nik;
         $password = sha1($req->password);
         $dep = $req->dep;
         $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', $dep)->first();
+        
+        if(isset($karyawan)){
+            $form = FormHRD::find($form_id);
+            $form->stat = '2';
+            $form->save();
+
+            return redirect()->back()->with('status', 'form-success');
+        }
+
+        return redirect()->back()->with('status', 'form-error');
+    }
+
+    public function accmng(Request $req, $form_id){
+        $this->valAcc($req);
+        $nik = $req->nik;
+        $password = sha1($req->password);
+        $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('stat', 3)->first();
         
         if(isset($karyawan)){
             $form = FormHRD::find($form_id);
@@ -96,7 +113,7 @@ class FormHRDController extends Controller
         ], $message);
     }
 
-    private function valSpv($req){
+    private function valAcc($req){
         $message = [
             'required' => ':attribute tidak boleh kosong!',
             'min' => ':attribute tidak valid'
