@@ -40,10 +40,10 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{ url($url) }}" class="a-block">{!! Helper::setKategori($row->kategori) !!}</a>
+                                        <a href="{{ url($url) }}" class="a-block">{!! Helper::setKategori($row->id) !!}</a>
                                     </td>
                                     <td>
-                                        <a href="{{ url($url) }}" class="a-block">{{ $row->karyawanAll->nama }}</a>
+                                        <a href="{{ url($url) }}" class="a-block">{!! $row->karyawanAll->nama.'/'.Helper::statusKaryawan($row->karyawanAll->stat) !!}</a>
                                     </td>
                                     <td>
                                         <a href="{{ url($url) }}" class="a-block">{{ $row->karyawanAll->dep }}</a>

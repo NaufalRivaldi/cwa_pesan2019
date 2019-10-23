@@ -33,7 +33,7 @@ class KaryawanAllController extends Controller
 
         KaryawanAll::create([
             "nik" => $req->nik,
-            "password" => bcrypt($req->nik),
+            "password" => sha1($req->nik),
             "nama" => $req->nama,
             "dep" => $req->dep,
             "stat" => $req->stat

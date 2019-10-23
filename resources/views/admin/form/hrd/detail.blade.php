@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-12">
             <div class="container">
-                <a href="{{ url()->previous() }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                <a href="{{ url('admin/formhrd/') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                 <hr>
                 <div class="card">
                     <div class="card-header">
@@ -32,7 +32,7 @@
                                         <tr>
                                             <td width="15%">Kategori</td>
                                             <td width="20px">:</td>
-                                            <td>{!! Helper::setKategori($form->kategori) !!}</td>
+                                            <td>{!! Helper::setKategori($form->id) !!}</td>
                                         </tr>
                                         <tr>
                                             <td>Nama</td>
@@ -64,6 +64,7 @@
                                         </tr>
                                     </table>
                                     <hr>
+                                    
                                     <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accKabagModal">Acc Form</a> 
                                     <a href="#" class="btn btn-danger btn-sm">Tolak</a>
                                 </div>
@@ -74,4 +75,41 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('modal')
+<!-- Modal -->
+<div class="modal fade" id="accKabagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalCenterTitle">Acc Form</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Masukkan nik dan password kepala bagian untuk acc form tersebut.</p>
+                <form action="{{ url('admin/formhrd/accspv/'.$form->id) }}" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="dep" value="{{ auth()->user()->dep }}">
+                    <div class="form-group">
+                        <label>NIK</label>
+                        <input type="text" name="nik" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="btn-submit" value="Verifikasi" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <p class="text-danger">* Dengan mengacc form ini, maka kepala bagian menyetujui atau bertanggung jawab penuh atas kebenaran isi form. </p>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

@@ -125,11 +125,11 @@
             </div>
         </div>
 
+        <!-- modal -->
+        @yield('modal')
+
         <!-- Flash Data -->
         <span class="flash" data-status="{{ session('status') }}"></span>
-
-        <!-- modal -->
-        @include('admin.modal');
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

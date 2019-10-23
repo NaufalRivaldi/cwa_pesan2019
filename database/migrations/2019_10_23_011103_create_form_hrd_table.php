@@ -15,11 +15,10 @@ class CreateFormHrdTable extends Migration
     {
         Schema::create('form_hrd', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kategori', '20');
             $table->dateTime('tgl_a');
             $table->dateTime('tgl_b');
             $table->text('keterangan');
-            $table->enum('stat', ['1', '2', '3']);
+            $table->enum('stat', ['1', '2', '3', '4']);
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('karyawan_all_id');
             $table->timestamps();

@@ -8,7 +8,7 @@ class FormHRD extends Model
 {
     protected $table = 'form_hrd';
     protected $fillable = [
-        'kategori', 'tgl_a', 'tgl_b', 'keterangan', 'stat', 'user_id', 'karyawan_all_id', 'created_at'
+        'tgl_a', 'tgl_b', 'keterangan', 'stat', 'user_id', 'karyawan_all_id', 'created_at'
     ];
 
     // fk
@@ -18,5 +18,9 @@ class FormHRD extends Model
 
     public function user(){
         return $this->belongsTo('App\User');
+    }
+
+    public function setKategoriHRD(){
+        return $this->hasMany('App\SetKategoriHRD');
     }
 }

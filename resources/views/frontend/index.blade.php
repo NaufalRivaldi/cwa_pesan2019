@@ -14,7 +14,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        @if(isset($ultah))
+                        @if(count($ultah) > 0)
                         <div class="alert alert-info" role="alert">
                             <span class="text-blink">
                                 Happy birthday to 

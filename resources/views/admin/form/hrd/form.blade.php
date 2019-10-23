@@ -17,8 +17,8 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Kategori <span class="text-danger">*</span></label>
                             <div class="col-sm-10">
-                                @foreach($kategori as $id => $nama)
-                                    <input type="checkbox" name="kategori[]" value="{{ $id }}"> {{ $nama }}<br>
+                                @foreach($kategori as $r)
+                                    <input type="checkbox" name="kategori[]" value="{{ $r->id }}"> {{ $r->nama_kategori }}<br>
                                 @endforeach
                                 <!-- error -->
                                 @if($errors->has('kategori'))

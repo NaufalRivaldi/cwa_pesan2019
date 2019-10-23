@@ -268,4 +268,22 @@ $(document).ready(function () {
             button: "OK",
         });
     }
+
+    if (flash == 'form-success') {
+        swal({
+            title: "Success",
+            text: "Form berhasil di acc.",
+            icon: "success",
+            button: "OK",
+        });
+    }
+
+    if (flash == 'form-error') {
+        swal({
+            title: "Error",
+            text: "Form gagal di acc!",
+            icon: "error",
+            button: "OK",
+        });
+    }
 });

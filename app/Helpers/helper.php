@@ -9,6 +9,7 @@ use App\KaryawanAll;
 use App\KodeBarang;
 use App\Kriteria;
 use App\Penerima;
+use App\SetKategoriHRD;
 
 class helper{
     // get divisi name
@@ -173,26 +174,12 @@ class helper{
     }
 
     // set kategori
-    public static function setKategori($data){
+    public static function setKategori($form_id){
         $setKategori = '';
-        $data = explode(',', $data);
-        $kategori = array(
-            '1' => 'Terlambat',
-            '2' => 'Dinas Keluar',
-            '3' => 'Izin Tidak Masuk Kerja',
-            '4' => 'Tidak Absen',
-            '5' => 'Pelanggaran',
-            '6' => 'Izin Keluar/Pulang',
-            '7' => 'Lembur',
-            '8' => 'Dll'
-        );
+        $kategori = SetKategoriHRD::where('form_hrd_id', $form_id)->get();
 
-        for($i = 0; $i < count($data); $i++){
-            foreach($kategori as $a => $nama){
-                if($a == $data[$i]){
-                    $setKategori = $setKategori.'<span class="badge badge-info">'.$nama.'</span><br>';
-                }
-            }
+        foreach($kategori as $row){
+            $setKategori = $setKategori.'<span class="badge badge-info">'.$row->kategoriFhrd->nama_kategori.'</span><br>';
         }
 
         return $setKategori;
