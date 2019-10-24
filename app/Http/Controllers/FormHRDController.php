@@ -8,6 +8,7 @@ use App\FormHRD;
 use App\KategoriHRD;
 use App\SetKategoriHRD;
 use App\KaryawanAll;
+use App\ValidasiFhrd;
 
 class FormHRDController extends Controller
 {
@@ -40,8 +41,8 @@ class FormHRDController extends Controller
         $this->val($req);
 
         FormHRD::create([
-            'tgl_a' => $req->tgl_a,
-            'tgl_b' => $req->tgl_b,
+            'tgl_a' => $req->tgl_a.' '.$req->time_a,
+            'tgl_b' => $req->tgl_b.' '.$req->time_b,
             'keterangan' => $req->keterangan,
             'stat' => '1',
             'user_id' => auth()->user()->id,
@@ -55,17 +56,20 @@ class FormHRDController extends Controller
         return redirect('/admin/formhrd')->with('status', 'formhrd-success');
     }
 
-    public function accspv(Request $req, $form_id){
+    public function acckabag(Request $req, $form_id){
         $this->valAcc($req);
         $nik = $req->nik;
         $password = sha1($req->password);
         $dep = $req->dep;
-        $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', $dep)->first();
+        $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', $dep)->where('stat', 2)->first();
         
         if(isset($karyawan)){
             $form = FormHRD::find($form_id);
             $form->stat = '2';
             $form->save();
+
+            // save validasi hrd
+            $this->validasiFormAcc($form_id, $karyawan->id);
 
             return redirect()->back()->with('status', 'form-success');
         }
@@ -109,6 +113,7 @@ class FormHRDController extends Controller
             'kategori' => 'required',
             'karyawanall_id' => 'required',
             'tgl_a' => 'required',
+            'time_a' => 'required',
             'keterangan' => 'required'
         ], $message);
     }
@@ -123,5 +128,15 @@ class FormHRDController extends Controller
             'nik' => 'required|min:8',
             'password' => 'required'
         ], $message);
+    }
+
+    public function validasiFormAcc($form_id, $karyawan_id){
+        ValidasiFhrd::create([
+            "form_hrd_id" => $form_id,
+            "user_id" => auth()->user()->id,
+            "karyawan_all_id" => $karyawan_id,
+            "stat" => 2,
+            "keterangan" => "-"
+        ]);
     }
 }

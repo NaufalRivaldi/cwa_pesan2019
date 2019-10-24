@@ -64,12 +64,10 @@
                                         </tr>
                                     </table>
                                     <hr>
-                                    @if($form->karyawanAll->stat > 1)
-                                        <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accManagerModal">Acc Form</a> 
-                                    @else
-                                        <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accKabagModal">Acc Form</a> 
+                                    @if($form->stat == 1)
+                                        {!! Helper::setUrlAcc($form->karyawanAll->stat, $form->karyawanAll->dep) !!}
+                                        <a href="#" class="btn btn-danger btn-sm">Tolak</a>
                                     @endif
-                                    <a href="#" class="btn btn-danger btn-sm">Tolak</a>
                                 </div>
                             </div>
                         </div>
@@ -81,19 +79,20 @@
 @endsection
 
 @section('modal')
-<!-- Modal spv -->
+<!-- acc -->
+<!-- Modal kepala bagian -->
 <div class="modal fade" id="accKabagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalCenterTitle">Acc Form (Supervisor)</h3>
+                <h3 class="modal-title" id="exampleModalCenterTitle">Acc Form (Kepala Bagian)</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <p>Masukkan nik dan password kepala bagian untuk acc form tersebut.</p>
-                <form action="{{ url('admin/formhrd/accspv/'.$form->id) }}" method="POST">
+                <form action="{{ url('admin/formhrd/acckabag/'.$form->id) }}" method="POST">
                     {{ csrf_field() }}
                     <input type="hidden" name="dep" value="{{ auth()->user()->dep }}">
                     <div class="form-group">
@@ -145,6 +144,42 @@
             </div>
             <div class="modal-footer">
                 <p class="text-danger">* Dengan mengacc form ini, maka manager menyetujui atau bertanggung jawab penuh atas kebenaran isi form. </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- tolak -->
+<!-- Kepala bagian -->
+<div class="modal fade" id="tolakKabagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalCenterTitle">Acc Form (Kepala Bagian)</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Masukkan nik dan password kepala bagian untuk acc form tersebut.</p>
+                <form action="{{ url('admin/formhrd/acckabag/'.$form->id) }}" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="dep" value="{{ auth()->user()->dep }}">
+                    <div class="form-group">
+                        <label>NIK</label>
+                        <input type="text" name="nik" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="btn-submit" value="Verifikasi" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <p class="text-danger">* Dengan mengacc form ini, maka kepala bagian menyetujui atau bertanggung jawab penuh atas kebenaran isi form. </p>
             </div>
         </div>
     </div>

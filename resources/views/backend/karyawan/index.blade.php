@@ -55,9 +55,6 @@
                                         <label class="col-sm-2 col-form-label">Departemen</label>
                                         <div class="col-sm-10">
                                             <select name="dep" class="form-control">
-                                                @foreach($data['cabang'] as $c)
-                                                    <option value="{{ $c->inisial }}">{{ $c->nama_cabang }}</option>
-                                                @endforeach
                                                 @foreach($data['dep'] as $c)
                                                     <option value="{{ $c }}">{{ $c }}</option>
                                                 @endforeach
@@ -75,8 +72,11 @@
                                         <div class="col-sm-10">
                                             <select name="stat" class="form-control">
                                                 <option value="1">Staff</option>
-                                                <option value="2">Supervisor</option>
-                                                <option value="3">Manager</option>
+                                                <option value="2">Kepala Bagian</option>
+                                                <option value="3">Area Manager</option>
+                                                <option value="4">General Manager</option>
+                                                <option value="5">Asst Direktur</option>
+                                                <option value="6">Direktur</option>
                                             </select>
                                             <!-- error -->
                                             @if($errors->has('dep'))

@@ -55,9 +55,6 @@
                                         <label class="col-sm-2 col-form-label">Departemen</label>
                                         <div class="col-sm-10">
                                             <select name="dep" class="form-control">
-                                                @foreach($data['cabang'] as $c)
-                                                    <option value="{{ $c->inisial }}">{{ $c->nama_cabang }}</option>
-                                                @endforeach
                                                 @foreach($data['dep'] as $c)
                                                     <option value="{{ $c }}">{{ $c }}</option>
                                                 @endforeach

@@ -141,10 +141,26 @@ class helper{
     public static function statusKaryawan($val){
         if($val == 1){
             $val = '<span class="badge badge-info">Staff</span>';
-        }else if($val == 2){
-            $val = '<span class="badge badge-info">Supervisor</span>';
-        }else{
-            $val = '<span class="badge badge-info">Manager</span>';
+        }
+        
+        if($val == 2){
+            $val = '<span class="badge badge-info">Kepala Bagian</span>';
+        }
+        
+        if($val == 3){
+            $val = '<span class="badge badge-info">Area Manager</span>';
+        }
+
+        if($val == 4){
+            $val = '<span class="badge badge-info">General Manager</span>';
+        }
+
+        if($val == 5){
+            $val = '<span class="badge badge-info">Asst Direktur</span>';
+        }
+
+        if($val == 6){
+            $val = '<span class="badge badge-info">Direktur</span>';
         }
 
         return $val;
@@ -154,15 +170,11 @@ class helper{
     public static function setStatus($status){
         switch ($status) {
             case '1':
-                $status = '<span class="badge badge-primary">Menunggu Acc Kepala Bagian</span>';
+                $status = '<span class="badge badge-info">Menunggu Acc</span>';
                 break;
 
             case '2':
-                $status = '<span class="badge badge-info">Menunggu Acc HRD</span>';
-                break;
-
-            case '3':
-                $status = '<span class="badge badge-success">Acc HRD</span>';
+                $status = '<span class="badge badge-success">Sudah Acc</span>';
                 break;
             
             default:
@@ -193,17 +205,92 @@ class helper{
                 break;
             
             case '2':
-                $val = 'Supervisor';
+                $val = 'Kepala Bagian';
                 break;
             
             case '3':
-                $val = 'Manager';
+                $val = 'Area Manager';
+                break;
+
+            case '4':
+                $val = 'General Manager';
+                break;
+
+            case '5':
+                $val = 'Asst Direktur';
+                break;
+
+            case '6':
+                $val = 'Direktur';
                 break;
             default:
-                # code...
+                $val = 'Tidak Ada Jabatan';
                 break;
         }
 
         return $val;
     }
+
+    public static function setUrlAcc($stat, $dep){
+        $url = '';
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak');
+        $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9','MT');
+        $gm = array('CW1','CW2','CA5','CL1','CS1');
+
+        if($stat == 1){
+            $url = '<a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accKabagModal">Acc Form</a>';
+        }
+
+        if($stat == 2){
+            if(in_array($dep, $office)){
+                $url = '<a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accADModal">Acc Form</a>';
+            }
+
+            if(in_array($dep, $am)){
+                $url = '<a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accAMModal">Acc Form</a>';
+            }
+
+            if(in_array($dep, $gm)){
+                $url = '<a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accGMModal">Acc Form</a>';
+            }
+        }
+
+        if($stat > 2){
+            $url = '<a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accMModal">Acc Form</a>';
+        }
+
+        return $url;
+    }
+
+    public static function setUrlTolak($stat, $dep){
+        $url = '';
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak');
+        $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9','MT');
+        $gm = array('CW1','CW2','CA5','CL1','CS1');
+
+        if($stat == 1){
+            $url = '<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakKabagModal">Tolak</a>';
+        }
+
+        if($stat == 2){
+            if(in_array($dep, $office)){
+                $url = '<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakADModal">Tolak</a>';
+            }
+
+            if(in_array($dep, $am)){
+                $url = '<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakAMModal">Tolak</a>';
+            }
+
+            if(in_array($dep, $gm)){
+                $url = '<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakGMModal">Tolak</a>';
+            }
+        }
+
+        if($stat > 2){
+            $url = '<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakMModal">Tolak</a>';
+        }
+
+        return $url;
+    }
 }
+

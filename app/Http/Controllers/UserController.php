@@ -72,7 +72,37 @@ class UserController extends Controller
 
     public function depOffice(){
         $data = array(
-            'IT', 'QA', 'HRD', 'Finance', 'Accounting', 'Pajak', 'GA', 'SCM', 'Gudang'
+            'CW1',
+            'CW2',
+            'CW3',
+            'CW4',
+            'CW5',
+            'CW6',
+            'CW7',
+            'CW8',
+            'CW9',
+            'CA0',
+            'CA1',
+            'CA2',
+            'CA3',
+            'CA4',
+            'CA5',
+            'CA6',
+            'CA7',
+            'CA8',
+            'CA9',
+            'CS1',
+            'CL1',
+            'HRD',
+            'Finance',
+            'Accounting',
+            'Pajak',
+            'QA',
+            'GA',
+            'IT',
+            'SCM',
+            'Gudang',
+            'Office'
         );
 
         return $data;
