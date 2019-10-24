@@ -45,7 +45,7 @@
                                             - {{ Helper::setDesc($data->message) }} ...
                                         </a>
                                         @foreach($data->attach as $att)
-                                            <a href="{{ asset('Upesan/'.$att->nama_file) }}">
+                                            <a href="{{ asset('Upesan/'.$att->nama_file) }}" download="{{ $att->nama }}">
                                                 <span class="badge badge-warning">{{ $att->nama }}</span>
                                             </a> 
                                         @endforeach

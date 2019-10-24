@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="col-md-10">
                                     @foreach($pesan->attach as $att)
-                                        <a href="{{ asset('Upesan/'.$att->nama_file) }}">
+                                        <a href="{{ asset('Upesan/'.$att->nama_file) }}" download="{{ $att->nama }}">
                                             <div class="lampiran">
                                                 <div class="icon-lampiran">
                                                     <i class="fas fa-file"></i>
