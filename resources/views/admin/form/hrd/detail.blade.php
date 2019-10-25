@@ -64,9 +64,9 @@
                                         </tr>
                                     </table>
                                     <hr>
-                                    @if($form->stat == 1)
-                                        {!! Helper::setUrlAcc($form->karyawanAll->stat, $form->karyawanAll->dep) !!}
-                                        <a href="#" class="btn btn-danger btn-sm">Tolak</a>
+                                    @if($form->stat == 1 && auth()->user()->level > $form->karyawanAll->stat)
+                                        <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accModal">Acc Form</a>
+                                        <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakModal">Tolak</a>
                                     @endif
                                 </div>
                             </div>
@@ -80,21 +80,20 @@
 
 @section('modal')
 <!-- acc -->
-<!-- Modal kepala bagian -->
-<div class="modal fade" id="accKabagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="accModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalCenterTitle">Acc Form (Kepala Bagian)</h3>
+                <h3 class="modal-title" id="exampleModalCenterTitle">Acc Form ( {{ $data['set_modal']['title'] }} )</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Masukkan nik dan password kepala bagian untuk acc form tersebut.</p>
-                <form action="{{ url('admin/formhrd/acckabag/'.$form->id) }}" method="POST">
+                <p>Masukkan nik dan password {{ strtolower($data['set_modal']['title']) }} untuk acc form tersebut.</p>
+                <form action="{{ url('admin/formhrd/acc/'.$form->id) }}" method="POST">
                     {{ csrf_field() }}
-                    <input type="hidden" name="dep" value="{{ auth()->user()->dep }}">
+                    <input type="hidden" name="karyawanStat" value="{{ $data['set_modal']['stat'] }}">
                     <div class="form-group">
                         <label>NIK</label>
                         <input type="text" name="nik" class="form-control" required>
@@ -109,62 +108,27 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <p class="text-danger">* Dengan mengacc form ini, maka kepala bagian menyetujui atau bertanggung jawab penuh atas kebenaran isi form. </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal manager -->
-<div class="modal fade" id="accManagerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalCenterTitle">Acc Form (Manager)</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Masukkan nik dan password manager untuk acc form tersebut.</p>
-                <form action="{{ url('admin/formhrd/accmng/'.$form->id) }}" method="POST">
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                        <label>NIK</label>
-                        <input type="text" name="nik" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" name="btn-submit" value="Verifikasi" class="btn btn-primary">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <p class="text-danger">* Dengan mengacc form ini, maka manager menyetujui atau bertanggung jawab penuh atas kebenaran isi form. </p>
+                <p class="text-danger">* Dengan mengacc form ini, maka {{ strtolower($data['set_modal']['title']) }} menyetujui atau bertanggung jawab penuh atas kebenaran isi form. </p>
             </div>
         </div>
     </div>
 </div>
 
 <!-- tolak -->
-<!-- Kepala bagian -->
-<div class="modal fade" id="tolakKabagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="tolakModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalCenterTitle">Acc Form (Kepala Bagian)</h3>
+                <h3 class="modal-title" id="exampleModalCenterTitle">Tolak Form ( {{ $data['set_modal']['title'] }} )</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Masukkan nik dan password kepala bagian untuk acc form tersebut.</p>
-                <form action="{{ url('admin/formhrd/acckabag/'.$form->id) }}" method="POST">
+                <p>Masukkan nik dan password {{ strtolower($data['set_modal']['title']) }} untuk tolak form tersebut.</p>
+                <form action="{{ url('admin/formhrd/tolak/'.$form->id) }}" method="POST">
                     {{ csrf_field() }}
-                    <input type="hidden" name="dep" value="{{ auth()->user()->dep }}">
+                    <input type="hidden" name="karyawanStat" value="{{ $data['set_modal']['stat'] }}">
                     <div class="form-group">
                         <label>NIK</label>
                         <input type="text" name="nik" class="form-control" required>
@@ -174,12 +138,16 @@
                         <input type="password" name="password" class="form-control" required>
                     </div>
                     <div class="form-group">
+                        <label>Alasan</label>
+                        <textarea name="keterangan" id="" class="form-control" rows="5"></textarea>
+                    </div>
+                    <div class="form-group">
                         <input type="submit" name="btn-submit" value="Verifikasi" class="btn btn-primary">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <p class="text-danger">* Dengan mengacc form ini, maka kepala bagian menyetujui atau bertanggung jawab penuh atas kebenaran isi form. </p>
+                <p class="text-danger">* Dengan menolak form ini, maka {{ strtolower($data['set_modal']['title']) }} menyetujui atau bertanggung jawab penuh atas penolakan dan alasan ditolaknya form tersebut. </p>
             </div>
         </div>
     </div>

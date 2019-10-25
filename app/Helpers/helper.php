@@ -10,6 +10,7 @@ use App\KodeBarang;
 use App\Kriteria;
 use App\Penerima;
 use App\SetKategoriHRD;
+use App\ValidasiFhrd;
 
 class helper{
     // get divisi name
@@ -185,6 +186,12 @@ class helper{
         return $status;
     }
 
+    public static function setAlasan($form_id){
+        $data = ValidasiFhrd::where('form_hrd_id', $form_id)->first();
+
+        return $data['keterangan'];
+    }
+
     // set kategori
     public static function setKategori($form_id){
         $setKategori = '';
@@ -231,66 +238,64 @@ class helper{
         return $val;
     }
 
-    public static function setUrlAcc($stat, $dep){
-        $url = '';
+    public static function setTitle($stat, $dep){
+        $data['title'] = '';
+        $data['stat'] = '';
         $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak');
         $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9','MT');
         $gm = array('CW1','CW2','CA5','CL1','CS1');
 
         if($stat == 1){
-            $url = '<a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accKabagModal">Acc Form</a>';
+            $data['title'] = 'Kepala Bagian';
+            $data['stat'] = '2';
         }
 
         if($stat == 2){
             if(in_array($dep, $office)){
-                $url = '<a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accADModal">Acc Form</a>';
+                $data['title'] = 'Asst Direktur';
+                $data['stat'] = '5';
             }
 
             if(in_array($dep, $am)){
-                $url = '<a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accAMModal">Acc Form</a>';
+                $data['title'] = 'Area Manager';
+                $data['stat'] = '3';
             }
 
             if(in_array($dep, $gm)){
-                $url = '<a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accGMModal">Acc Form</a>';
+                $data['title'] = 'General Manager';
+                $data['stat'] = '4';
             }
         }
 
         if($stat > 2){
-            $url = '<a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accMModal">Acc Form</a>';
+            $data['title'] = 'Direktur';
+            $data['stat'] = '6';
         }
 
-        return $url;
+        return $data;
     }
 
-    public static function setUrlTolak($stat, $dep){
-        $url = '';
+    public static function setViewVerivikasi(){
+        $level = auth()->user()->level;
         $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak');
         $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9','MT');
         $gm = array('CW1','CW2','CA5','CL1','CS1');
 
-        if($stat == 1){
-            $url = '<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakKabagModal">Tolak</a>';
+        if($level == 3){
+            return $am;
         }
 
-        if($stat == 2){
-            if(in_array($dep, $office)){
-                $url = '<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakADModal">Tolak</a>';
-            }
-
-            if(in_array($dep, $am)){
-                $url = '<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakAMModal">Tolak</a>';
-            }
-
-            if(in_array($dep, $gm)){
-                $url = '<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakGMModal">Tolak</a>';
-            }
+        if($level == 4){
+            return $gm;
         }
 
-        if($stat > 2){
-            $url = '<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakMModal">Tolak</a>';
+        if($level == 5){
+            return $office;
         }
 
-        return $url;
+        if($level == 6){
+            return "Office";
+        }
     }
 }
 

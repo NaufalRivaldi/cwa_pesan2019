@@ -22,8 +22,9 @@
                                     <th>Tanggal</th>
                                     <th>Kategori</th>
                                     <th>Nama</th>
-                                    <th>Bagian/Jabatan</th>
+                                    <th>Bagian</th>
                                     <th>Status</th>
+                                    <th>Keterangan</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -50,6 +51,9 @@
                                     </td>
                                     <td>
                                         <a href="{{ url($url) }}" class="a-block">{!! Helper::setStatus($row->stat) !!}</a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ url($url) }}" class="a-block">{{ Helper::setAlasan($row->id) }}</a>
                                     </td>
                                     
                                     <td>

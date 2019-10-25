@@ -25,7 +25,7 @@ class UserController extends Controller
             "nama" => $req->nama,
             "email" => $req->email,
             "email_verified_at" => date('Y-m-d H:i:s'),
-            "password" => bcrypt('scm'),
+            "password" => bcrypt('123456'),
             "dep" => $req->dep,
             "stat" => 1
         ]);

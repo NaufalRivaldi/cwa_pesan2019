@@ -103,8 +103,11 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/form', 'FormHRDController@form');
         Route::post('/store', 'FormHRDController@store');
         Route::get('/detail/{id}', 'FormHRDController@detail');
-        Route::post('/acckabag/{id}', 'FormHRDController@acckabag');
-        Route::post('/accmng/{id}', 'FormHRDController@accmng');
+        Route::post('/acc/{id}', 'FormHRDController@acc');
+        Route::post('/tolak/{id}', 'FormHRDController@tolak');
+
+        Route::get('/verivikasi', 'FormHRDController@verivikasi');
+        Route::get('/laporan', 'FormHRDController@laporan');
     });
 });
 

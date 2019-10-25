@@ -88,6 +88,17 @@
                             </li>
                         </ul>
                     </li>
+                    <li <?= ($menu == '9') ? 'class="active"' : '' ?>>
+                        <a href="#formHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> Form HRD</a>
+                        <ul class="collapse list-unstyled" id="formHRD">
+                            <li>
+                                <a href="{{ url('admin/formhrd/verivikasi') }}">Verivikasi</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/formhrd/laporan') }}">Laporan</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
                 <p class="footer">Copyright © 2019. Naufal Rivaldi.</p>
             </nav>
@@ -120,6 +131,7 @@
                 </nav>
                 
                 <div class="container">
+                    
                     @yield('content')
                 </div>
             </div>
@@ -127,9 +139,6 @@
 
         <!-- modal -->
         @yield('modal')
-
-        <!-- Flash Data -->
-        <span class="flash" data-status="{{ session('status') }}"></span>
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
