@@ -55,4 +55,8 @@ class User extends Authenticatable
     public function hrd(){
         return $this->hasMany('App\FormHRD');
     }
+
+    public function validasiFhrd(){
+        return $this->hasMany('App\validasiFhrd');
+    }
 }

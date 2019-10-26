@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-12">
             <div class="container">
-                <a href="{{ url('admin/formhrd/') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                <a href="{{ url('admin/formhrd/verivikasi/') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                 <hr>
                 <div class="card">
                     <div class="card-header">
@@ -64,11 +64,7 @@
                                         </tr>
                                     </table>
                                     <hr>
-                                    @if($form->stat == 1 && auth()->user()->level > $form->karyawanAll->stat && auth()->user()->level != 7)
-                                        <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accModal">Acc Form</a>
-                                        <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakModal">Tolak</a>
-                                    @endif
-                                    @if($form->stat == 1 && auth()->user()->level == 7 && $form->karyawanAll->stat == 1)
+                                    @if(auth()->user()->level > $form->karyawanAll->stat)
                                         <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accModal">Acc Form</a>
                                         <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakModal">Tolak</a>
                                     @endif
@@ -95,7 +91,13 @@
             </div>
             <div class="modal-body">
                 <p>Masukkan nik dan password {{ strtolower($data['set_modal']['title']) }} untuk acc form tersebut.</p>
-                <form action="{{ url('admin/formhrd/acc/'.$form->id) }}" method="POST">
+                <?php 
+                    $link = '';
+                    if(auth()->user()->level == 7){
+                        $link = 'HRD';
+                    }
+                ?>
+                <form action="{{ url('admin/formhrd/acc'.$link.'/'.$form->id) }}" method="POST">
                     {{ csrf_field() }}
                     <input type="hidden" name="karyawanStat" value="{{ $data['set_modal']['stat'] }}">
                     <div class="form-group">
@@ -130,7 +132,7 @@
             </div>
             <div class="modal-body">
                 <p>Masukkan nik dan password {{ strtolower($data['set_modal']['title']) }} untuk tolak form tersebut.</p>
-                <form action="{{ url('admin/formhrd/tolak/'.$form->id) }}" method="POST">
+                <form action="{{ url('admin/formhrd/tolak'.$link.'/'.$form->id) }}" method="POST">
                     {{ csrf_field() }}
                     <input type="hidden" name="karyawanStat" value="{{ $data['set_modal']['stat'] }}">
                     <div class="form-group">

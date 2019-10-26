@@ -20,14 +20,13 @@
                                     <th>Nama</th>
                                     <th>Bagian</th>
                                     <th>Status</th>
-                                    <th>Keterangan</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($form as $row)
-                                    @if($row->karyawanAll->stat > 1)
+                                    @if($row->karyawanAll->stat > 1 && auth()->user()->level != 7)
                                     <?php
-                                    $url = 'admin/formhrd/detail/'.$row->id;
+                                    $url = 'admin/formhrd/verivikasi/detail/'.$row->id;
                                     ?>
                                     <tr>
                                         <td>{{ $no++ }}</td>
@@ -50,6 +49,30 @@
                                         </td>
                                         <td>
                                             <a href="{{ url($url) }}" class="a-block">{{ Helper::setAlasan($row->id) }}</a>
+                                        </td>
+                                    </tr>
+                                    @elseif(auth()->user()->level == 7)
+                                    <?php
+                                    $url = 'admin/formhrd/verivikasi/detail/'.$row->id;
+                                    ?>
+                                    <tr>
+                                        <td>{{ $no++ }}</td>
+                                        <td>
+                                            <a href="{{ url($url) }}" class="a-block">
+                                                {{ Helper::setDate($row->created_at) }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ url($url) }}" class="a-block">{!! Helper::setKategori($row->id) !!}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ url($url) }}" class="a-block">{!! $row->karyawanAll->nama.'/'.Helper::statusKaryawan($row->karyawanAll->stat) !!}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ url($url) }}" class="a-block">{{ $row->karyawanAll->dep }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ url($url) }}" class="a-block">{!! Helper::setStatus($row->stat) !!}</a>
                                         </td>
                                     </tr>
                                     @endif

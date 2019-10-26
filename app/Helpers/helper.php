@@ -171,10 +171,14 @@ class helper{
     public static function setStatus($status){
         switch ($status) {
             case '1':
-                $status = '<span class="badge badge-info">Menunggu Acc</span>';
+                $status = '<span class="badge badge-primary">Menunggu Atasan</span>';
                 break;
 
             case '2':
+                $status = '<span class="badge badge-info">Menunggu Acc HRD</span>';
+                break;
+
+            case '3':
                 $status = '<span class="badge badge-success">Sudah Acc</span>';
                 break;
             
@@ -187,9 +191,14 @@ class helper{
     }
 
     public static function setAlasan($form_id){
-        $data = ValidasiFhrd::where('form_hrd_id', $form_id)->first();
+        $text = '';
+        $data = ValidasiFhrd::where('form_hrd_id', $form_id)->orderBy('stat', 'desc')->first();
+        
+        if(!empty($data)){
+            $text = $data->user->dep.' : '.$data->keterangan;
+        }
 
-        return $data['keterangan'];
+        return $text;
     }
 
     // set kategori

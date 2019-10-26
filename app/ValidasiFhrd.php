@@ -10,4 +10,8 @@ class ValidasiFhrd extends Model
     protected $fillable = [
         'form_hrd_id', 'user_id', 'karyawan_all_id', 'stat', 'keterangan'
     ];
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
 }

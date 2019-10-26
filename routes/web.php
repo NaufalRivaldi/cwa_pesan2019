@@ -105,8 +105,11 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/detail/{id}', 'FormHRDController@detail');
         Route::post('/acc/{id}', 'FormHRDController@acc');
         Route::post('/tolak/{id}', 'FormHRDController@tolak');
+        Route::post('/accHRD/{id}', 'FormHRDController@accHRD');
+        Route::post('/tolakHRD/{id}', 'FormHRDController@tolakHRD');
 
         Route::get('/verivikasi', 'FormHRDController@verivikasi');
+        Route::get('/verivikasi/detail/{id}', 'FormHRDController@detailVer');
         Route::get('/laporan', 'FormHRDController@laporan');
     });
 });

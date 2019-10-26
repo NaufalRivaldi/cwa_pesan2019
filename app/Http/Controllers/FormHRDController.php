@@ -29,9 +29,9 @@ class FormHRDController extends Controller
         $menu = 8;
         $kategori = KategoriHRD::all();
 
-        if(auth()->user()->level > 2){
+        if(auth()->user()->level > 2 && auth()->user()->level != 7){
             $karyawan = KaryawanAll::where('dep', auth()->user()->dep)->where('stat', auth()->user()->level)->get();
-        }else{
+        }else if(auth()->user()->level < 2 || auth()->user()->level == 7){
             $karyawan = KaryawanAll::where('dep', auth()->user()->dep)->get();
         }
 
@@ -46,13 +46,31 @@ class FormHRDController extends Controller
         return view('admin.form.hrd.detail', compact('menu', 'form', 'data'));
     }
 
+    public function detailVer($id){
+        $menu = 9;
+        $form = FormHRD::find($id);
+        if(auth()->user()->dep = 'HRD'){
+
+            $data['set_modal'] = array('title' => 'HRD', 'stat' => '7');
+        }else{
+            $data['set_modal'] = helper::setTitle($form->karyawanAll->stat, $form->karyawanAll->dep);
+        }
+
+        return view('admin.formhrd.verivikasi.detail', compact('menu', 'form', 'data'));
+    }
+
     public function verivikasi(){
         $menu = 9;
         $no = 1;
-
-        $form = FormHRD::whereHas('KaryawanAll', function($query){
-            $query->whereDep(helper::setViewVerivikasi());
-        })->orderBy('created_at', 'desc')->get();
+        
+        // hrd
+        if(auth()->user()->level == 7){
+            $form = FormHRD::where('stat', 2)->orderBy('created_at', 'desc')->get();
+        }else{
+            $form = FormHRD::whereHas('KaryawanAll', function($query){
+                $query->whereIn('dep', helper::setViewVerivikasi());
+            })->orderBy('created_at', 'desc')->get();
+        }
 
         return view('admin.formhrd.verivikasi.index', compact('menu', 'no', 'form'));
     }
@@ -61,14 +79,14 @@ class FormHRDController extends Controller
         $menu = 9;
         $no = 1;
         $month = date('m');
+        $kategori = KategoriHRD::all();
+        $cabang = Cabang::orderBy('inisial', 'asc')->get();
 
         if(empty($_GET)){
-           $form = FormHRD::join('karyawan_all', 'form_hrd.karyawan_all_id', '=', 'karyawan_all.id')->orderBy('form_hrd.created_at', 'asc')->orderBy('karyawan_all.dep', 'asc')->select('form_hrd.id', 'form_hrd.created_at', 'karyawan_all_id', 'form_hrd.stat')->where('form_hrd.stat', 2)->get();
+           $form = FormHRD::join('karyawan_all', 'form_hrd.karyawan_all_id', '=', 'karyawan_all.id')->orderBy('form_hrd.created_at', 'asc')->orderBy('karyawan_all.dep', 'asc')->select('form_hrd.id', 'form_hrd.created_at', 'karyawan_all_id', 'form_hrd.stat')->where('form_hrd.stat', 3)->get();
         }
 
-        
-
-        return view('admin.formhrd.laporan.index', compact('menu', 'no', 'divisi', 'form'));
+        return view('admin.formhrd.laporan.index', compact('menu', 'no', 'divisi', 'form', 'kategori', 'cabang'));
     }
 
     public function store(Request $req){
@@ -104,12 +122,37 @@ class FormHRDController extends Controller
         }
         
         if(isset($karyawan)){
+            $stat = 2;
             $form = FormHRD::find($form_id);
-            $form->stat = '2';
+            $form->stat = $stat;
             $form->save();
 
             // save validasi hrd
-            $this->validasiFormAcc($req, $form_id, $karyawan->id);
+            $this->validasiFormAcc($req, $form_id, $karyawan->id, $stat);
+
+            return redirect()->back()->with('status', 'form-success');
+        }
+
+        return redirect()->back()->with('status', 'form-error');
+    }
+
+    public function accHRD(Request $req, $form_id){
+        $this->valAcc($req);
+        $nik = $req->nik;
+        $password = sha1($req->password);
+        $karyawan_stat = $req->karyawanStat;
+
+        // cari data sesuai dengan jabatannya
+        $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', 'HRD')->first();
+        
+        if(isset($karyawan)){
+            $stat = 3;
+            $form = FormHRD::find($form_id);
+            $form->stat = $stat;
+            $form->save();
+
+            // save validasi hrd
+            $this->validasiFormAcc($req, $form_id, $karyawan->id, $stat);
 
             return redirect()->back()->with('status', 'form-success');
         }
@@ -131,12 +174,37 @@ class FormHRDController extends Controller
         }
         
         if(isset($karyawan)){
+            $stat = 4;
             $form = FormHRD::find($form_id);
-            $form->stat = '3';
+            $form->stat = $stat;
             $form->save();
 
             // save validasi hrd
-            $this->validasiFormAcc($req, $form_id, $karyawan->id);
+            $this->validasiFormAcc($req, $form_id, $karyawan->id, $stat);
+
+            return redirect()->back();
+        }
+
+        return redirect()->back()->with('status', 'form-error');
+    }
+
+    public function tolakHRD(Request $req, $form_id){
+        $this->valTolak($req);
+        $nik = $req->nik;
+        $password = sha1($req->password);
+        $karyawan_stat = $req->karyawanStat;
+
+        // cari data sesuai dengan jabatannya
+        $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', 'HRD')->first();
+        
+        if(isset($karyawan)){
+            $stat = 4;
+            $form = FormHRD::find($form_id);
+            $form->stat = $stat;
+            $form->save();
+
+            // save validasi hrd
+            $this->validasiFormAcc($req, $form_id, $karyawan->id, $stat);
 
             return redirect()->back();
         }
@@ -193,7 +261,7 @@ class FormHRDController extends Controller
         ], $message);
     }
 
-    public function validasiFormAcc($req, $form_id, $karyawan_id){
+    public function validasiFormAcc($req, $form_id, $karyawan_id, $stat){
         $keterangan = '-';
         if(!empty($req->keterangan)){
             $keterangan = $req->keterangan;
@@ -202,7 +270,7 @@ class FormHRDController extends Controller
             "form_hrd_id" => $form_id,
             "user_id" => auth()->user()->id,
             "karyawan_all_id" => $karyawan_id,
-            "stat" => 2,
+            "stat" => $stat,
             "keterangan" => $keterangan
         ]);
     }
