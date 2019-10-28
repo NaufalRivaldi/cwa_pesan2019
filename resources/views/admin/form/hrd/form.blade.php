@@ -18,8 +18,11 @@
                             <label class="col-sm-2 col-form-label">Kategori <span class="text-danger">*</span></label>
                             <div class="col-sm-10">
                                 @foreach($kategori as $r)
-                                    <input type="checkbox" name="kategori[]" value="{{ $r->id }}"> {{ $r->nama_kategori }}<br>
+                                    <input type="checkbox" name="kategori[]" value="{{ $r->id }}" data-value="{{ $r->nama_kategori }}" class="kategori"> {{ $r->nama_kategori }}<br>
                                 @endforeach
+                                
+                                <div class="show-lembur"></div>
+
                                 <!-- error -->
                                 @if($errors->has('kategori'))
                                     <div class="text-danger">

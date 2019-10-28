@@ -31,7 +31,7 @@ class FormHRDController extends Controller
 
         if(auth()->user()->level > 2 && auth()->user()->level != 7){
             $karyawan = KaryawanAll::where('dep', auth()->user()->dep)->where('stat', auth()->user()->level)->get();
-        }else if(auth()->user()->level < 2 || auth()->user()->level == 7){
+        }else if(auth()->user()->level <= 2 || auth()->user()->level == 7){
             $karyawan = KaryawanAll::where('dep', auth()->user()->dep)->get();
         }
 
@@ -78,12 +78,36 @@ class FormHRDController extends Controller
     public function laporan(){
         $menu = 9;
         $no = 1;
-        $month = date('m');
+        $month = date('Y-m-01 H:i:s');
         $kategori = KategoriHRD::all();
         $cabang = Cabang::orderBy('inisial', 'asc')->get();
 
         if(empty($_GET)){
-           $form = FormHRD::join('karyawan_all', 'form_hrd.karyawan_all_id', '=', 'karyawan_all.id')->orderBy('form_hrd.created_at', 'asc')->orderBy('karyawan_all.dep', 'asc')->select('form_hrd.id', 'form_hrd.created_at', 'karyawan_all_id', 'form_hrd.stat')->where('form_hrd.stat', 3)->get();
+           $form = FormHRD::join('karyawan_all', 'form_hrd.karyawan_all_id', '=', 'karyawan_all.id')->orderBy('form_hrd.created_at', 'asc')->orderBy('karyawan_all.dep', 'asc')->select('form_hrd.id',  'form_hrd.tgl_a', 'form_hrd.tgl_b', 'karyawan_all_id', 'keterangan', 'lembur', 'form_hrd.stat')->where('form_hrd.stat', 3)->whereHas('KaryawanAll', function($query){
+            $query->whereIn('dep', helper::setOffice());
+            })->where('tgl_a', '>=', $month)->get();
+        }else{
+            $tgl_a = '';
+            $tgl_b = '';
+            $kategoriSet = [];
+            $dep = [];
+            $urls = explode('&', $_SERVER['QUERY_STRING']);
+            foreach($urls as $url){
+                $value = explode('=', $url);
+                if($value[0] == 'tgl_a')
+                    $tgl_a = $value[1];
+                
+                if($value[0] == 'tgl_b')
+                    $tgl_b = $value[1];
+
+                if($value[0] == 'kategori')
+                    $kategoriSet[] = $value[1];
+
+                if($value[0] == 'dep')
+                    $dep[] = $value[1];
+            }
+            
+            $form = FormHRD::join('karyawan_all', 'form_hrd.karyawan_all_id', '=', 'karyawan_all.id')->orderBy('form_hrd.created_at', 'asc')->orderBy('karyawan_all.dep', 'asc')->select('form_hrd.id', 'form_hrd.tgl_a', 'form_hrd.tgl_b', 'karyawan_all_id', 'keterangan', 'lembur', 'form_hrd.stat')->where('form_hrd.stat', 3)->whereBetween('tgl_a', [$tgl_a, $tgl_b])->get();
         }
 
         return view('admin.formhrd.laporan.index', compact('menu', 'no', 'divisi', 'form', 'kategori', 'cabang'));
@@ -91,11 +115,17 @@ class FormHRDController extends Controller
 
     public function store(Request $req){
         $this->val($req);
+        $lembur = 2;
+
+        if(!empty($req->lembur) && $req->lembur == 1){
+            $lembur = 1;
+        }
 
         FormHRD::create([
             'tgl_a' => $req->tgl_a.' '.$req->time_a,
             'tgl_b' => $req->tgl_b.' '.$req->time_b,
             'keterangan' => $req->keterangan,
+            'lembur' => $lembur,
             'stat' => '1',
             'user_id' => auth()->user()->id,
             'karyawan_all_id' => $req->karyawanall_id

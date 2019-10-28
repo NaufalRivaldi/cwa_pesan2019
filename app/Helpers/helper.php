@@ -306,5 +306,36 @@ class helper{
             return "Office";
         }
     }
+
+    public static function setOffice(){
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office');
+
+        return $office;
+    }
+
+    public static function setDiff($tgl_a, $tgl_b, $lembur){
+        $waktu = '-';
+        $diff = date_diff(date_create($tgl_a), date_create($tgl_b));
+        if($lembur == 1){
+            $waktu = $diff->h;
+        }
+
+        return $waktu;
+    }
+
+    public static function setUpahLembur($tgl_a, $tgl_b, $lembur){
+        $upah = '-';
+        $diff = date_diff(date_create($tgl_a), date_create($tgl_b));
+        if($lembur == 1){
+            $jam = $diff->h;
+            if($jam < 5){
+                $upah = $jam * 10000;
+            }else if($jam > 4){
+                $upah = (4 * 10000) + ($jam - 4) * 15000;
+            }
+        }
+
+        return $upah;
+    }
 }
 

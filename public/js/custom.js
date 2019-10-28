@@ -6,7 +6,7 @@ $(document).ready(function () {
     });
 
     // data table
-    $('#myTable').DataTable();
+    $('#myTable').DataTable({});
 
     // file Upload
     $('input[name="file[]"]').fileuploader({
@@ -169,6 +169,20 @@ $(document).ready(function () {
         var date = $(this).val();
         $('.tgl_b').val(date);
     });
+
+    // tampil select lembur
+    $('.kategori').click(function () {
+        if ($(this).is(':checked') && $(this).data('value') == 'Lembur') {
+            $('.show-lembur').append('<select name="lembur" class="form-control"><option value="1">Berbayar</option><option value="2">Tidak Berbayar</option></select>');
+        } else {
+            $('.show-lembur').empty();
+        }
+    });
+
+    // set dep
+    var nilai = $('.dep-select option:selected').val();
+    $('.dep').empty();
+    $('.dep').append(nilai);
 });
 
 // tinymce

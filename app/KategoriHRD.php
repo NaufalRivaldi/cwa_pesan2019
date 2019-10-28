@@ -17,4 +17,8 @@ class KategoriHRD extends Model
     public function sethrdKategori(){
         return $this->hasMany('App\SetKategoriHRD');
     }
+
+    public function formHrd(){
+        return $this->hasMany('App\FormHRD');
+    }
 }

@@ -65,7 +65,7 @@
                                             </td>
                                         </tr>
                                         @endif
-                                    @elseif(auth()->user()->level < 2 || auth()->user()->level == 7)
+                                    @elseif(auth()->user()->level <= 2 || auth()->user()->level == 7)
                                     <?php
                                         $url = 'admin/formhrd/detail/'.$row->id;
                                     ?>
