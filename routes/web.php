@@ -111,6 +111,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/verivikasi', 'FormHRDController@verivikasi');
         Route::get('/verivikasi/detail/{id}', 'FormHRDController@detailVer');
         Route::get('/laporan', 'FormHRDController@laporan');
+        Route::post('/laporan/view/', 'FormHRDController@view')->name('laporan.view');
+        Route::get('/laporan/export/', 'FormHRDController@export');
     });
 });
 

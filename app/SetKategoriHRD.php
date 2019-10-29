@@ -15,7 +15,7 @@ class SetKategoriHRD extends Model
 
     // fk
     public function formHRD(){
-        return $this->belongsTo('App\FormHRD');
+        return $this->belongsTo('App\FormHRD', 'form_hrd');
     }
 
     public function kategoriFhrd(){

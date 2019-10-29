@@ -13,6 +13,8 @@ use App\KaryawanAll;
 use App\ValidasiFhrd;
 use App\Cabang;
 
+use App\Exports\LaporanHRDExport;
+
 class FormHRDController extends Controller
 {
     public function index(){
@@ -83,8 +85,8 @@ class FormHRDController extends Controller
         $cabang = Cabang::orderBy('inisial', 'asc')->get();
 
         if(empty($_GET)){
-           $form = FormHRD::join('karyawan_all', 'form_hrd.karyawan_all_id', '=', 'karyawan_all.id')->orderBy('form_hrd.created_at', 'asc')->orderBy('karyawan_all.dep', 'asc')->select('form_hrd.id',  'form_hrd.tgl_a', 'form_hrd.tgl_b', 'karyawan_all_id', 'keterangan', 'lembur', 'form_hrd.stat')->where('form_hrd.stat', 3)->whereHas('KaryawanAll', function($query){
-            $query->whereIn('dep', helper::setOffice());
+           $form = FormHRD::join('karyawan_all', 'form_hrd.karyawan_all_id', '=', 'karyawan_all.id')->orderBy('form_hrd.created_at', 'asc')->select('form_hrd.id',  'form_hrd.tgl_a', 'form_hrd.tgl_b', 'karyawan_all_id', 'keterangan', 'lembur', 'form_hrd.stat')->where('form_hrd.stat', 3)->whereHas('KaryawanAll', function($query){
+            $query->whereIn('dep', helper::AllDep());
             })->where('tgl_a', '>=', $month)->get();
         }else{
             $tgl_a = '';
@@ -96,21 +98,105 @@ class FormHRDController extends Controller
                 $value = explode('=', $url);
                 if($value[0] == 'tgl_a')
                     $tgl_a = $value[1];
-                
-                if($value[0] == 'tgl_b')
+                    
+                    if($value[0] == 'tgl_b')
                     $tgl_b = $value[1];
-
-                if($value[0] == 'kategori')
+                    
+                    if($value[0] == 'kategori')
                     $kategoriSet[] = $value[1];
-
-                if($value[0] == 'dep')
+                    
+                    if($value[0] == 'dep')
                     $dep[] = $value[1];
+                }
             }
             
-            $form = FormHRD::join('karyawan_all', 'form_hrd.karyawan_all_id', '=', 'karyawan_all.id')->orderBy('form_hrd.created_at', 'asc')->orderBy('karyawan_all.dep', 'asc')->select('form_hrd.id', 'form_hrd.tgl_a', 'form_hrd.tgl_b', 'karyawan_all_id', 'keterangan', 'lembur', 'form_hrd.stat')->where('form_hrd.stat', 3)->whereBetween('tgl_a', [$tgl_a, $tgl_b])->get();
-        }
+            if(empty($_GET['kategori'])){
+                $form = FormHRD::join('karyawan_all', 'form_hrd.karyawan_all_id', '=', 'karyawan_all.id')->orderBy('form_hrd.created_at', 'asc')->orderBy('karyawan_all.dep', 'asc')->select('form_hrd.id', 'form_hrd.tgl_a', 'form_hrd.tgl_b', 'karyawan_all_id', 'keterangan', 'lembur', 'form_hrd.stat')->where('form_hrd.stat', 3)->whereHas('KaryawanAll', function($query){
+                    $urls = explode('&', $_SERVER['QUERY_STRING']);
+                    $dep = [];
+                    foreach($urls as $url){
+                        $value = explode('=', $url);
+                        if($value[0] == 'dep')
+                            if($value[1] == 'All'){
+                                $dep = helper::allDep();
+                            }else if($value[1] == 'Office'){
+                                    $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office');
+                            }else{
+                                $dep[] = $value[1];
+                            }
+                    }
+                    $query->whereIn('dep', $dep);
+                })->whereBetween('tgl_a', [$tgl_a, $tgl_b])->get();
+            }else{
+                $form = FormHRD::join('karyawan_all', 'form_hrd.karyawan_all_id', '=', 'karyawan_all.id')->orderBy('form_hrd.created_at', 'asc')->orderBy('karyawan_all.dep', 'asc')->select('form_hrd.id', 'form_hrd.tgl_a', 'form_hrd.tgl_b', 'karyawan_all_id', 'keterangan', 'lembur', 'form_hrd.stat')->where('form_hrd.stat', 3)->whereHas('KaryawanAll', function($query){
+                    $urls = explode('&', $_SERVER['QUERY_STRING']);
+                    $dep = [];
+                    foreach($urls as $url){
+                        $value = explode('=', $url);
+                        if($value[0] == 'dep')
+                            if($value[1] == 'All'){
+                                $dep = helper::allDep();
+                            }else if($value[1] == 'Office'){
+                                    $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office');
+                            }else{
+                                $dep[] = $value[1];
+                            }
+                    }
+                    $query->whereIn('dep', $dep);
+                })->whereHas('SetKategoriHRD', function($query){
+                    $urls = explode('&', $_SERVER['QUERY_STRING']);
+                    $kategori = [];
+                    foreach($urls as $url){
+                        $value = explode('=', $url);
+                        if($value[0] == 'kategori')
+                            $kategori[] = $value[1];
+                    }
+                    $query->whereIn('kategori_fhrd_id', $kategori);
+                })->whereBetween('tgl_a', [$tgl_a, $tgl_b])->get();
+            }
+        return view('admin.formhrd.laporan.index', compact('menu', 'no', 'divisi', 'form', 'kategori', 'cabang', 'month'));
+    }
 
-        return view('admin.formhrd.laporan.index', compact('menu', 'no', 'divisi', 'form', 'kategori', 'cabang'));
+    public function view(Request $req){
+        $id = $req->form_id;
+        $data = FormHRD::find($id);
+        echo "
+        <b>Tanggal Pembuatan</b><br>
+        ".date('d F Y, H:i', strtotime($data->created_at))."
+        <hr>
+        <b>Kategori</b><br>
+        ".helper::setKategoriView($data->id)."
+        <hr>
+        <b>Bagian / Jabatan</b><br>
+        ".$data->karyawanAll->dep." / ".helper::statusKaryawan($data->karyawanAll->stat)."
+        <hr>
+        <b>NIK</b><br>
+        ".$data->karyawanAll->nik."
+        <hr>
+        <b>Tanggal dan Waktu</b><br>
+        ".date('d F Y, H:i', strtotime($data->tgl_a))." s/d ".date('d F Y, H:i', strtotime($data->tgl_b))."
+        <hr>
+        <b>Keterangan</b><br>
+        ".$data->keterangan."
+        <hr>
+        ";
+
+        if($data->lembur == 1){
+            echo "
+            <b>Lembur</b><br>
+            Berbayar
+            <hr>
+            ";
+        }
+    }
+
+    public function export(){
+        $date = date('d-m-Y');
+        $dep = 'All';
+        if($_GET){
+            $dep = $_GET['dep'];
+        }
+        return (new LaporanHRDExport)->download('laporanHRD-'.$date.$dep.'.xlsx');
     }
 
     public function store(Request $req){

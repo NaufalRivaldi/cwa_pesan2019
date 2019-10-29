@@ -213,6 +213,17 @@ class helper{
         return $setKategori;
     }
 
+    public static function setKategoriView($form_id){
+        $setKategori = '';
+        $kategori = SetKategoriHRD::where('form_hrd_id', $form_id)->get();
+
+        foreach($kategori as $row){
+            $setKategori = $setKategori.'<span class="badge badge-info">'.$row->kategoriFhrd->nama_kategori.'</span>';
+        }
+
+        return $setKategori;
+    }
+
     // set jabatan
     public static function setJabatan($val){
         switch ($val) {
@@ -313,6 +324,10 @@ class helper{
         return $office;
     }
 
+    public static function changeArray($data){
+        return $data;
+    }
+
     public static function setDiff($tgl_a, $tgl_b, $lembur){
         $waktu = '-';
         $diff = date_diff(date_create($tgl_a), date_create($tgl_b));
@@ -336,6 +351,12 @@ class helper{
         }
 
         return $upah;
+    }
+
+    public static function allDep(){
+        $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office', 'MT', 'CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9','CW1','CW2','CA5','CL1','CS1');
+
+        return $dep;
     }
 }
 
