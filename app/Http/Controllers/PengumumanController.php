@@ -56,7 +56,7 @@ class PengumumanController extends Controller
         // Upload File
         $this->upload($id, $req);
 
-        return redirect('/admin/pengumuman')->with('status', 'simpan-success');
+        return redirect('/admin/pengumuman')->with('success', 'Pengumuman berhasil di post.');
     }
 
     public function update(Request $req){

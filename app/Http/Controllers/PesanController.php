@@ -48,7 +48,7 @@ class PesanController extends Controller
         // set penerima
         $this->penerima($id->id, $req);
         
-        return redirect('/admin/pesan/inbox')->with('status', 'success-pesan');
+        return redirect('/admin/pesan/outbox')->with('success', 'Pesan berhasil dikirimkan.');
     }
 
     public function storeFwd(Request $req){

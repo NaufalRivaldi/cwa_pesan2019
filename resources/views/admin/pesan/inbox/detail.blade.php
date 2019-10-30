@@ -1,12 +1,12 @@
 @extends('admin.master')
 
-@section('title', '- Detail Pesan')
+@section('title', '- Detail Inbox')
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="container">
-                <a href="{{ url()->previous() }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                <a href="{{ url('admin/pesan/inbox') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                 <hr>
                 <div class="card">
                     <div class="card-header">

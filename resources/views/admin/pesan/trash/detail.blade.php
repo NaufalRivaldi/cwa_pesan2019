@@ -1,12 +1,12 @@
 @extends('admin.master')
 
-@section('title', '- Buat Pesan')
+@section('title', '- Detail Pesan Trash')
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="container">
-                <a href="{{ url('admin/pesan/outbox') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                <a href="{{ url('admin/pesan/trash') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                 <hr>
                 <div class="card">
                     <div class="card-header">
@@ -18,13 +18,9 @@
                                 <td><b>{{ $pesan->user->nama }} < {{ $pesan->user->email }} ></b></td>
                             </tr>
                             <tr>
-                                <td>Kepada</td>
+                                <td>Kepada Saya</td>
                                 <td>:</td>
-                                <td>
-                                    @foreach($pesan->penerima as $row)
-                                        {{ $row->user->email.", " }}
-                                    @endforeach
-                                </td>
+                                <td>{{ auth()->user()->email }}</td>
                             </tr>
                             <tr>
                                 <td>Diterima</td>
@@ -58,11 +54,6 @@
                                             </div>
                                         </a> 
                                     @endforeach
-                                </div>
-                            </div>
-                            <div class="row" style="margin-top:2%">
-                                <div class="col-md-12">
-                                    <a href="{{ url('admin/pesan/forward/'.$pesan->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-share"></i> Forward</a>
                                 </div>
                             </div>
                         </div>

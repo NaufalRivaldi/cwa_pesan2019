@@ -27,10 +27,10 @@ class LaporanHRDExport implements FromView
              foreach($urls as $url){
                  $value = explode('=', $url);
                  if($value[0] == 'tgl_a')
-                     $tgl_a = $value[1];
+                     $tgl_a = helper::minDay($value[1]);
                  
                  if($value[0] == 'tgl_b')
-                     $tgl_b = $value[1];
+                     $tgl_b = helper::plusDay($value[1]);
  
                  if($value[0] == 'kategori')
                      $kategoriSet[] = $value[1];

@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function index(){
         $date_now = date('Y-m-d H:i:s');
         $now = date('m-d');
-        $pengumuman = Pengumuman::orderBy('tgl', 'desc')->paginate(10);
+        $pengumuman = Pengumuman::orderBy('tgl', 'desc')->where('stat', '1')->paginate(10);
         $ultah = Ultah::where('tgl', 'like', '%'.$now.'%')->get();
         return view('frontend.index', compact('pengumuman', 'date_now', 'ultah'));
     }

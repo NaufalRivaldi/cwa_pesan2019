@@ -35,7 +35,6 @@
                                 $url = $_SERVER['QUERY_STRING'];
                         ?>
                         <a href="{{ url('admin/formhrd/laporan/export?'.$url) }}" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Export Excel</a>
-                        <a href="#" class="btn btn-success btn-sm"><i class="fas fa-print"></i> Print</a>
                         <div class="collapse mt-2" id="collapseExample">
                             <div class="card card-body">
                                 <form action="" method="GET">

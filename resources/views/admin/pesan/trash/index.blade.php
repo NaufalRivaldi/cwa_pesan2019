@@ -30,7 +30,7 @@
                                 <!-- pesan inbox -->
                                 @foreach($inbox as $data)
                                 <?php
-                                    $url = 'admin/pesan/inbox/detail/'.$data->id;
+                                    $url = 'admin/pesan/trash/detail/'.$data->id;
                                 ?>
                                 <tr class="active-{{$idx}} tr-checked">
                                     <td>

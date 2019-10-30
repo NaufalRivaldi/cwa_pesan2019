@@ -47,6 +47,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
 
         // Tempat sampah
         Route::get('/trash', 'TrashController@index');
+        Route::get('/trash/detail/{pesan_id}', 'TrashController@detail');
         Route::get('/trash/hapusout/{pesan_id}', 'TrashController@hapusout');
         Route::get('/trash/hapusin/{pesan_id}', 'TrashController@hapusin');
         Route::get('/trash/buInbox/{pesan_id}', 'TrashController@buInbox');
@@ -54,7 +55,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
     });
 
     // pengumuman
-    Route::group(['prefix' => '/pengumuman'], function(){
+    Route::group(['prefix' => '/pengumuman', 'middleware' => ['checkDep:IT,SCM,HRD,Pajak,QA,GA,MT,Accounting,Finance,Office,Gudang']], function(){
         Route::get('/', 'PengumumanController@index');
         Route::get('/form', 'PengumumanController@form');
         Route::get('/detail/{id}', 'PengumumanController@detail');
@@ -105,14 +106,26 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/detail/{id}', 'FormHRDController@detail');
         Route::post('/acc/{id}', 'FormHRDController@acc');
         Route::post('/tolak/{id}', 'FormHRDController@tolak');
-        Route::post('/accHRD/{id}', 'FormHRDController@accHRD');
-        Route::post('/tolakHRD/{id}', 'FormHRDController@tolakHRD');
+        Route::get('/delete/{id}', 'FormHRDController@delete');
+        
+        Route::group(['middleware' => ['checkDep:HRD,IT']], function(){
+            Route::post('/accHRD/{id}', 'FormHRDController@accHRD');
+            Route::post('/tolakHRD/{id}', 'FormHRDController@tolakHRD');
+            Route::get('/laporan', 'FormHRDController@laporan');
+            Route::post('/laporan/view/', 'FormHRDController@view')->name('laporan.view');
+            Route::get('/laporan/export/', 'FormHRDController@export');
+        });
 
-        Route::get('/verivikasi', 'FormHRDController@verivikasi');
-        Route::get('/verivikasi/detail/{id}', 'FormHRDController@detailVer');
-        Route::get('/laporan', 'FormHRDController@laporan');
-        Route::post('/laporan/view/', 'FormHRDController@view')->name('laporan.view');
-        Route::get('/laporan/export/', 'FormHRDController@export');
+        Route::group(['middleware' => ['checkDep:Office,HRD']], function(){
+            Route::get('/verifikasi', 'FormHRDController@verivikasi');
+            Route::get('/verifikasi/detail/{id}', 'FormHRDController@detailVer');
+        });
+    });
+
+    // change kdoe verivikasi
+    Route::group(['prefix' => '/kodeverifikasi'], function(){
+        Route::get('/', 'KodeVerivikasiController@index')->name('kode.verifikasi');
+        Route::post('/change', 'KodeVerivikasiController@change')->name('kode.verifikasi.change');
     });
 });
 

@@ -97,17 +97,16 @@ class FormHRDController extends Controller
             foreach($urls as $url){
                 $value = explode('=', $url);
                 if($value[0] == 'tgl_a')
-                    $tgl_a = $value[1];
+                    $tgl_a = helper::minDay($value[1]);
                     
-                    if($value[0] == 'tgl_b')
-                    $tgl_b = $value[1];
-                    
-                    if($value[0] == 'kategori')
+                if($value[0] == 'tgl_b')
+                    $tgl_b = helper::plusDay($value[1]);
+                
+                if($value[0] == 'kategori')
                     $kategoriSet[] = $value[1];
-                    
-                    if($value[0] == 'dep')
+                
+                if($value[0] == 'dep')
                     $dep[] = $value[1];
-                }
             }
             
             if(empty($_GET['kategori'])){
@@ -154,6 +153,7 @@ class FormHRDController extends Controller
                     $query->whereIn('kategori_fhrd_id', $kategori);
                 })->whereBetween('tgl_a', [$tgl_a, $tgl_b])->get();
             }
+        }
         return view('admin.formhrd.laporan.index', compact('menu', 'no', 'divisi', 'form', 'kategori', 'cabang', 'month'));
     }
 
@@ -221,7 +221,15 @@ class FormHRDController extends Controller
         $form = FormHRD::orderBy('id', 'desc')->first();
         $this->setKategori($req->kategori, $form->id);
 
-        return redirect('/admin/formhrd')->with('status', 'formhrd-success');
+        return redirect('/admin/formhrd')->with('success', 'Form berhasil diajukan.');
+    }
+
+    public function delete($id){
+        $form = FormHRD::find($id);
+        $form->setKategoriHRD->detach($id);
+        $form->delete();
+
+        return redirect('/admin/formhrd')->with('success', 'Form berhasil dihapus.');
     }
 
     public function acc(Request $req, $form_id){
@@ -246,10 +254,10 @@ class FormHRDController extends Controller
             // save validasi hrd
             $this->validasiFormAcc($req, $form_id, $karyawan->id, $stat);
 
-            return redirect()->back()->with('status', 'form-success');
+            return redirect()->back()->with('success', 'Form sudah di acc.');
         }
 
-        return redirect()->back()->with('status', 'form-error');
+        return redirect()->back()->with('error', 'Gagal di ACC');
     }
 
     public function accHRD(Request $req, $form_id){
@@ -270,10 +278,10 @@ class FormHRDController extends Controller
             // save validasi hrd
             $this->validasiFormAcc($req, $form_id, $karyawan->id, $stat);
 
-            return redirect()->back()->with('status', 'form-success');
+            return redirect()->back()->with('success', 'Form sudah di acc.');
         }
 
-        return redirect()->back()->with('status', 'form-error');
+        return redirect()->back()->with('error', 'Gagal di ACC');
     }
 
     public function tolak(Request $req, $form_id){
@@ -301,7 +309,7 @@ class FormHRDController extends Controller
             return redirect()->back();
         }
 
-        return redirect()->back()->with('status', 'form-error');
+        return redirect()->back()->with('error', 'Gagal di Tolak');
     }
 
     public function tolakHRD(Request $req, $form_id){
@@ -325,7 +333,7 @@ class FormHRDController extends Controller
             return redirect()->back();
         }
 
-        return redirect()->back()->with('status', 'form-error');
+        return redirect()->back()->with('error', 'Gagal di Tolak');
     }
 
     // function tambahan

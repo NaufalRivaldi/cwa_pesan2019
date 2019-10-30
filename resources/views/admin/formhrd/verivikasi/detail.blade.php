@@ -32,7 +32,7 @@
                                         <tr>
                                             <td width="15%">Kategori</td>
                                             <td width="20px">:</td>
-                                            <td>{!! Helper::setKategori($form->id) !!}</td>
+                                            <td>{!! Helper::setKategori($form->id) !!} {{ ($form->lembur == 1) ? 'Berbayar' : '' }}</td>
                                         </tr>
                                         <tr>
                                             <td>Nama</td>
@@ -64,7 +64,7 @@
                                         </tr>
                                     </table>
                                     <hr>
-                                    @if(auth()->user()->level > $form->karyawanAll->stat)
+                                    @if(auth()->user()->level > $form->karyawanAll->stat && $form->stat < 3)
                                         <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accModal">Acc Form</a>
                                         <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakModal">Tolak</a>
                                     @endif

@@ -176,6 +176,23 @@ $(document).ready(function () {
             });
     });
 
+    // remove form-hrd
+    $('.delete_form_hrd').click(function () {
+        var postId = $(this).data('id');
+        swal({
+                title: "Hapus form?",
+                text: "Form akan terhapus permanen.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = "/admin/formhrd/delete/" + postId;
+                }
+            });
+    });
+
     // normal alert
     const flash = $('.flash').data('status');
 

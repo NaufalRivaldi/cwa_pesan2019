@@ -358,5 +358,17 @@ class helper{
 
         return $dep;
     }
+
+    public static function minDay($date){
+        $date = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($date)));
+
+        return $date;
+    }
+
+    public static function plusDay($date){
+        $date = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($date)));
+
+        return $date;
+    }
 }
 

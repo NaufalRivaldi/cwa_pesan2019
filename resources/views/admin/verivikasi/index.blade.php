@@ -1,17 +1,29 @@
 @extends('admin.master')
 
-@section('title', '- Ubah Password')
+@section('title', '- Ubah Password Verifikasi')
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>Ubah Password</h3>
+                    <h3>Ubah Password Verifikasi</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('/admin/repassword/save') }}" method="POST">
+                    <form action="{{ route('kode.verifikasi.change') }}" method="POST">
                     {{ csrf_field() }}
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">NIK</label>
+                            <div class="col-sm-10">
+                                <input type="name" name="nik" class="form-control col-7">
+                                <!-- error -->
+                                @if($errors->has('nik'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('nik') }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Password Lama</label>
                             <div class="col-sm-10">

@@ -28,6 +28,13 @@ class TrashController extends Controller
         return view('admin.pesan.trash.index', compact('menu', 'outbox', 'inbox', 'idx'));
     }
 
+    public function detail($pesan_id){
+        $menu = '1';
+        $pesan = Pesan::where('id', $pesan_id)->first();
+
+        return view('admin.pesan.trash.detail', compact('menu', 'pesan'));
+    }
+
     public function hapusout($pesan_id){
         $pesan_id = explode(',', $pesan_id);
         for($i = 0; $i < count($pesan_id); $i++){

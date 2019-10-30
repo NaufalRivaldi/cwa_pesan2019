@@ -76,7 +76,15 @@
                         <a href="{{ url('/admin/master') }}"><i class="fas fa-file-download"></i> Update Master</a>
                     </li>
                     <li <?= ($menu == '7') ? 'class="active"' : '' ?>>
-                        <a href="{{ url('admin/repassword') }}"><i class="fas fa-cog"></i> Ubah Password</a>
+                        <a href="#ubahPassword" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-cog"></i> Ubah Password</a>
+                        <ul class="collapse list-unstyled" id="ubahPassword">
+                            <li>
+                                <a href="{{ url('admin/repassword') }}">User Password</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('kode.verifikasi') }}">Kode Verifikasi Form</a>
+                            </li>
+                        </ul>
                     </li>
                     <li <?= ($menu == '8') ? 'class="active"' : '' ?>>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> E-Form</a>
@@ -93,7 +101,7 @@
                         <a href="#formHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> Form HRD</a>
                         <ul class="collapse list-unstyled" id="formHRD">
                             <li>
-                                <a href="{{ url('admin/formhrd/verivikasi') }}">Verivikasi</a>
+                                <a href="{{ url('admin/formhrd/verifikasi') }}">Verifikasi</a>
                             </li>
                             <li>
                                 <a href="{{ url('admin/formhrd/laporan') }}">Laporan</a>
@@ -132,7 +140,7 @@
                 </nav>
                 
                 <div class="container">
-                    
+                    @include('admin.alert')
                     @yield('content')
                 </div>
             </div>

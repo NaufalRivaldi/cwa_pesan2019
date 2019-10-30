@@ -44,7 +44,7 @@ class FinanceController extends Controller
             $file->move(public_path().'/file-finance/', $name);
         }
 
-        return redirect('/admin/finance')->with('status', 'simpan-success');
+        return redirect('/admin/finance')->with('success', 'Data berhasil di upload');
     }
 
     public function detail($nama){
