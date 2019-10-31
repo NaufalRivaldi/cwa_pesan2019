@@ -68,6 +68,24 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Level</label>
+                                        <div class="col-sm-10">
+                                            <select name="level" class="form-control">
+                                                <option value="2">User</option>
+                                                <option value="3">Area Manager</option>
+                                                <option value="4">General Manager</option>
+                                                <option value="5">Asst Direktur</option>
+                                                <option value="6">Direktur</option>
+                                            </select>
+                                            <!-- error -->
+                                            @if($errors->has('level'))
+                                                <div class="text-danger">
+                                                    {{ $errors->first('level') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">&nbsp;</label>
                                         <div class="col-sm-10">
                                             <input type="submit" name="btn" value="Simpan" class="btn btn-primary">

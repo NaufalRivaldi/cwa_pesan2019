@@ -27,7 +27,8 @@ class UserController extends Controller
             "email_verified_at" => date('Y-m-d H:i:s'),
             "password" => bcrypt('123456'),
             "dep" => $req->dep,
-            "stat" => 1
+            "stat" => 1,
+            "level" => $req->level
         ]);
 
         return redirect('/backend/user')->with('status', 'simpan-success');
@@ -66,7 +67,8 @@ class UserController extends Controller
         $this->validate($req, [
             "nama" => "required",
             "email" => "required|email",
-            "dep" => "required"
+            "dep" => "required",
+            "level" => "required"
         ], $message);
     }
 

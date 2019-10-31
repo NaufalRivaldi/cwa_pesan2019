@@ -14,11 +14,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        @if(count($ultah) > 0)
+                        @if(count(Helper::getUltah()) > 0)
                         <div class="alert alert-info" role="alert">
                             <span class="text-blink">
                                 Happy birthday to 
-                                @foreach($ultah as $data)
+                                @foreach(Helper::getUltah() as $data)
                                     {{ $data->nama.' ('.$data->divisi.'),' }}
                                 @endforeach
                                 Wish you all the best.

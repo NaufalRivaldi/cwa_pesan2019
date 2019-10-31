@@ -239,6 +239,17 @@ ul.CTAs a {
     font-size: 0.7em;
 }
 
+.text-blink {
+    animation: blinkText 2s infinite;
+    color: #000;
+}
+
+@keyframes blinkText {
+    50% {
+        opacity: 0;
+    }
+}
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */

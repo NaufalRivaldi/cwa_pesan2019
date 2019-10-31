@@ -86,13 +86,13 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
     });
 
     // Update Master
-    Route::group(['prefix' => '/master', 'middleware' => ['checkDep:IT,Gudang,Cabang']], function(){
+    Route::group(['prefix' => '/master'], function(){
         Route::get('/', 'UpdateMasterController@index');
         Route::post('/save', 'UpdateMastercontroller@save');
     });
 
     // Finance
-    Route::group(['prefix' => '/finance', 'middleware' => ['checkDep:IT,Finance,Cabang']], function(){
+    Route::group(['prefix' => '/finance'], function(){
         Route::get('/', 'FinanceController@index');
         Route::post('/save', 'FinanceController@save');
         Route::get('/detail/{nama}', 'FinanceController@detail');

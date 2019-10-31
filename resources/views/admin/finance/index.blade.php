@@ -10,7 +10,7 @@
                     <h3>Finance</h3>
                 </div>
                 <div class="card-body">
-                    @if($dep == 'IT' || $dep == 'Cabang')
+                    @if(Helper::isInsertFinance())
                         <form action="{{ url('/admin/finance/save') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                             <div class="form-group row">

@@ -77,8 +77,11 @@
                                 <div class="col-sm-10">
                                     <select name="stat" class="form-control">
                                         <option value="1" {{ ($karyawan->stat == 1) ? 'selected' : '' }}>Staff</option>
-                                        <option value="2" {{ ($karyawan->stat == 2) ? 'selected' : '' }}>Supervisor</option>
-                                        <option value="3" {{ ($karyawan->stat == 3) ? 'selected' : '' }}>Manager</option>
+                                        <option value="2" {{ ($karyawan->stat == 2) ? 'selected' : '' }}>Kepala Bagian</option>
+                                        <option value="3" {{ ($karyawan->stat == 3) ? 'selected' : '' }}>Area Manager</option>
+                                        <option value="4" {{ ($karyawan->stat == 4) ? 'selected' : '' }}>General Manager</option>
+                                        <option value="5" {{ ($karyawan->stat == 5) ? 'selected' : '' }}>Asst Direktur</option>
+                                        <option value="6" {{ ($karyawan->stat == 6) ? 'selected' : '' }}>Direktur</option>
                                     </select>
                                     <!-- error -->
                                     @if($errors->has('dep'))

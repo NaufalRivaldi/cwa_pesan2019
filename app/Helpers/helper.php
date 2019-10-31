@@ -11,8 +11,80 @@ use App\Kriteria;
 use App\Penerima;
 use App\SetKategoriHRD;
 use App\ValidasiFhrd;
+use App\Ultah;
 
 class helper{
+    // set show menu
+    public static function isPengumuman(){
+        $dep = auth()->user()->dep;
+        $data = array('Office', 'HRD', 'Accounting', 'QA', 'GA', 'IT', 'Finance', 'Pajak', 'SCM', 'Gudang');
+        if(in_array($dep, $data)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static function isPenjualanPU(){
+        $dep = auth()->user()->dep;
+        $data = array('IT', 'SCM');
+        if(in_array($dep, $data)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static function isFinance(){
+        $dep = auth()->user()->dep;
+        $data = array('Accounting', 'QA', 'GA', 'Pajak', 'Office', 'SCM');
+        if(!in_array($dep, $data)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static function isInsertFinance(){
+        $dep = auth()->user()->dep;
+        $data = array('Accounting', 'QA', 'GA', 'Pajak', 'Office', 'SCM', 'Gudang');
+        if(!in_array($dep, $data)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static function isMaster(){
+        $dep = auth()->user()->dep;
+        $data = array('Accounting', 'QA', 'GA', 'Finance', 'Pajak', 'Office');
+        if(!in_array($dep, $data)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static function isFormHRD(){
+        $dep = auth()->user()->dep;
+        $data = array('IT', 'Office', 'HRD');
+        if(in_array($dep, $data)){
+            return true;                                                    
+        }else{
+            return false;
+        }
+    }
+
+    // set show menu
+
+    // ultah
+    public static function getUltah(){
+        $now = date('m-d');
+        $ultah = Ultah::where('tgl', 'like', '%'.$now.'%')->get();
+
+        return $ultah;
+    }
+    
     // get divisi name
     public static function get_divisi($inisial){
         $cab = DB::table('cabang')->where('inisial', $inisial)->first();
@@ -141,27 +213,27 @@ class helper{
     // set status karyawan
     public static function statusKaryawan($val){
         if($val == 1){
-            $val = '<span class="badge badge-info">Staff</span>';
+            $val = '<span class="badge badge-warning">Staff</span>';
         }
         
         if($val == 2){
-            $val = '<span class="badge badge-info">Kepala Bagian</span>';
+            $val = '<span class="badge badge-dark">Kepala Bagian</span>';
         }
         
         if($val == 3){
-            $val = '<span class="badge badge-info">Area Manager</span>';
+            $val = '<span class="badge badge-success">Area Manager</span>';
         }
 
         if($val == 4){
-            $val = '<span class="badge badge-info">General Manager</span>';
+            $val = '<span class="badge badge-success">General Manager</span>';
         }
 
         if($val == 5){
-            $val = '<span class="badge badge-info">Asst Direktur</span>';
+            $val = '<span class="badge badge-success">Asst Direktur</span>';
         }
 
         if($val == 6){
-            $val = '<span class="badge badge-info">Direktur</span>';
+            $val = '<span class="badge badge-success">Direktur</span>';
         }
 
         return $val;
@@ -207,7 +279,7 @@ class helper{
         $kategori = SetKategoriHRD::where('form_hrd_id', $form_id)->get();
 
         foreach($kategori as $row){
-            $setKategori = $setKategori.'<span class="badge badge-info">'.$row->kategoriFhrd->nama_kategori.'</span><br>';
+            $setKategori = $setKategori.'<span class="badge badge-primary">'.$row->kategoriFhrd->nama_kategori.'</span><br>';
         }
 
         return $setKategori;
@@ -218,7 +290,7 @@ class helper{
         $kategori = SetKategoriHRD::where('form_hrd_id', $form_id)->get();
 
         foreach($kategori as $row){
-            $setKategori = $setKategori.'<span class="badge badge-info">'.$row->kategoriFhrd->nama_kategori.'</span>';
+            $setKategori = $setKategori.'<span class="badge badge-primary">'.$row->kategoriFhrd->nama_kategori.'</span>';
         }
 
         return $setKategori;
