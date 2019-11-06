@@ -44,6 +44,25 @@ a:focus {
     border-radius: 50%;
 }
 
+#navbarDropdown {
+    background: 0%;
+}
+
+.dropdown-menu {
+    width: 400px;
+    margin-left: -200px;
+}
+
+.dropdown-menu a p {
+    word-wrap: break-word;
+    margin: 3%;
+    color: #000;
+    font-size: .8em;
+    background: lightblue;
+    padding: 2%;
+    border-radius: 5px;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

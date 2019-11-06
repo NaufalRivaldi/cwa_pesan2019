@@ -75,6 +75,38 @@ class helper{
         }
     }
 
+    public static function isVerifikasi(){
+        $dep = auth()->user()->dep;
+        $data = array('Office', 'HRD');
+        if(in_array($dep, $data)){
+            return true;                                                    
+        }else{
+            return false;
+        }
+    }
+
+    public static function isHRD(){
+        $dep = auth()->user()->dep;
+        $data = array('IT', 'HRD');
+        if(in_array($dep, $data)){
+            return true;                                                    
+        }else{
+            return false;
+        }
+    }
+
+    public static function isAM(){
+        $dep = auth()->user()->dep;
+        $level = auth()->user()->level;
+        $data = array('IT', 'Office');
+        $stat = array('2', '3');
+        if(in_array($dep, $data) && in_array($level, $stat)){
+            return true;                                                    
+        }else{
+            return false;
+        }
+    }
+
     // set show menu
 
     // ultah
@@ -92,8 +124,8 @@ class helper{
     }
 
     // get value of loadingbar
-    public static function get_val($score){
-        $score = $score / 800;
+    public static function get_val($score, $first){
+        $score = ($score / $first) * 100;
         return (int)$score;
     }
 
@@ -102,18 +134,13 @@ class helper{
         return (int)$score;
     }
 
-    public static function get_val2($score){
-        $score = $score / 250;
-        return (int)$score;
-    }
-
     // get color of loadingbar
     public static function get_color($val){
-        if($val > 50){
+        if($val > 70){
             return "bg-primary";
-        }else if($val > 35){
+        }else if($val > 50){
             return "bg-success";
-        }else if($val > 25){
+        }else if($val > 30){
             return "bg-warning";
         }else{
             return "bg-danger";

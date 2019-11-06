@@ -60,7 +60,21 @@
                                 @endif
                             </div>
                             <div class="navbar-nav ml-auto">
-                            <img src="{{ asset('img/user.png') }}" alt="logo-cwa" width="40">
+                                <!-- dropdown -->
+                                <div class="dropdown">
+                                    <a class="nav-link mr-3" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="far fa-bell text-primary"></i>
+                                        <span class="badge badge-danger">1</span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="custom-item-dropdown" href="#">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus vitae quisquam molestias, accusantium accusamus corporis sunt quod dolore adipisci distinctio a? Quam tempora possimus eligendi iusto commodi, maxime blanditiis iste.</p>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- dropdown -->
+
+                                <img src="{{ asset('img/user.png') }}" alt="logo-cwa" width="40">
                                 <span class="navbar-text">
                                     Halo, {{ auth()->user()->nama }} &nbsp;
                                 </span>

@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-12">
             <div class="container">
-                <a href="{{ url('admin/formhrd/verivikasi/') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                <a href="{{ route('verifikasi') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                 <hr>
                 <div class="card">
                     <div class="card-header">

@@ -130,7 +130,12 @@ class ScoreboardController extends Controller
             ];
         }
 
-        HistoryJual::insert($data);
+        $data = collect($data);
+        $chungks = $data->chunk(500);
+
+        foreach($chungks as $chungks){
+            HistoryJual::insert($chungks->toArray());
+        }
 
         return true;
     }

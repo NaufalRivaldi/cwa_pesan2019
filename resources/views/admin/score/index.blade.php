@@ -77,12 +77,18 @@
                         @if(isset($_GET['group']))
                             <?php
                                 $total = 0;
+                                $first_skor = 0;
                             ?>
                             <tbody class="link-table">
                                 @foreach($score_jual as $row)
                                 <?php
                                     $total += $row->total_skor;
                                     $url = 'admin/scoreboard?dari_tgl='.$_GET['dari_tgl'].'&sampai_tgl='.$_GET['sampai_tgl'].'&divisi='.$row->divisi;
+                                    
+                                    // first score
+                                    if($first_skor == 0){
+                                        $first_skor = $row->total_skor;
+                                    }
                                 ?>
                                 <tr>
                                     <td>{{ $no++ }}</td>
@@ -93,7 +99,7 @@
                                         <a href="{{ url($url) }}">
                                             {{ number_format($row->total_skor) }}<br>
                                             <div class="progress">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ helper::get_color(Helper::get_val($row->total_skor)) }}" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{ Helper::get_val($row->total_skor) }}%"></div>
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ helper::get_color(Helper::get_val($row->total_skor,$first_skor)) }}" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{ Helper::get_val($row->total_skor,$first_skor) }}%"></div>
                                             </div>
                                         </a>
                                     </td>
@@ -112,11 +118,17 @@
                             <tbody class="link-table">
                                 <?php
                                     $total = 0;
+                                    $first_skor = 0;
                                 ?>
                                 @foreach($score_jual as $row)
                                 <?php
                                     $total += $row->total_skor;
                                     $url = 'admin/scoreboarddetail?dari_tgl='.$_GET['dari_tgl'].'&sampai_tgl='.$_GET['sampai_tgl'].'&divisi='.$row->divisi.'&kd_sales='.$row->kd_sales;
+                                    
+                                    // set first score
+                                    if($first_skor == 0){
+                                        $first_skor = $row->total_skor;
+                                    }
                                 ?>
                                 <tr>
                                     <td>{{ $no++ }}</td>
@@ -135,7 +147,7 @@
                                         <a href="{{ url($url) }}">
                                             {{ number_format($row->total_skor) }}<br>
                                             <div class="progress">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ helper::get_color(Helper::get_val2($row->total_skor)) }}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{ Helper::get_val2($row->total_skor) }}%"></div>
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ helper::get_color(Helper::get_val($row->total_skor, $first_skor)) }}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{ Helper::get_val($row->total_skor, $first_skor) }}%"></div>
                                             </div>
                                         </a>
                                     </td>

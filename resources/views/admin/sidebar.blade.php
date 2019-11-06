@@ -46,6 +46,12 @@
             </li>
         @endif
 
+        @if(Helper::isAM())
+        <li <?= ($menu == '10') ? 'class="active"' : '' ?>>
+            <a href="{{ route('score.produk') }}"><i class="fas fa-star"></i> Score Produk</a>
+        </li>
+        @endif
+
         @if(Helper::isFinance())
             <li <?= ($menu == '5') ? 'class="active"' : '' ?>>
                 <a href="{{ url('/admin/finance') }}"><i class="fas fa-file"></i> Finance</a>
@@ -86,12 +92,16 @@
         <li <?= ($menu == '9') ? 'class="active"' : '' ?>>
             <a href="#formHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> Form HRD</a>
             <ul class="collapse list-unstyled" id="formHRD">
+                @if(Helper::isVerifikasi())
                 <li>
                     <a href="{{ url('admin/formhrd/verifikasi') }}">Verifikasi</a>
                 </li>
+                @endif
+                @if(Helper::isHRD())
                 <li>
                     <a href="{{ url('admin/formhrd/laporan') }}">Laporan</a>
                 </li>
+                @endif
             </ul>
         </li>
         @endif

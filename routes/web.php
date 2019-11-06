@@ -79,6 +79,12 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/expall', 'PenjualanPUController@expall');
     });
 
+    // Score Produk
+    Route::group(['prefix' => '/scoreproduk', 'middleware' => ['checkDep:IT,Office']], function(){
+        Route::get('/', 'ScoreProdukController@index')->name('score.produk');
+        Route::get('/detail', 'ScoreProdukController@detail');
+    });
+
     // ubah password
     Route::group(['prefix' => '/repassword'], function(){
         Route::get('/', 'RepasswordController@index');
@@ -117,8 +123,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         });
 
         Route::group(['middleware' => ['checkDep:Office,HRD']], function(){
-            Route::get('/verifikasi', 'FormHRDController@verivikasi');
-            Route::get('/verifikasi/detail/{id}', 'FormHRDController@detailVer');
+            Route::get('/verifikasi', 'FormHRDController@verivikasi')->name('verifikasi');
+            Route::get('/verifikasi/detail/{id}', 'FormHRDController@detailVer')->name('verifikasi.detail');
         });
     });
 
