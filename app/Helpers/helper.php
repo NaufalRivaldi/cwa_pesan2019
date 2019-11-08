@@ -12,6 +12,7 @@ use App\Penerima;
 use App\SetKategoriHRD;
 use App\ValidasiFhrd;
 use App\Ultah;
+use App\Notifikasi;
 
 class helper{
     // set show menu
@@ -468,6 +469,19 @@ class helper{
         $date = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($date)));
 
         return $date;
+    }
+
+    public static function notifikasiPesan($pesan_id, $penerima){
+        foreach($penerima as $row){
+            $data = [
+                "link" => $link,
+                "keterangan" => $ket,
+                "user_id" => $user_id,
+                "stat" => 1
+            ];
+    
+            Notifikasi::create($data);
+        }
     }
 }
 

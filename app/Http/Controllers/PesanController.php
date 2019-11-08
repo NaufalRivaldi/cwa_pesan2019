@@ -46,7 +46,10 @@ class PesanController extends Controller
         $this->upload($id->id, $req);
 
         // set penerima
-        $this->penerima($id->id, $req);
+        $penerima = $this->penerima($id->id, $req);
+
+        // set notif
+        helper::notifikasiPesan($id->id, $penerima);
         
         return redirect('/admin/pesan/outbox')->with('success', 'Pesan berhasil dikirimkan.');
     }
@@ -175,6 +178,8 @@ class PesanController extends Controller
     }
 
     public function penerima($id, $req){
+        $data = array();
+
         foreach($req->kepada as $r){
             Penerima::create([
                 'pesan_id' => $id,
@@ -182,6 +187,12 @@ class PesanController extends Controller
                 'stat' => 1,
                 'read_user' => 'n'
             ]);
+
+            $data[] = [
+                "user_id" => $r
+            ];
         }
+
+        return $data;
     }
 }
