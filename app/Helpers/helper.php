@@ -472,7 +472,7 @@ class helper{
     }
 
     public static function showNotifikasi(){
-        $notif = Notifikasi::where('user_id', auth()->user()->id)->get();
+        $notif = Notifikasi::where('user_id', auth()->user()->id)->where('stat', '1')->orderBy('created_at', 'desc')->get();
         return $notif;
     }
 

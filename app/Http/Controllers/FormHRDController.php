@@ -226,7 +226,8 @@ class FormHRDController extends Controller
 
     public function delete($id){
         $form = FormHRD::find($id);
-        $form->setKategoriHRD->detach($id);
+        SetKategoriHRD::where('form_hrd_id', $id)->delete();
+
         $form->delete();
 
         return redirect('/admin/formhrd')->with('success', 'Form berhasil dihapus.');

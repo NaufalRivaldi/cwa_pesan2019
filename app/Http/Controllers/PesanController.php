@@ -72,7 +72,10 @@ class PesanController extends Controller
         $this->upload($id->id, $req);
 
         // set penerima
-        $this->penerima($id->id, $req);
+        $penerima = $this->penerima($id->id, $req);
+
+        // set notif
+        helper::notifikasiPesan($id->id, $penerima);
         
         return redirect('/admin/pesan/inbox')->with('status', 'success-pesan');
     }

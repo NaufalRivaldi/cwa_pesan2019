@@ -132,11 +132,11 @@
         <!-- Custom JS -->
         <script src="{{ asset('js/custom.js') }}"></script>
         <script>
+            // set status notif
             $(document).ready(function(){
                 $('.notif').click(function(){
                     var id = $(this).data('id');
-                    console.log(id);
-                    $.get('/admin/readnotif/'+id, function(data, status){});
+                    $.get("{{ url('admin/readnotif/') }}/"+id, function(data, status){});
                 });
             });
         </script>

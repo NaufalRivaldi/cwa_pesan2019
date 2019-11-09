@@ -51,6 +51,8 @@ a:focus {
 .dropdown-menu {
     width: 400px;
     margin-left: -200px;
+    max-height: 400px;
+    overflow: scroll;
 }
 
 .dropdown-menu a p {

@@ -134,7 +134,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::post('/change', 'KodeVerivikasiController@change')->name('kode.verifikasi.change');
     });
 
-    route::get('/readnotif/{id}', 'NotifikasiController@readnotif');
+    route::get('/readnotif/{id}', 'NotifikasiController@readnotif')->name('readnotif');
 });
 
 
