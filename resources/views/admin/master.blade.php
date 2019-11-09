@@ -64,12 +64,23 @@
                                 <div class="dropdown">
                                     <a class="nav-link mr-3" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="far fa-bell text-primary"></i>
-                                        <span class="badge badge-danger">1</span>
+                                        <span class="badge badge-danger">{{ Helper::countNotif() }}</span>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="custom-item-dropdown" href="#">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus vitae quisquam molestias, accusantium accusamus corporis sunt quod dolore adipisci distinctio a? Quam tempora possimus eligendi iusto commodi, maxime blanditiis iste.</p>
-                                        </a>
+                                        @if(count(Helper::showNotifikasi()) > 0)
+                                            @foreach(Helper::showNotifikasi() as $n)
+                                                <a class="custom-item-dropdown notif" href="{{ url($n->link) }}" data-id="{{ $n->id }}">
+                                                    <p class="<?= ($n->stat == 1) ? 'font-weight-bold' : '' ?>">
+                                                        {{date('d F Y, H:i;s', strtotime($n->created_at))}}<br>
+                                                        {!! $n->keterangan !!}
+                                                    </p>
+                                                </a>
+                                            @endforeach
+                                        @else
+                                            <a class="custom-item-dropdown">
+                                                <p>Tidak ada notifikasi.</p>
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                                 <!-- dropdown -->
@@ -120,6 +131,15 @@
 
         <!-- Custom JS -->
         <script src="{{ asset('js/custom.js') }}"></script>
+        <script>
+            $(document).ready(function(){
+                $('.notif').click(function(){
+                    var id = $(this).data('id');
+                    console.log(id);
+                    $.get('/admin/readnotif/'+id, function(data, status){});
+                });
+            });
+        </script>
 
         <!-- modal -->
         @yield('js')

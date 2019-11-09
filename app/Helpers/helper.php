@@ -471,12 +471,25 @@ class helper{
         return $date;
     }
 
+    public static function showNotifikasi(){
+        $notif = Notifikasi::where('user_id', auth()->user()->id)->get();
+        return $notif;
+    }
+
+    public static function countNotif(){
+        $notif = Notifikasi::where('user_id', auth()->user()->id)->where('stat', '1')->get();
+
+        return count($notif);
+    }
+
     public static function notifikasiPesan($pesan_id, $penerima){
+        $link = 'admin/pesan/inbox/detail/'.$pesan_id;
+        $ket = '<b>'.auth()->user()->nama.'</b> telah mengirimkan anda pesan.';
         foreach($penerima as $row){
             $data = [
                 "link" => $link,
                 "keterangan" => $ket,
-                "user_id" => $user_id,
+                "user_id" => $row['user_id'],
                 "stat" => 1
             ];
     
