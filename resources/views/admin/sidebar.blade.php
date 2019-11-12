@@ -83,7 +83,7 @@
                     <a href="{{ url('admin/formhrd') }}">HRD</a>
                 </li>
                 <li>
-                    <a href="#">IT</a>
+                    <a href="{{ route('penanganan.it') }}">Penanganan IT</a>
                 </li>
             </ul>
         </li>

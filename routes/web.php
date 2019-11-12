@@ -128,6 +128,10 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         });
     });
 
+    Route::group(['prefix' => '/formpenangananit'], function(){
+        Route::get('/', 'FormPenangananController@index')->name('penanganan.it');
+    });
+
     // change kdoe verivikasi
     Route::group(['prefix' => '/kodeverifikasi'], function(){
         Route::get('/', 'KodeVerivikasiController@index')->name('kode.verifikasi');

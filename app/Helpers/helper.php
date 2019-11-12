@@ -613,7 +613,6 @@ class helper{
         $ket = 'Form atas nama <b>'.$form->karyawanAll->nama.'('.$form->karyawanAll->dep.')</b> sudah dilakukan pengecekkan oleh HRD, cek status form anda segera.';
         
         // save notif
-        // save notif
         $data = [
             "link" => $link,
             "keterangan" => $ket,
