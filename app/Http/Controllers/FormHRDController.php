@@ -220,7 +220,10 @@ class FormHRDController extends Controller
         // set kategori
         $form = FormHRD::orderBy('id', 'desc')->first();
         $this->setKategori($req->kategori, $form->id);
-
+        
+        // set notif
+        helper::notifikasiFormHRD($form->id, $req->karyawanall_id);
+            
         return redirect('/admin/formhrd')->with('success', 'Form berhasil diajukan.');
     }
 
@@ -255,6 +258,9 @@ class FormHRDController extends Controller
             // save validasi hrd
             $this->validasiFormAcc($req, $form_id, $karyawan->id, $stat);
 
+            // set notif
+            helper::notifikasiAcc($form->id);
+
             return redirect()->back()->with('success', 'Form sudah di acc.');
         }
 
@@ -278,6 +284,9 @@ class FormHRDController extends Controller
 
             // save validasi hrd
             $this->validasiFormAcc($req, $form_id, $karyawan->id, $stat);
+            
+            // set notif
+            helper::notifikasiAccHRD($form->id);
 
             return redirect()->back()->with('success', 'Form sudah di acc.');
         }

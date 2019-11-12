@@ -13,6 +13,8 @@ use App\SetKategoriHRD;
 use App\ValidasiFhrd;
 use App\Ultah;
 use App\Notifikasi;
+use App\User;
+use App\FormHRD;
 
 class helper{
     // set show menu
@@ -471,6 +473,8 @@ class helper{
         return $date;
     }
 
+
+    // notif
     public static function showNotifikasi(){
         $notif = Notifikasi::where('user_id', auth()->user()->id)->where('stat', '1')->orderBy('created_at', 'desc')->get();
         return $notif;
@@ -495,6 +499,129 @@ class helper{
     
             Notifikasi::create($data);
         }
+    }
+
+    public static function asd($form_id, $penerima){
+        $link = 'admin/pesan/inbox/detail/'.$form;
+        $ket = '<b>'.auth()->user()->nama.'</b> telah mengajukkan form.';
+        $data = [
+            "link" => $link,
+            "keterangan" => $ket,
+            "user_id" => $row['user_id'],
+            "stat" => 1
+        ];
+
+        Notifikasi::create($data);
+    }
+
+    // notif form hrd global
+    public static function notifikasiFormHRD($form_id, $karyawan_id){
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak');
+        $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9','MT');
+        $gm = array('CW1','CW2','CA5','CL1','CS1');
+
+        $karyawan = KaryawanAll::find($karyawan_id);
+        $data = array();
+
+        $link = 'admin/formhrd/verifikasi/detail/'.$form_id;
+        $ket = '<b>'.auth()->user()->nama.'</b> telah mengajukkan form.';
+
+        if($karyawan->stat >= 2){
+            // Asst direktur
+            if(in_array($karyawan->dep, $office)){
+                $user = user::where('level', '5')->get();
+                
+                foreach($user as $row){
+                    $data[] = [
+                        'karyawan_id' => $row->id
+                    ];
+                }
+            }
+
+            // AM
+            if(in_array($karyawan->dep, $am)){
+                $user = user::where('level', '3')->get();
+                
+                foreach($user as $row){
+                    $data[] = [
+                        'karyawan_id' => $row->id
+                    ];
+                }
+            }
+
+            // GM
+            if(in_array($karyawan->dep, $gm)){
+                $user = user::where('level', '4')->get();
+                
+                foreach($user as $row){
+                    $data[] = [
+                        'karyawan_id' => $row->id
+                    ];
+                }
+            }
+
+            // direktur
+            if($karyawan->dep == 'Office'){
+                $user = user::where('level', '6')->get();
+                
+                foreach($user as $row){
+                    $data[] = [
+                        'karyawan_id' => $row->id
+                    ];
+                }
+            }
+
+            // save notif
+            foreach($data as $row){
+                $data = [
+                    "link" => $link,
+                    "keterangan" => $ket,
+                    "user_id" => $row['karyawan_id'],
+                    "stat" => 1
+                ];
+        
+                Notifikasi::create($data);
+            }
+        }
+    }
+
+    public static function notifikasiAcc($form_id){
+        $form = FormHRD::find($form_id);
+
+        $user = User::where('dep', 'HRD')->get();
+
+        $link = 'admin/formhrd/verifikasi/detail/'.$form_id;
+        $ket = 'Anda telah menerima form atas nama <b>'.$form->karyawanAll->nama.'('.$form->karyawanAll->dep.')</b> yang sudah di acc, lakukan pengecekkan segera.';
+        
+        // save notif
+        foreach($user as $row){
+            $data = [
+                "link" => $link,
+                "keterangan" => $ket,
+                "user_id" => $row->id,
+                "stat" => 1
+            ];
+    
+            Notifikasi::create($data);
+        }
+    }
+
+    public static function notifikasiAccHRD($form_id){
+        $form = FormHRD::find($form_id);
+
+        $link = 'admin/formhrd/detail/'.$form_id;
+        $ket = 'Form atas nama <b>'.$form->karyawanAll->nama.'('.$form->karyawanAll->dep.')</b> sudah dilakukan pengecekkan oleh HRD, cek status form anda segera.';
+        
+        // save notif
+        // save notif
+        $data = [
+            "link" => $link,
+            "keterangan" => $ket,
+            "user_id" => $form->user_id,
+            "stat" => 1
+        ];
+    
+        Notifikasi::create($data);
     }
 }
 
