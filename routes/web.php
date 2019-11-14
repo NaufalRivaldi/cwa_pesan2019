@@ -128,8 +128,9 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         });
     });
 
-    Route::group(['prefix' => '/formpenangananit'], function(){
+    Route::group(['prefix' => '/formit'], function(){
         Route::get('/', 'FormPenangananController@index')->name('penanganan.it');
+        Route::post('/store', 'FormPenangananController@store')->name('penanganan.it.store');
     });
 
     // change kdoe verivikasi
