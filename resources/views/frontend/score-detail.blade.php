@@ -5,9 +5,9 @@
 @section('content')
     <div class="container" style="margin-top:2%">
         <div class="row">
-            <div class="co-12">
-                <h1 class="display-4">Scoreboard Penjualan</h1>
-                <p class="lead">Update Terakhir : {{ date('d F Y, H:i:s', strtotime($setting->last_update_score)) }}</p>
+            <div class="co-12 font-weight-bold">
+                <h1 class="display-4 font-weight-bold">Scoreboard Penjualan</h1>
+                <p class="lead font-weight-bold">Update Terakhir : {{ date('d F Y, H:i:s', strtotime($setting->last_update_score)) }}</p>
                 
                 <!-- last update -->
                 @if($diff > 0)

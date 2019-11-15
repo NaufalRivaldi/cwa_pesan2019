@@ -46,8 +46,8 @@
                 </div>
                 <div class="box-right">
                     <div class="text-custom">
-                        <h3 class="display-4">PORTAL CWJA</h3>
-                        <p class="lead text-bold">PT. CITRA WARNA JAYA ABADI</p>
+                        <h3 class="display-3 font-weight-bold" style="font-size:4em">PORTAL CWJA</h3>
+                        <p class="lead text-bold" style="">PT. CITRA WARNA JAYA ABADI</p>
                     </div>
                 </div>
             </div>

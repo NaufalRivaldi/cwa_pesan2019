@@ -1,7 +1,20 @@
 body {
     background: url('../img/bg-main.jpg') no-repeat;
-    background-position: center;
+    background-position: bottom;
     background-size: cover;
+    background-attachment: fixed;
+}
+
+.navbar-nav .nav-item {
+    color: rgb(73, 73, 73) !important;
+}
+
+.navbar-nav a:hover {
+    border-bottom: 2px solid #3498db;
+}
+
+.navbar-trans {
+    background-color: rgba(255, 255, 255, 0.6) !important;
 }
 
 /* card */
@@ -47,13 +60,16 @@ body {
     float: left;
     width: 50%;
     height: 400px;
-    background: url('/img/bg-cab.jpg');
+    background: url('../img/bg-main2.jpg') no-repeat;
+    background-position: bottom;
+    background-size: cover;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     display: grid;
     align-items: center;
     padding: 2%;
+    color: #fff;
 }
 
 .col-pnm {
