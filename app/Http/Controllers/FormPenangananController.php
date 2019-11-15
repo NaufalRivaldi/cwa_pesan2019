@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Helpers\helper;
+
 use App\FormPenangananIt;
 use App\Cabang;
 use App\KaryawanAll;
@@ -13,10 +15,16 @@ class FormPenangananController extends Controller
 {
     public function index(){
         $data['menu'] = '8';
-        $data['form'] = FormPenangananIt::orderBy('tgl', 'desc')->get();
+        $data['no'] = '1';
         $data['cabang'] = Cabang::orderBy('inisial', 'asc')->get();
         $data['karyawan'] = KaryawanAll::where('dep', 'IT')->get();
         
+        if(auth()->user()->dep != 'IT'){
+            $data['form'] = FormPenangananIt::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+        }else{
+            $data['form'] = FormPenangananIt::orderBy('created_at', 'desc')->get();
+        }
+
         return view('admin.form.it.index', $data);
     }
 
@@ -24,7 +32,7 @@ class FormPenangananController extends Controller
         $this->val($req);
 
         $user = User::where('dep', $req->cabang)->first();
-        
+
         FormPenangananIt::create([
             'tgl' => date('Y-m-d'),
             'masalah' => $req->masalah,
@@ -33,8 +41,26 @@ class FormPenangananController extends Controller
             'user_id' => $user->id,
             'karyawan_all_id' => $req->karyawan_all_id
         ]);
+        
+        $form = FormPenangananIt::orderBy('id', 'desc')->first();
+        helper::notifikasiFormIt($user->id);
 
-        return redirect('')
+        return redirect()->route('penanganan.it')->with('success', 'Form berhasil diajukan.');
+    }
+
+    public function verifikasi($id){
+        $form = FormPenangananIt::find($id);
+        $form->stat = 2;
+        $form->save();
+
+        return redirect()->route('penanganan.it')->with('success', 'Form berhasil diverifikasi.');
+    }
+
+    public function delete($id){
+        $form = FormPenangananIt::find($id);
+        $form->delete();
+
+        return redirect()->route('penanganan.it')->with('success', 'Form berhasil dihapus.');
     }
 
     public function val($req){
@@ -43,7 +69,7 @@ class FormPenangananController extends Controller
         ];
 
         $this->validate($req, [
-            'cabang_id' => 'required',
+            'cabang' => 'required',
             'karyawan_all_id' => 'required',
             'masalah' => 'required',
             'penyelesaian' => 'required'

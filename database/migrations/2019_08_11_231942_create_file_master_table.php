@@ -15,7 +15,7 @@ class CreateFileMasterTable extends Migration
     {
         Schema::create('file_master', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('file_name', 20);
+            $table->string('file_name', 50);
             $table->dateTime('tgl');
         });
     }

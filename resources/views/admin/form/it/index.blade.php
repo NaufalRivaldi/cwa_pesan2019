@@ -116,40 +116,43 @@
                                         <th>PIC</th>
                                         <th>Permasalahan</th>
                                         <th>Penyelesaian</th>
+                                        <th>Stat</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($form as $row)
-                                        <?php
-                                            $url = 'admin/formhrd/detail/'.$row->id;
-                                        ?>
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>
-                                                <a href="{{ url($url) }}" class="a-block">
-                                                    {{ Helper::setDate($row->created_at) }}
-                                                </a>
+                                                {{ $row->tgl }}
                                             </td>
                                             <td>
-                                                <a href="{{ url($url) }}" class="a-block">{!! Helper::setKategori($row->id) !!}</a>
+                                                {{ $row->user->dep }}
                                             </td>
                                             <td>
-                                                <a href="{{ url($url) }}" class="a-block">{!! $row->karyawanAll->nama.'/'.Helper::statusKaryawan($row->karyawanAll->stat) !!}</a>
+                                                {{ $row->karyawanAll->nama }}
                                             </td>
                                             <td>
-                                                <a href="{{ url($url) }}" class="a-block">{{ $row->karyawanAll->dep }}</a>
+                                                {{ $row->masalah }}
                                             </td>
                                             <td>
-                                                <a href="{{ url($url) }}" class="a-block">{!! Helper::setStatus($row->stat) !!}</a>
+                                                {{ $row->penyelesaian }}
                                             </td>
-                                            <td>
-                                                <a href="{{ url($url) }}" class="a-block">{{ Helper::setAlasan($row->id) }}</a>
-                                            </td>
-                                            
                                             <td>
                                                 @if($row->stat == 1)
-                                                    <a href="#" class="btn btn-danger btn-sm delete_form_hrd" data-id="{{ $row->id }}"><i class="fas fa-trash"></i></a>
+                                                    <span class="badge badge-info">Menunggu Verifikasi</span>
+                                                @else($row->stat == 2)
+                                                    <span class="badge badge-success">Telah di Verivikasi</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(auth()->user()->dep == 'IT' && $row->stat == 1)
+                                                    <a href="#" class="btn btn-danger btn-sm delete_form_it" data-id="{{ $row->id }}"><i class="fas fa-trash"></i></a>
+                                                @endif
+
+                                                @if(auth()->user()->dep != 'IT' && $row->stat == 1)
+                                                    <a href="{{ route('penanganan.it.verifikasi', ['id' => $row->id]) }}" class="btn btn-success btn-sm">Verifikasi</a>
                                                 @endif
                                             </td>
                                         </tr>

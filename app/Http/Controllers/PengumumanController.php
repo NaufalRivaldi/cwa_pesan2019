@@ -14,7 +14,12 @@ class PengumumanController extends Controller
     public function index(){
         $menu = 2;
         $no = 1;
-        $pengumuman = Pengumuman::where('user_id', auth()->user()->id)->orderBy('tgl', 'desc')->get();
+        
+        if(auth()->user()->dep != 'IT'){
+            $pengumuman = Pengumuman::where('user_id', auth()->user()->id)->orderBy('tgl', 'desc')->get();
+        }else{
+            $pengumuman = Pengumuman::orderBy('tgl', 'desc')->get();
+        }
         return view('admin.pengumuman.index', compact('no', 'pengumuman', 'menu'));
     }
 
@@ -44,7 +49,7 @@ class PengumumanController extends Controller
             'subject' => $req->subject,
             'tgl' => date('Y-m-d H:i:s'),
             'pesan' => $req->pesan,
-            'stat' => 1,
+            'stat' => 3,
             'user_id' => auth()->user()->id
         ]);
 
@@ -56,7 +61,7 @@ class PengumumanController extends Controller
         // Upload File
         $this->upload($id, $req);
 
-        return redirect('/admin/pengumuman')->with('success', 'Pengumuman berhasil di post.');
+        return redirect('/admin/pengumuman')->with('success', 'Pengumuman berhasil di post, hubungi IT untuk memverifikasi pengumuman tersebut.');
     }
 
     public function update(Request $req){

@@ -193,6 +193,23 @@ $(document).ready(function () {
             });
     });
 
+    // remove form-it
+    $('.delete_form_it').click(function () {
+        var postId = $(this).data('id');
+        swal({
+                title: "Hapus form?",
+                text: "Form akan terhapus permanen.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = "/admin/formit/delete/" + postId;
+                }
+            });
+    });
+
     // normal alert
     const flash = $('.flash').data('status');
 

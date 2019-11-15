@@ -19,8 +19,8 @@ class CreateKodeBarangTable extends Migration
             $table->string('glbr', 10);
             $table->string('kmbr', 10);
             $table->string('jnbr', 10);
-            $table->string('kdbr', 10);
-            $table->string('nmbr', 50);
+            $table->string('kdbr', 50);
+            $table->string('nmbr', 100);
         });
     }
 

@@ -15,7 +15,7 @@ class CreateUltahTable extends Migration
     {
         Schema::create('ultah', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama', 50);
+            $table->string('nama', 100);
             $table->date('tgl');
             $table->string('divisi', 10);
         });

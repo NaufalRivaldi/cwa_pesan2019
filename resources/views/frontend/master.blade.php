@@ -20,7 +20,7 @@
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand font-weight-bold" href="{{ url('/') }}">
                     <img src="{{ asset('img/logo-cwa.png') }}" width="38" class="d-inline-block align-top" alt="">
                     PORTAL CWJA
                 </a>

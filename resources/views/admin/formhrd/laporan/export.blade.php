@@ -24,7 +24,8 @@
                 <tr>
                     <th>No</th>
                     <th>Kategori</th>
-                    <th width="20%">Nama</th>
+                    <th>Nama</th>
+                    <th>Jabatan</th>
                     <th>Bagian</th>
                     <th>Tanggal</th>
                     <th>Mulai</th>
@@ -32,7 +33,6 @@
                     <th>Durasi (Jam)</th>
                     <th>Keterangan</th>
                     <th>Upah Lembur</th>
-                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,10 +40,13 @@
                     <tr>
                         <td>{{ $no++ }}</td>
                         <td>
-                            {!! Helper::setKategori($row->id) !!}
+                            {{ Helper::setKategoriLaporan($row->id) }}
                         </td>
                         <td>
-                            {!! $row->karyawanAll->nama.' '.Helper::statusKaryawan($row->karyawanAll->stat) !!}
+                            {{ $row->karyawanAll->nama }}
+                        </td>
+                        <td>
+                            {{ Helper::statusKaryawanLaporan($row->karyawanAll->stat) }}
                         </td>
                         <td>
                             {{ $row->karyawanAll->dep }}
@@ -66,9 +69,6 @@
                         
                         <td>
                             {{ Helper::setUpahLembur($row->tgl_a, $row->tgl_b, $row->lembur) }}
-                        </td>
-                        <td>
-                            {!! Helper::setStatus($row->stat) !!}
                         </td>
                     </tr>
                 @endforeach

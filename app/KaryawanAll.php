@@ -15,4 +15,8 @@ class KaryawanAll extends Model
     public function hrd(){
         return $this->hasMany('App\FormHRD');
     }
+
+    public function formPenangananIt(){
+        return $this->hasMany('App\FormPenangananIt');
+    }
 }

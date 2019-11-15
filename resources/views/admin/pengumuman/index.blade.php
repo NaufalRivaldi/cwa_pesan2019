@@ -16,6 +16,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Tanggal</th>
+                                <th>Departemen</th>
                                 <th>Subject</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -30,6 +31,9 @@
                                             <a href="{{ url('/admin/pengumuman/detail/'.    $row->id) }}" class="a-block">{{ $row->tgl }}</a>
                                         </td>
                                         <td>
+                                            <a href="{{ url('/admin/pengumuman/detail/'.    $row->id) }}" class="a-block">{{ $row->user->dep }}</a>
+                                        </td>
+                                        <td>
                                             <a href="{{ url('/admin/pengumuman/detail/'.    $row->id) }}" class="a-block">{{ $row->subject }}</a>
                                         </td>
                                         <td>
@@ -41,9 +45,9 @@
                                         </td>
                                         <td>
                                             <!-- stat -->
-                                            @if($row->stat == 1)
-                                                <a href="{{ url('/admin/pengumuman/nonactive/'.$row->id) }}" class="btn btn-success btn-sm">Nonactive</a>
-                                            @else
+                                            @if($row->stat == 1 && auth()->user()->dep == 'IT')
+                                                <a href="{{ url('/admin/pengumuman/nonactive/'.$row->id) }}" class="btn btn-danger btn-sm">Nonactive</a>
+                                            @elseif($row->stat == 2 || $row->stat == 3 && auth()->user()->dep == 'IT')
                                                 <a href="{{ url('/admin/pengumuman/active/'.$row->id) }}" class="btn btn-success btn-sm">Active</a>
                                             @endif
 

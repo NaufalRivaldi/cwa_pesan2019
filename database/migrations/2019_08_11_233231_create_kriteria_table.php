@@ -16,7 +16,7 @@ class CreateKriteriaTable extends Migration
         Schema::create('kriteria', function (Blueprint $table) {
             $table->increments('id');
             $table->string('rule_name', 50);
-            $table->string('kd_barang', 10);
+            $table->string('kd_barang', 20);
             $table->string('kd_merk', 10);
             $table->string('kd_golongan', 10);
             $table->string('kd_satuan', 10);

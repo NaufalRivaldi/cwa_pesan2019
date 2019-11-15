@@ -167,6 +167,9 @@ class FormHRDController extends Controller
         <b>Kategori</b><br>
         ".helper::setKategoriView($data->id)."
         <hr>
+        <b>Nama</b><br>
+        ".$data->karyawanAll->nama."
+        <hr>
         <b>Bagian / Jabatan</b><br>
         ".$data->karyawanAll->dep." / ".helper::statusKaryawan($data->karyawanAll->stat)."
         <hr>

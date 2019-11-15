@@ -10,6 +10,8 @@
                     <h3>Ubah Password Verifikasi</h3>
                 </div>
                 <div class="card-body">
+                    <p class="text-danger">Halaman ini ditujukan hanya untuk mengubah password dari Team Verifikasi saja.</p>
+
                     <form action="{{ route('kode.verifikasi.change') }}" method="POST">
                     {{ csrf_field() }}
                         <div class="form-group row">

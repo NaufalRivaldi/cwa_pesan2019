@@ -269,11 +269,39 @@ class helper{
         return $val;
     }
 
+    public static function statusKaryawanLaporan($val){
+        if($val == 1){
+            $val = 'Staff';
+        }
+        
+        if($val == 2){
+            $val = 'Kepala Bagian';
+        }
+        
+        if($val == 3){
+            $val = 'Area Manager';
+        }
+
+        if($val == 4){
+            $val = 'General Manager';
+        }
+
+        if($val == 5){
+            $val = 'Asst Direktur';
+        }
+
+        if($val == 6){
+            $val = 'Direktur';
+        }
+
+        return $val;
+    }
+
     // set status form_hrd
     public static function setStatus($status){
         switch ($status) {
             case '1':
-                $status = '<span class="badge badge-primary">Menunggu Atasan</span>';
+                $status = '<span class="badge badge-primary">Pending</span>';
                 break;
 
             case '2':
@@ -313,6 +341,17 @@ class helper{
         }
 
         return $setKategori;
+    }
+
+    public static function setKategoriLaporan($form_id){
+        $setKategori = '';
+        $kategori = SetKategoriHRD::where('form_hrd_id', $form_id)->get();
+
+        foreach($kategori as $row){
+            $setKategori = $setKategori.$row->kategoriFhrd->nama_kategori.'/';
+        }
+
+        return substr($setKategori, 0, -1);
     }
 
     public static function setKategoriView($form_id){
@@ -501,19 +540,6 @@ class helper{
         }
     }
 
-    public static function asd($form_id, $penerima){
-        $link = 'admin/pesan/inbox/detail/'.$form;
-        $ket = '<b>'.auth()->user()->nama.'</b> telah mengajukkan form.';
-        $data = [
-            "link" => $link,
-            "keterangan" => $ket,
-            "user_id" => $row['user_id'],
-            "stat" => 1
-        ];
-
-        Notifikasi::create($data);
-    }
-
     // notif form hrd global
     public static function notifikasiFormHRD($form_id, $karyawan_id){
         $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak');
@@ -591,7 +617,7 @@ class helper{
         $user = User::where('dep', 'HRD')->get();
 
         $link = 'admin/formhrd/verifikasi/detail/'.$form_id;
-        $ket = 'Anda telah menerima form atas nama <b>'.$form->karyawanAll->nama.'('.$form->karyawanAll->dep.')</b> yang sudah di acc, lakukan pengecekkan segera.';
+        $ket = 'Anda telah menerima form atas nama <b>'.$form->karyawanAll->nama.'('.$form->karyawanAll->dep.')</b>.';
         
         // save notif
         foreach($user as $row){
@@ -610,13 +636,28 @@ class helper{
         $form = FormHRD::find($form_id);
 
         $link = 'admin/formhrd/detail/'.$form_id;
-        $ket = 'Form atas nama <b>'.$form->karyawanAll->nama.'('.$form->karyawanAll->dep.')</b> sudah dilakukan pengecekkan oleh HRD, cek status form anda segera.';
+        $ket = 'Form atas nama <b>'.$form->karyawanAll->nama.'('.$form->karyawanAll->dep.')</b> sudah terverifikasi.';
         
         // save notif
         $data = [
             "link" => $link,
             "keterangan" => $ket,
             "user_id" => $form->user_id,
+            "stat" => 1
+        ];
+    
+        Notifikasi::create($data);
+    }
+
+    public static function notifikasiFormIt($user_id){
+        $link = 'admin/formit/';
+        $ket = 'Anda telah menerima Form Penanganan IT.';
+        
+        // save notif
+        $data = [
+            "link" => $link,
+            "keterangan" => $ket,
+            "user_id" => $user_id,
             "stat" => 1
         ];
     

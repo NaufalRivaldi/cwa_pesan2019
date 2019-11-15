@@ -14,7 +14,7 @@
                             <div class="col-12">
                                 <h3 class="display-4">Login</h3>
                                 <hr>
-                                <form action="/postlogin" method="POST">
+                                <form action="{{ url('postlogin') }}" method="POST">
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <label for="">Email</label>

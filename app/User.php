@@ -63,4 +63,8 @@ class User extends Authenticatable
     public function notifikasi(){
         return $this->hasMany('App\Notifikasi');
     }
+
+    public function formPenangananIt(){
+        return $this->hasMany('App\FormPenangananIt');
+    }
 }

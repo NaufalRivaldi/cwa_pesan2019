@@ -1,3 +1,9 @@
+body {
+    background: url('../img/bg-main.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
 /* card */
 .cardhead {
     background: #2d3436;

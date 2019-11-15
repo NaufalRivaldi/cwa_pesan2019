@@ -170,21 +170,19 @@
 
 @section('js')
     <script>
-        $(document).ready(function(){
-            $('.modal-formHRD').click(function () {
-                var id = $(this).data('id');
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{{ route('laporan.view') }}",
-                    type: "POST",
-                    data: {form_id: id},
-                    success: function(text){
-                        $('.showForm').empty();
-                        $('.showForm').append(text);
-                    }
-                });
+        $('.modal-formHRD').click(function () {
+            var id = $(this).data('id');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ route('laporan.view') }}",
+                type: "POST",
+                data: {form_id: id},
+                success: function(text){
+                    $('.showForm').empty();
+                    $('.showForm').append(text);
+                }
             });
         });
     </script>

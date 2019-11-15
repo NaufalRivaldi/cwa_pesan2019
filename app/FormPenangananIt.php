@@ -10,4 +10,13 @@ class FormPenangananIt extends Model
     protected $fillable = [
         'tgl', 'masalah', 'penyelesaian', 'stat', 'user_id', 'karyawan_all_id'
     ];
+
+    // fk
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+
+    public function karyawanAll(){
+        return $this->belongsTo('App\KaryawanAll');
+    }
 }

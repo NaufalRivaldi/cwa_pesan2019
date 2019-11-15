@@ -18,7 +18,7 @@ class CreateHistoryJualTable extends Migration
             $table->string('kd_sales', 10);
             $table->date('tgl');
             $table->string('divisi', 10);
-            $table->string('kd_barang', 10);
+            $table->string('kd_barang', 20);
             $table->string('jml', 10);
             $table->integer('skor');
             $table->string('brt', 10);
