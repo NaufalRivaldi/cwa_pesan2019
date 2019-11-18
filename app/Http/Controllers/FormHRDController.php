@@ -52,7 +52,6 @@ class FormHRDController extends Controller
         $menu = 9;
         $form = FormHRD::find($id);
         if(auth()->user()->dep = 'HRD'){
-
             $data['set_modal'] = array('title' => 'HRD', 'stat' => '7');
         }else{
             $data['set_modal'] = helper::setTitle($form->karyawanAll->stat, $form->karyawanAll->dep);
@@ -64,9 +63,13 @@ class FormHRDController extends Controller
     public function verivikasi(){
         $menu = 9;
         $no = 1;
+        $form_office = '';
         
         // hrd
         if(auth()->user()->level == 7){
+            $form_office = FormHRD::where('stat', 1)->whereHas('KaryawanAll', function($query){
+                $query->whereIn('dep', ['Office']);
+            })->orderBy('created_at', 'desc')->get();
             $form = FormHRD::where('stat', 2)->orderBy('created_at', 'desc')->get();
         }else{
             $form = FormHRD::whereHas('KaryawanAll', function($query){
@@ -74,7 +77,7 @@ class FormHRDController extends Controller
             })->orderBy('created_at', 'desc')->get();
         }
 
-        return view('admin.formhrd.verivikasi.index', compact('menu', 'no', 'form'));
+        return view('admin.formhrd.verivikasi.index', compact('menu', 'no', 'form', 'form_office'));
     }
 
     public function laporan(){

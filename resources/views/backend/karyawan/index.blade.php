@@ -24,6 +24,21 @@
 
                         <!-- collpase -->
                         <div class="collapse" id="collapseForm">
+                            <!-- import -->
+                            <div class="card card-body mb-3">
+                                <form class="form-inline" action="" method="POST" enctype="multipart/form-data">
+                                    <div class="form-group mb-2">
+                                        <label>Import Excel</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <label for="file-import" class="sr-only">Password</label>
+                                        <input type="file" class="form-control" id="file-import">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Import</button>
+                                </form>
+                            </div>
+
+                            <!-- masukkan satu satu -->
                             <div class="card card-body">
                                 <form action="{{ url('/backend/karyawan/save') }}" method="POST">
                                 {{ csrf_field() }}

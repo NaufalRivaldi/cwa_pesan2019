@@ -23,6 +23,32 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- office -->
+                                @if(!empty($form_office) && auth()->user()->level == 7)
+                                    @foreach($form_office as $row)
+                                    <tr>
+                                        <td>{{ $no++ }}</td>
+                                        <td>
+                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">
+                                                {{ Helper::setDate($row->created_at) }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! Helper::setKategori($row->id) !!}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! $row->karyawanAll->nama.'/'.Helper::statusKaryawan($row->karyawanAll->stat) !!}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{{ $row->karyawanAll->dep }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! Helper::setStatus($row->stat) !!}</a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                @endif
+
                                 @foreach($form as $row)
                                     @if($row->karyawanAll->stat > 1 && auth()->user()->level != 7)
                                     <tr>

@@ -35,7 +35,7 @@ class PesanController extends Controller
         // insert pesan
         Pesan::create([
             'subject' => $req->subject,
-            'message' => $req->message,
+            'message' => (empty($req->message)) ? '-' : $req->message,
             'tgl' => date('Y-m-d H:i:s'),
             'stat' => 1,
             'user_id' => auth()->user()->id

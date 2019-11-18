@@ -588,7 +588,7 @@ class helper{
 
             // direktur
             if($karyawan->dep == 'Office'){
-                $user = user::where('level', '6')->get();
+                $user = user::where('level', '7')->get();
                 
                 foreach($user as $row){
                     $data[] = [
