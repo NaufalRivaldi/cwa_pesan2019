@@ -17,6 +17,12 @@
                         <h3>Data {{ $data{'title'} }}</h3>
                     </div>
                     <div class="card-body">
+                        @if ($errors->has('file'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('file') }}</strong>
+                        </span>
+                        @endif
+                        
                         <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
                             Tambah Data
                         </button> 
@@ -26,13 +32,15 @@
                         <div class="collapse" id="collapseForm">
                             <!-- import -->
                             <div class="card card-body mb-3">
-                                <form class="form-inline" action="" method="POST" enctype="multipart/form-data">
+                                <p class="text-danger">Akan menghapus semua data karyawan dan menggantikan yang baru. Data form mungkin akan bermasalah.</p>
+                                <form class="form-inline" action="{{ route('karyawan.all.import') }}" method="POST" enctype="multipart/form-data">
+                                    {{ csrf_field() }}
                                     <div class="form-group mb-2">
                                         <label>Import Excel</label>
                                     </div>
                                     <div class="form-group mx-sm-3 mb-2">
                                         <label for="file-import" class="sr-only">Password</label>
-                                        <input type="file" class="form-control" id="file-import">
+                                        <input type="file" name="file" class="form-control" id="file-import">
                                     </div>
                                     <button type="submit" class="btn btn-primary mb-2">Import</button>
                                 </form>

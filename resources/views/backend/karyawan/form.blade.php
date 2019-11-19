@@ -49,13 +49,6 @@
                                 <label class="col-sm-2 col-form-label">Departemen</label>
                                 <div class="col-sm-10">
                                     <select name="dep" class="form-control">
-                                        @foreach($data['cabang'] as $c)
-                                            @if($karyawan->dep == $c->inisial)
-                                                <option value="{{ $c->inisial }}" selected>{{ $c->nama_cabang }}</option>
-                                            @else
-                                                <option value="{{ $c->inisial }}" selected>{{ $c->nama_cabang }}</option>
-                                            @endif
-                                        @endforeach
                                         @foreach($data['dep'] as $c)
                                             @if($karyawan->dep == $c)
                                                 <option value="{{ $c }}" selected>{{ $c }}</option>

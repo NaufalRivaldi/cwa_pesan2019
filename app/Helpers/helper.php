@@ -112,6 +112,11 @@ class helper{
 
     // set show menu
 
+    // dep
+    public static function depOffice(){
+        return array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT');
+    }
+
     // ultah
     public static function getUltah(){
         $now = date('m-d');

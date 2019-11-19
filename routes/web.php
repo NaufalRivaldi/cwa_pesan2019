@@ -171,8 +171,9 @@ Route::group(['prefix' => '/backend'], function(){
 
         // Karyawan
         Route::group(['prefix' => 'karyawan'], function(){
-            Route::get('/', 'KaryawanAllController@index');
+            Route::get('/', 'KaryawanAllController@index')->name('karyawan.all');
             Route::post('/save', 'KaryawanAllController@save');
+            Route::post('/import', 'KaryawanAllController@import')->name('karyawan.all.import');
             Route::get('/edit/{id}', 'KaryawanAllController@edit');
             Route::put('/update', 'KaryawanAllController@update');
             Route::get('/delete/{id}', 'KaryawanAllController@delete');

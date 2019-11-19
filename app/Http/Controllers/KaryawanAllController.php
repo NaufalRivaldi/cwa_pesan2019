@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Imports\KaryawanAllImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use App\KaryawanAll;
 use App\Cabang;
@@ -12,7 +14,7 @@ class KaryawanAllController extends Controller
     public function index(){
         $no = 1;
         $data['title'] = 'Karyawan';
-        $data['karyawan'] = KaryawanAll::orderBy('nik', 'asc')->get();
+        $data['karyawan'] = KaryawanAll::orderBy('dep', 'asc')->get();
         $data['cabang'] = Cabang::orderBy('inisial', 'desc')->get();
         $data['dep'] = $this->dep();
 
@@ -42,6 +44,19 @@ class KaryawanAllController extends Controller
         return redirect('/backend/karyawan')->with('status', 'simpan-success');
     }
 
+    public function import(Request $req){
+        $this->validate($req, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+        $file = $req->file('file');
+        $nama_file = rand().$file->getClientOriginalName();
+        $file->move('file-karyawan',$nama_file);
+        Excel::import(new KaryawanAllImport, public_path('/file-karyawan/'.$nama_file));
+        
+        return redirect()->route('karyawan.all')->with('success', 'Data berhasil di import.');
+    }
+
     public function update(Request $req){
         $this->val($req);
         $karyawan = KaryawanAll::find($req->id);
@@ -69,7 +84,7 @@ class KaryawanAllController extends Controller
 
         $this->validate($req, [
             "nik" => "required|min:8",
-            "nama" => "required|min:6|string",
+            "nama" => "required|min:5|string",
             "dep" => "required",
             "stat" => "required"
         ], $message);
@@ -107,6 +122,7 @@ class KaryawanAllController extends Controller
             'IT',
             'SCM',
             'Gudang',
+            'MT',
             'Office'
         );
 

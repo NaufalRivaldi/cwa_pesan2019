@@ -25,7 +25,7 @@ class PesanController extends Controller
 
     public function form(){
         $menu = 1;
-        $user = User::select('id', 'email')->orderBy('email', 'asc')->get();
+        $user = User::select('id', 'email')->where('stat', 1)->orderBy('dep', 'asc')->get();
         return view('admin.pesan.inbox.form', compact('menu', 'user'));
     }
 

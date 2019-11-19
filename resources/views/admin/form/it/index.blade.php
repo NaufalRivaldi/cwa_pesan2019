@@ -24,7 +24,11 @@
                                         </div>
                                         <div class="col-md-9">
                                             <select name="cabang" class="form-control col-6">
-                                                <option value="">Pilih Cabang</option>
+                                                <option value="">Pilih</option>
+                                                @foreach(Helper::depOffice() as $row)
+                                                <option value="{{ $row }}">{{ $row }}</option>
+                                                @endforeach
+
                                                 @foreach($cabang as $row)
                                                 <option value="{{ $row->inisial }}">{{ $row->inisial.' - '.$row->nama_cabang }}</option>
                                                 @endforeach

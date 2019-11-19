@@ -12,7 +12,7 @@ class UserController extends Controller
     public function index(){
         $no = 1;
         $data['title'] = 'User';
-        $data['user'] = User::orderBy('email', 'asc')->get();
+        $data['user'] = User::orderBy('dep', 'asc')->get();
         $data['cabang'] = Cabang::orderBy('inisial', 'desc')->get();
         $data['dep'] = $this->depOffice();
         return view('backend.user.index', compact('no', 'data'));
@@ -104,6 +104,7 @@ class UserController extends Controller
             'IT',
             'SCM',
             'Gudang',
+            'MT',
             'Office'
         );
 
