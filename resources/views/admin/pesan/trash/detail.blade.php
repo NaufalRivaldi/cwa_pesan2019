@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', '- Detail Pesan Trash')
+@section('title', '- Detail Trash')
 
 @section('content')
     <div class="row">

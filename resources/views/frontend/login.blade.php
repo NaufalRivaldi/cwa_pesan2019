@@ -1,6 +1,6 @@
 @extends('frontend.master')
 
-@section('title', '- Scoreboard')
+@section('title', '- Login')
 
 @section('content')
     <!-- Flash Data -->

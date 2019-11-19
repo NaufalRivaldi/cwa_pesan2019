@@ -309,4 +309,8 @@ ul.CTAs a {
         transform: rotate(-45deg) translate(1px, -1px);
     }
 
+    .dropdown-menu {
+        margin-left: 0px;
+        width: 100%;
+    }
 }

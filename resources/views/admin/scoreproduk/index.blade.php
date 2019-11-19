@@ -14,19 +14,19 @@
                 <div class="card-header bg-dark" style="color:white">
                     <form action="{{ route('score.produk') }}" action="GET">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="text-bold">Dari Tanggal</label>
                                     <input type="date" name="dari_tgl" class="form-control" value="{{ (isset($_GET['dari_tgl'])) ? $_GET['dari_tgl'] : $score->tgl }}">
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="text-bold">Sampai Tanggal</label>
                                     <input type="date" name="sampai_tgl" class="form-control" value="{{ (isset($_GET['sampai_tgl'])) ? $_GET['sampai_tgl'] : $score->tgl }}">
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="text-bold">Divisi</label>
                                     <select name="divisi" id="" class="form-control">
@@ -37,7 +37,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="text-bold">Produk</label>
                                     <select name="produk" id="" class="form-control" required>
@@ -141,7 +141,7 @@
                                     <td>{{ $no++ }}</td>
                                     <td>
                                         <a href="{{ url($url) }}">
-                                            {{ Helper::get_karyawan($row->kd_sales) }} 
+                                            {{ Helper::get_karyawan($row->kd_sales) }} <br>
                                             <span class="badge badge-primary">{{ $row->kd_sales }}</span>
                                         </a>
                                     </td>

@@ -25,7 +25,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">File Master</label>
                                 <div class="col-sm-10">
-                                    <input type="file" name="file" class="form-control col-7">
+                                    <input type="file" name="file" class="form-control">
                                     <p class="text-warning">File Format : rar</p>
                                     <!-- error -->
                                     @if($errors->has('file'))

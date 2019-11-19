@@ -40,44 +40,46 @@
                     </table>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>tgl</th>
-                                <th>Kode</th>
-                                <th>Nama Barang</th>
-                                <th>Qty</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                                $no = 1; 
-                                $total_skor = 0;
-                                $total_jml = 0;
-                            ?>
-                            @foreach($score_jual as $row)
-                            <?php
-                                $total_skor += $row->total_skor;
-                                $total_jml += $row->total_jml;
-                            ?>
-                            <tr>
-                                <td>{{ $no++ }}</td>
-                                <td>{{ date('d F Y', strtotime($row->tgl)) }}</td>
-                                <td>{{ $row->kd_barang }}</td>
-                                <td>{{ Helper::nama_barang($row->kd_barang) }}</td>
-                                <td>{{ $row->total_jml }}</td>
-                                <td>{{ $row->total_skor }}</td>
-                            </tr>
-                            @endforeach
-                            <tr>
-                                <td colspan="4" align="right"><b>Total : </b></td>
-                                <td><b>{{ $total_jml }}</b></td>
-                                <td><b>{{ number_format($total_skor) }}</b></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>tgl</th>
+                                    <th>Kode</th>
+                                    <th>Nama Barang</th>
+                                    <th>Qty</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                    $no = 1; 
+                                    $total_skor = 0;
+                                    $total_jml = 0;
+                                ?>
+                                @foreach($score_jual as $row)
+                                <?php
+                                    $total_skor += $row->total_skor;
+                                    $total_jml += $row->total_jml;
+                                ?>
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ date('d F Y', strtotime($row->tgl)) }}</td>
+                                    <td>{{ $row->kd_barang }}</td>
+                                    <td>{{ Helper::nama_barang($row->kd_barang) }}</td>
+                                    <td>{{ $row->total_jml }}</td>
+                                    <td>{{ $row->total_skor }}</td>
+                                </tr>
+                                @endforeach
+                                <tr>
+                                    <td colspan="4" align="right"><b>Total : </b></td>
+                                    <td><b>{{ $total_jml }}</b></td>
+                                    <td><b>{{ number_format($total_skor) }}</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

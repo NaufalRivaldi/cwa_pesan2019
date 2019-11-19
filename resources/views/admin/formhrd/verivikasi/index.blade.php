@@ -11,94 +11,96 @@
                         <h2>Verifikasi</h2>
                     </div>
                     <div class="card-body">
-                        <table id="myTable" class="custom-table table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Tanggal</th>
-                                    <th>Kategori</th>
-                                    <th>Nama</th>
-                                    <th>Bagian</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- office -->
-                                @if(!empty($form_office) && auth()->user()->level == 7)
-                                    @foreach($form_office as $row)
+                        <div class="table-responsive">
+                            <table id="myTable" class="custom-table table table-hover">
+                                <thead>
                                     <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">
-                                                {{ Helper::setDate($row->created_at) }}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! Helper::setKategori($row->id) !!}</a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! $row->karyawanAll->nama.'/'.Helper::statusKaryawan($row->karyawanAll->stat) !!}</a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{{ $row->karyawanAll->dep }}</a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! Helper::setStatus($row->stat) !!}</a>
-                                        </td>
+                                        <th>No</th>
+                                        <th>Tanggal</th>
+                                        <th>Kategori</th>
+                                        <th>Nama</th>
+                                        <th>Bagian</th>
+                                        <th>Status</th>
                                     </tr>
-                                    @endforeach
-                                @endif
-
-                                @foreach($form as $row)
-                                    @if($row->karyawanAll->stat > 1 && auth()->user()->level != 7)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">
-                                                {{ Helper::setDate($row->created_at) }}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! Helper::setKategori($row->id) !!}</a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! $row->karyawanAll->nama.'/'.Helper::statusKaryawan($row->karyawanAll->stat) !!}</a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{{ $row->karyawanAll->dep }}</a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! Helper::setStatus($row->stat) !!}</a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{{ Helper::setAlasan($row->id) }}</a>
-                                        </td>
-                                    </tr>
-                                    @elseif(auth()->user()->level == 7)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">
-                                                {{ Helper::setDate($row->created_at) }}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! Helper::setKategori($row->id) !!}</a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! $row->karyawanAll->nama.'/'.Helper::statusKaryawan($row->karyawanAll->stat) !!}</a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{{ $row->karyawanAll->dep }}</a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! Helper::setStatus($row->stat) !!}</a>
-                                        </td>
-                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- office -->
+                                    @if(!empty($form_office) && auth()->user()->level == 7)
+                                        @foreach($form_office as $row)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">
+                                                    {{ Helper::setDate($row->created_at) }}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! Helper::setKategori($row->id) !!}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! $row->karyawanAll->nama.'/'.Helper::statusKaryawan($row->karyawanAll->stat) !!}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{{ $row->karyawanAll->dep }}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! Helper::setStatus($row->stat) !!}</a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
                                     @endif
-                                @endforeach
-                            </tbody>
-                        </table>
+
+                                    @foreach($form as $row)
+                                        @if($row->karyawanAll->stat > 1 && auth()->user()->level != 7)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">
+                                                    {{ Helper::setDate($row->created_at) }}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! Helper::setKategori($row->id) !!}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! $row->karyawanAll->nama.'/'.Helper::statusKaryawan($row->karyawanAll->stat) !!}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{{ $row->karyawanAll->dep }}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! Helper::setStatus($row->stat) !!}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{{ Helper::setAlasan($row->id) }}</a>
+                                            </td>
+                                        </tr>
+                                        @elseif(auth()->user()->level == 7)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">
+                                                    {{ Helper::setDate($row->created_at) }}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! Helper::setKategori($row->id) !!}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! $row->karyawanAll->nama.'/'.Helper::statusKaryawan($row->karyawanAll->stat) !!}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{{ $row->karyawanAll->dep }}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('verifikasi.detail', ['id' => $row->id]) }}" class="a-block">{!! Helper::setStatus($row->stat) !!}</a>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -15,7 +15,7 @@
                             <tr>
                                 <td>Diajukan Oleh</td>
                                 <td width="20px">:</td>
-                                <td>{{ $form->karyawanAll->nama }} ({{ $form->karyawanAll->nik }})</td>
+                                <td>{{ $form->karyawanAll->nama }}</td>
                             </tr>
                             <tr>
                                 <td>Status</td>
@@ -43,11 +43,6 @@
                                             <td>Bagian / Jabatan</td>
                                             <td>:</td>
                                             <td>{{ $form->karyawanAll->dep.' / '.Helper::setJabatan($form->karyawanAll->stat) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>NIK</td>
-                                            <td>:</td>
-                                            <td>{{ $form->karyawanAll->nik }}</td>
                                         </tr>
                                         <tr>
                                             <td>Tanggal, Jam</td>

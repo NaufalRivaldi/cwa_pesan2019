@@ -16,7 +16,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">File Kirim</label>
                                 <div class="col-sm-10">
-                                    <input type="file" name="file" class="form-control col-7">
+                                    <input type="file" name="file" class="form-control">
                                     <p class="text-warning">File pada program</p>
                                     <!-- error -->
                                     @if($errors->has('file'))
@@ -39,28 +39,30 @@
                     <!-- table -->
                     @if($dep == 'IT' || $dep == 'Finance')
                         <h3>Download Penjualan</h3>
-                        <table class="table table-striped" id="myTable">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Hari, Tanggal</th>
-                                    <th>Cek</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if(!empty($finance))
-                                    @foreach($finance as $data)
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="myTable">
+                                <thead>
                                     <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ date('l, d F Y', strtotime($data->nama)) }}</td>
-                                        <td>
-                                            <a href="{{ url('/admin/finance/detail/'.$data->nama) }}" class="btn btn-success btn-sm">Lihat</a>
-                                        </td>
+                                        <th>No</th>
+                                        <th>Hari, Tanggal</th>
+                                        <th>Cek</th>
                                     </tr>
-                                    @endforeach
-                                @endif
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @if(!empty($finance))
+                                        @foreach($finance as $data)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ date('l, d F Y', strtotime($data->nama)) }}</td>
+                                            <td>
+                                                <a href="{{ url('/admin/finance/detail/'.$data->nama) }}" class="btn btn-success btn-sm">Lihat</a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
                     @endif
                 </div>
             </div>

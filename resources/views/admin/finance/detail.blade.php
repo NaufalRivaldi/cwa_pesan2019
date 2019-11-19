@@ -15,28 +15,30 @@
                         <h3>Download Penjualan</h3>
                         <a href="{{ url('/admin/finance/') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                         <hr>
-                        <table class="table table-striped" id="myTable">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama File</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if(!empty($finance))
-                                    @foreach($finance as $data)
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="myTable">
+                                <thead>
                                     <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $data->file_name }}</td>
-                                        <td>
-                                            <a href="{{ asset('file-finance/'.$data->file_name) }}" class="btn btn-success btn-sm">Unduh</a>
-                                        </td>
+                                        <th>No</th>
+                                        <th>Nama File</th>
+                                        <th>Aksi</th>
                                     </tr>
-                                    @endforeach
-                                @endif
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @if(!empty($finance))
+                                        @foreach($finance as $data)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $data->file_name }}</td>
+                                            <td>
+                                                <a href="{{ asset('file-finance/'.$data->file_name) }}" class="btn btn-success btn-sm">Unduh</a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
                     @endif
                 </div>
             </div>

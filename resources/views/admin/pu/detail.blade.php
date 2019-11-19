@@ -24,42 +24,44 @@
                 </div>
                 <div class="card-body">
                     <hr>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Kode</th>
-                                <th>Nama Barang</th>
-                                <th>Qty</th>
-                                <th>Berat (Kg)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                                $no = 1; 
-                                $total_brt = 0;
-                                $total_jml = 0;
-                            ?>
-                            @foreach($score_jual as $row)
-                            <?php
-                                $total_brt += $row->total_brt;
-                                $total_jml += $row->total_jml;
-                            ?>
-                            <tr>
-                                <td>{{ $no++ }}</td>
-                                <td>{{ $row->mrbr }}</td>
-                                <td>{{ Helper::nama_kriteria($row->mrbr, $row->kd_barang) }}</td>
-                                <td>{{ $row->total_jml }}</td>
-                                <td>{{ $row->total_brt }}</td>
-                            </tr>
-                            @endforeach
-                            <tr>
-                                <td colspan="3" align="right"><b>Total : </b></td>
-                                <td><b>{{ $total_jml }}</b></td>
-                                <td><b>{{ number_format($total_brt) }}</b></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Kode</th>
+                                    <th>Nama Barang</th>
+                                    <th>Qty</th>
+                                    <th>Berat (Kg)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                    $no = 1; 
+                                    $total_brt = 0;
+                                    $total_jml = 0;
+                                ?>
+                                @foreach($score_jual as $row)
+                                <?php
+                                    $total_brt += $row->total_brt;
+                                    $total_jml += $row->total_jml;
+                                ?>
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $row->mrbr }}</td>
+                                    <td>{{ Helper::nama_kriteria($row->mrbr, $row->kd_barang) }}</td>
+                                    <td>{{ $row->total_jml }}</td>
+                                    <td>{{ $row->total_brt }}</td>
+                                </tr>
+                                @endforeach
+                                <tr>
+                                    <td colspan="3" align="right"><b>Total : </b></td>
+                                    <td><b>{{ $total_jml }}</b></td>
+                                    <td><b>{{ number_format($total_brt) }}</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
