@@ -87,7 +87,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
 
     // ubah password
     Route::group(['prefix' => '/repassword'], function(){
-        Route::get('/', 'RepasswordController@index');
+        Route::get('/', 'RepasswordController@index')->name('repassword');
         Route::post('/save', 'repasswordController@save');
     });
 
@@ -172,6 +172,7 @@ Route::group(['prefix' => '/backend'], function(){
         // Karyawan
         Route::group(['prefix' => 'karyawan'], function(){
             Route::get('/', 'KaryawanAllController@index')->name('karyawan.all');
+            Route::get('/resetall', 'KaryawanAllController@resetAll');
             Route::post('/save', 'KaryawanAllController@save');
             Route::post('/import', 'KaryawanAllController@import')->name('karyawan.all.import');
             Route::get('/edit/{id}', 'KaryawanAllController@edit');

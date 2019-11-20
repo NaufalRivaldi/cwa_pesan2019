@@ -15,55 +15,57 @@
                         <span id="insert-menu"></span>
                     </div>
                     <div class="card-body">
-                        <table id="myTable" class="custom-table table table-hover">
-                            <thead>
-                                <tr>
-                                    <th width="5%">
-                                        <input type="checkbox" class="chckallOutbox"k data-class="" name="chckall">
-                                    </th>
-                                    <th width="35%">Kepada</th>
-                                    <th>Subject</th>
-                                    <th>Tanggal</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($pesan as $data)
-                                <?php
-                                    $url = 'admin/pesan/outbox/detail/'.$data->id;
-                                ?>
-                                <tr class="active-{{$idx}} tr-checked">
-                                    <td>
-                                        <input type="checkbox" class="chcksOutbox" value="{{ $data->id }}" data-class="active-{{$idx++}}" name="chckdel[]">
-                                    </td>
-                                    <td>
-                                        <a href="{{ url($url) }}" class="a-block">
-                                            @foreach($data->penerima as $row)
-                                                {{ $row->user->email.", " }}
+                        <div class="table-responsive">
+                            <table id="myTable" class="custom-table table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">
+                                            <input type="checkbox" class="chckallOutbox"k data-class="" name="chckall">
+                                        </th>
+                                        <th width="35%">Kepada</th>
+                                        <th>Subject</th>
+                                        <th>Tanggal</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($pesan as $data)
+                                    <?php
+                                        $url = 'admin/pesan/outbox/detail/'.$data->id;
+                                    ?>
+                                    <tr class="active-{{$idx}} tr-checked">
+                                        <td>
+                                            <input type="checkbox" class="chcksOutbox" value="{{ $data->id }}" data-class="active-{{$idx++}}" name="chckdel[]">
+                                        </td>
+                                        <td>
+                                            <a href="{{ url($url) }}" class="a-block">
+                                                @foreach($data->penerima as $row)
+                                                    {{ $row->user->email.", " }}
+                                                @endforeach
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ url($url) }}" class="a-block">
+                                                <b>{{ $data->subject }}</b>
+                                                - {{ Helper::setDesc($data->message) }} ...
+                                            </a>
+                                            @foreach($data->attach as $att)
+                                                <a href="{{ asset('Upesan/'.$att->nama_file) }}" download="{{ $att->nama }}">
+                                                    <span class="badge badge-warning">{{ $att->nama }}</span>
+                                                </a> 
                                             @endforeach
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="{{ url($url) }}" class="a-block">
-                                            <b>{{ $data->subject }}</b>
-                                            - {{ Helper::setDesc($data->message) }} ...
-                                        </a>
-                                        @foreach($data->attach as $att)
-                                            <a href="{{ asset('Upesan/'.$att->nama_file) }}" download="{{ $att->nama }}">
-                                                <span class="badge badge-warning">{{ $att->nama }}</span>
-                                            </a> 
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        <a href="{{ url($url) }}" class="a-block">{{ date('d F Y', strtotime($data->tgl)) }}<br>{{ date('H:i:s', strtotime($data->tgl)) }}</a>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-danger btn-sm remove-pesan-outbox" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                        </td>
+                                        <td>
+                                            <a href="{{ url($url) }}" class="a-block">{{ date('d F Y', strtotime($data->tgl)) }}<br>{{ date('H:i:s', strtotime($data->tgl)) }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-danger btn-sm remove-pesan-outbox" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

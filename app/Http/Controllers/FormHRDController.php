@@ -157,7 +157,7 @@ class FormHRDController extends Controller
                 })->whereBetween('tgl_a', [$tgl_a, $tgl_b])->get();
             }
         }
-        return view('admin.formhrd.laporan.index', compact('menu', 'no', 'divisi', 'form', 'kategori', 'cabang', 'month'));
+        return view('admin.formhrd.laporan.index', compact('menu', 'no', 'form', 'kategori', 'cabang', 'month'));
     }
 
     public function view(Request $req){
@@ -322,7 +322,7 @@ class FormHRDController extends Controller
             // save validasi hrd
             $this->validasiFormAcc($req, $form_id, $karyawan->id, $stat);
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Form ditolak!');
         }
 
         return redirect()->back()->with('error', 'Gagal di Tolak');
@@ -346,7 +346,7 @@ class FormHRDController extends Controller
             // save validasi hrd
             $this->validasiFormAcc($req, $form_id, $karyawan->id, $stat);
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Form ditolak!');
         }
 
         return redirect()->back()->with('error', 'Gagal di Tolak');

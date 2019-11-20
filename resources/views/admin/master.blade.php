@@ -96,6 +96,7 @@
                 </nav>
                 
                 <div class="container">
+                    @include('admin.defpass')
                     @include('admin.alert')
                     @yield('content')
                 </div>
@@ -137,6 +138,217 @@
                 $('.notif').click(function(){
                     var id = $(this).data('id');
                     $.get("{{ url('admin/readnotif/') }}/"+id, function(data, status){});
+                });
+
+                // remove pengumuman
+                $('.remove-pengumuman').click(function () {
+                    var postId = $(this).data('id');
+                    swal({
+                            title: "Hapus data?",
+                            text: "Data akan terhapus secara permanen.",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                window.location.href = "{{ url('admin/pengumuman/delete/') }}/" + postId;
+                            }
+                        });
+                });
+
+                // remove pesan inbox
+                $('.remove-pesan').click(function () {
+                    var postId = $(this).data('id');
+                    swal({
+                            title: "Hapus pesan?",
+                            text: "Pesan akan terhapus ke tempat sampah.",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                window.location.href = "{{ url('admin/pesan/inbox/hapus/') }}/" + postId;
+                            }
+                        });
+                });
+
+                // remove pesan checked
+                $(document).on('click', '.remove-pesan-checked', function () {
+                    // masukkan ke array dulu data idnya
+                    var id = $('.chcks').map(function () {
+                        if ($(this).is(':checked')) {
+                            return $(this).val();
+                        }
+                    }).get();
+
+                    swal({
+                            title: "Hapus pesan?",
+                            text: "Pesan akan terhapus ke tempat sampah.",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                window.location.href = "{{ url('admin/pesan/inbox/hapuscek/') }}/" + id;
+                            }
+                        });
+                });
+
+                // remove pesan outbox
+                $('.remove-pesan-outbox').click(function () {
+                    var postId = $(this).data('id');
+                    swal({
+                            title: "Hapus pesan?",
+                            text: "Pesan akan terhapus ke tempat sampah.",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                window.location.href = "{{ url('admin/pesan/outbox/hapus/') }}/" + postId;
+                            }
+                        });
+                });
+
+                // remove pesan trash
+                $('.remove-pesaninbox-trash').click(function () {
+                    var postId = $(this).data('id');
+                    swal({
+                            title: "Hapus pesan?",
+                            text: "Pesan akan terhapus permanen.",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                window.location.href = "{{ url('admin/pesan/trash/hapusin/') }}/" + postId;
+                            }
+                        });
+                });
+
+                // remove pesan trash
+                $('.remove-pesanoutbox-trash').click(function () {
+                    var postId = $(this).data('id');
+                    swal({
+                            title: "Hapus pesan?",
+                            text: "Pesan akan terhapus permanen.",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                window.location.href = "{{ url('admin/pesan/trash/hapusout/') }}/" + postId;
+                            }
+                        });
+                });
+
+                // remove pesan checked outbox
+                $(document).on('click', '.remove-pesan-checked-outbox', function () {
+                    // masukkan ke array dulu data idnya
+                    var id = $('.chcksOutbox').map(function () {
+                        if ($(this).is(':checked')) {
+                            return $(this).val();
+                        }
+                    }).get();
+
+                    swal({
+                            title: "Hapus pesan?",
+                            text: "Pesan akan terhapus ke tempat sampah.",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                window.location.href = "{{ url('admin/pesan/outbox/hapuscek/') }}/" + id;
+                            }
+                        });
+                });
+
+                // remove pesan checked trash
+                $(document).on('click', '.remove-pesan-checked-trash', function () {
+                    // masukkan ke array dulu data idnya
+                    var id = $('.chckstrash').map(function () {
+                        if ($(this).is(':checked')) {
+                            return $(this).val();
+                        }
+                    }).get();
+
+                    swal({
+                            title: "Hapus pesan?",
+                            text: "Pesan akan terhapus permanen.",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                window.location.href = "{{ url('admin/pesan/trash/hapuscek/') }}/" + id;
+                            }
+                        });
+                });
+
+                // remove pesan checked kembali
+                $(document).on('click', '.backup-pesan-checked-trash', function () {
+                    // masukkan ke array dulu data idnya
+                    var id = $('.chckstrash').map(function () {
+                        if ($(this).is(':checked')) {
+                            return $(this).val();
+                        }
+                    }).get();
+
+                    swal({
+                            title: "Kembalikan Pesan?",
+                            text: "Pesan akan dipulihkan.",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                window.location.href = "{{ url('admin/pesan/trash/pulihcek/') }}/" + id;
+                            }
+                        });
+                });
+
+                // remove form-hrd
+                $('.delete_form_hrd').click(function () {
+                    var postId = $(this).data('id');
+                    swal({
+                            title: "Hapus form?",
+                            text: "Form akan terhapus permanen.",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                window.location.href = "{{ url('admin/formhrd/delete/') }}/" + postId;
+                            }
+                        });
+                });
+
+                // remove form-it
+                $('.delete_form_it').click(function () {
+                    var postId = $(this).data('id');
+                    swal({
+                            title: "Hapus form?",
+                            text: "Form akan terhapus permanen.",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                window.location.href = "{{ url('admin/formit/delete/') }}/" + postId;
+                            }
+                        });
                 });
             });
         </script>

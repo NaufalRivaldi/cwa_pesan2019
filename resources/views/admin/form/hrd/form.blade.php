@@ -37,7 +37,7 @@
                                 <select name="karyawanall_id" class="form-control">
                                     <option value="">Pilih Nama Karyawan</option>
                                     @foreach($karyawan as $row)
-                                        <option value="{{ $row->id }}">{{ $row->nik." - ".$row->nama }}</option>
+                                        <option value="{{ $row->id }}">{{ $row->nama }}</option>
                                     @endforeach
                                 </select>
                                 <!-- error -->

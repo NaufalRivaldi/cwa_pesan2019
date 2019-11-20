@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Imports\KaryawanAllImport;
+use App\Helpers\helper;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\KaryawanAll;
@@ -16,7 +17,7 @@ class KaryawanAllController extends Controller
         $data['title'] = 'Karyawan';
         $data['karyawan'] = KaryawanAll::orderBy('dep', 'asc')->get();
         $data['cabang'] = Cabang::orderBy('inisial', 'desc')->get();
-        $data['dep'] = $this->dep();
+        $data['dep'] = helper::allDep();
 
         return view('backend.karyawan.index', compact('no', 'data'));
     }
@@ -25,7 +26,7 @@ class KaryawanAllController extends Controller
         $data['title'] = 'Edit Karyawan';
         $karyawan = KaryawanAll::find($id);
         $data['cabang'] = Cabang::orderBy('inisial', 'desc')->get();
-        $data['dep'] = $this->dep();
+        $data['dep'] = helper::allDep();
 
         return view('backend.karyawan.form', compact('no', 'data', 'karyawan'));
     }
@@ -90,42 +91,15 @@ class KaryawanAllController extends Controller
         ], $message);
     }
 
-    public function dep(){
-        $data = array(
-            'CW1',
-            'CW2',
-            'CW3',
-            'CW4',
-            'CW5',
-            'CW6',
-            'CW7',
-            'CW8',
-            'CW9',
-            'CA0',
-            'CA1',
-            'CA2',
-            'CA3',
-            'CA4',
-            'CA5',
-            'CA6',
-            'CA7',
-            'CA8',
-            'CA9',
-            'CS1',
-            'CL1',
-            'HRD',
-            'Finance',
-            'Accounting',
-            'Pajak',
-            'QA',
-            'GA',
-            'IT',
-            'SCM',
-            'Gudang',
-            'MT',
-            'Office'
-        );
+    public function resetAll(){
+        $karyawan = KaryawanAll::all();
 
-        return $data;
+        foreach($karyawan as $row){
+            $set = KaryawanAll::find($row->id);
+            $set->password = sha1($set->nik);
+            $set->save();
+        }
+
+        echo "berhasil";
     }
 }

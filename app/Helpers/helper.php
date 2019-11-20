@@ -16,6 +16,8 @@ use App\Notifikasi;
 use App\User;
 use App\FormHRD;
 
+use Hash;
+
 class helper{
     // set show menu
     public static function isPengumuman(){
@@ -111,6 +113,16 @@ class helper{
     }
 
     // set show menu
+
+    // password default
+    public static function passDefault(){
+        $user = User::find(auth()->user()->id);
+        if(Hash::check('123456', $user->password)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     // dep
     public static function depOffice(){
@@ -407,9 +419,11 @@ class helper{
     public static function setTitle($stat, $dep){
         $data['title'] = '';
         $data['stat'] = '';
-        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak');
-        $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9','MT');
-        $gm = array('CW1','CW2','CA5','CL1','CS1');
+
+        // Ubah ini klo ada nambah cabang ya
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CA5','CL1','CS1');
+        $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9', 'CB0', 'MT');
+        $gm = array('CW1','CW2');
 
         if($stat == 1){
             $data['title'] = 'Kepala Bagian';
@@ -443,9 +457,11 @@ class helper{
 
     public static function setViewVerivikasi(){
         $level = auth()->user()->level;
-        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak');
+
+        // Ubah ini klo ada nambah cabang ya
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CA5','CL1','CS1');
         $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9','MT');
-        $gm = array('CW1','CW2','CA5','CL1','CS1');
+        $gm = array('CW1','CW2');
 
         if($level == 3){
             return $am;
@@ -500,7 +516,8 @@ class helper{
     }
 
     public static function allDep(){
-        $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office', 'MT', 'CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9','CW1','CW2','CA5','CL1','CS1');
+        // Ubah ini klo ada nambah cabang ya
+        $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office', 'MT', 'CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9','CW1','CW2','CA5', 'CB0', 'CL1','CS1');
 
         return $dep;
     }
@@ -547,9 +564,10 @@ class helper{
 
     // notif form hrd global
     public static function notifikasiFormHRD($form_id, $karyawan_id){
-        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak');
+        // Ubah ini klo ada nambah cabang ya
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CA5','CL1','CS1');
         $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9','MT');
-        $gm = array('CW1','CW2','CA5','CL1','CS1');
+        $gm = array('CW1','CW2');
 
         $karyawan = KaryawanAll::find($karyawan_id);
         $data = array();
