@@ -50,7 +50,7 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <div class="navbar-nav">
                                 @if(count(Helper::getUltah()) > 0)
-                                <span class="text-blink navbar-text">
+                                <span class="text-blink navbar-text" style="font-size: .8em">
                                     Happy birthday to 
                                     @foreach(Helper::getUltah() as $data)
                                         {{ $data->nama.' ('.$data->divisi.'),' }}

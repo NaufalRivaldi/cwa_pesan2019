@@ -52,6 +52,16 @@
                                                 {{ Helper::setDateTime($form->tgl_b) }}
                                             </td>
                                         </tr>
+
+                                        <!-- keterangan lembur -->
+                                        @if($form->lembur == 1)
+                                        <tr>
+                                            <td>Lembur</td>
+                                            <td>:</td>
+                                            <td>Berbayar</td>
+                                        </tr>
+                                        @endif
+
                                         <tr>
                                             <td>Keterangan</td>
                                             <td>:</td>

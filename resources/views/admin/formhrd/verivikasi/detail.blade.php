@@ -57,6 +57,16 @@
                                                 {{ Helper::setDateTime($form->tgl_b) }}
                                             </td>
                                         </tr>
+
+                                        <!-- keterangan lembur -->
+                                        @if($form->lembur == 1)
+                                        <tr>
+                                            <td>Lembur</td>
+                                            <td>:</td>
+                                            <td>Berbayar</td>
+                                        </tr>
+                                        @endif
+
                                         <tr>
                                             <td>Keterangan</td>
                                             <td>:</td>
@@ -64,7 +74,14 @@
                                         </tr>
                                     </table>
                                     <hr>
-                                    @if(auth()->user()->level > $form->karyawanAll->stat && $form->stat < 3)
+                                    <!-- untuk jabatan office -->
+                                    @if(auth()->user()->level > $form->karyawanAll->stat && $form->stat < 2 && auth()->user()->dep != 'HRD')
+                                        <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accModal">Acc Form</a>
+                                        <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakModal">Tolak</a>
+                                    @endif
+
+                                    <!-- verif HRD last -->
+                                    @if(auth()->user()->level > $form->karyawanAll->stat && $form->stat < 3 && auth()->user()->dep == 'HRD')
                                         <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#accModal">Acc Form</a>
                                         <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakModal">Tolak</a>
                                     @endif

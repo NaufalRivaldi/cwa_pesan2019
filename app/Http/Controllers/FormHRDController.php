@@ -51,7 +51,13 @@ class FormHRDController extends Controller
     public function detailVer($id){
         $menu = 9;
         $form = FormHRD::find($id);
-        if(auth()->user()->dep = 'HRD'){
+
+        // cek jika dia tidak ada formnya
+        if(empty($form)){
+            return redirect()->route('verifikasi')->with('error', 'Form sudah dihapus oleh user terkait.');
+        }
+
+        if(auth()->user()->dep == 'HRD'){
             $data['set_modal'] = array('title' => 'HRD', 'stat' => '7');
         }else{
             $data['set_modal'] = helper::setTitle($form->karyawanAll->stat, $form->karyawanAll->dep);
@@ -280,11 +286,17 @@ class FormHRDController extends Controller
         $karyawan_stat = $req->karyawanStat;
 
         // cari data sesuai dengan jabatannya
-        $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', 'HRD')->first();
+        $form = FormHRD::find($form_id);
+        
+        if($form->karyawanAll->stat > 2){
+            $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', 'HRD')->where('stat', '2')->first();
+        }else{
+            $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', 'HRD')->first();
+        }
         
         if(isset($karyawan)){
             $stat = 3;
-            $form = FormHRD::find($form_id);
+
             $form->stat = $stat;
             $form->save();
 
@@ -322,6 +334,9 @@ class FormHRDController extends Controller
             // save validasi hrd
             $this->validasiFormAcc($req, $form_id, $karyawan->id, $stat);
 
+            // set notif
+            helper::notifikasiAccHRD($form->id);
+
             return redirect()->back()->with('success', 'Form ditolak!');
         }
 
@@ -345,6 +360,9 @@ class FormHRDController extends Controller
 
             // save validasi hrd
             $this->validasiFormAcc($req, $form_id, $karyawan->id, $stat);
+
+            // set notif
+            helper::notifikasiAccHRD($form->id);
 
             return redirect()->back()->with('success', 'Form ditolak!');
         }
