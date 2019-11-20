@@ -44,10 +44,7 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        },
-        "classmap": [
-            "App/Http/Controllers/RepasswordController.php"
-        ]
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

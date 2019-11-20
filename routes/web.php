@@ -88,13 +88,13 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
     // ubah password
     Route::group(['prefix' => '/repassword'], function(){
         Route::get('/', 'RepasswordController@index')->name('repassword');
-        Route::post('/save', 'repasswordController@save');
+        Route::post('/save', 'RepasswordController@save');
     });
 
     // Update Master
     Route::group(['prefix' => '/master'], function(){
         Route::get('/', 'UpdateMasterController@index');
-        Route::post('/save', 'UpdateMastercontroller@save');
+        Route::post('/save', 'UpdateMasterController@save');
     });
 
     // Finance
