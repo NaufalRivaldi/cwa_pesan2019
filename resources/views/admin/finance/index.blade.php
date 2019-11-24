@@ -11,6 +11,15 @@
                 </div>
                 <div class="card-body">
                     @if(Helper::isInsertFinance())
+                        @if(Helper::cekUpdateFinance())
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                Harap segera update penjualan terakhir.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+
                         <form action="{{ url('/admin/finance/save') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                             <div class="form-group row">

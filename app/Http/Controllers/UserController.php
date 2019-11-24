@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Helpers\helper;
 
 use App\User;
 use App\Cabang;
@@ -14,7 +15,7 @@ class UserController extends Controller
         $data['title'] = 'User';
         $data['user'] = User::orderBy('dep', 'asc')->get();
         $data['cabang'] = Cabang::orderBy('inisial', 'desc')->get();
-        $data['dep'] = $this->depOffice();
+        $data['dep'] = helper::allDep();
         return view('backend.user.index', compact('no', 'data'));
     }
 
@@ -70,44 +71,5 @@ class UserController extends Controller
             "dep" => "required",
             "level" => "required"
         ], $message);
-    }
-
-    public function depOffice(){
-        $data = array(
-            'CW1',
-            'CW2',
-            'CW3',
-            'CW4',
-            'CW5',
-            'CW6',
-            'CW7',
-            'CW8',
-            'CW9',
-            'CA0',
-            'CA1',
-            'CA2',
-            'CA3',
-            'CA4',
-            'CA5',
-            'CA6',
-            'CA7',
-            'CA8',
-            'CA9',
-            'CS1',
-            'CL1',
-            'HRD',
-            'Finance',
-            'Accounting',
-            'Pajak',
-            'QA',
-            'GA',
-            'IT',
-            'SCM',
-            'Gudang',
-            'MT',
-            'Office'
-        );
-
-        return $data;
     }
 }

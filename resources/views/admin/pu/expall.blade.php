@@ -39,20 +39,20 @@
             @foreach($score_jual as $row)
             <?php
                 $total_jml += $row->total_jml;
-                $total_brt += $row->total_brt;
+                $total_brt = $total_brt + $row->total_brt;
             ?>
             <tr>
                 <td>{{ $no++ }}</td>
                 <td>{{ $row->mrbr }}</td>
                 <td>{{ Helper::nama_kriteria($row->mrbr, $row->kd_barang) }}</td>
                 <td>{{ $row->total_jml }}</td>
-                <td>{{ number_format($row->total_brt) }}</td>
+                <td>{{ str_replace('.', ',', $row->total_brt) }}</td>
             </tr>
             @endforeach
             <tr>
                 <td colspan="3" align="right"><b>Total</b></td>
                 <td><b>{{ number_format($total_jml) }}</b></td>
-                <td><b>{{ number_format($total_brt) }}</b></td>
+                <td><b>{{ $total_brt }}</b></td>
             </tr>
         </table>
         <hr>

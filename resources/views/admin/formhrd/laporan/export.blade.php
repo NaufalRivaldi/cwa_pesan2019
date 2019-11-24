@@ -27,7 +27,8 @@
                     <th>Nama</th>
                     <th>Jabatan</th>
                     <th>Bagian</th>
-                    <th>Tanggal</th>
+                    <th>Tanggal Awal</th>
+                    <th>Tanggal Akhir</th>
                     <th>Mulai</th>
                     <th>Berakhir</th>
                     <th>Durasi (Jam)</th>
@@ -52,7 +53,10 @@
                             {{ $row->karyawanAll->dep }}
                         </td>
                         <td>
-                            {{ Helper::setDate($row->tgl_a) }}
+                            {{ Helper::setDateForm($row->tgl_a) }}
+                        </td>
+                        <td>
+                            {{ Helper::setDateForm($row->tgl_b) }}
                         </td>
                         <td>
                             {{ date('H:i', strtotime($row->tgl_a)) }}

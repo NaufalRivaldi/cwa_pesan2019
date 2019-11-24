@@ -25,7 +25,7 @@ class AuthController extends Controller
         ];
         
         if(Auth::attempt($attempts)){
-            return redirect('/admin/pesan/inbox');
+            return redirect()->route('dashboard');
         }
 
         return redirect()->back()->with('status', 'fail-login');

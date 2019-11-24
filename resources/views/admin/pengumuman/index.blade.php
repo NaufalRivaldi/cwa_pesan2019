@@ -17,7 +17,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Tanggal</th>
-                                    <th>Departemen</th>
+                                    <th>Nama - Departemen</th>
                                     <th>Subject</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -32,7 +32,7 @@
                                                 <a href="{{ url('/admin/pengumuman/detail/'.    $row->id) }}" class="a-block">{{ $row->tgl }}</a>
                                             </td>
                                             <td>
-                                                <a href="{{ url('/admin/pengumuman/detail/'.    $row->id) }}" class="a-block">{{ $row->user->dep }}</a>
+                                                <a href="{{ url('/admin/pengumuman/detail/'.    $row->id) }}" class="a-block">{{ $row->user->nama.' - '.$row->user->dep }}</a>
                                             </td>
                                             <td>
                                                 <a href="{{ url('/admin/pengumuman/detail/'.    $row->id) }}" class="a-block">{{ $row->subject }}</a>
@@ -48,11 +48,15 @@
                                                 <!-- stat -->
                                                 @if($row->stat == 1 && auth()->user()->dep == 'IT')
                                                     <a href="{{ url('/admin/pengumuman/nonactive/'.$row->id) }}" class="btn btn-danger btn-sm">Nonactive</a>
-                                                @elseif($row->stat == 2 || $row->stat == 3 && auth()->user()->dep == 'IT')
+
+                                                    <a href="{{ url('/admin/pengumuman/notif/'.$row->id) }}" class="btn btn-info btn-sm">Kirim Notifikasi</a>
+                                                @elseif(auth()->user()->dep == 'IT' && $row->stat == 2 || $row->stat == 3)
                                                     <a href="{{ url('/admin/pengumuman/active/'.$row->id) }}" class="btn btn-success btn-sm">Active</a>
                                                 @endif
 
-                                                <a href="{{ url('/admin/pengumuman/edit/'.$row->id) }}" class="btn btn-success btn-sm"><i class="fas fa-cog"></i></a>
+                                                @if($row->stat == 2 || $row->stat == 3)
+                                                    <a href="{{ url('/admin/pengumuman/edit/'.$row->id) }}" class="btn btn-success btn-sm"><i class="fas fa-cog"></i></a>
+                                                @endif
                                                 <a href="#" class="btn btn-danger btn-sm remove-pengumuman" data-id="{{ $row->id }}"><i class="fas fa-trash-alt"></i></a>
                                             </td>
                                         </tr>

@@ -27,9 +27,13 @@ Route::get('/logout', 'AuthController@logout');
 
 // admin
 Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
+    // dashboard
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/dashboard/detailp/{id}', 'DashboardController@detailp');
+
     Route::group(['prefix' => '/pesan'], function(){
         // inbox
-        Route::get('/inbox', 'PesanController@inbox');
+        Route::get('/inbox', 'PesanController@inbox')->name('inbox');
         Route::get('/inbox/detail/{pesan_id}', 'PesanController@detail');
         Route::get('/inbox/hapus/{pesan_id}', 'PesanController@hapus');
         Route::get('/inbox/hapuscek/{pesan_id}', 'PesanController@hapuscek');
@@ -62,6 +66,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/edit/{id}', 'PengumumanController@edit');
         Route::get('/active/{id}', 'PengumumanController@active');
         Route::get('/nonactive/{id}', 'PengumumanController@nonactive');
+        Route::get('/notif/{id}', 'PengumumanController@notif');
         Route::get('/delete/{id}', 'PengumumanController@delete');
         Route::get('/delattc/{id}', 'PengumumanController@delattc');
         Route::post('/store', 'PengumumanController@store');
@@ -178,6 +183,7 @@ Route::group(['prefix' => '/backend'], function(){
             Route::get('/edit/{id}', 'KaryawanAllController@edit');
             Route::put('/update', 'KaryawanAllController@update');
             Route::get('/delete/{id}', 'KaryawanAllController@delete');
+            Route::get('/reset/{id}', 'KaryawanAllController@reset');
         });
 
         // cabang

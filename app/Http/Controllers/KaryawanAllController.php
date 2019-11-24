@@ -71,6 +71,14 @@ class KaryawanAllController extends Controller
         return redirect('/backend/karyawan');
     }
 
+    public function reset($id){
+        $karyawan = KaryawanAll::find($id);
+        $karyawan->password = sha1($karyawan->nik);
+        $karyawan->save();
+
+        return redirect('/backend/karyawan')->with('success', 'Password sudah di reset.');
+    }
+
     public function delete($id){
         $karyawan = KaryawanAll::find($id);
         $karyawan->delete();

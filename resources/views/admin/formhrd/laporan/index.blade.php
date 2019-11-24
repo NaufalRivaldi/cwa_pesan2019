@@ -85,14 +85,15 @@
                         <h3 class="dep"></h3>
                         <p class="lead">Tanggal : {{ $tgl }}</p>
                         <div class="table-responsive">
-                            <table id="myTable" class="custom-table table table-hover">
+                            <table id="myTable" class="custom-table table table-hover hrdTable">
                                 <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Kategori</th>
-                                        <th width="20%">Nama</th>
+                                        <th>Nama</th>
                                         <th>Bagian</th>
-                                        <th>Tanggal</th>
+                                        <th>Tgl Awal</th>
+                                        <th>Tgl Akhir</th>
                                         <th>Mulai</th>
                                         <th>Berakhir</th>
                                         <th>Durasi (Jam)</th>
@@ -116,7 +117,12 @@
                                             </td>
                                             <td>
                                                 <a href="#" class="a-block modal-formHRD" data-toggle="modal" data-target="#viewForm" data-id="{{ $row->id }}">
-                                                    {{ Helper::setDate($row->tgl_a) }}
+                                                    {{ Helper::setDateForm($row->tgl_a) }}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="a-block modal-formHRD" data-toggle="modal" data-target="#viewForm" data-id="{{ $row->id }}">
+                                                    {{ Helper::setDateForm($row->tgl_b) }}
                                                 </a>
                                             </td>
                                             <td>

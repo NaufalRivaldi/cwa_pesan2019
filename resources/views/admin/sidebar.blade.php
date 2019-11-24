@@ -6,7 +6,7 @@
                 <img src="{{ asset('img/logo-cwa.png') }}" alt="logo-cwa" width="100%">
             </div>
             <div class="col-10" style="padding:0">
-                <h3>PORTAL CWJA</h3>
+                <h3><a href="{{ route('dashboard') }}">PORTAL CWJA</a></h3>
             </div>
         </div>
     </div>
@@ -15,6 +15,10 @@
         <p>
             <a href="{{ url('admin/pesan/form') }}" class="btn btn-warning btn-lg btn-block"><i class="fas fa-envelope"></i> Buat Pesan Baru</a>
         </p>
+        <li <?= ($menu == '0') ? 'class="active"' : '' ?>>
+            <a href="{{ route('dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        </li>
+        
         <li <?= ($menu == '1') ? 'class="active"' : '' ?>>
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-envelope"></i> Pesan</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -85,6 +89,11 @@
                 <li>
                     <a href="{{ route('penanganan.it') }}">Penanganan IT</a>
                 </li>
+                @if(Helper::isVerifikasi())
+                <li>
+                    <a href="{{ url('admin/formhrd/verifikasi') }}">Verifikasi</a>
+                </li>
+                @endif
             </ul>
         </li>
 
@@ -92,11 +101,6 @@
         <li <?= ($menu == '9') ? 'class="active"' : '' ?>>
             <a href="#formHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> Form HRD</a>
             <ul class="collapse list-unstyled" id="formHRD">
-                @if(Helper::isVerifikasi())
-                <li>
-                    <a href="{{ url('admin/formhrd/verifikasi') }}">Verifikasi</a>
-                </li>
-                @endif
                 @if(Helper::isHRD())
                 <li>
                     <a href="{{ url('admin/formhrd/laporan') }}">Laporan</a>

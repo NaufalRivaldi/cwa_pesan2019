@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Helpers\helper;
 
 use App\Pengumuman;
 use App\AttachPengumuman;
@@ -92,6 +93,16 @@ class PengumumanController extends Controller
         $pengumuman->save();
 
         return redirect('/admin/pengumuman');
+    }
+
+    public function notif($id){
+        $pengumuman = Pengumuman::find($id);
+
+        // notif pengumuman
+        $text = $pengumuman->user->nama." memposting pengumuman.";
+        helper::notifikasiPengumuman($id, $pengumuman->user_id, $text);
+
+        return redirect('/admin/pengumuman')->with('success', 'Notifikasi telah terkirim.');
     }
 
     public function delete($id){

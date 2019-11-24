@@ -16,7 +16,11 @@ class KodeVerivikasiController extends Controller
     public function change(Request $req){
         $this->val($req);
 
-        $karyawan = KaryawanAll::where('stat', auth()->user()->level)->where('dep', auth()->user()->dep)->where('nik', $req->nik)->where('password', sha1($req->oldpassword))->first();
+        if(auth()->user()->dep == 'HRD'){
+            $karyawan = KaryawanAll::where('stat', '2')->where('dep', auth()->user()->dep)->where('nik', $req->nik)->where('password', sha1($req->oldpassword))->first();
+        }else{
+            $karyawan = KaryawanAll::where('stat', auth()->user()->level)->where('dep', auth()->user()->dep)->where('nik', $req->nik)->where('password', sha1($req->oldpassword))->first();
+        }
 
         if(!empty($karyawan)){
             $karyawan->password = sha1($req->password);

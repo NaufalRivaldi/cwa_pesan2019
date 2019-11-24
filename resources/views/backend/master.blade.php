@@ -48,7 +48,7 @@
             </div>
         </nav>
         <!-- navbar -->
-
+        @include('admin.alert')
         @yield('content')
 
         <!-- footer -->

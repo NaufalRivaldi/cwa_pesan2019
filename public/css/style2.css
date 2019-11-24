@@ -265,6 +265,10 @@ ul.CTAs a {
     color: #000;
 }
 
+.hrdTable {
+    width: 150% !important;
+}
+
 @keyframes blinkText {
     50% {
         opacity: 0;

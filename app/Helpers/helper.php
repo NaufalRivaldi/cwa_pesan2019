@@ -15,6 +15,8 @@ use App\Ultah;
 use App\Notifikasi;
 use App\User;
 use App\FormHRD;
+use App\Cabang;
+use App\Finance;
 
 use Hash;
 
@@ -235,6 +237,12 @@ class helper{
     // ubah format tanggal
     public static function setDate($date){
         $date = date('d F Y', strtotime($date));
+
+        return $date;
+    }
+
+    public static function setDateForm($date){
+        $date = date('d-m-Y', strtotime($date));
 
         return $date;
     }
@@ -517,7 +525,12 @@ class helper{
 
     public static function allDep(){
         // Ubah ini klo ada nambah cabang ya
-        $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office', 'MT', 'CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9','CW1','CW2','CA5', 'CB0', 'CL1','CS1');
+        $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office', 'MT');
+
+        $cabang = Cabang::all();
+        foreach($cabang as $row){
+            array_push($dep, $row->inisial);
+        }
 
         return $dep;
     }
@@ -685,6 +698,39 @@ class helper{
         ];
     
         Notifikasi::create($data);
+    }
+
+    public static function notifikasiPengumuman($pengumuman_id, $user_id, $text){
+        $link = 'admin/dashboard/detailp/'.$pengumuman_id;
+        
+        // save notif
+        $user = User::whereNotIn('id', [$user_id])->get();
+        foreach($user as $row){
+            $data = [
+                "link" => $link,
+                "keterangan" => $text,
+                "user_id" => $row->id,
+                "stat" => 1
+            ];
+        
+            Notifikasi::create($data);
+        }
+    }
+
+    // cek cabang
+    public static function cekUpdateFinance(){
+        $cabang = Cabang::where('inisial', auth()->user()->dep)->first();
+        $now = date('Y-m-d');
+        if(!empty($cabang)){
+            $finance = Finance::where('created_at', 'like', '%'.$now.'%')->where('user_id', auth()->user()->id)->first();
+            if(empty($finance)){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 }
 

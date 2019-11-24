@@ -43,7 +43,7 @@
                                 ?>
                                 @foreach($score_jual as $row)
                                 <?php
-                                    $total_brt += $row->total_brt;
+                                    $total_brt += floatval($row->total_brt);
                                     $total_jml += $row->total_jml;
                                 ?>
                                 <tr>
@@ -57,7 +57,7 @@
                                 <tr>
                                     <td colspan="3" align="right"><b>Total : </b></td>
                                     <td><b>{{ $total_jml }}</b></td>
-                                    <td><b>{{ number_format($total_brt) }}</b></td>
+                                    <td><b>{{ $total_brt }}</b></td>
                                 </tr>
                             </tbody>
                         </table>

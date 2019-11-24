@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Finance;
+use App\Cabang;
 
 use File;
 
@@ -13,6 +14,7 @@ class FinanceController extends Controller
         $menu = 5;
         $dep = auth()->user()->dep;
         $no = 1;
+
         $finance = Finance::groupBy('nama')->orderBy('nama', 'desc')->get();
         return view('admin.finance.index', compact('dep', 'finance', 'no', 'menu'));
     }
@@ -32,7 +34,7 @@ class FinanceController extends Controller
                 File::delete('file-finance'.$old->file_name);
             }else{
                 // save database
-                Finance::insert([
+                Finance::create([
                     'tgl' => date('Y-m-d H:i:s'),
                     'nama' => $row[0],
                     'file_name' => $name,

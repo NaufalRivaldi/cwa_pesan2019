@@ -140,6 +140,7 @@
                                         <td>{{ $row->dep }}</td>
                                         <td>{!! Helper::statusKaryawan($row->stat) !!}</td>
                                         <td>
+                                            <a href="{{ url('backend/karyawan/reset/'.$row->id) }}" class="btn btn-warning btn-sm">Reset Password</a> 
                                             <a href="{{ url('backend/karyawan/edit/'.$row->id) }}" class="btn btn-success btn-sm">Edit</a> 
                                             <a href="{{ url('backend/karyawan/delete/'.$row->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data?')">Delete</a>
                                         </td>
