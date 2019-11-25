@@ -22,9 +22,19 @@ use Hash;
 
 class helper{
     // set show menu
+    public static function isForm(){
+        $dep = auth()->user()->dep;
+        $data = array('Office', 'HRD', 'Accounting', 'QA', 'GA', 'IT', 'Finance', 'Pajak', 'SCM', 'Gudang', 'MT');
+        if(in_array($dep, $data)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public static function isPengumuman(){
         $dep = auth()->user()->dep;
-        $data = array('Office', 'HRD', 'Accounting', 'QA', 'GA', 'IT', 'Finance', 'Pajak', 'SCM', 'Gudang');
+        $data = array('Office', 'HRD', 'Accounting', 'QA', 'GA', 'IT', 'Finance', 'Pajak', 'SCM', 'Gudang', 'MT');
         if(in_array($dep, $data)){
             return true;
         }else{

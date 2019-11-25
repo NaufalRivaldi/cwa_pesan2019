@@ -79,7 +79,7 @@
                 </li>
             </ul>
         </li>
-        
+        @if(Helper::isForm())
         <li <?= ($menu == '8') ? 'class="active"' : '' ?>>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> E-Form</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
@@ -109,7 +109,7 @@
             </ul>
         </li>
         @endif
-        
+        @endif
     </ul>
     <p class="footer">Copyright © 2019. Naufal Rivaldi.</p>
 </nav>
