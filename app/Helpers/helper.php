@@ -24,7 +24,7 @@ class helper{
     // set show menu
     public static function isForm(){
         $dep = auth()->user()->dep;
-        $data = array('Office', 'HRD', 'Accounting', 'QA', 'GA', 'IT', 'Finance', 'Pajak', 'SCM', 'Gudang', 'MT');
+        $data = array('Office', 'HRD', 'Accounting', 'QA', 'GA', 'IT', 'Finance', 'Pajak', 'SCM');
         if(in_array($dep, $data)){
             return true;
         }else{
@@ -55,6 +55,15 @@ class helper{
     public static function isFinance(){
         $dep = auth()->user()->dep;
         $data = array('Accounting', 'QA', 'GA', 'Pajak', 'Office', 'SCM');
+        if(!in_array($dep, $data)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public static function ubahFinance(){
+        $dep = auth()->user()->dep;
+        $data = array('IT', 'Finance');
         if(!in_array($dep, $data)){
             return true;
         }else{

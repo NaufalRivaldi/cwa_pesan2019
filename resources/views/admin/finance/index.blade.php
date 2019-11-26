@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>Finance</h3>
+                    <h3>{{ (Helper::ubahFinance()) ? 'Kirim Data Ke Pusat' : 'Finance' }}</h3>
                 </div>
                 <div class="card-body">
                     @if(Helper::isInsertFinance())

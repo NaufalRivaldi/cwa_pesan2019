@@ -58,7 +58,7 @@
 
         @if(Helper::isFinance())
             <li <?= ($menu == '5') ? 'class="active"' : '' ?>>
-                <a href="{{ url('/admin/finance') }}"><i class="fas fa-file"></i> Finance</a>
+                <a href="{{ url('/admin/finance') }}"><i class="fas fa-file"></i> {{ (Helper::ubahFinance()) ? 'Kirim Data Ke Pusat' : 'Finance' }}</a>
             </li>
         @endif
 
