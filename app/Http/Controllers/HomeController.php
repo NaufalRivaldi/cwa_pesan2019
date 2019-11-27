@@ -23,7 +23,7 @@ class HomeController extends Controller
 {
     public function index(){
         $date_now = date('Y-m-d H:i:s');
-        $pengumuman = Pengumuman::orderBy('tgl', 'desc')->where('stat', '1')->paginate(10);
+        $pengumuman = Pengumuman::orderBy('tgl', 'desc')->where('tgl_akhir', '>=', $date_now)->where('stat', '1')->paginate(10);
         return view('frontend.index', compact('pengumuman', 'date_now'));
     }
 

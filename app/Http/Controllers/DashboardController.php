@@ -12,7 +12,8 @@ class DashboardController extends Controller
     public function index(){
         $data['menu'] = 0;
         $data['date_now'] = date('Y-m-d H:i:s');
-        $data['pengumuman'] = Pengumuman::where('stat', '1')->orderBy('tgl', 'desc')->paginate(10);
+        $date_now = date('Y-m-d');
+        $data['pengumuman'] = Pengumuman::where('stat', '1')->where('tgl_akhir', '>=', $date_now)->orderBy('tgl', 'desc')->paginate(10);
         
         return view('admin.dashboard.index', $data);
     }

@@ -62,15 +62,15 @@
                             <div class="navbar-nav ml-auto">
                                 <!-- dropdown -->
                                 <div class="dropdown">
-                                    <a class="nav-link mr-3" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link mr-3 clickNotif" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="far fa-bell text-primary"></i>
-                                        <span class="badge badge-danger">{{ Helper::countNotif() }}</span>
+                                        <span class="badge badge-danger countNotif">{{ Helper::countNotif() }}</span>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         @if(count(Helper::showNotifikasi()) > 0)
                                             @foreach(Helper::showNotifikasi() as $n)
                                                 <a class="custom-item-dropdown notif" href="{{ url($n->link) }}" data-id="{{ $n->id }}">
-                                                    <p class="<?= ($n->stat == 1) ? 'font-weight-bold' : '' ?>">
+                                                    <p class="<?= ($n->baca == 1) ? 'font-weight-bold' : '' ?>">
                                                         {{date('d F Y, H:i;s', strtotime($n->created_at))}}<br>
                                                         {!! $n->keterangan !!}
                                                     </p>
@@ -135,6 +135,15 @@
         <script>
             // set status notif
             $(document).ready(function(){
+                // click
+                $('.clickNotif').click(function(){
+                    $.get("{{ url('admin/clicknotif') }}/", function(data, status){
+                        $('.countNotif').empty();
+                        $('.countNotif').append('0');
+                    });
+                });
+                
+                // read
                 $('.notif').click(function(){
                     var id = $(this).data('id');
                     $.get("{{ url('admin/readnotif/') }}/"+id, function(data, status){});
@@ -349,6 +358,12 @@
                                 window.location.href = "{{ url('admin/formit/delete/') }}/" + postId;
                             }
                         });
+                });
+
+                // pengumuman
+                $('.clickPengumuman').click(function(){
+                    var id = $(this).data('id');
+                    $('.pengumuman_id').val(id);
                 });
             });
         </script>

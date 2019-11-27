@@ -189,10 +189,14 @@ class helper{
     }
 
     // get karyawan name
-    public static function get_karyawan($kd_sales){
-        $karyawan = Karyawan::where('stat', '1')->where('kd_sales', $kd_sales)->first();
-
-        return $karyawan->nama;
+    public static function get_karyawan($kd_sales, $divisi){
+        $karyawan = Karyawan::where('stat', '1')->where('kd_sales', $kd_sales)->where('divisi', $divisi)->first();
+        
+        if(isset($karyawan)){
+            return $karyawan->nama;
+        }else{
+            return $kd_sales;
+        }
     }
 
     // ubah nama barang
@@ -569,7 +573,9 @@ class helper{
 
     // notif
     public static function showNotifikasi(){
-        $notif = Notifikasi::where('user_id', auth()->user()->id)->where('stat', '1')->orderBy('created_at', 'desc')->get();
+        $now = date('Y-m-d');
+        $setdate = date('Y-m-d', strtotime('-5 day', strtotime($now)));
+        $notif = Notifikasi::where('user_id', auth()->user()->id)->where('created_at', '>=', $setdate)->orderBy('created_at', 'desc')->get();
         return $notif;
     }
 

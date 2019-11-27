@@ -10,8 +10,11 @@ class NotifikasiController extends Controller
 {
     public function readnotif($id){
         $notif = Notifikasi::find($id);
-        $notif->stat = 2;
+        $notif->baca = 2;
         $notif->save();
-        echo "lol";
+    }
+
+    public function clicknotif(){
+        $notif = Notifikasi::where('user_id', auth()->user()->id)->update(['stat'=>'2']);
     }
 }

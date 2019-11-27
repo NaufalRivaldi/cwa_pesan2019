@@ -64,9 +64,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/form', 'PengumumanController@form');
         Route::get('/detail/{id}', 'PengumumanController@detail');
         Route::get('/edit/{id}', 'PengumumanController@edit');
-        Route::get('/active/{id}', 'PengumumanController@active');
-        Route::get('/nonactive/{id}', 'PengumumanController@nonactive');
-        Route::get('/notif/{id}', 'PengumumanController@notif');
+        Route::post('/active', 'PengumumanController@active')->name('pengumuman.active');
+        Route::post('/nonactive', 'PengumumanController@nonactive')->name('pengumuman.nonactive');
         Route::get('/delete/{id}', 'PengumumanController@delete');
         Route::get('/delattc/{id}', 'PengumumanController@delattc');
         Route::post('/store', 'PengumumanController@store');
@@ -147,7 +146,9 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::post('/change', 'KodeVerivikasiController@change')->name('kode.verifikasi.change');
     });
 
+    // notif
     route::get('/readnotif/{id}', 'NotifikasiController@readnotif')->name('readnotif');
+    route::get('/clicknotif', 'NotifikasiController@clicknotif')->name('clicknotif');
 });
 
 

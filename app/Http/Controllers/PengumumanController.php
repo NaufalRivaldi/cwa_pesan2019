@@ -8,6 +8,7 @@ use App\Helpers\helper;
 
 use App\Pengumuman;
 use App\AttachPengumuman;
+use App\KaryawanAll;
 use File;
 
 class PengumumanController extends Controller
@@ -15,18 +16,15 @@ class PengumumanController extends Controller
     public function index(){
         $menu = 2;
         $no = 1;
-        
-        if(auth()->user()->dep != 'IT'){
-            $pengumuman = Pengumuman::where('user_id', auth()->user()->id)->orderBy('tgl', 'desc')->get();
-        }else{
-            $pengumuman = Pengumuman::orderBy('tgl', 'desc')->get();
-        }
+        $pengumuman = Pengumuman::where('user_id', auth()->user()->id)->orderBy('tgl', 'desc')->get();
+
         return view('admin.pengumuman.index', compact('no', 'pengumuman', 'menu'));
     }
 
     public function form(){
         $menu = 2;
-        return view('admin.pengumuman.form', compact('menu'));
+        $date_now = date('Y-m-d');
+        return view('admin.pengumuman.form', compact('menu', 'date_now'));
     }
 
     public function detail($id){
@@ -38,9 +36,10 @@ class PengumumanController extends Controller
 
     public function edit($id){
         $menu = 2;
+        $date_now = date('Y-m-d');
         $file = AttachPengumuman::where('pengumuman_id', $id)->get();
         $pengumuman = Pengumuman::find($id);
-        return view('admin.pengumuman.edit', compact('pengumuman', 'file', 'menu'));
+        return view('admin.pengumuman.edit', compact('pengumuman', 'file', 'menu', 'date_now'));
     }
 
     public function store(Request $req){
@@ -50,6 +49,7 @@ class PengumumanController extends Controller
             'subject' => $req->subject,
             'tgl' => date('Y-m-d H:i:s'),
             'pesan' => $req->pesan,
+            'tgl_akhir' => $req->tgl_akhir,
             'stat' => 3,
             'user_id' => auth()->user()->id
         ]);
@@ -62,7 +62,7 @@ class PengumumanController extends Controller
         // Upload File
         $this->upload($id, $req);
 
-        return redirect('/admin/pengumuman')->with('success', 'Pengumuman berhasil di post, hubungi IT untuk memverifikasi pengumuman tersebut.');
+        return redirect('/admin/pengumuman')->with('success', 'Pengumuman berhasil dibuat, aktifkan pengumuman untuk dibagikan.');
     }
 
     public function update(Request $req){
@@ -71,6 +71,7 @@ class PengumumanController extends Controller
         $pengumuman = Pengumuman::find($req->id);
         $pengumuman->subject = $req->subject;
         $pengumuman->pesan = $req->pesan;
+        $pengumuman->tgl_akhir = $req->tgl_akhir;
         $pengumuman->save();
 
         // uplaod file
@@ -79,30 +80,36 @@ class PengumumanController extends Controller
         return redirect('/admin/pengumuman');
     }
 
-    public function active($id){
-        $pengumuman = Pengumuman::find($id);
-        $pengumuman->stat = 1;
-        $pengumuman->save();
+    public function active(Request $req){
+        $nik = $req->nik;
+        $password = sha1($req->password);
+        $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', auth()->user()->dep)->where('stat', '>=', '2')->first();
+        
+        if(isset($karyawan)){
+            $pengumuman = Pengumuman::find($req->pengumuman_id);
+            $pengumuman->stat = 1;
+            $pengumuman->save();
 
-        return redirect('/admin/pengumuman');
+            return redirect('/admin/pengumuman')->with('success', 'Pengumuman berhasil di aktifkan');
+        }else{
+            return redirect('/admin/pengumuman')->with('error', 'Validasi tidak valid!');
+        }
     }
 
-    public function nonactive($id){
-        $pengumuman = Pengumuman::find($id);
-        $pengumuman->stat = 2;
-        $pengumuman->save();
+    public function nonactive(Request $req){
+        $nik = $req->nik;
+        $password = sha1($req->password);
+        $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', auth()->user()->dep)->where('stat', '>=', '2')->first();
+        
+        if(isset($karyawan)){
+            $pengumuman = Pengumuman::find($req->pengumuman_id);
+            $pengumuman->stat = 2;
+            $pengumuman->save();
 
-        return redirect('/admin/pengumuman');
-    }
-
-    public function notif($id){
-        $pengumuman = Pengumuman::find($id);
-
-        // notif pengumuman
-        $text = $pengumuman->user->nama." memposting pengumuman.";
-        helper::notifikasiPengumuman($id, $pengumuman->user_id, $text);
-
-        return redirect('/admin/pengumuman')->with('success', 'Notifikasi telah terkirim.');
+            return redirect('/admin/pengumuman')->with('success', 'Pengumuman berhasil di nonaktifkan');
+        }else{
+            return redirect('/admin/pengumuman')->with('error', 'Validasi tidak valid!');
+        }
     }
 
     public function delete($id){
@@ -141,7 +148,8 @@ class PengumumanController extends Controller
 
         $this->validate($req, [
             'subject' => 'required',
-            'pesan' => 'required'
+            'pesan' => 'required',
+            'tgl_akhir' => 'required|date',
         ], $message);
     }
 

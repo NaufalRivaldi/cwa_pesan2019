@@ -134,7 +134,7 @@
                                     <td>{{ $no++ }}</td>
                                     <td>
                                         <a href="{{ url($url) }}">
-                                            {{ Helper::get_karyawan($row->kd_sales) }} <br>
+                                            {{ Helper::get_karyawan($row->kd_sales, $row->divisi) }} <br>
                                             <span class="badge badge-primary">{{ $row->kd_sales }}</span>
                                         </a>
                                     </td>

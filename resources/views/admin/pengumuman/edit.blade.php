@@ -41,6 +41,17 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Berlaku Sampai</label>
+                            <div class="col-sm-10">
+                                <input type="date" name="tgl_akhir" class="form-control col-md-6" min="{{ $date_now }}" value="{{ $pengumuman->tgl_akhir }}">
+                                @if($errors->has('tgl_akhir'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('tgl_akhir') }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label class="col-sm-2 col-form-label">File</label>
                             <div class="col-sm-10">
                                 <p>

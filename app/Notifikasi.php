@@ -8,7 +8,7 @@ class Notifikasi extends Model
 {
     protected $table = 'notifikasi';
     protected $fillable = [
-        'keterangan', 'link', 'stat', 'user_id'
+        'keterangan', 'link', 'stat', 'baca', 'user_id'
     ];
 
     // fk

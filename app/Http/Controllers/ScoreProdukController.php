@@ -77,7 +77,18 @@ class ScoreProdukController extends Controller
             $arr[] = $r['kdbr'];
         }
 
+        // query
         $data['karyawan'] = Karyawan::where('kd_sales', $kd_sales)->where('divisi', $divisi)->first();
+        if(!isset($data['karyawan'])){
+            $data = [
+                'kd_sales' => '0',
+                'nama' => 'Unknown',
+                'divisi' => 'Unknown',
+                'stat' => 1
+            ];
+            $data['karyawan'] = (object) $data;
+        }
+
         $data['score_jual'] = HistoryJual::select('tgl', 'kd_barang', DB::raw('SUM(jml) AS total_jml'), DB::raw('SUM(skor) AS total_skor'))->whereBetween('tgl', [$tgl_a, $tgl_b])->groupBy('kd_barang')->where('kd_sales', $kd_sales)->whereIn('kd_barang', $arr)->orderBy('tgl', 'desc')->get();
 
         // covert divisi

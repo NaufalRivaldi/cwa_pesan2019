@@ -8,7 +8,7 @@ class Pengumuman extends Model
 {
     protected $table = 'pengumuman';
     protected $fillable = [
-        'subject', 'tgl', 'pesan', 'stat', 'user_id'
+        'subject', 'tgl', 'pesan', 'tgl_akhir', 'stat', 'user_id'
     ];
 
     // FK
