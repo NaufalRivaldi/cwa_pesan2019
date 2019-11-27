@@ -44,7 +44,7 @@
                                         <select name="divisi" id="" class="form-control">
                                             <option value="">Semua Divisi</option>
                                             @foreach($divisi as $r)
-                                            <option value="{{ $r }}" <?= (!empty($_GET['divisi'])) ? ($_GET['divisi'] == $r) ? 'selected' : '' : '' ?>>{{ $r->divisi }}</option>
+                                            <option value="{{ $r->divisi }}" <?= (!empty($_GET['divisi'])) ? ($_GET['divisi'] == $r->divisi) ? 'selected' : '' : '' ?>>{{ $r->divisi }}</option>
                                             @endforeach
                                         </select>
                                     </div>

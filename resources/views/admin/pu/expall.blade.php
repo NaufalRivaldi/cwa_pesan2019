@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Export All</title>
+
+    <style>
+    table { border-collapse: collapse !important; border: 1px solid black !important; }
+    </style>
 </head>
 <body>
     @foreach($cabang as $c)
@@ -15,7 +19,10 @@
         ?>
         <h3>{{ $c->nama_cabang }}</h3>
         Tanggal : {{ $_GET['dari_tgl'].' sd '.$_GET['sampai_tgl'] }}
-        <table border='1'>
+        <table style="border-collapse: collapse">
+            <tr>
+                <td colspan="5">Tanggal : {{ $_GET['dari_tgl'].' sd '.$_GET['sampai_tgl'] }}</td>
+            </tr>
             <tr>
                 <th>NO</th>
                 <th>KODE</th>
@@ -46,7 +53,7 @@
                 <td>{{ $row->mrbr }}</td>
                 <td>{{ Helper::nama_kriteria($row->mrbr, $row->kd_barang) }}</td>
                 <td>{{ $row->total_jml }}</td>
-                <td>{{ str_replace('.', ',', $row->total_brt) }}</td>
+                <td>{{ $row->total_brt }}</td>
             </tr>
             @endforeach
             <tr>
