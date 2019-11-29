@@ -19,6 +19,25 @@ class UserController extends Controller
         return view('backend.user.index', compact('no', 'data'));
     }
 
+    public function edit($id){
+        $data['title'] = 'User Edit';
+        $data['user'] = User::find($id);
+        $data['cabang'] = Cabang::orderBy('inisial', 'desc')->get();
+        $data['dep'] = helper::allDep();
+        return view('backend.user.form', $data);
+    }
+
+    public function update(Request $req){
+        $user = user::find($req->id);
+        $user->nama = $req->nama;
+        $user->email = $req->email;
+        $user->dep = $req->dep;
+        $user->level = $req->level;
+        $user->save();
+
+        return redirect()->route('backend.user')->with('success', 'Data berhasil di edit.');
+    }
+
     public function save(Request $req){
         $this->val($req);
         

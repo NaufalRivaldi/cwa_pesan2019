@@ -117,6 +117,7 @@
                                         <td>{!! Helper::statusUser($row->stat) !!}</td>
                                         <td>
                                             <a href="{{ url('backend/user/reset/'.$row->id) }}" class="btn btn-success btn-sm">Reset Password</a> 
+                                            <a href="{{ url('backend/user/edit/'.$row->id) }}" class="btn btn-success btn-sm">Edit</a>
 
                                             @if($row->stat == 1)
                                                 <a href="{{ url('backend/user/nonactive/'.$row->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Nonaktifkan User?')">Nonactive</a>

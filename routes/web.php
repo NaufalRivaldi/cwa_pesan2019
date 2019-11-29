@@ -168,7 +168,9 @@ Route::group(['prefix' => '/backend'], function(){
 
         // User
         Route::group(['prefix' => 'user'], function(){
-            Route::get('/', 'UserController@index');
+            Route::get('/', 'UserController@index')->name('backend.user');
+            Route::get('/edit/{id}', 'UserController@edit')->name('user.edit');
+            Route::put('/update', 'UserController@update');
             Route::post('/save', 'UserController@save');
             Route::get('/reset/{id}', 'UserController@resetPassword');
             Route::get('/nonactive/{id}', 'UserController@nonactive');
