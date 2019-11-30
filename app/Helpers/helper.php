@@ -257,6 +257,12 @@ class helper{
         return $class;
     }
 
+    public static function countRead(){
+        $belumbaca = Penerima::where('user_id', auth()->user()->id)->where('read_user', 'n')->count();
+
+        return $belumbaca;
+    }
+
     // ubah format tanggal
     public static function setDate($date){
         $date = date('d F Y', strtotime($date));

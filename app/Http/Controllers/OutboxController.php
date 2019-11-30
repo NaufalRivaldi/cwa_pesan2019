@@ -26,8 +26,10 @@ class OutboxController extends Controller
     public function detail($pesan_id){
         $menu = '1';
         $pesan = Pesan::where('id', $pesan_id)->first();
+        $dibaca = Penerima::where('pesan_id', $pesan_id)->where('read_user', 'y')->count();
+        $belumbaca = Penerima::where('pesan_id', $pesan_id)->where('read_user', 'n')->count();
 
-        return view('admin.pesan.outbox.detail', compact('menu', 'pesan'));
+        return view('admin.pesan.outbox.detail', compact('menu', 'pesan', 'dibaca', 'belumbaca'));
     }
 
     public function hapus($pesan_id){

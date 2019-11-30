@@ -8,6 +8,7 @@
             <div class="container">
                 <a href="{{ url('admin/pesan/outbox') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                 <hr>
+                <p>Report : <span class="badge badge-info">Total Penerima : {{ $pesan->penerima->count() }}</span> <span class="badge badge-success">Dibaca : {{ $dibaca }}</span> <span class="badge badge-warning">Belum dibaca : {{ $belumbaca }}</span></p>
                 <div class="card">
                     <div class="card-header">
                         <h2>{{ $pesan->subject }}</h2>
@@ -18,8 +19,8 @@
                                 <td><b>{{ $pesan->user->nama }} < {{ $pesan->user->email }} ></b></td>
                             </tr>
                             <tr>
-                                <td>Kepada</td>
-                                <td>:</td>
+                                <td valign="top">Kepada</td>
+                                <td valign="top">:</td>
                                 <td>
                                     @foreach($pesan->penerima as $row)
                                         {{ $row->user->email.", " }}
@@ -27,7 +28,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Diterima</td>
+                                <td>Dikirim</td>
                                 <td>:</td>
                                 <td><span class="badge badge-success">{{ date('d F Y, H:i:s', strtotime($pesan->tgl)) }}</span></td>
                             </tr>

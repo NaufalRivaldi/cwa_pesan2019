@@ -116,7 +116,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/detail/{id}', 'FormHRDController@detail');
         Route::post('/acc/{id}', 'FormHRDController@acc');
         Route::post('/tolak/{id}', 'FormHRDController@tolak');
-        Route::get('/delete/{id}', 'FormHRDController@delete');
+        Route::post('/delete', 'FormHRDController@delete')->name('formhrd.delete');
         
         Route::group(['middleware' => ['checkDep:HRD,IT']], function(){
             Route::post('/accHRD/{id}', 'FormHRDController@accHRD');

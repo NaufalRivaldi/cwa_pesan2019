@@ -20,10 +20,10 @@
         </li>
         
         <li <?= ($menu == '1') ? 'class="active"' : '' ?>>
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-envelope"></i> Pesan</a>
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-envelope"></i> Pesan <span class="badge badge-warning">{{ Helper::countRead() }}</span></a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="{{ url('admin/pesan/inbox') }}">Pesan Masuk</a>
+                    <a href="{{ url('admin/pesan/inbox') }}">Pesan Masuk <span class="badge badge-warning">{{ Helper::countRead() }}</span></a>
                 </li>
                 <li>
                     <a href="{{ url('admin/pesan/outbox') }}">Pesan Keluar</a>

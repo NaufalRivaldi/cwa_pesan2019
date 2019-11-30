@@ -239,13 +239,24 @@ class FormHRDController extends Controller
         return redirect('/admin/formhrd')->with('success', 'Form berhasil diajukan.');
     }
 
-    public function delete($id){
-        $form = FormHRD::find($id);
-        SetKategoriHRD::where('form_hrd_id', $id)->delete();
+    public function delete(Request $req){
+        $id = $req->form_hrd_id;
+        $nik = $req->nik;
+        $password = sha1($req->password);
+        $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', auth()->user()->dep)->where('stat', '>=', '2')->first();
+        
+        if(isset($karyawan)){
+            $form = FormHRD::find($id);
+            SetKategoriHRD::where('form_hrd_id', $id)->delete();
 
-        $form->delete();
+            $form->delete();
 
-        return redirect('/admin/formhrd')->with('success', 'Form berhasil dihapus.');
+            return redirect('/admin/formhrd')->with('success', 'Form berhasil dihapus.');
+        }else{
+            return redirect('/admin/formhrd')->with('error', 'Form gagal dihapus.');
+        }
+
+        
     }
 
     public function acc(Request $req, $form_id){

@@ -365,6 +365,12 @@
                     var id = $(this).data('id');
                     $('.pengumuman_id').val(id);
                 });
+
+                // form
+                $('.remove-form-hrd').click(function(){
+                    var id = $(this).data('id');
+                    $('.form_hrd_id').val(id);
+                });
             });
         </script>
 
