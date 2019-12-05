@@ -7,11 +7,35 @@ $(document).ready(function () {
 
     // data table
     $('#myTable').DataTable({});
+    $('#myTable2').DataTable({
+        paging: false
+    });
+
 
     // file Upload
     $('input[name="file[]"]').fileuploader({
-        theme: 'default',
-        changeInput: true
+        limit: null,
+        changeInput: true,
+        dragDrop: {
+            // set the drop container {null, String, jQuery Object}
+            // example: 'body'
+            container: null,
+        
+            // Callback fired on entering with dragging files the drop container
+            onDragEnter: function(event, listEl, parentEl, newInputEl, inputEl) {
+                // callback will go here
+            },
+        
+            // Callback fired on leaving with dragging files the drop container
+            onDragLeave: function(event, listEl, parentEl, newInputEl, inputEl) {
+                // callback will go here
+            },
+        
+            // Callback fired on dropping the files in the drop container
+            onDrop: function(event, listEl, parentEl, newInputEl, inputEl) {
+                // callback will go here
+            }
+        }
     });
 
     // Select2

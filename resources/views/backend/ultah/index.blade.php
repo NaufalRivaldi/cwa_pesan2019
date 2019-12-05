@@ -51,7 +51,7 @@
                         </div>
                         <!-- collapse -->
 
-                        <table id="myTable" class="custom-table table table-hover">
+                        <table id="myTable2" class="custom-table table table-hover">
                             <thead>
                                 <tr>
                                     <th>No</th>

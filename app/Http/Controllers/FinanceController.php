@@ -53,7 +53,7 @@ class FinanceController extends Controller
         $menu = 5;
         $dep = auth()->user()->dep;
         $no = 1;
-        $finance = Finance::where('nama', '=', $nama)->get();
+        $finance = Finance::where('nama', '=', $nama)->orderBy('file_name')->get();
         return view('admin.finance.detail', compact('dep', 'no', 'finance', 'menu'));
     }
 

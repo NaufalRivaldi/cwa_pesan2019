@@ -19,6 +19,12 @@
             <a href="{{ route('dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
         </li>
         
+        @if(Helper::isPengumuman())
+            <li <?= ($menu == '2') ? 'class="active"' : '' ?>>
+                <a href="{{ url('admin/pengumuman') }}"><i class="fas fa-bullhorn"></i> Pengumuman</a>
+            </li>
+        @endif
+
         <li <?= ($menu == '1') ? 'class="active"' : '' ?>>
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-envelope"></i> Pesan <span class="badge badge-warning">{{ Helper::countRead() }}</span></a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -33,12 +39,6 @@
                 </li>
             </ul>
         </li>
-        
-        @if(Helper::isPengumuman())
-            <li <?= ($menu == '2') ? 'class="active"' : '' ?>>
-                <a href="{{ url('admin/pengumuman') }}"><i class="fas fa-bullhorn"></i> Pengumuman</a>
-            </li>
-        @endif
 
         <li <?= ($menu == '3') ? 'class="active"' : '' ?>>
             <a href="{{ url('admin/scoreboard') }}"><i class="fas fa-star"></i> Scoreboard Penjualan</a>

@@ -27,7 +27,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <!-- <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-item nav-link" href="{{ url('/') }}"><i class="fas fa-bullhorn"></i> Pengumuman</span></a>
                         <a class="nav-item nav-link" href="{{ url('/scoreboard') }}"> <i class="fas fa-star"></i> Scoreboard</a>
@@ -35,7 +35,7 @@
                     <form class="form-inline my-2 my-lg-0 ml-auto">
                         <a href="{{ url('/login') }}" class="btn btn-outline-info my-2 my-sm-0"><i class="fas fa-user"></i> Masuk</a>
                     </form>
-                </div>
+                </div> -->
             </div>
         </nav>
         <!-- navbar -->

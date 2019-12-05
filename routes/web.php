@@ -11,17 +11,17 @@
 |
 */
 
-Route::group(['middleware' => ['guest']], function(){
-    // home
-    Route::get('/', 'HomeController@index');
-    Route::get('/detail/{id}', 'HomeController@detail');
-    Route::get('/scoreboard', 'ScoreboardController@scoreboard');
-    Route::get('/scoreboarddetail', 'ScoreboardController@scoreboarddetail');
+// Route::group(['middleware' => ['guest']], function(){
+//     // home
+//     Route::get('/', 'HomeController@index');
+//     Route::get('/detail/{id}', 'HomeController@detail');
+//     Route::get('/scoreboard', 'ScoreboardController@scoreboard');
+//     Route::get('/scoreboarddetail', 'ScoreboardController@scoreboarddetail');
     
-});
+// });
 
 // login & logout
-Route::get('/login', 'AuthController@login')->name('login');
+Route::get('/', 'AuthController@login')->name('login');
 Route::post('/postlogin', 'AuthController@postlogin');
 Route::get('/logout', 'AuthController@logout');
 

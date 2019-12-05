@@ -19,7 +19,7 @@
                         </div>
                     @endif
 
-                    @if($dep == 'IT' || $dep == 'Gudang')
+                    @if($dep == 'IT' || $dep == 'Gudang' || $dep == 'SCM')
                         <form action="{{ url('/admin/master/save') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                             <div class="form-group row">

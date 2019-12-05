@@ -16,7 +16,7 @@
                         <a href="{{ url('/admin/finance/') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                         <hr>
                         <div class="table-responsive">
-                            <table class="table table-striped" id="myTable">
+                            <table class="table table-striped" id="myTable2">
                                 <thead>
                                     <tr>
                                         <th>No</th>
