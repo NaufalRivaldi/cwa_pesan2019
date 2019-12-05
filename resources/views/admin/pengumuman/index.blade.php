@@ -30,16 +30,18 @@
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>
-                                                <a href="{{ url('/admin/pengumuman/detail/'.    $row->id) }}" class="a-block">{{ $row->tgl }}</a>
+                                                <a href="{{ url('/admin/pengumuman/detail/'.$row->id) }}" class="a-block">{{ $row->tgl }}</a>
                                             </td>
                                             <td>
-                                                <a href="{{ url('/admin/pengumuman/detail/'.    $row->id) }}" class="a-block">{{ $row->tgl_akhir }}</a>
+                                                <a href="{{ url('/admin/pengumuman/detail/'.$row->id) }}" class="a-block">{{ $row->tgl_akhir }}</a>
                                             </td>
                                             <td>
-                                                <a href="{{ url('/admin/pengumuman/detail/'.    $row->id) }}" class="a-block">{{ $row->user->nama.' - '.$row->user->dep }}</a>
+                                                <a href="{{ url('/admin/pengumuman/detail/'.$row->id) }}" class="a-block">{{ $row->user->nama.' - '.$row->user->dep }}</a>
                                             </td>
                                             <td>
-                                                <a href="{{ url('/admin/pengumuman/detail/'.    $row->id) }}" class="a-block">{{ $row->subject }}</a>
+                                                <a href="{{ url('/admin/pengumuman/detail/'.$row->id) }}" class="a-block">
+                                                    {{ $row->subject }}
+                                                </a>
                                             </td>
                                             <td>
                                                 @if($row->stat == 1)

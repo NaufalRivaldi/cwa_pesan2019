@@ -15,6 +15,7 @@
                         <span id="insert-menu"></span>
                     </div>
                     <div class="card-body">
+                        <h3><i class="fas fa-spinner"></i> Form Progress</h3>
                         <div class="table-responsive">
                             <table id="myTable" class="custom-table table table-hover">
                                 <thead>
@@ -30,7 +31,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($form as $row)
+                                    @foreach($form_progress as $row)
                                         @if(auth()->user()->level > 2 && auth()->user()->level != 7)
                                             @if(auth()->user()->level == $row->karyawanAll->stat)
                                             <?php
@@ -97,6 +98,86 @@
                                                 @if($row->stat == 1)
                                                     <a href="#" class="btn btn-danger btn-sm remove-form-hrd" data-id="{{ $row->id }}" data-toggle="modal" data-target="#remove-form-hrd"><i class="fas fa-trash"></i></a>
                                                 @endif
+                                            </td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="card-body">
+                        <h3><i class="fas fa-check-circle"></i> Form Selesai</h3>
+                        <div class="table-responsive">
+                            <table id="myTable" class="custom-table table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tanggal</th>
+                                        <th>Kategori</th>
+                                        <th>Nama</th>
+                                        <th>Bagian</th>
+                                        <th>Status</th>
+                                        <th>Keterangan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($form as $row)
+                                        @if(auth()->user()->level > 2 && auth()->user()->level != 7)
+                                            @if(auth()->user()->level == $row->karyawanAll->stat)
+                                            <?php
+                                                $url = 'admin/formhrd/detail/'.$row->id;
+                                            ?>
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>
+                                                    <a href="{{ url($url) }}" class="a-block">
+                                                        {{ Helper::setDate($row->created_at) }}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ url($url) }}" class="a-block">{!! Helper::setKategori($row->id) !!}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ url($url) }}" class="a-block">{!! $row->karyawanAll->nama.'/'.Helper::statusKaryawan($row->karyawanAll->stat) !!}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ url($url) }}" class="a-block">{{ $row->karyawanAll->dep }}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ url($url) }}" class="a-block">{!! Helper::setStatus($row->stat) !!}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ url($url) }}" class="a-block">{{ Helper::setAlasan($row->id) }}</a>
+                                                </td>
+                                            </tr>
+                                            @endif
+                                        @elseif(auth()->user()->level <= 2 || auth()->user()->level == 7)
+                                        <?php
+                                            $url = 'admin/formhrd/detail/'.$row->id;
+                                        ?>
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>
+                                                <a href="{{ url($url) }}" class="a-block">
+                                                    {{ Helper::setDate($row->created_at) }}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ url($url) }}" class="a-block">{!! Helper::setKategori($row->id) !!}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ url($url) }}" class="a-block">{!! $row->karyawanAll->nama.'/'.Helper::statusKaryawan($row->karyawanAll->stat) !!}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ url($url) }}" class="a-block">{{ $row->karyawanAll->dep }}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ url($url) }}" class="a-block">{!! Helper::setStatus($row->stat) !!}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ url($url) }}" class="a-block">{{ Helper::setAlasan($row->id) }}</a>
                                             </td>
                                         </tr>
                                         @endif

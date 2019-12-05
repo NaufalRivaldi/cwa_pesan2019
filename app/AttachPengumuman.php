@@ -13,6 +13,6 @@ class AttachPengumuman extends Model
 
     // fk
     public function pengumuman(){
-        return $this->belongsTo('App\Pengumuman');
+        return $this->belongsTo('App\Pengumuman', 'pengumuman');
     }
 }

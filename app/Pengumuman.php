@@ -16,7 +16,7 @@ class Pengumuman extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function attach(){
-        return $this->hasMany('App\AttachPengumuman');
+    public function attachPengumuman(){
+        return $this->hasMany('App\AttachPengumuman', 'pengumuman_id');
     }
 }

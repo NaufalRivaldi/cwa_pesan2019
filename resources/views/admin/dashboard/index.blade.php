@@ -3,10 +3,31 @@
 @section('title', '- Dashboard')
 
 @section('content')
+    <h2>Dashboard</h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-header"><i class="fas fa-file-signature"></i> Form Progress</div>
+                <div class="card-body">
+                    <p class="card-text">{{ Helper::countPending() }} Form</p>
+                </div>
+            </div>
+        </div>
+        @if(Helper::isVerifikasi())
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-header"><i class="fas fa-file-signature"></i> Form Belum diverifikasi</div>
+                <div class="card-body">
+                    <p class="card-text">{{ Helper::countVerifikasi() }} Form</p>
+                </div>
+            </div>
+        </div>
+        @endif
+    </div>
+    <hr>
     <div class="row">
         <div class="col-12">
-            <h2>Dashboard</h2>
-            <hr>
             <div class="card">
                 <div class="card-header">
                     <h4>Pengumuman Internal</h4>
@@ -40,6 +61,11 @@
                                                     <span class="text-blink">New!</span>
                                                 @endif
                                                 </a>
+                                                @foreach($row->attachPengumuman as $att)
+                                                    <a href="{{ asset('Upengumuman/'.$att->nama_file) }}" download="{{ $att->nama }}">
+                                                        <span class="badge badge-info">{{ $att->nama }}</span>
+                                                    </a> 
+                                                @endforeach
                                             </td>
                                         </tr>
                                     @endforeach
@@ -54,6 +80,7 @@
                     </div>
                 </div>
             </div>
+            <hr>
         </div>
     </div>
 @endsection

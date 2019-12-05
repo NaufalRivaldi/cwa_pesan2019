@@ -20,11 +20,17 @@ class FormHRDController extends Controller
     public function index(){
         $menu = 8;
         $no = 1;
+        // sudah selesai
         $form = FormHRD::whereHas('user', function($query){
             $query->whereDep(auth()->user()->dep);
-        })->orderBy('created_at', 'desc')->get();
+        })->where('stat', '>', 2)->orderBy('created_at', 'desc')->get();
 
-        return view('admin.form.hrd.index', compact('menu', 'no', 'form'));
+        // belum acc
+        $form_progress = FormHRD::whereHas('user', function($query){
+            $query->whereDep(auth()->user()->dep);
+        })->where('stat', '<', 3)->orderBy('created_at', 'desc')->get();
+
+        return view('admin.form.hrd.index', compact('menu', 'no', 'form', 'form_progress'));
     }
 
     public function form(){

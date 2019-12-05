@@ -263,6 +263,58 @@ class helper{
         return $belumbaca;
     }
 
+    public static function countPending(){
+        $count = 0;
+        $form = FormHRD::whereHas('user', function($query){
+            $query->whereDep(auth()->user()->dep);
+        })->where('stat', '<', '3')->orderBy('created_at', 'desc')->get();
+
+        foreach($form as $row){
+            if(auth()->user()->level > 2 && auth()->user()->level != 7){
+                if(auth()->user()->level == $row->karyawanAll->stat){
+                    $count += 1;
+                }
+            }elseif(auth()->user()->level <= 2 || auth()->user()->level == 7){
+                $count += 1;
+            }
+        }
+
+        return $count;
+    }
+
+    public static function countVerifikasi(){
+        $count = 0;
+        // hrd
+        if(auth()->user()->level == 7){
+            $form_office = FormHRD::where('stat', 1)->whereHas('KaryawanAll', function($query){
+                $query->whereIn('dep', ['Office']);
+            })->orderBy('created_at', 'desc')->get();
+            $form = FormHRD::where('stat', 2)->orderBy('created_at', 'desc')->get();
+        }else{
+            $form = FormHRD::whereHas('KaryawanAll', function($query){
+                $query->whereIn('dep', helper::setViewVerivikasi());
+            })->orderBy('created_at', 'desc')->get();
+        }
+
+        if(!empty($form_office) && auth()->user()->level == 7){
+            foreach($form_office as $row){
+                $count += 1;
+            }
+        }
+
+        foreach($form as $row){
+            if($row->karyawanAll->stat > 1 && auth()->user()->level != 7){
+                if($row->karyawanAll-> stat == 2 && $row->stat < 2){
+                    $count += 1;
+                }
+            }elseif(auth()->user()->level == 7){
+                $count += 1;
+            }
+        }
+
+        return $count;
+    }
+
     // ubah format tanggal
     public static function setDate($date){
         $date = date('d F Y', strtotime($date));

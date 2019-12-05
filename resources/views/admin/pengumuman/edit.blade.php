@@ -59,7 +59,7 @@
                                     <a href="{{ url('/admin/pengumuman/delattc/'.$f->id) }}" class="btn btn-danger btn-sm">Hapus</a> <span class="badge badge-info">{{ $f->nama }}</span><br>
                                     @endforeach
                                 </p>
-                                <input type="file" name="file[]">
+                                <input type="file" name="file[]" data-fileuploader-fileMaxSize="5">
                             </div>
                         </div>
                         <div class="form-group row">

@@ -81,10 +81,10 @@
         </li>
         @if(Helper::isForm())
         <li <?= ($menu == '8') ? 'class="active"' : '' ?>>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> E-Form</a>
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> E-Form <span class="badge badge-warning">{{ Helper::countPending() }}</span></a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a href="{{ url('admin/formhrd') }}">HRD</a>
+                    <a href="{{ url('admin/formhrd') }}">HRD <span class="badge badge-warning">{{ Helper::countPending() }}</span></a>
                 </li>
                 <li>
                     <a href="{{ route('penanganan.it') }}">Penanganan IT</a>
@@ -96,19 +96,17 @@
                 @endif
             </ul>
         </li>
+        @endif
 
-        @if(Helper::isFormHRD())
+        @if(Helper::isHRD())
         <li <?= ($menu == '9') ? 'class="active"' : '' ?>>
             <a href="#formHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> Form HRD</a>
             <ul class="collapse list-unstyled" id="formHRD">
-                @if(Helper::isHRD())
                 <li>
                     <a href="{{ url('admin/formhrd/laporan') }}">Laporan</a>
                 </li>
-                @endif
             </ul>
         </li>
-        @endif
         @endif
     </ul>
     <p class="footer">Copyright © 2019. Naufal Rivaldi.</p>

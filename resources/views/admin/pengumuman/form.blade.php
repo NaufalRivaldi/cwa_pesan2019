@@ -52,7 +52,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">File</label>
                             <div class="col-sm-10">
-                                <input type="file" name="file[]">
+                                <input type="file" name="file[]" data-fileuploader-fileMaxSize="5">
                             </div>
                         </div>
                         <div class="form-group row">

@@ -77,7 +77,7 @@ class PengumumanController extends Controller
         // uplaod file
         $this->upload($req->id, $req);
 
-        return redirect('/admin/pengumuman');
+        return redirect('/admin/pengumuman')->with('success', 'Berhasil di edit');
     }
 
     public function active(Request $req){
