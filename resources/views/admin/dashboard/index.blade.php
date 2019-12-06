@@ -7,7 +7,7 @@
     <hr>
     <div class="row">
         <div class="col-md-3">
-            <div class="card text-white bg-success">
+            <div class="card text-white bg-success mb-2">
                 <div class="card-header"><i class="fas fa-file-signature"></i> Form Progress</div>
                 <div class="card-body">
                     <p class="card-text">{{ Helper::countPending() }} Form</p>
@@ -16,7 +16,7 @@
         </div>
         @if(Helper::isVerifikasi())
         <div class="col-md-3">
-            <div class="card text-white bg-success">
+            <div class="card text-white bg-success mb-2">
                 <div class="card-header"><i class="fas fa-file-signature"></i> Form Belum diverifikasi</div>
                 <div class="card-body">
                     <p class="card-text">{{ Helper::countVerifikasi() }} Form</p>

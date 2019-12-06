@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <h3><i class="fas fa-spinner"></i> Form Progress</h3>
                         <div class="table-responsive">
-                            <table id="myTable" class="custom-table table table-hover">
+                            <table class="myTable custom-table table table-hover">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -110,7 +110,7 @@
                     <div class="card-body">
                         <h3><i class="fas fa-check-circle"></i> Form Selesai</h3>
                         <div class="table-responsive">
-                            <table id="myTable" class="custom-table table table-hover">
+                            <table class="myTable custom-table table table-hover">
                                 <thead>
                                     <tr>
                                         <th>No</th>

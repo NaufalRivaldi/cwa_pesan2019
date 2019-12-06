@@ -247,9 +247,8 @@ ul.CTAs a {
     border-radius: 5%;
     text-align: center;
     padding: 1%;
-    display: grid;
-    justify-content: center;
-    margin-right: 2%;
+    margin: 1%;
+    word-wrap: break-word;
 }
 
 .icon-lampiran {
@@ -316,5 +315,9 @@ ul.CTAs a {
     .dropdown-menu {
         margin-left: 0px;
         width: 100%;
+    }
+
+    .lampiran {
+        width: 46%;
     }
 }

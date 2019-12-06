@@ -81,7 +81,12 @@
         </li>
         @if(Helper::isForm())
         <li <?= ($menu == '8') ? 'class="active"' : '' ?>>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> E-Form <span class="badge badge-warning">{{ Helper::countPending() }}</span></a>
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-file-signature"></i> E-Form <span class="badge badge-warning">{{ Helper::countPending() }}</span>
+                @if(Helper::isVerifikasi())
+                    <span class="badge badge-warning">{{ Helper::countVerifikasi() }}</span>
+                @endif
+            </a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
                     <a href="{{ url('admin/formhrd') }}">HRD <span class="badge badge-warning">{{ Helper::countPending() }}</span></a>
@@ -91,7 +96,7 @@
                 </li>
                 @if(Helper::isVerifikasi())
                 <li>
-                    <a href="{{ url('admin/formhrd/verifikasi') }}">Verifikasi</a>
+                    <a href="{{ url('admin/formhrd/verifikasi') }}">Verifikasi <span class="badge badge-warning">{{ Helper::countVerifikasi() }}</span></a>
                 </li>
                 @endif
             </ul>
@@ -100,10 +105,10 @@
 
         @if(Helper::isHRD())
         <li <?= ($menu == '9') ? 'class="active"' : '' ?>>
-            <a href="#formHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> Form HRD</a>
+            <a href="#formHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> Laporan</a>
             <ul class="collapse list-unstyled" id="formHRD">
                 <li>
-                    <a href="{{ url('admin/formhrd/laporan') }}">Laporan</a>
+                    <a href="{{ url('admin/formhrd/laporan') }}">Form HRD</a>
                 </li>
             </ul>
         </li>

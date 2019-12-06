@@ -11,24 +11,35 @@
                 <div class="card">
                     <div class="card-header">
                         <h2>{{ $pesan->subject }}</h2>
-                        <table style="font-size: 0.9em">
-                            <tr>
-                                <td>Pengirim</td>
-                                <td width="20px">:</td>
-                                <td><b>{{ $pesan->user->nama }} < {{ $pesan->user->email }} ></b></td>
-                            </tr>
-                            <tr>
-                                <td>Kepada Saya</td>
-                                <td>:</td>
-                                <td>{{ auth()->user()->email }}</td>
-                            </tr>
-                            <tr>
-                                <td>Diterima</td>
-                                <td>:</td>
-                                <td><span class="badge badge-success">{{ date('d F Y, H:i:s', strtotime($pesan->tgl)) }}</span></td>
-                            </tr>
-                        </table>
+                        <hr>
+                        <div class="row" style="font-size: 0.9em">
+                            <div class="col-md-2">
+                                Pengirim :
+                            </div>
+                            <div class="col-md-9">
+                                <b>{{ $pesan->user->nama }} < {{ $pesan->user->email }} ></b>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row" style="font-size: 0.9em">
+                            <div class="col-md-2">
+                                Kepada Saya :
+                            </div>
+                            <div class="col-md-9">
+                                {{ auth()->user()->email }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row" style="font-size: 0.9em">
+                            <div class="col-md-2">
+                                Diterima :
+                            </div>
+                            <div class="col-md-9">
+                                <span class="badge badge-success">{{ date('d F Y, H:i:s', strtotime($pesan->tgl)) }}</span>
+                            </div>
+                        </div>
                     </div>
+                    
                     <div class="card-body">
                         <div class="container">
                             <div class="row">
