@@ -36,7 +36,7 @@
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-2">
-                                            Kategori :
+                                            Nama :
                                         </div>
                                         <div class="col-md-10">
                                             {{ $form->karyawanAll->nama }}
@@ -45,7 +45,7 @@
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            Nama :
+                                            Kategori :
                                         </div>
                                         <div class="col-md-10">
                                             {!! Helper::setKategori($form->id) !!}
