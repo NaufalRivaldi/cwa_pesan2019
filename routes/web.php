@@ -121,9 +121,12 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::group(['middleware' => ['checkDep:HRD,IT']], function(){
             Route::post('/accHRD/{id}', 'FormHRDController@accHRD');
             Route::post('/tolakHRD/{id}', 'FormHRDController@tolakHRD');
-            Route::get('/laporan', 'FormHRDController@laporan');
+            Route::get('/laporan', 'FormHRDController@laporan')->name('laporan');
             Route::post('/laporan/view/', 'FormHRDController@view')->name('laporan.view');
+            Route::get('/laporan/edit/{id}', 'FormHRDController@edit')->name('laporan.edit');
+            Route::post('/laporan/update/', 'FormHRDController@update')->name('laporan.update');
             Route::get('/laporan/export/', 'FormHRDController@export');
+            Route::post('/deletelaporan', 'FormHRDController@laporanDelete')->name('laporan.delete');
         });
 
         Route::group(['middleware' => ['checkDep:Office,HRD']], function(){

@@ -208,6 +208,37 @@ class FormHRDController extends Controller
         }
     }
 
+    public function edit($id){
+        $data['menu'] = 9;
+        $data['no'] = 1;
+        $data['form'] = FormHRD::find($id);
+        $data['kategori'] = KategoriHRD::all();
+        
+        return view('admin.formhrd.laporan.edit', $data);
+    }
+
+    public function update(Request $req){
+        $this->val($req);
+        $lembur = 2;
+
+        if(!empty($req->lembur) && $req->lembur == 1){
+            $lembur = 1;
+        }
+        $form = FormHRD::find($req->id);
+        $form->tgl_a = $req->tgl_a.' '.$req->time_a;
+        $form->tgl_b = $req->tgl_b.' '.$req->time_b;
+        $form->keterangan = $req->keterangan;
+        $form->lembur = $lembur;
+        $form->save();
+
+        // set kategori
+        SetKategoriHRD::where('form_hrd_id', $req->id)->delete();
+        $this->setKategori($req->kategori, $req->id);
+            
+        return redirect()->route('laporan')->with('success', 'Form berhasil diedit.');
+    }
+
+
     public function export(){
         $date = date('d-m-Y');
         $dep = 'All';
@@ -260,6 +291,27 @@ class FormHRDController extends Controller
             return redirect('/admin/formhrd')->with('success', 'Form berhasil dihapus.');
         }else{
             return redirect('/admin/formhrd')->with('error', 'Form gagal dihapus.');
+        }
+
+        
+    }
+
+    public function laporanDelete(Request $req){
+        $id = $req->form_hrd_id;
+        $nik = $req->nik;
+        $password = sha1($req->password);
+        $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', auth()->user()->dep)->where('stat', '>=', '2')->first();
+        
+        if(isset($karyawan)){
+            $form = FormHRD::find($id);
+            SetKategoriHRD::where('form_hrd_id', $id)->delete();
+            ValidasiFhrd::where('form_hrd_id', $id)->delete();
+
+            $form->delete();
+
+            return redirect()->route('laporan')->with('success', 'Form berhasil dihapus.');
+        }else{
+            return redirect()->route('laporan')->with('error', 'Form gagal dihapus.');
         }
 
         

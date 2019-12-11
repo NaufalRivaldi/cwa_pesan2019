@@ -449,6 +449,18 @@ class helper{
         return $setKategori;
     }
 
+    public static function setKategoriEdit($form_id){
+        $setKategori = array();
+        $kategori = SetKategoriHRD::where('form_hrd_id', $form_id)->get();
+
+        foreach($kategori as $row){
+            
+            array_push($setKategori, $row->kategori_fhrd_id);
+        }
+
+        return $setKategori;
+    }
+
     public static function setKategoriLaporan($form_id){
         $setKategori = '';
         $kategori = SetKategoriHRD::where('form_hrd_id', $form_id)->get();

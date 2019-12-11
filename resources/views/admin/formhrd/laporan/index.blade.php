@@ -97,9 +97,10 @@
                                         <th>Mulai</th>
                                         <th>Berakhir</th>
                                         <th>Durasi (Jam)</th>
-                                        <th>Keterangan</th>
+                                        <th style="width: 200px !important">Keterangan</th>
                                         <th>Upah Lembur</th>
                                         <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -146,6 +147,10 @@
                                             <td>
                                                 <a href="#" class="a-block modal-formHRD" data-toggle="modal" data-target="#viewForm" data-id="{{ $row->id }}">{!! Helper::setStatus($row->stat) !!}</a>
                                             </td>
+                                            <td>
+                                                <a href="{{ route('laporan.edit', ['id'=>$row->id]) }}" class="btn btn-success btn-sm"><i class="fas fa-cog"></i></a>
+                                                <a href="#" class="btn btn-danger btn-sm remove-form-hrd" data-id="{{ $row->id }}" data-toggle="modal" data-target="#remove-form-hrd"><i class="fas fa-trash"></i></a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -153,7 +158,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -172,6 +176,41 @@
                 </div>
                 <div class="modal-body">
                     <span class="showForm"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- delete -->
+    <div class="modal fade" id="remove-form-hrd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalCenterTitle">Delete Form HRD</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('laporan.delete') }}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="form_hrd_id" class="form-control form_hrd_id">
+
+                        <div class="form-group">
+                            <label>NIK</label>
+                            <input type="text" name="nik" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="btn-submit" value="Verifikasi" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <p class="text-danger">* Masukkan nik dan password kepala bagian untuk menghapus form. </p>
                 </div>
             </div>
         </div>
