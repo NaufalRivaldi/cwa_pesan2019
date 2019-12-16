@@ -175,7 +175,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <span class="showForm"></span>
+                    <span id="showForm"></span>
                 </div>
             </div>
         </div>
@@ -229,8 +229,8 @@
                 type: "POST",
                 data: {form_id: id},
                 success: function(text){
-                    $('.showForm').empty();
-                    $('.showForm').append(text);
+                    $('#showForm').empty();
+                    $('#showForm').append(text);
                 }
             });
         });

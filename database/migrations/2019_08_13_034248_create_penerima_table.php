@@ -17,6 +17,8 @@ class CreatePenerimaTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('pesan_id')->nullable();
             $table->unsignedInteger('user_id')->nullable();
+            $table->enum('stat', ['1', '2', '3']);
+            $table->string('read_user', 5);
             $table->timestamps();
 
             // fk

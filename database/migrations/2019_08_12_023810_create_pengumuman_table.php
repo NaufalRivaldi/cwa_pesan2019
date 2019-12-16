@@ -18,7 +18,8 @@ class CreatePengumumanTable extends Migration
             $table->string('subject', 100);
             $table->dateTime('tgl');
             $table->text('pesan');
-            $table->enum('stat', ['1', '2']);
+            $table->date('tgl_akhir');
+            $table->enum('stat', ['1', '2', '3']);
             $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
 

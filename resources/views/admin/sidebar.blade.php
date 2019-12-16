@@ -82,7 +82,7 @@
         @if(Helper::isForm())
         <li <?= ($menu == '8') ? 'class="active"' : '' ?>>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fas fa-file-signature"></i> E-Form <span class="badge badge-warning">{{ Helper::countPending() }}</span>
+                <i class="fas fa-file-signature"></i> E-Form <span class="text-warning">*</span>
                 @if(Helper::isVerifikasi())
                     <span class="badge badge-warning">{{ Helper::countVerifikasi() }}</span>
                 @endif
@@ -92,7 +92,15 @@
                     <a href="{{ url('admin/formhrd') }}">HRD <span class="badge badge-warning">{{ Helper::countPending() }}</span></a>
                 </li>
                 <li>
-                    <a href="{{ route('penanganan.it') }}">Penanganan IT</a>
+                    <a href="#pageIT" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">IT Support <span class="badge badge-warning">{{ Helper::countFormDesain() }}</span></a>
+                    <ul class="collapse list-unstyled" id="pageIT">
+                        <li>
+                            <a href="{{ route('penanganan.it') }}">Penanganan IT</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('desainIklan') }}">Pengajuan Desain <span class="badge badge-warning">{{ Helper::countFormDesain() }}</span></a>
+                        </li>
+                    </ul>
                 </li>
                 @if(Helper::isVerifikasi())
                 <li>

@@ -18,7 +18,7 @@ class CreatePesanTable extends Migration
             $table->string('subject', 100);
             $table->text('massage');
             $table->dateTime('tgl');
-            $table->enum('stat', ['1', '2']);
+            $table->enum('stat', ['1', '2', '3']);
             $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
 

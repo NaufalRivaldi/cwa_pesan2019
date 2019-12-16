@@ -17,6 +17,7 @@ class CreateSettingTable extends Migration
             $table->increments('id');
             $table->dateTime('last_update_score');
             $table->dateTime('last_update_member');
+            $table->dateTime('updated_at');
         });
     }
 

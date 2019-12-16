@@ -24,6 +24,16 @@
             </div>
         </div>
         @endif
+        @if(auth()->user()->dep == 'IT')
+        <div class="col-md-3">
+            <div class="card text-white bg-info mb-2">
+                <div class="card-header"><i class="fas fa-file-signature"></i> Form Desain Pending</div>
+                <div class="card-body">
+                    <p class="card-text">{{ Helper::countFormDesain() }} Form</p>
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
     <hr>
     <div class="row">

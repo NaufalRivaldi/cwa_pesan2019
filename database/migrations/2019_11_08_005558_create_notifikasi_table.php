@@ -17,6 +17,8 @@ class CreateNotifikasiTable extends Migration
             $table->increments('id');
             $table->text('keterangan');
             $table->string('link', 100);
+            $table->enum('stat', ['1', '2']);
+            $table->enum('baca', ['1', '2']);
             $table->unsignedInteger('user_id');
             $table->timestamps();
 

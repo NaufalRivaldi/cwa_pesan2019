@@ -17,6 +17,7 @@ use App\User;
 use App\FormHRD;
 use App\Cabang;
 use App\Finance;
+use App\FormPengajuanDesain;
 
 use Hash;
 
@@ -313,6 +314,12 @@ class helper{
         }
 
         return $count;
+    }
+
+    public static function countFormDesain(){
+        $form = FormPengajuanDesain::where('stat', 1)->count();
+        
+        return $form;
     }
 
     // ubah format tanggal
@@ -812,6 +819,23 @@ class helper{
         }
     }
 
+    public static function notifikasiFormDesain($nama){
+        $link = 'admin/formit/desain/';
+        $ket = 'Anda telah menerima Form Pengajuan Desain dari '.$nama;
+        $user = User::where('dep', 'IT')->get();
+        // save notif
+        foreach($user as $row){
+            $data = [
+                "link" => $link,
+                "keterangan" => $ket,
+                "user_id" => $row->id,
+                "stat" => 1
+            ];
+        
+            Notifikasi::create($data);
+        }
+    }
+
     // cek cabang
     public static function cekUpdateFinance(){
         $cabang = Cabang::where('inisial', auth()->user()->dep)->first();
@@ -826,6 +850,38 @@ class helper{
         }else{
             return false;
         }
+    }
+
+    // cek status
+    public static function statusDesain($val){
+        $text = '';
+        switch ($val) {
+            case '1':
+                $text = "<span class='badge badge-warning'>Pending</span>";
+                break;
+
+            case '2':
+                $text = "<span class='badge badge-info'>Acc Kepala Bagian IT / Progress</span>";
+                break;
+
+            case '3':
+                $text = "<span class='badge badge-primary'>Progress</span>";
+                break;
+
+            case '4':
+                $text = "<span class='badge badge-success'>Selesai</span>";
+                break;
+
+            case '5':
+                $text = "<span class='badge badge-danger'>Ditolak</span>";
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+        return $text;
     }
 }
 
