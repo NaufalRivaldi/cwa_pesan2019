@@ -14,6 +14,22 @@
                         <form method="POST" action="{{ route('desainIklan.store') }}">
                             @csrf
                             <div class="form-group">
+                                <label>Pembuat <span class="text-danger">*</span></label>
+                                <select name="karyawan_all_id" class="form-control">
+                                    <option value="">Pilih Pembuat</option>
+                                        @foreach($karyawan as $r)
+                                            <option value="{{ $r->id }}">{{ $r->nama }}</option>
+                                        @endforeach
+                                </select>
+
+                                <!-- error -->
+                                @if($errors->has('karyawan_all_id'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('karyawan_all_id') }}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="form-group">
                                 <label for="jenisDesain">Jenis Desain</label>
                                 <div class="form-check">
                                     @foreach($jenis_desain as $row)

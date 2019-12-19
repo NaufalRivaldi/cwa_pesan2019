@@ -147,6 +147,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::get('/', 'FormDesainController@index')->name('desainIklan');
             Route::get('/form', 'FormDesainController@form')->name('desainIklan.form');
             Route::get('/view', 'FormDesainController@view')->name('desainIklan.view');
+            Route::get('/delete/{id}', 'FormDesainController@delete')->name('desainIklan.delete');
             Route::post('/store', 'FormDesainController@store')->name('desainIklan.store');
             Route::post('/validasi', 'FormDesainController@validasi')->name('desainIklan.validasi');
             Route::post('/updateStatus', 'FormDesainController@updateStatus')->name('desainIklan.status');

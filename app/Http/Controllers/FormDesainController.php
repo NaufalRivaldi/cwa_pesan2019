@@ -14,8 +14,18 @@ class FormDesainController extends Controller
     public function index(){
         $data['menu'] = 8;
         $data['no'] = 1;
-        $data['form_proses'] = FormPengajuanDesain::where('stat', '<', 4)->orderBy('created_at', 'desc')->get();
-        $data['form_done'] = FormPengajuanDesain::where('stat', '>', 3)->orderBy('created_at', 'desc')->get();
+        
+        if(auth()->user()->dep == 'IT'){
+            $data['form_proses'] = FormPengajuanDesain::where('stat', '<', 4)->orderBy('created_at', 'desc')->get();
+            $data['form_done'] = FormPengajuanDesain::where('stat', '>', 3)->orderBy('created_at', 'desc')->get();
+        }else{
+            $data['form_proses'] = FormPengajuanDesain::whereHas('user', function($query){
+                $query->whereDep(auth()->user()->dep);
+            })->where('stat', '<', 4)->orderBy('created_at', 'desc')->get();
+            $data['form_done'] = FormPengajuanDesain::whereHas('user', function($query){
+                $query->whereDep(auth()->user()->dep);
+            })->where('stat', '>', 3)->orderBy('created_at', 'desc')->get();
+        }
 
         return view('admin.form.desain.index', $data);
     }
@@ -23,6 +33,8 @@ class FormDesainController extends Controller
     public function form(){
         $data['menu'] = 8;
         $data['jenis_desain'] = JenisDesain::all();
+        $data['karyawan'] = KaryawanAll::where('dep', auth()->user()->dep)->get();
+
         return view('admin.form.desain.form', $data);
     }
 
@@ -37,7 +49,8 @@ class FormDesainController extends Controller
             "qty" => $data->qty,
             "ukuranCetak" => $data->ukuran,
             "deskripsi" => $data->deskripsi,
-            "keterangan_lain" => $data->keterangan_lain
+            "keterangan_lain" => $data->keterangan_lain,
+            "karyawan_all" => $data->karyawanAll->nama.' - '.$data->karyawanAll->dep
         ];
 
         return $array;
@@ -58,7 +71,9 @@ class FormDesainController extends Controller
             "stat" => 1,
             "keterangan" => "-",
             "keterangan_lain" => $keteranganLain,
-            "jenis_desain_id" => $req->jenis_desain_id
+            "jenis_desain_id" => $req->jenis_desain_id,
+            "karyawan_all_id" => $req->karyawan_all_id,
+            "user_id" => auth()->user()->id
         ]);
 
         helper::notifikasiFormDesain(auth()->user()->nama);
@@ -102,12 +117,20 @@ class FormDesainController extends Controller
         return redirect()->route('desainIklan')->with('success', 'Form telah di update');
     }
 
+    public function delete($id){
+        $form = FormPengajuanDesain::find($id);
+        $form->delete();
+
+        return redirect()->route('desainIklan')->with('success', 'Form telah di delete');
+    }
+
     public function val($req){
         $message = [
             'required' => 'Tidak boleh kosong!'
         ];
 
         $this->validate($req, [
+            'karyawan_all_id' => 'required',
             'jenis_desain_id' => 'required',
             'tgl_perlu' => 'required|date',
             'qty' => 'numeric|required',

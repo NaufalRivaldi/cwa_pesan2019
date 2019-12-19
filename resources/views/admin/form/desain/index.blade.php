@@ -20,38 +20,40 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Pengaju</th>
                                         <th>Status</th>
                                         <th>Tanggal Pengajuan</th>
                                         <th>Deadline</th>
                                         <th>Jenis Desain</th>
                                         <th>Ukuran</th>
                                         <th>Keterangan</th>
-                                        @if(auth()->user()->dep == 'IT')
                                         <th>Action</th>
-                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($form_proses as $form)
                                         <tr>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ $no++ }}</td>
+                                            <td class="modalClick" data-id="{{ $form->id }}">{{ $form->karyawanAll->dep }}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}">{!! Helper::statusDesain($form->stat) !!}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ Helper::setDate($form->created_at) }}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ Helper::setDate($form->tgl_perlu) }}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}"><span class="badge badge-success">{{ $form->jenisDesain->nama }}</span></td>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ $form->ukuran }}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ $form->keterangan }}</td>
-                                            
-                                            @if(auth()->user()->dep == 'IT')
+                                        
                                             <td>
+                                            @if(auth()->user()->dep == 'IT')
                                                 @if($form->stat > 1 && $form->stat != 4 && $form->stat != 5)
                                                     <button class="btn btn-success btn-sm modalStatus" data-id="{{ $form->id }}" data-stat="{{ $form->stat }}">Ganti Status</button>
                                                 @elseif($form->stat == 1)
                                                     <button class="btn btn-success btn-sm modalVal" data-id="{{ $form->id }}" data-val="1">Acc</button>
                                                     <button class="btn btn-danger btn-sm modalVal" data-id="{{ $form->id }}" data-val="2">Tolak</button>
                                                 @endif
-                                            </td>
+                                                
                                             @endif
+                                                <a href="#" class="btn btn-danger btn-sm remove-form-desain" data-id="{{ $form->id }}"><i class="fas fa-trash"></i></a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -107,6 +109,10 @@
         </button>
       </div>
       <div class="modal-body">
+        <div class="form-group">
+            <label for="karyawan_all">Pembuat</label>
+            <input type="text" class="form-control karyawan_all" disabled id="karyawan_all" name="karyawan_all">
+        </div>
         <div class="form-group">
             <label for="jenisDesain">Status</label>
             <div class="form-check status">
@@ -234,7 +240,7 @@
                         $('.status').empty();
                         $('.jenisDesain').empty();
                         $('.keterangan_lain').empty();
-
+                        
                         $('.status').append(data.status);
                         $('.jenisDesain').append(data.jenisDesain);
                         $('.keterangan_lain').append(data.keterangan_lain);
@@ -243,6 +249,7 @@
                         $('.qty').val(data.qty);
                         $('.ukuran').val(data.ukuranCetak);
                         $('.deskripsi').val(data.deskripsi);
+                        $('.karyawan_all').val(data.karyawan_all);
                         
                     }
                 });

@@ -19,4 +19,8 @@ class KaryawanAll extends Model
     public function formPenangananIt(){
         return $this->hasMany('App\FormPenangananIt');
     }
+
+    public function formPengajuanDesain(){
+        return $this->hasMany('App\FormPengajuanDesain', 'karyawan_all_id');
+    }
 }

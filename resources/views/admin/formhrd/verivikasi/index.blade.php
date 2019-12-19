@@ -16,6 +16,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Tanggal Pengajuan</th>
                                         <th>Tanggal</th>
                                         <th>Kategori</th>
                                         <th>Nama</th>

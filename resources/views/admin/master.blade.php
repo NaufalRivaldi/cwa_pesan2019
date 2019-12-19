@@ -183,6 +183,23 @@
                         });
                 });
 
+                // remove pesan inbox
+                $('.remove-form-desain').click(function () {
+                    var postId = $(this).data('id');
+                    swal({
+                            title: "Hapus Form Desain?",
+                            text: "Form ini akan terhapus secara permanen.",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                window.location.href = "{{ url('admin/formit/desain/delete/') }}/" + postId;
+                            }
+                        });
+                });
+
                 // remove pesan checked
                 $(document).on('click', '.remove-pesan-checked', function () {
                     // masukkan ke array dulu data idnya

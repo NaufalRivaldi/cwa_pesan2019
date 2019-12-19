@@ -82,11 +82,11 @@ class FormHRDController extends Controller
             $form_office = FormHRD::where('stat', 1)->whereHas('KaryawanAll', function($query){
                 $query->whereIn('dep', ['Office']);
             })->orderBy('created_at', 'desc')->get();
-            $form = FormHRD::where('stat', 2)->orderBy('created_at', 'desc')->get();
+            $form = FormHRD::where('stat', 2)->orderBy('created_at', 'asc')->get();
         }else{
             $form = FormHRD::whereHas('KaryawanAll', function($query){
                 $query->whereIn('dep', helper::setViewVerivikasi());
-            })->orderBy('created_at', 'desc')->get();
+            })->orderBy('created_at', 'asc')->get();
         }
 
         return view('admin.formhrd.verivikasi.index', compact('menu', 'no', 'form', 'form_office'));

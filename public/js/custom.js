@@ -199,8 +199,13 @@ $(document).ready(function () {
     $('.kategori').click(function () {
         if ($(this).is(':checked') && $(this).data('value') == 'Lembur') {
             $('.show-lembur').append('<select name="lembur" class="form-control"><option value="1">Berbayar</option><option value="2">Tidak Berbayar</option></select>');
+            $(".kategori").attr("disabled", true);
+            $(this).removeAttr("disabled");
+            $(".kategori"). prop("checked", false);
+            $(this). prop("checked", true);
         } else {
             $('.show-lembur').empty();
+            $('.kategori').removeAttr("disabled");
         }
     });
 
