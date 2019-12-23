@@ -18,7 +18,7 @@ class KaryawanAllImport implements ToModel
         $nik = substr($row[0], -9);
         return new KaryawanAll([
             "nik" => $nik,
-            "password" => bcrypt($nik),
+            "password" => sha1($nik),
             "nama" => $row[1],
             "dep" => $row[2],
             "stat" => 1

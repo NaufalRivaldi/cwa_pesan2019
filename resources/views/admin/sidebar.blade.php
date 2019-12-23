@@ -79,6 +79,7 @@
                 </li>
             </ul>
         </li>
+        
         @if(Helper::isForm())
         <li <?= ($menu == '8') ? 'class="active"' : '' ?>>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">

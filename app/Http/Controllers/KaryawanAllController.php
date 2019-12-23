@@ -52,7 +52,7 @@ class KaryawanAllController extends Controller
 
         $file = $req->file('file');
         $nama_file = rand().$file->getClientOriginalName();
-        $file->move('file-karyawan',$nama_file);
+        $file->move(public_path().'/file-karyawan',$nama_file);
         Excel::import(new KaryawanAllImport, public_path('/file-karyawan/'.$nama_file));
         
         return redirect()->route('karyawan.all')->with('success', 'Data berhasil di import.');

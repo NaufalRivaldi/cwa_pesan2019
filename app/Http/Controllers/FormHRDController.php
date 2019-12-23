@@ -112,7 +112,7 @@ class FormHRDController extends Controller
             foreach($urls as $url){
                 $value = explode('=', $url);
                 if($value[0] == 'tgl_a')
-                    $tgl_a = helper::minDay($value[1]);
+                    $tgl_a = $value[1];
                     
                 if($value[0] == 'tgl_b')
                     $tgl_b = helper::plusDay($value[1]);
