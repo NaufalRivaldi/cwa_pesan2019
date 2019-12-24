@@ -26,7 +26,7 @@
                                         <th>Nama</th>
                                         <th>Bagian</th>
                                         <th>Status</th>
-                                        <th>Keterangan</th>
+                                        <th width="150px">Keterangan</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -119,7 +119,7 @@
                                         <th>Nama</th>
                                         <th>Bagian</th>
                                         <th>Status</th>
-                                        <th>Keterangan</th>
+                                        <th width="150px">Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>

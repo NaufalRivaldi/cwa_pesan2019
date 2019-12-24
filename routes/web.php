@@ -164,6 +164,13 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
     // notif
     route::get('/readnotif/{id}', 'NotifikasiController@readnotif')->name('readnotif');
     route::get('/clicknotif', 'NotifikasiController@clicknotif')->name('clicknotif');
+
+    // 404 not found
+    route::get('/404notfound', function(){
+        $data['menu'] = 99;
+        
+        return view('admin.notfound', $data);
+    })->name('notfound');
 });
 
 

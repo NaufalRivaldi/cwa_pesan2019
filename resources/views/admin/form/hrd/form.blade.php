@@ -52,19 +52,19 @@
                             <label class="col-sm-2 col-form-label">Tanggal & Waktu <span class="text-danger">*</span></label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-7">
                                         <input type="date" name="tgl_a" class="form-control tgl_a" required>
                                     </div>
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-md-5 text-center">
                                         <input type="time" name="time_a" class="form-control" required>
                                     </div>
-                                    <div class="col-md-1 text-center">
+                                    <div class="col-md-12">
                                         s/d
                                     </div>
-                                    <div class="col-md-3">
-                                        <input type="date" name="tgl_b" class="form-control tgl_b">
+                                    <div class="col-md-7">
+                                        <input type="date" name="tgl_b" class="form-control tgl_b" required>
                                     </div>
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-md-5 text-center">
                                         <input type="time" name="time_b" class="form-control">
                                     </div>
                                 </div>

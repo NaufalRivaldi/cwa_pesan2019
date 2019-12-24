@@ -124,7 +124,7 @@
         <script src="{{ asset('dist/jquery.fileuploader.min.js') }}" type="text/javascript"></script>
 
         <!-- sweetalert -->
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
         <script src="{{ asset('js/sweetalert.js') }}"></script>
 
         <!-- select2 -->

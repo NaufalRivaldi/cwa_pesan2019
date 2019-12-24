@@ -55,7 +55,7 @@ class FormHRDController extends Controller
     }
 
     public function detailVer($id){
-        $menu = 9;
+        $menu = 8;
         $form = FormHRD::find($id);
 
         // cek jika dia tidak ada formnya
@@ -73,7 +73,7 @@ class FormHRDController extends Controller
     }
 
     public function verivikasi(){
-        $menu = 9;
+        $menu = 8;
         $no = 1;
         $form_office = '';
         
@@ -203,6 +203,11 @@ class FormHRDController extends Controller
             echo "
             <b>Lembur</b><br>
             Berbayar
+            <hr>
+            ";
+            echo "
+            <b>Upah Lembur</b><br>
+            Rp. ".number_format(helper::setUpahLembur($data->tgl_a, $data->tgl_b, $data->lembur))."
             <hr>
             ";
         }
@@ -451,13 +456,15 @@ class FormHRDController extends Controller
 
     private function val($req){
         $message = [
-            'required' => ':attribute tidak boleh kosong!'
+            'required' => ':attribute tidak boleh kosong!',
+            'date' => 'Format tanggal tidak benar!'
         ];
 
         $this->validate($req, [
             'kategori' => 'required',
-            'karyawanall_id' => 'required',
-            'tgl_a' => 'required',
+            'karyawanall_id' => 'required|numeric',
+            'tgl_a' => 'required|date',
+            'tgl_b' => 'required|date',
             'time_a' => 'required',
             'keterangan' => 'required'
         ], $message);

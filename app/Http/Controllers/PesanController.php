@@ -88,6 +88,11 @@ class PesanController extends Controller
         $read = Penerima::where('pesan_id', $pesan_id)->where('user_id', auth()->user()->id)->first();
         $read->read_user = 'y';
         $read->save();
+
+        // cek status
+        if($read->stat == '3'){
+            return abort(404);
+        }
         return view('admin.pesan.inbox.detail', compact('menu', 'pesan'));
     }
 

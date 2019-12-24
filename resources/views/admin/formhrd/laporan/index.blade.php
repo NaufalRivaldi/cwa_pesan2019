@@ -85,7 +85,7 @@
                         <h3 class="dep"></h3>
                         <p class="lead">Tanggal : {{ $tgl }}</p>
                         <div class="table-responsive">
-                            <table id="myTable" class="custom-table table table-hover hrdTable">
+                            <table id="myTable" class="custom-table table table-hover">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -97,9 +97,6 @@
                                         <th>Mulai</th>
                                         <th>Berakhir</th>
                                         <th>Durasi (Jam)</th>
-                                        <th style="width: 200px !important">Keterangan</th>
-                                        <th>Upah Lembur</th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -111,7 +108,7 @@
                                                 <a href="#" class="a-block modal-formHRD" data-toggle="modal" data-target="#viewForm" data-id="{{ $row->id }}">{!! Helper::setKategori($row->id) !!}</a>
                                             </td>
                                             <td>
-                                                <a href="#" class="a-block modal-formHRD" data-toggle="modal" data-target="#viewForm" data-id="{{ $row->id }}">{!! $row->karyawanAll->nama.' '.Helper::statusKaryawan($row->karyawanAll->stat) !!}</a>
+                                                <a href="#" class="a-block modal-formHRD" data-toggle="modal" data-target="#viewForm" data-id="{{ $row->id }}">{!! $row->karyawanAll->nama.'<br>'.Helper::statusKaryawan($row->karyawanAll->stat) !!}</a>
                                             </td>
                                             <td>
                                                 <a href="#" class="a-block modal-formHRD" data-toggle="modal" data-target="#viewForm" data-id="{{ $row->id }}">{{ $row->karyawanAll->dep }}</a>
@@ -136,16 +133,6 @@
                                                 <a href="#" class="a-block modal-formHRD" data-toggle="modal" data-target="#viewForm" data-id="{{ $row->id }}">
                                                     {{ Helper::setDiff($row->tgl_a, $row->tgl_b, $row->lembur) }}
                                                 </a>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="a-block modal-formHRD" data-toggle="modal" data-target="#viewForm" data-id="{{ $row->id }}">{!! $row->keterangan !!}</a>
-                                            </td>
-                                            
-                                            <td>
-                                                <a href="#" class="a-block modal-formHRD" data-toggle="modal" data-target="#viewForm" data-id="{{ $row->id }}">{{ Helper::setUpahLembur($row->tgl_a, $row->tgl_b, $row->lembur) }}</a>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="a-block modal-formHRD" data-toggle="modal" data-target="#viewForm" data-id="{{ $row->id }}">{!! Helper::setStatus($row->stat) !!}</a>
                                             </td>
                                             <td>
                                                 <a href="{{ route('laporan.edit', ['id'=>$row->id]) }}" class="btn btn-success btn-sm"><i class="fas fa-cog"></i></a>
