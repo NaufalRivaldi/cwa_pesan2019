@@ -38,9 +38,9 @@ class FormHRDController extends Controller
         $kategori = KategoriHRD::all();
 
         if(auth()->user()->level > 2 && auth()->user()->level != 7){
-            $karyawan = KaryawanAll::where('dep', auth()->user()->dep)->where('stat', auth()->user()->level)->get();
+            $karyawan = KaryawanAll::where('dep', auth()->user()->dep)->where('stat', auth()->user()->level)->where('ket', '1')->get();
         }else if(auth()->user()->level <= 2 || auth()->user()->level == 7){
-            $karyawan = KaryawanAll::where('dep', auth()->user()->dep)->get();
+            $karyawan = KaryawanAll::where('dep', auth()->user()->dep)->where('ket', '1')->get();
         }
 
         return view('admin.form.hrd.form', compact('menu', 'karyawan', 'kategori'));

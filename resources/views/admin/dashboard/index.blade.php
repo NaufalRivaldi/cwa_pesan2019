@@ -6,30 +6,33 @@
     <h2>Dashboard</h2>
     <hr>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card text-white bg-success mb-2">
-                <div class="card-header"><i class="fas fa-file-signature"></i> Form Progress</div>
+                <div class="card-header"><i class="fas fa-file-signature"></i> Form HRD Proses</div>
                 <div class="card-body">
                     <p class="card-text">{{ Helper::countPending() }} Form</p>
+                    <a href="{{ route('form.hrd') }}" class="btn btn-dark btn-sm btn-block"><i class="fas fa-eye"></i> Lihat</a>
                 </div>
             </div>
         </div>
         @if(Helper::isVerifikasi())
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card text-white bg-success mb-2">
-                <div class="card-header"><i class="fas fa-file-signature"></i> Form Belum diverifikasi</div>
+                <div class="card-header"><i class="fas fa-file-signature"></i> Form HRD Belum terverifikasi</div>
                 <div class="card-body">
                     <p class="card-text">{{ Helper::countVerifikasi() }} Form</p>
+                    <a href="{{ route('verifikasi') }}" class="btn btn-dark btn-sm btn-block"><i class="fas fa-eye"></i> Lihat</a>
                 </div>
             </div>
         </div>
         @endif
         @if(auth()->user()->dep == 'IT')
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card text-white bg-info mb-2">
                 <div class="card-header"><i class="fas fa-file-signature"></i> Form Desain Pending</div>
                 <div class="card-body">
                     <p class="card-text">{{ Helper::countFormDesain() }} Form</p>
+                    <a href="{{ route('desainIklan') }}" class="btn btn-dark btn-sm btn-block"><i class="fas fa-eye"></i> Lihat</a>
                 </div>
             </div>
         </div>

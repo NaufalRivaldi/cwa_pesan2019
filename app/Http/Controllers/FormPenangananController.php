@@ -17,7 +17,7 @@ class FormPenangananController extends Controller
         $data['menu'] = '8';
         $data['no'] = '1';
         $data['cabang'] = Cabang::orderBy('inisial', 'asc')->get();
-        $data['karyawan'] = KaryawanAll::where('dep', 'IT')->get();
+        $data['karyawan'] = KaryawanAll::where('dep', 'IT')->where('ket', '1')->get();
         
         if(auth()->user()->dep != 'IT'){
             $data['form'] = FormPenangananIt::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();

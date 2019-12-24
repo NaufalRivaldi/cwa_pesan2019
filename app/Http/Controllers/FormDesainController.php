@@ -33,7 +33,7 @@ class FormDesainController extends Controller
     public function form(){
         $data['menu'] = 8;
         $data['jenis_desain'] = JenisDesain::all();
-        $data['karyawan'] = KaryawanAll::where('dep', auth()->user()->dep)->get();
+        $data['karyawan'] = KaryawanAll::where('dep', auth()->user()->dep)->where('ket', '1')->get();
 
         return view('admin.form.desain.form', $data);
     }

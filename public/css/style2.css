@@ -268,8 +268,12 @@ ul.CTAs a {
     width: 150% !important;
 }
 
-.showForm{
-    display:none;
+.showForm {
+    display: none;
+}
+
+.active-record {
+    background-color: rgb(218, 218, 218) !important;
 }
 
 @keyframes blinkText {

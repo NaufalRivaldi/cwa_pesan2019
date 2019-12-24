@@ -18,7 +18,11 @@
                             <label class="col-sm-2 col-form-label">Kategori <span class="text-danger">*</span></label>
                             <div class="col-sm-10">
                                 @foreach($kategori as $r)
-                                    <input type="checkbox" name="kategori[]" value="{{ $r->id }}" data-value="{{ $r->nama_kategori }}" class="kategori"> {{ $r->nama_kategori }}<br>
+                                    <input type="checkbox" name="kategori[]" value="{{ $r->id }}" data-value="{{ $r->nama_kategori }}" class="kategori"> {{ $r->nama_kategori }}
+                                    @if($r->nama_kategori == 'Lembur')
+                                        <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Lembur tidak dapat digabung dengan kategori lainnya."></i>
+                                    @endif
+                                    <br>
                                 @endforeach
                                 
                                 <div class="show-lembur"></div>

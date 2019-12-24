@@ -388,6 +388,9 @@
                     var id = $(this).data('id');
                     $('.form_hrd_id').val(id);
                 });
+
+                // enable tooltip
+                $('[data-toggle="tooltip"]').tooltip()
             });
         </script>
 

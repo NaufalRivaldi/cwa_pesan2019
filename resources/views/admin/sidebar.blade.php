@@ -16,12 +16,12 @@
             <a href="{{ url('admin/pesan/form') }}" class="btn btn-warning btn-lg btn-block"><i class="fas fa-envelope"></i> Buat Pesan Baru</a>
         </p>
         <li <?= ($menu == '0') ? 'class="active"' : '' ?>>
-            <a href="{{ route('dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="{{ route('dashboard') }}" data-toggle="tooltip" data-placement="right" title="Berisi Informasi seputaran CWJA"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
         </li>
         
         @if(Helper::isPengumuman())
             <li <?= ($menu == '2') ? 'class="active"' : '' ?>>
-                <a href="{{ url('admin/pengumuman') }}"><i class="fas fa-bullhorn"></i> Pengumuman</a>
+                <a href="{{ url('admin/pengumuman') }}" data-toggle="tooltip" data-placement="right" title="Pengumuman internal CWJA."><i class="fas fa-bullhorn"></i> Pengumuman</a>
             </li>
         @endif
 
@@ -41,24 +41,24 @@
         </li>
 
         <li <?= ($menu == '3') ? 'class="active"' : '' ?>>
-            <a href="{{ url('admin/scoreboard') }}"><i class="fas fa-star"></i> Scoreboard Penjualan</a>
+            <a href="{{ url('admin/scoreboard') }}" data-toggle="tooltip" data-placement="right" title="Total score penjualan PU."><i class="fas fa-star"></i> Scoreboard Penjualan</a>
         </li>
 
         @if(Helper::isPenjualanPU())
             <li <?= ($menu == '4') ? 'class="active"' : '' ?>>
-                <a href="{{ url('admin/penjualanpu') }}"><i class="fas fa-star"></i> Penjualan PU</a>
+                <a href="{{ url('admin/penjualanpu') }}" data-toggle="tooltip" data-placement="right" title="Jumlah tonase dari penjualan PU."><i class="fas fa-star"></i> Penjualan PU</a>
             </li>
         @endif
 
         @if(Helper::isAM())
         <li <?= ($menu == '10') ? 'class="active"' : '' ?>>
-            <a href="{{ route('score.produk') }}"><i class="fas fa-star"></i> Score Produk</a>
+            <a href="{{ route('score.produk') }}" data-toggle="tooltip" data-placement="right" title="Score produk PU secara spesifik."><i class="fas fa-star"></i> Score Produk</a>
         </li>
         @endif
 
         @if(Helper::isFinance())
             <li <?= ($menu == '5') ? 'class="active"' : '' ?>>
-                <a href="{{ url('/admin/finance') }}"><i class="fas fa-file"></i> {{ (Helper::ubahFinance()) ? 'Kirim Data Ke Pusat' : 'Finance' }}</a>
+                <a href="{{ url('/admin/finance') }}" data-toggle="tooltip" data-placement="right" title="File penjualan harian cabang."><i class="fas fa-file"></i> {{ (Helper::ubahFinance()) ? 'Kirim Data Ke Pusat' : 'Finance' }}</a>
             </li>
         @endif
 
@@ -72,10 +72,10 @@
             <a href="#ubahPassword" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-cog"></i> Ubah Password</a>
             <ul class="collapse list-unstyled" id="ubahPassword">
                 <li>
-                    <a href="{{ url('admin/repassword') }}">User Password</a>
+                    <a href="{{ url('admin/repassword') }}" data-toggle="tooltip" data-placement="right" title="Perubahan password terhadap akun utama cabang.">User Password</a>
                 </li>
                 <li>
-                    <a href="{{ route('kode.verifikasi') }}">Kode Verifikasi Form</a>
+                    <a href="{{ route('kode.verifikasi') }}" data-toggle="tooltip" data-placement="right" title="Perubahan password terhadap kapala bagian sebagai verifikasi form.">Kode Verifikasi Form</a>
                 </li>
             </ul>
         </li>
@@ -111,10 +111,18 @@
 
         @if(Helper::isHRD())
         <li <?= ($menu == '9') ? 'class="active"' : '' ?>>
-            <a href="#formHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> Laporan</a>
-            <ul class="collapse list-unstyled" id="formHRD">
+            <a href="#laporan" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> Laporan</a>
+            <ul class="collapse list-unstyled" id="laporan">
                 <li>
-                    <a href="{{ url('admin/formhrd/laporan') }}">Form HRD</a>
+                    <a href="#laporanHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> HRD</a>
+                    <ul class="collapse list-unstyled" id="laporanHRD">
+                        <li>    
+                            <a href="{{ route('laporan.hrd.karyawan') }}" data-toggle="tooltip" data-placement="right" title="Data Karyawan Citra Warna.">Karyawan</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('admin/formhrd/laporan') }}">Form HRD</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </li>

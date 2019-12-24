@@ -110,7 +110,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
 
     // form hrd
     Route::group(['prefix' => '/formhrd'], function(){
-        Route::get('/', 'FormHRDController@index');
+        Route::get('/', 'FormHRDController@index')->name('form.hrd');
         Route::get('/form', 'FormHRDController@form');
         Route::post('/store', 'FormHRDController@store');
         Route::get('/detail/{id}', 'FormHRDController@detail');
@@ -152,6 +152,23 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::post('/validasi', 'FormDesainController@validasi')->name('desainIklan.validasi');
             Route::post('/updateStatus', 'FormDesainController@updateStatus')->name('desainIklan.status');
 
+        });
+    });
+
+    // laporan semuanyaaa (Kodingan mulai bener wkwkw, ancur sebelumnya gara" baru nyoba FW)
+    Route::group(['prefix' => 'laporan'], function(){
+        Route::group(['prefix' => 'hrd', 'middleware' => ['checkDep:HRD,IT']], function(){
+            // Penambahana karyawan oleh HRD
+            Route::group(['prefix' => 'karyawan'], function(){
+                Route::get('/', 'LaporanKaryawanController@index')->name('laporan.hrd.karyawan');
+                Route::get('/form', 'LaporanKaryawanController@form')->name('laporan.hrd.karyawan.form');
+                Route::get('/{id}/edit', 'LaporanKaryawanController@edit')->name('laporan.hrd.karyawan.edit');
+                Route::get('/{id}/aktif', 'LaporanKaryawanController@aktif')->name('laporan.hrd.karyawan.aktif');
+                Route::get('/{id}/nonaktif', 'LaporanKaryawanController@nonaktif')->name('laporan.hrd.karyawan.nonaktif');
+                Route::post('/store', 'LaporanKaryawanController@store')->name('laporan.hrd.karyawan.store');
+                Route::put('/update', 'LaporanKaryawanController@update')->name('laporan.hrd.karyawan.update');
+                Route::post('/destroy', 'LaporanKaryawanController@destroy')->name('laporan.hrd.karyawan.destroy');
+            });
         });
     });
 
