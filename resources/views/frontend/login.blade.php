@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <div class="modal fade" tabindex="-1" role="dialog">
+    <!-- <div class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="">
             <div class="">
@@ -65,17 +65,17 @@
             <div class="modal-body">
                 <img src="{{ asset('img/natal.png')}}" alt="" class="img-fluid mx-auto d-block" width="80%">
             </div>
-            <!-- <div class="modal-footer">
+            <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
-            </div> -->
+            </div>
             </div>
         </div>
-    </div>
+    </div> -->
 @endsection
 
 @section('js')
-<script>
+<!-- <script>
     $('.modal').modal('show');
-</script>
+</script> -->
 @endsection
