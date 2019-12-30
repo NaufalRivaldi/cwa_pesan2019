@@ -97,22 +97,22 @@
         </li>
         @endif
 
-        <li <?= ($menu == '8') ? 'class="active"' : '' ?>>
+        <li <?= ($menu == '11') ? 'class="active"' : '' ?>>
             <a href="#pageMixing" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-file-signature"></i> Mixing
             </a>
             <ul class="collapse list-unstyled" id="pageMixing">
                 <li>
-                    <a class="nav-link" href="{{ route('customers') }}"><i class="fa fa-fw fa-users"></i> Pelanggan </a>
+                    <a class="nav-link" href="{{ route('mixing.customers') }}"><i class="fa fa-fw fa-users"></i> Pelanggan </a>
                 </li>                    
                 @if(auth()->user()->dep == 'IT')
 
                 <li>
-                    <a class="nav-link" href="{{ route('merk') }}"><i class="fa fa-fw fas fa-dolly"></i> Mesin </a>
+                    <a class="nav-link" href="{{ route('mixing.merk') }}"><i class="fa fa-fw fas fa-dolly"></i> Mesin </a>
                 </li>
 
                 <li>
-                    <a class="nav-link" href="{{ route('product') }}"><i class="fa fa-fw fas fa-dolly"></i> Produk </a>
+                    <a class="nav-link" href="{{ route('mixing.product') }}"><i class="fa fa-fw fas fa-dolly"></i> Produk </a>
                 </li>
                 <li>
                     <a class="nav-link" href="{{ route('formula') }}"><i class="fas fa-flask"></i> Formula</a>

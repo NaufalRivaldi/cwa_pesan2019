@@ -17,7 +17,7 @@
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <a href="{{route('product')}}"><li class="breadcrumb-item" aria-current="page">Produk</a></li>
+                        <a href="{{route('mixing.product')}}"><li class="breadcrumb-item" aria-current="page">Produk</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Form</li>
                     </ol>
                 </nav>
@@ -35,7 +35,7 @@
         <div class="card-body">
           <div class="row justify-content-md-center">  
             <div class="col-md-6">          
-              <form action="{{ ($id)?route('product.update') : route('product.add') }}" method="post">
+              <form action="{{ ($id)?route('mixing.product.update') : route('mixing.product.add') }}" method="post">
               {{csrf_field()}}
               @if($id)
                 <input type="hidden" value="{{ $product->id }}" name="id">

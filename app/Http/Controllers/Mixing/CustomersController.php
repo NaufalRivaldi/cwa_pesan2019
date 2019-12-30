@@ -1,29 +1,33 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mixing;
 
 use Illuminate\Http\Request;
-use App\Customers;
-use App\Mixing;
+use App\Http\Controllers\Controller;
+use App\Mixing\Customers;
+use App\Mixing\Mixing;
 
 class CustomersController extends Controller
 {
     public function index(){
+        $data['menu'] = '11';
         $data['customers'] = Customers::all();
         $data['no'] = 1;
-        return view('customers.index', $data);
+        return view('admin.mixing.customers.index', $data);
     }
 
     public function form(){
-        return view('customers.form');
+        $data['menu'] = '11';
+        return view('admin.mixing.customers.form', $data);
     }
 
     public function view($id){
+        $data['menu'] = '11';
         $data['no'] = 1;
         $data['customer'] = Customers::find($id);
         $data['mixing'] = Mixing::where('customersId', $id)->orderBy('created_at', 'desc')->get();
 
-        return view('customers.view', $data);
+        return view('admin.mixing.customers.view', $data);
     }
 
     public function val($req){
@@ -45,13 +49,14 @@ class CustomersController extends Controller
             'memberId'=>$req->memberId
         ]);
 
-        return redirect()->route('customers')->with('success', 'Data berhasil ditambah!');
+        return redirect()->route('mixing.customers')->with('success', 'Data berhasil ditambah!');
     }
 
     public function edit(){
+        $data['menu'] = '11';
         $id = $_GET['id'];
         $data['customer'] = Customers::find($id);
-        return view('customers.form', $data);
+        return view('admin.mixing.customers.form', $data);
     }
 
     public function update(Request $req){
@@ -62,7 +67,7 @@ class CustomersController extends Controller
         $data->memberId=$req->memberId;
         $data->save();
 
-        return redirect()->route('customers')->with('success', 'Data berhasil diubah!');
+        return redirect()->route('mixing.customers')->with('success', 'Data berhasil diubah!');
     }
 
     public function delete(Request $req){

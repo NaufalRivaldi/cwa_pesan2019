@@ -1,22 +1,25 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mixing;
 
 use Illuminate\Http\Request;
-use App\Product;
-use App\Merk;
+use App\Http\Controllers\Controller;
+use App\Mixing\Product;
+use App\Mixing\Merk;
 
 class ProductController extends Controller
 {
     public function index(){
+        $data['menu'] = '11';
         $data['products'] = Product::all();
         $data['no'] = 1;
-        return view('product.index', $data);
+        return view('admin.mixing.product.index', $data);
     }
 
     public function form(){
+        $data['menu'] = '11';
         $data['merks'] = Merk::orderBy('name', 'ASC')->get();
-        return view('product.form', $data);
+        return view('admin.mixing.product.form', $data);
     }
 
     public function val($req){
@@ -37,14 +40,15 @@ class ProductController extends Controller
             'name'=>$req->name
         ]);
 
-        return redirect()->route('product')->with('success', 'Data berhasil ditambah!');
+        return redirect()->route('mixing.product')->with('success', 'Data berhasil ditambah!');
     }
 
     public function edit(){
+        $data['menu'] = '11';
         $id = $_GET['id'];
         $data['product'] = Product::find($id);
         $data['merks'] = Merk::orderBy('name', 'ASC')->get();
-        return view('product.form', $data);
+        return view('admin.mixing.product.form', $data);
     }
 
     public function update(Request $req){
@@ -54,7 +58,7 @@ class ProductController extends Controller
         $data->name=$req->name;
         $data->save();
 
-        return redirect()->route('product')->with('success', 'Data berhasil diubah!');
+        return redirect()->route('mixing.product')->with('success', 'Data berhasil diubah!');
     }
 
     public function delete(Request $req){
