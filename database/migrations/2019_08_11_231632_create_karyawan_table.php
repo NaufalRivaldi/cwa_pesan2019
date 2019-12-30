@@ -21,6 +21,7 @@ class CreateKaryawanTable extends Migration
             $table->string('telp', 15);
             $table->string('divisi', 10);
             $table->enum('stat', ['1', '2']);
+            $table->enum('ket', ['1', '2']);
         });
     }
 

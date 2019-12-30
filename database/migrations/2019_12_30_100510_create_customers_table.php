@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFieldKaryawan extends Migration
+class CreateCustomersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddFieldKaryawan extends Migration
      */
     public function up()
     {
-        Schema::table('karyawan_all', function (Blueprint $table) {
-            $table->enum('ket', ['1', '2']);
+        Schema::create('customers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('phone', 14);
+            $table->string('memberId', 8);
+            $table->timestamps();
         });
     }
 
@@ -25,6 +29,6 @@ class AddFieldKaryawan extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('customers');
     }
 }
