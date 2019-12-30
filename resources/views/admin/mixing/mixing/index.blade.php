@@ -24,12 +24,12 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-              <a href="{{route('mixing.form')}}" class="btn btn-success">Tambah Mixing</a>
+              <a href="{{route('mixing.mixing.form')}}" class="btn btn-success btn-sm">Tambah Mixing</a>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 
-              <table class="table">
+              <table class="table myTable custom-table">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -56,8 +56,8 @@
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->base}}</td>
                         <td>
                         <p style="display:none">{{$mixing->customers->memberId}}</p>
-                        <p style="display:none">{{$mixing->users->store->initial}}</p>
-                          <a href="{{ route('mixing.reorder', ['id' => $mixing->id]) }}" class="btn btn-sm btn-success">Reorder</a>
+                        <p style="display:none">{{$mixing->user->dep}}</p>
+                          <a href="{{ route('mixing.mixing.reorder', ['id' => $mixing->id]) }}" class="btn btn-sm btn-success">Reorder</a>
                           <button class="btn btn-danger far fa-trash-alt delete" data-id="{{ $mixing->id }}"></button>
                         </td>
                       </tr>
@@ -69,6 +69,9 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('modal')
 <!-- Modal -->
 <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -174,7 +177,7 @@
             if (result.value) {
               $.ajax({
                 type: "POST",
-                url: "{{ route('mixing.delete') }}",
+                url: "{{ route('mixing.mixing.delete') }}",
                 data: {
                   id: id,
                   _token: '{{ csrf_token() }}'
@@ -192,7 +195,7 @@
         $('.dataView').on('click', function() {
           var id = $(this).data('id');
           $.ajax({
-              url: '{{ route("mixing.view")}}',
+              url: '{{ route("mixing.mixing.view")}}',
               data: "id="+id,
               type: 'GET',              
               success: function(data) {

@@ -97,7 +97,7 @@
         </li>
         @endif
 
-        <li <?= ($menu == '8') ? 'class="active"' : '' ?>>
+        <li <?= ($menu == '11') ? 'class="active"' : '' ?>>
             <a href="#pageMixing" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-file-signature"></i> Mixing
             </a>
@@ -115,11 +115,11 @@
                     <a class="nav-link" href="{{ route('product') }}"><i class="fa fa-fw fas fa-dolly"></i> Produk </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="{{ route('formula') }}"><i class="fas fa-flask"></i> Formula</a>
+                    <a class="nav-link" href="{{ route('mixing.formula') }}"><i class="fas fa-flask"></i> Formula</a>
                 </li>
                 @endif
                 <li>
-                    <a class="nav-link" href="{{ route('mixing') }}"><i class="fa fa-fw fas fa-paint-brush"></i> Mixing </a>
+                    <a class="nav-link" href="{{ route('mixing.mixing') }}"><i class="fa fa-fw fas fa-paint-brush"></i> Mixing </a>
                 </li>
             </ul>
         </li>

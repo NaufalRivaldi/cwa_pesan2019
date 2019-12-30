@@ -251,7 +251,7 @@ Route::group(['prefix' => '/backend'], function(){
     });
 
     // mixing
-    Route::group(['prefix' => 'mixing'], function(){
+    Route::group(['prefix' => 'customers'], function(){
         Route::group(['prefix' => 'customers'], function(){
             Route::get('/', 'CustomersController@index')->name('customers');
             Route::get('/form', 'CustomersController@form')->name('customers.form');
@@ -263,15 +263,15 @@ Route::group(['prefix' => '/backend'], function(){
         });
     
         Route::group(['prefix' => 'mixing'], function(){
-            Route::get('/', 'MixingController@index')->name('mixing');
-            Route::get('/form', 'MixingController@form')->name('mixing.form');
-            Route::get('/fill', 'MixingController@fill')->name('mixing.fill');
-            Route::get('/showProduct', 'MixingController@showProduct')->name('mixing.showProduct');
-            Route::get('/showFormula', 'MixingController@showFormula')->name('mixing.showFormula');
-            Route::post('/add', 'MixingController@add')->name('mixing.add');
-            Route::post('/delete', 'MixingController@delete')->name('mixing.delete');
-            Route::get('/view', 'MixingController@view')->name('mixing.view');
-            Route::get('/{id}/reorder', 'MixingController@reorder')->name('mixing.reorder');
+            Route::get('/', 'Mixing\MixingController@index')->name('mixing.mixing');
+            Route::get('/form', 'Mixing\MixingController@form')->name('mixing.mixing.form');
+            Route::get('/fill', 'Mixing\MixingController@fill')->name('mixing.mixing.fill');
+            Route::get('/showProduct', 'Mixing\MixingController@showProduct')->name('mixing.mixing.showProduct');
+            Route::get('/showFormula', 'Mixing\MixingController@showFormula')->name('mixing.mixing.showFormula');
+            Route::post('/add', 'Mixing\MixingController@add')->name('mixing.mixing.add');
+            Route::post('/delete', 'Mixing\MixingController@delete')->name('mixing.mixing.delete');
+            Route::get('/view', 'Mixing\MixingController@view')->name('mixing.mixing.view');
+            Route::get('/{id}/reorder', 'Mixing\MixingController@reorder')->name('mixing.mixing.reorder');
         });
     
         Route::group(['middleware' => ['auth', 'checkDep:IT']], function(){        
@@ -294,14 +294,14 @@ Route::group(['prefix' => '/backend'], function(){
             });
     
             Route::group(['prefix' => 'formula'], function(){
-                Route::get('/', 'FormulaController@index')->name('formula');
-                Route::get('/form', 'FormulaController@form')->name('formula.form');
-                Route::get('/{merkId}/form', 'FormulaController@formByMerk')->name('formula.formbymerk');
-                Route::get('/{id}/detail', 'FormulaController@detail')->name('formula.detail');
-                Route::get('/edit', 'FormulaController@edit')->name('formula.edit');
-                Route::post('/add', 'FormulaController@add')->name('formula.add');
-                Route::put('/update', 'FormulaController@update')->name('formula.update');
-                Route::post('/delete', 'FormulaController@delete')->name('formula.delete');
+                Route::get('/', 'Mixing\FormulaController@index')->name('mixing.formula');
+                Route::get('/form', 'Mixing\FormulaController@form')->name('mixing.formula.form');
+                Route::get('/{merkId}/form', 'Mixing\FormulaController@formByMerk')->name('mixing.formula.formbymerk');
+                Route::get('/{id}/detail', 'Mixing\FormulaController@detail')->name('mixing.formula.detail');
+                Route::get('/edit', 'Mixing\FormulaController@edit')->name('mixing.formula.edit');
+                Route::post('/add', 'Mixing\FormulaController@add')->name('mixing.formula.add');
+                Route::put('/update', 'Mixing\FormulaController@update')->name('mixing.formula.update');
+                Route::post('/delete', 'Mixing\FormulaController@delete')->name('mixing.formula.delete');
             });
         });
     });

@@ -1,38 +1,42 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mixing;
 
 use Illuminate\Http\Request;
-use App\Mixing;
-use App\Product;
-use App\Customers;
-use App\Merk;
-use App\Formula;
-use App\DetailFormula;
+use App\Http\Controllers\Controller;
+use App\Mixing\Mixing;
+use App\Mixing\Product;
+use App\Mixing\Customers;
+use App\Mixing\Merk;
+use App\Mixing\Formula;
+use App\Mixing\DetailFormula;
 
 class MixingController extends Controller
 {
     public function index(){
+        $data['menu'] = '11';
         $data['no'] = 1;
         if (auth()->user()->roles == 1) {
             $data['mixings'] = Mixing::orderBy('created_at', 'DESC')->get();
         } else {
-            $data['mixings'] = Mixing::whereHas('users', function($query){
-                $query->where('storeId', auth()->user()->storeId);
+            $data['mixings'] = Mixing::whereHas('user', function($query){
+                $query->where('dep', auth()->user()->dep);
             })->orderBy('created_at', 'DESC')->get();
         }
-        return view('mixing.index', $data);
+        return view('admin.mixing.mixing.index', $data);
     }
 
     public function form(){
+        $data['menu'] = '11';
         $data['no'] = 1;
         $data['products'] = Product::orderBy('merkId', 'ASC')->get();
         $data['customers'] = Customers::orderBy('name', 'ASC')->get();
         $data['merks'] = Merk::orderBy('name')->get();
-        return view('mixing.form', $data);
+        return view('admin.mixing.mixing.form', $data);
     }
 
     public function reorder($id){
+        $data['menu'] = '11';
         $data['no'] = 1;
         $mixing = Mixing::find($id);
         $data['mixing'] = $mixing;
@@ -41,7 +45,7 @@ class MixingController extends Controller
         $data['customer'] = Customers::find($mixing->customersId);
         $data['merks'] = Merk::orderBy('name')->get();
         $data['formula'] = DetailFormula::where('mixingId', $id)->get();
-        return view('mixing.reorder', $data);
+        return view('admin.mixing.mixing.reorder', $data);
     }
 
     public function fill(){
@@ -104,8 +108,8 @@ class MixingController extends Controller
             'colorCode'=>$data->colorCode,
             'colorName'=>$data->colorName,
             'createDate'=>date('d F Y', strtotime($data->created_at)),
-            'storeName'=>$data->users->store->name,
-            'storeInitial'=>$data->users->store->initial,
+            'storeName'=>$data->user->dep,
+            'storeInitial'=>$data->user->dep,
             'formula' => $text,
             'merk' => $data->product->merk->name
         ];
@@ -153,7 +157,7 @@ class MixingController extends Controller
             ]);
         }
 
-        return redirect()->route('mixing')->with('success', 'Data berhasil ditambah!');
+        return redirect()->route('mixing.mixing')->with('success', 'Data berhasil ditambah!');
     }
 
     public function delete(Request $req){

@@ -13,7 +13,7 @@ class CreateDetailFormulaTable extends Migration
      */
     public function up()
     {
-        Schema::create('detail_formula', function (Blueprint $table) {
+        Schema::create('detailformula', function (Blueprint $table) {
             $table->increments('id');
             $table->double('nilai');
             $table->unsignedInteger('formulaId');

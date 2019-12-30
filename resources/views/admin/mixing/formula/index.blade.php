@@ -24,11 +24,11 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <a href="{{route('formula.form')}}" class="btn btn-success">Tambah Formula</a>
+        <a href="{{route('mixing.formula.form')}}" class="btn btn-success btn-sm">Tambah Formula</a>
       </div>
       <div class="card-body">
         <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped custom-table" id="myTable2">
           <thead>
             <tr>
               <th>No</th>
@@ -42,7 +42,7 @@
                     <td>{{ $no++ }}</td>
                     <td>{{ $formula->merk->name }}</td>
                     <td>
-                        <a href="{{ route('formula.detail', ['id' => $formula->merkId]) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                        <a href="{{ route('mixing.formula.detail', ['id' => $formula->merkId]) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
                     </td>
                 </tr>
             @endforeach

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Mixing;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,10 +12,10 @@ class Merk extends Model
 
     // fk
     public function product(){
-        return $this->hasMany('App\Product', 'merkId');
+        return $this->hasMany('App\Mixing\Product', 'merkId');
     }
 
     public function formula(){
-        return $this->hasMany('App\Formula', 'merkId');
+        return $this->hasMany('App\Mixing\Formula', 'merkId');
     }
 }

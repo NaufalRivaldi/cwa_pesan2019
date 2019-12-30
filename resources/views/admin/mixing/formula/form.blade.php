@@ -17,7 +17,7 @@
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <a href="{{route('formula')}}"><li class="breadcrumb-item" aria-current="page">Formula</a></li>
+                        <a href="{{route('mixing.formula')}}"><li class="breadcrumb-item" aria-current="page">Formula</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Form</li>
                     </ol>
                 </nav>
@@ -35,7 +35,7 @@
         <div class="card-body">
           <div class="row justify-content-md-center">  
             <div class="col-md-6">          
-              <form action="{{($id)?route('formula.update'):route('formula.add')}}" method="post">
+              <form action="{{($id)?route('mixing.formula.update'):route('mixing.formula.add')}}" method="post">
               @csrf
               @if($id)
                     @method('PUT')

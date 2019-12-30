@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Mixing;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,10 +15,10 @@ class Formula extends Model
 
     // fk
     public function merk(){
-        return $this->belongsTo('App\Merk', 'merkId');
+        return $this->belongsTo('App\Mixing\Merk', 'merkId');
     }
 
     public function detailFormula(){
-        return $this->hasMany('App\DetailFormula', 'formulaId');
+        return $this->hasMany('App\Mixing\DetailFormula', 'formulaId');
     }
 }

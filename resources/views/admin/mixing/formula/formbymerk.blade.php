@@ -13,7 +13,7 @@
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <a href="{{route('formula')}}"><li class="breadcrumb-item" aria-current="page">Formula</a></li>
+                        <a href="{{route('mixing.formula')}}"><li class="breadcrumb-item" aria-current="page">Formula</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Form</li>
                     </ol>
                 </nav>
@@ -31,7 +31,7 @@
         <div class="card-body">
           <div class="row justify-content-md-center">  
             <div class="col-md-6">          
-              <form action="{{route('formula.add')}}" method="post">
+              <form action="{{route('mixing.formula.add')}}" method="post">
               @csrf
                 <input type="hidden" name="merkId" value="{{$merk->id}}">
                 <div class="form-group">

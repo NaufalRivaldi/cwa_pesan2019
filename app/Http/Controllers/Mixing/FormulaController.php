@@ -1,46 +1,52 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mixing;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\FormulaRequest;
 
-use App\Merk;
-use App\Formula;
+use App\Mixing\Merk;
+use App\Mixing\Formula;
 
 class FormulaController extends Controller
 {
     public function index(){
+        $data['menu'] = '11';
         $data['no'] = 1;
         $data['formula'] = Formula::groupBy('merkId')->get();
         
-        return view('formula.index', $data);
+        return view('admin.mixing.formula.index', $data);
     }
 
     public function detail($id){
+        $data['menu'] = '11';
         $data['no'] = 1;
         $data['formula'] = Formula::where('merkId', $id)->orderBy('id', 'asc')->get();
         $data['merk'] = Merk::find($id);
         
-        return view('formula.detail', $data);
+        return view('admin.mixing.formula.detail', $data);
     }
 
     public function form(){
+        $data['menu'] = '11';
         $data['merk'] = Merk::orderBy('name', 'asc')->get();
         
-        return view('formula.form', $data);
+        return view('admin.mixing.formula.form', $data);
     }
 
     public function edit(){
+        $data['menu'] = '11';
         $id = $_GET['id'];
         $data['formula'] = Formula::find($id);
         $data['merk'] = Merk::orderBy('name', 'asc')->get();        
-        return view('formula.form', $data);
+        return view('admin.mixing.formula.form', $data);
     }
 
     public function formByMerk($merkId){
+        $data['menu'] = '11';
         $data['merk'] = Merk::find($merkId);
-        return view('formula.formbymerk', $data);
+        return view('admin.mixing.formula.formbymerk', $data);
     }
 
     public function add(FormulaRequest $req){
@@ -49,7 +55,7 @@ class FormulaController extends Controller
             'merkId' => $req->merkId
         ]);
 
-        return redirect()->route('formula.detail', ['id'=>$req->merkId])->with('success', 'Data berhasil ditambahkan.');
+        return redirect()->route('mixing.formula.detail', ['id'=>$req->merkId])->with('success', 'Data berhasil ditambahkan.');
     }
 
     public function update(FormulaRequest $req){
@@ -59,13 +65,13 @@ class FormulaController extends Controller
         $data->color = $req->color;
         $data->save();
     
-        return redirect()->route('formula.detail', ['id'=>$merkId])->with('success', 'Data berhasil di update.');
+        return redirect()->route('mixing.formula.detail', ['id'=>$merkId])->with('success', 'Data berhasil di update.');
     }
 
     public function delete(Request $req){
         $data = Formula::find($req->id);
         $data->delete();
 
-        return redirect()->route('formula')->with('success', 'Data berhasil di hapus.');
+        return redirect()->route('mixing.formula')->with('success', 'Data berhasil di hapus.');
     }
 }

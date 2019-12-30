@@ -24,13 +24,13 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <a href="{{ route('formula') }}" class="btn btn-info">Kembali</a>
-        <a href="{{ route('formula.formbymerk', ['merkId'=>$merk->id]) }}" class="btn btn-success">Tambah Formula</a>
+        <a href="{{ route('mixing.formula') }}" class="btn btn-info btn-sm">Kembali</a>
+        <a href="{{ route('mixing.formula.formbymerk', ['merkId'=>$merk->id]) }}" class="btn btn-success btn-sm">Tambah Formula</a>
       </div>
       <div class="card-body">
         <div class="table-responsive">
         <h3 class="display-6">{{ $merk->name }}</h3>
-        <table class="table">
+        <table class="table myTable custom-table">
           <thead>
             <tr>
               <th>No</th>
@@ -44,7 +44,7 @@
                     <td>{{ $no++ }}</td>
                     <td>{{ $formula->color }}</td>
                     <td>
-                        <a href="{{ route('formula.edit', ['id'=>$formula->id]) }}" class="btn btn-sm btn-warning fas fa-pencil-alt"></a>
+                        <a href="{{ route('mixing.formula.edit', ['id'=>$formula->id]) }}" class="btn btn-sm btn-warning fas fa-pencil-alt"></a>
                         <button class="btn btn-sm btn-danger far fa-trash-alt delete" data-id="{{ $formula->id }}"></button>
                     </td>
                 </tr>
@@ -76,7 +76,7 @@
             if (result.value) {
               $.ajax({
                 type: "POST",
-                url: "{{ route('formula.delete') }}",
+                url: "{{ route('mixing.formula.delete') }}",
                 data: {
                   id: id,
                   _token: '{{ csrf_token() }}'

@@ -13,7 +13,7 @@
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <a href="{{route('mixing')}}"><li class="breadcrumb-item" aria-current="page">Mixing</a></li>
+                        <a href="{{route('mixing.mixing')}}"><li class="breadcrumb-item" aria-current="page">Mixing</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Form</li>
                     </ol>
                 </nav>
@@ -29,7 +29,7 @@
       <h3 class="card-header">Form Mixing</h3>
       <div class="card">
         <div class="card-body">          
-              <form action="{{route('mixing.add')}}" method="post">
+              <form action="{{route('mixing.mixing.add')}}" method="post">
                 <!-- read id -->
                 {{csrf_field()}}
                 <input type="hidden" value="" name="">                 
@@ -42,8 +42,8 @@
                       <input id="inputMemberId" type="text" class="form-control memberIdC" value="" id="memberIdC" readonly>
                     </div>
                     <div class="col-sm mb-1">     
-                      <label for="searchCust" class="searchCst">Search</label>               
-                      <button type="button" class="btn btn-success fas fa-search" id="searchCust" data-toggle="modal" data-target="#exampleModal">
+                      <label for="searchCust" class="searchCst">&nbsp;</label>               
+                      <button type="button" class="btn btn-success fas fa-search btn-lg" id="searchCust" data-toggle="modal" data-target="#exampleModal">
                     </button>
                     </div>                  
                     <div class="col-sm-4 mb-1">
@@ -58,48 +58,6 @@
                     <div class="col-sm-4 mb-1">
                       <label for="inputCustomerPhone">Phone</label>
                       <input id="inputCustomerPhone" type="text" class="form-control phoneC" value="" id="phoneC" readonly>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Data Pelanggan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <a href="{{route('customers.form')}}" class="btn btn-success btn-md mb-3">Tambah Pelanggan</a>
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <th>No</th>
-                              <th>Nama</th>
-                              <th>Telepon</th>
-                              <th>Member ID</th>
-                              <th>Aksi</th>
-                            </tr>                            
-                          </thead>
-                          <tbody>
-                            @foreach($customers as $customer)
-                            <tr>
-                              <td>{{$no++}}</td>
-                              <td>{{$customer->name}}</td>
-                              <td>{{$customer->phone}}</td>
-                              <td>{{$customer->memberId}}</td>
-                              <td>
-                                <button class="btn btn-warning modalBtn" data-id="{{$customer->id}}" type="button">Pilih</button>
-                              </td>
-                            </tr>
-                            @endforeach
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Batal</button>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -212,13 +170,58 @@
 <!-- </div> -->
 @endsection
 
+@section('modal')
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Data Pelanggan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <a href="{{route('customers.form')}}" class="btn btn-success btn-md mb-3">Tambah Pelanggan</a>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama</th>
+              <th>Telepon</th>
+              <th>Member ID</th>
+              <th>Aksi</th>
+            </tr>                            
+          </thead>
+          <tbody>
+            @foreach($customers as $customer)
+            <tr>
+              <td>{{$no++}}</td>
+              <td>{{$customer->name}}</td>
+              <td>{{$customer->phone}}</td>
+              <td>{{$customer->memberId}}</td>
+              <td>
+                <button class="btn btn-warning modalBtn" data-id="{{$customer->id}}" type="button">Pilih</button>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Batal</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
+
 @section('js')
     <script>
       $(document).ready(function() {
         $('.modalBtn').on('click', function() {
           var id = $(this).data('id');
           $.ajax({
-              url: '{{ route("mixing.fill")}}',
+              url: '{{ route("mixing.mixing.fill")}}',
               data: "id="+id,
               type: 'GET',              
               success: function(data) {
@@ -236,7 +239,7 @@
         $('.merkId').on('change', function(){
           var merkId = $(this).val();
           $.ajax({
-              url: '{{ route("mixing.showProduct")}}',
+              url: '{{ route("mixing.mixing.showProduct")}}',
               data: "id="+merkId,
               type: 'GET',              
               success: function(data) {
@@ -250,7 +253,7 @@
         $('.merkId').on('change', function(){
           var merkId = $(this).val();
           $.ajax({
-              url: '{{ route("mixing.showFormula")}}',
+              url: '{{ route("mixing.mixing.showFormula")}}',
               data: "id="+merkId,
               type: 'GET',              
               success: function(data) {

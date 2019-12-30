@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Mixing;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,19 +12,19 @@ class Mixing extends Model
     ];
 
     // fk
-    public function users(){
-        return $this->belongsTo('App\Users', 'userId');
+    public function user(){
+        return $this->belongsTo('App\User', 'userId');
     }
 
     public function customers(){
-        return $this->belongsTo('App\Customers', 'customersId');
+        return $this->belongsTo('App\Mixing\Customers', 'customersId');
     }
     
     public function product(){
-        return $this->belongsTo('App\Product', 'productId');
+        return $this->belongsTo('App\Mixing\Product', 'productId');
     }
 
     public function detailFormula(){
-        return $this->hasMany('App\detailFormula', 'mixingId');
+        return $this->hasMany('App\Mixing\detailFormula', 'mixingId');
     }
 }

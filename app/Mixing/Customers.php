@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Mixing;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +13,6 @@ class Customers extends Model
 
     // fk
     public function mixing(){
-        return $this->hasMany('App\Mixing', 'customersId');
+        return $this->hasMany('App\Mixing\Mixing', 'customersId');
     }
 }
