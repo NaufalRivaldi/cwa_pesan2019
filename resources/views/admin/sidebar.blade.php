@@ -56,30 +56,6 @@
         </li>
         @endif
 
-        @if(Helper::isFinance())
-            <li <?= ($menu == '5') ? 'class="active"' : '' ?>>
-                <a href="{{ url('/admin/finance') }}" data-toggle="tooltip" data-placement="right" title="File penjualan harian cabang."><i class="fas fa-file"></i> {{ (Helper::ubahFinance()) ? 'Kirim Data Ke Pusat' : 'Finance' }}</a>
-            </li>
-        @endif
-
-        @if(Helper::isMaster())
-        <li <?= ($menu == '6') ? 'class="active"' : '' ?>>
-            <a href="{{ url('/admin/master') }}"><i class="fas fa-file-download"></i> Update Master</a>
-        </li>
-        @endif
-
-        <li <?= ($menu == '7') ? 'class="active"' : '' ?>>
-            <a href="#ubahPassword" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-cog"></i> Ubah Password</a>
-            <ul class="collapse list-unstyled" id="ubahPassword">
-                <li>
-                    <a href="{{ url('admin/repassword') }}" data-toggle="tooltip" data-placement="right" title="Perubahan password terhadap akun utama cabang.">User Password</a>
-                </li>
-                <li>
-                    <a href="{{ route('kode.verifikasi') }}" data-toggle="tooltip" data-placement="right" title="Perubahan password terhadap kapala bagian sebagai verifikasi form.">Kode Verifikasi Form</a>
-                </li>
-            </ul>
-        </li>
-        
         @if(Helper::isForm())
         <li <?= ($menu == '8') ? 'class="active"' : '' ?>>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -109,6 +85,57 @@
         </li>
         @endif
 
+        @if(Helper::isFinance())
+            <li <?= ($menu == '5') ? 'class="active"' : '' ?>>
+                <a href="{{ url('/admin/finance') }}" data-toggle="tooltip" data-placement="right" title="File penjualan harian cabang."><i class="fas fa-file"></i> {{ (Helper::ubahFinance()) ? 'Kirim Data Ke Pusat' : 'Finance' }}</a>
+            </li>
+        @endif
+
+        @if(Helper::isMaster())
+        <li <?= ($menu == '6') ? 'class="active"' : '' ?>>
+            <a href="{{ url('/admin/master') }}"><i class="fas fa-file-download"></i> Update Master</a>
+        </li>
+        @endif
+
+        <li <?= ($menu == '8') ? 'class="active"' : '' ?>>
+            <a href="#pageMixing" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-file-signature"></i> Mixing
+            </a>
+            <ul class="collapse list-unstyled" id="pageMixing">
+                <li>
+                    <a class="nav-link" href="{{ route('customers') }}"><i class="fa fa-fw fa-users"></i> Pelanggan </a>
+                </li>                    
+                @if(auth()->user()->dep == 'IT')
+
+                <li>
+                    <a class="nav-link" href="{{ route('merk') }}"><i class="fa fa-fw fas fa-dolly"></i> Mesin </a>
+                </li>
+
+                <li>
+                    <a class="nav-link" href="{{ route('product') }}"><i class="fa fa-fw fas fa-dolly"></i> Produk </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="{{ route('formula') }}"><i class="fas fa-flask"></i> Formula</a>
+                </li>
+                @endif
+                <li>
+                    <a class="nav-link" href="{{ route('mixing') }}"><i class="fa fa-fw fas fa-paint-brush"></i> Mixing </a>
+                </li>
+            </ul>
+        </li>
+
+        <li <?= ($menu == '7') ? 'class="active"' : '' ?>>
+            <a href="#ubahPassword" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-cog"></i> Ubah Password</a>
+            <ul class="collapse list-unstyled" id="ubahPassword">
+                <li>
+                    <a href="{{ url('admin/repassword') }}" data-toggle="tooltip" data-placement="right" title="Perubahan password terhadap akun utama cabang.">User Password</a>
+                </li>
+                <li>
+                    <a href="{{ route('kode.verifikasi') }}" data-toggle="tooltip" data-placement="right" title="Perubahan password terhadap kapala bagian sebagai verifikasi form.">Kode Verifikasi Form</a>
+                </li>
+            </ul>
+        </li>
+        
         @if(Helper::isHRD())
         <li <?= ($menu == '9') ? 'class="active"' : '' ?>>
             <a href="#laporan" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> Laporan</a>
