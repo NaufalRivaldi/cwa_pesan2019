@@ -19,7 +19,7 @@
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <a href="{{route('customers')}}"><li class="breadcrumb-item" aria-current="page">Pelanggan</a></li>
+                        <a href="{{route('mixing.customers')}}"><li class="breadcrumb-item" aria-current="page">Pelanggan</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Form</li>
                     </ol>
                 </nav>
@@ -37,7 +37,7 @@
         <div class="card-body">
           <div class="row justify-content-md-center">  
             <div class="col-md-6">          
-              <form action="{{($id)?route('customers.update'):route('customers.add')}}" method="post">
+              <form action="{{($id)?route('mixing.customers.update'):route('mixing.customers.add')}}" method="post">
               {{ csrf_field() }}
               @if($id)
                   <input type="hidden" value="{{ $customer->id }}" name="id">

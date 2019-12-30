@@ -1,20 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mixing;
 
 use Illuminate\Http\Request;
-use App\Merk;
+use App\Http\Controllers\Controller;
+use App\Mixing\Merk;
 
 class MerkController extends Controller
 {
     public function index(){
+        $data['menu'] = '11';
         $data['merks'] = Merk::all();
         $data['no'] = 1;
-        return view('merk.index', $data);
+        return view('admin.mixing.merk.index', $data);
     }
 
     public function form(){
-        return view('merk.form');
+        $data['menu'] = '11';
+        return view('admin.mixing.merk.form', $data);
     }
 
     public function val($req){
@@ -33,13 +36,14 @@ class MerkController extends Controller
             'name'=>$req->name
         ]);
 
-        return redirect()->route('merk')->with('success', 'Data berhasil ditambah!');        
+        return redirect()->route('mixing.merk')->with('success', 'Data berhasil ditambah!');        
     }
 
     public function edit(){
+        $data['menu'] = '11';
         $id = $_GET['id'];
         $data['merk'] = Merk::find($id);        
-        return view('merk.form', $data);
+        return view('admin.mixing.merk.form', $data);
     }
 
     public function update(Request $req){
@@ -48,7 +52,7 @@ class MerkController extends Controller
         $data->name=$req->name;
         $data->save();
 
-        return redirect()->route('merk')->with('success', 'Data berhasil diubah!');
+        return redirect()->route('mixing.merk')->with('success', 'Data berhasil diubah!');
     }
 
     public function delete(Request $req){

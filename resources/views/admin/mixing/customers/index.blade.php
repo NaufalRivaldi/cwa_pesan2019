@@ -24,7 +24,7 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <a href="{{route('customers.form')}}" class="btn btn-success">Tambah Pelanggan</a>
+        <a href="{{route('mixing.customers.form')}}" class="btn btn-success">Tambah Pelanggan</a>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -46,9 +46,9 @@
                 <td>{{$customer->name}}</td>
                 <td>{{$customer->phone}}</td>
                 <td>
-                  <a href="{{ route('customers.view', ['id'=>$customer->id]) }}" class="btn btn-sm btn-success fas fa-eye"></a>
-                @if(auth()->user()->roles == 1)
-                  <a href="{{ route('customers.edit', ['id'=>$customer->id]) }}" class="btn btn-sm btn-warning fas fa-pencil-alt"></a>
+                  <a href="{{ route('mixing.customers.view', ['id'=>$customer->id]) }}" class="btn btn-sm btn-success fas fa-eye"></a>
+                @if(auth()->user()->dep == 'IT')
+                  <a href="{{ route('mixing.customers.edit', ['id'=>$customer->id]) }}" class="btn btn-sm btn-warning fas fa-pencil-alt"></a>
                   <button class="btn btn-sm btn-danger far fa-trash-alt delete" data-id="{{ $customer->id }}"></button>  
                 @endif
                 </td>
@@ -81,7 +81,7 @@
             if (result.value) {
               $.ajax({
                 type: "POST",
-                url: "{{ route('customers.delete') }}",
+                url: "{{ route('mixing.customers.delete') }}",
                 data: {
                   id: id,
                   _token: '{{ csrf_token() }}'

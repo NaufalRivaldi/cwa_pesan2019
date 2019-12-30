@@ -253,13 +253,13 @@ Route::group(['prefix' => '/backend'], function(){
     // mixing
     Route::group(['prefix' => 'customers'], function(){
         Route::group(['prefix' => 'customers'], function(){
-            Route::get('/', 'CustomersController@index')->name('customers');
-            Route::get('/form', 'CustomersController@form')->name('customers.form');
-            Route::post('/add', 'CustomersController@add')->name('customers.add');
-            Route::get('/edit', 'CustomersController@edit')->name('customers.edit');
-            Route::get('/{id}/view', 'CustomersController@view')->name('customers.view');
-            Route::post('/update', 'CustomersController@update')->name('customers.update');
-            Route::post('/delete', 'CustomersController@delete')->name('customers.delete');     
+            Route::get('/', 'Mixing\CustomersController@index')->name('mixing.customers');
+            Route::get('/form', 'Mixing\CustomersController@form')->name('mixing.customers.form');
+            Route::post('/add', 'Mixing\CustomersController@add')->name('mixing.customers.add');
+            Route::get('/edit', 'Mixing\CustomersController@edit')->name('mixing.customers.edit');
+            Route::get('/{id}/view', 'Mixing\CustomersController@view')->name('mixing.customers.view');
+            Route::post('/update', 'Mixing\CustomersController@update')->name('mixing.customers.update');
+            Route::post('/delete', 'Mixing\CustomersController@delete')->name('mixing.customers.delete');     
         });
     
         Route::group(['prefix' => 'mixing'], function(){
@@ -276,21 +276,21 @@ Route::group(['prefix' => '/backend'], function(){
     
         Route::group(['middleware' => ['auth', 'checkDep:IT']], function(){        
             Route::group(['prefix' => 'merk'], function(){
-                Route::get('/', 'MerkController@index')->name('merk');
-                Route::get('/form', 'MerkController@form')->name('merk.form');
-                Route::post('/add', 'MerkController@add')->name('merk.add');
-                Route::get('/edit', 'MerkController@edit')->name('merk.edit');
-                Route::post('/update', 'MerkController@update')->name('merk.update');
-                Route::post('/delete', 'MerkController@delete')->name('merk.delete');
+                Route::get('/', 'Mixing\MerkController@index')->name('mixing.merk');
+                Route::get('/form', 'Mixing\MerkController@form')->name('mixing.merk.form');
+                Route::post('/add', 'Mixing\MerkController@add')->name('mixing.merk.add');
+                Route::get('/edit', 'Mixing\MerkController@edit')->name('mixing.merk.edit');
+                Route::post('/update', 'Mixing\MerkController@update')->name('mixing.merk.update');
+                Route::post('/delete', 'Mixing\MerkController@delete')->name('mixing.merk.delete');
             });
     
             Route::group(['prefix' => 'product'], function(){
-                Route::get('/', 'ProductController@index')->name('product');
-                Route::get('/form', 'ProductController@form')->name('product.form');
-                Route::post('/add', 'ProductController@add')->name('product.add');
-                Route::get('/edit', 'ProductController@edit')->name('product.edit');
-                Route::post('/update', 'ProductController@update')->name('product.update');
-                Route::post('/delete', 'ProductController@delete')->name('product.delete');
+                Route::get('/', 'Mixing\ProductController@index')->name('mixing.product');
+                Route::get('/form', 'Mixing\ProductController@form')->name('mixing.product.form');
+                Route::post('/add', 'Mixing\ProductController@add')->name('mixing.product.add');
+                Route::get('/edit', 'Mixing\ProductController@edit')->name('mixing.product.edit');
+                Route::post('/update', 'Mixing\ProductController@update')->name('mixing.product.update');
+                Route::post('/delete', 'Mixing\ProductController@delete')->name('mixing.product.delete');
             });
     
             Route::group(['prefix' => 'formula'], function(){

@@ -24,7 +24,7 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <a href="{{route('customers')}}" class="btn btn-success btn-sm">Kembali</a>
+        <a href="{{route('mixing.customers')}}" class="btn btn-success btn-sm">Kembali</a>
       </div>
       <div class="card-header">
         <table class="" width="100%">
@@ -72,7 +72,7 @@
                 <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->base}}</td>
                 <td>
                 <p style="display:none">{{$mixing->customers->memberId}}</p>
-                    <a href="{{ route('mixing.reorder', ['id' => $mixing->id]) }}" class="btn btn-sm btn-success">Reorder</a>
+                    <a href="{{ route('mixing.mixing.reorder', ['id' => $mixing->id]) }}" class="btn btn-sm btn-success">Reorder</a>
                 </td>
                 </tr>
             @endforeach
@@ -171,7 +171,7 @@
             if (result.value) {
               $.ajax({
                 type: "POST",
-                url: "{{ route('customers.delete') }}",
+                url: "{{ route('mixing.customers.delete') }}",
                 data: {
                   id: id,
                   _token: '{{ csrf_token() }}'

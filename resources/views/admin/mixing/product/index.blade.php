@@ -24,7 +24,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-              <a href="{{route('product.form')}}" class="btn btn-success">Tambah Produk</a>
+              <a href="{{route('mixing.product.form')}}" class="btn btn-success">Tambah Produk</a>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -44,7 +44,7 @@
                         <td>{{$product->merk->name}}</td>
                         <td>{{$product->name}}</td>
                         <td>
-                          <a href="{{ route('product.edit', ['id'=>$product->id]) }}" class="btn btn-sm btn-warning fas fa-pencil-alt"></a>
+                          <a href="{{ route('mixing.product.edit', ['id'=>$product->id]) }}" class="btn btn-sm btn-warning fas fa-pencil-alt"></a>
                           <button class="btn btn-sm btn-danger far fa-trash-alt delete" data-id="{{ $product->id }}"></button>
                         </td>
                       </tr>
@@ -76,7 +76,7 @@
             if (result.value) {
               $.ajax({
                 type: "POST",
-                url: "{{ route('product.delete') }}",
+                url: "{{ route('mixing.product.delete') }}",
                 data: {
                   id: id,
                   _token: '{{ csrf_token() }}'
