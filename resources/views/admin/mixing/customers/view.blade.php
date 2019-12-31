@@ -65,7 +65,7 @@
                 <tr>
                 <td data-id="{{$mixing->id}}" class="dataView">{{$no++}}</td>
                 <td data-id="{{$mixing->id}}" class="dataView">{{date('d/m/Y', strtotime($mixing->created_at))}}</td>
-                <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->users->store->initial}}</td>
+                <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->user->dep}}</td>
                 <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->product->name}}</td>
                 <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->unit}}</td>
                 <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->colorCode}}</td>
