@@ -189,7 +189,7 @@
         $('.dataView').on('click', function() {
           var id = $(this).data('id');
           $.ajax({
-              url: '{{ route("mixing.view")}}',
+              url: '{{ route("mixing.mixing.view")}}',
               data: "id="+id,
               type: 'GET',              
               success: function(data) {
