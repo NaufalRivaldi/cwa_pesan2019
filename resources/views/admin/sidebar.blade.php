@@ -56,7 +56,6 @@
         </li>
         @endif
 
-        @if(Helper::isForm())
         <li <?= ($menu == '8') ? 'class="active"' : '' ?>>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-file-signature"></i> E-Form <span class="text-warning">*</span>
@@ -83,7 +82,6 @@
                 @endif
             </ul>
         </li>
-        @endif
 
         @if(Helper::isFinance())
             <li <?= ($menu == '5') ? 'class="active"' : '' ?>>

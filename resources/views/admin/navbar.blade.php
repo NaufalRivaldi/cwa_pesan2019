@@ -10,9 +10,9 @@
             <i class="fas fa-align-justify"></i>
         </button>
         <!-- ultah -->
-        <div class="navbar-nav col-md-7">
+        <div class="navbar-nav col-md-6">
             @if(count(Helper::getUltah()) > 0)
-            <marquee behavior="" direction=""><span class="navbar-text" style="font-size: .8em">
+            <marquee behavior="" direction=""><span class="navbar-text font-weight-bold" style="font-size: .8em">
                 Happy birthday to 
                 @foreach(Helper::getUltah() as $data)
                     {{ $data->nama.' ('.$data->divisi.'),' }}
@@ -24,7 +24,7 @@
 
         <!-- user -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="navbar-nav">
+            <div class="navbar-nav ml-auto">
                 <!-- dropdown -->
                 <div class="dropdown">
                     <a class="nav-link mr-3 clickNotif" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
