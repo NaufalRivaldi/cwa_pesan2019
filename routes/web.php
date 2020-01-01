@@ -182,12 +182,62 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
     route::get('/readnotif/{id}', 'NotifikasiController@readnotif')->name('readnotif');
     route::get('/clicknotif', 'NotifikasiController@clicknotif')->name('clicknotif');
 
-    // 404 not found
-    route::get('/404notfound', function(){
-        $data['menu'] = 99;
-        
-        return view('admin.notfound', $data);
-    })->name('notfound');
+    // mixing
+    Route::group(['prefix' => 'mixing'], function(){
+        Route::group(['prefix' => 'customers'], function(){
+            Route::get('/', 'Mixing\CustomersController@index')->name('mixing.customers');
+            Route::get('/form', 'Mixing\CustomersController@form')->name('mixing.customers.form');
+            Route::post('/add', 'Mixing\CustomersController@add')->name('mixing.customers.add');
+            Route::get('/edit', 'Mixing\CustomersController@edit')->name('mixing.customers.edit');
+            Route::get('/{id}/view', 'Mixing\CustomersController@view')->name('mixing.customers.view');
+            Route::post('/update', 'Mixing\CustomersController@update')->name('mixing.customers.update');
+            Route::post('/delete', 'Mixing\CustomersController@delete')->name('mixing.customers.delete');     
+        });
+    
+        Route::group(['prefix' => 'mixing'], function(){
+            Route::get('/', 'Mixing\MixingController@index')->name('mixing.mixing');
+            Route::get('/form', 'Mixing\MixingController@form')->name('mixing.mixing.form');
+            Route::get('/fill', 'Mixing\MixingController@fill')->name('mixing.mixing.fill');
+            Route::get('/showProduct', 'Mixing\MixingController@showProduct')->name('mixing.mixing.showProduct');
+            Route::get('/showFormula', 'Mixing\MixingController@showFormula')->name('mixing.mixing.showFormula');
+            Route::post('/add', 'Mixing\MixingController@add')->name('mixing.mixing.add');
+            Route::post('/delete', 'Mixing\MixingController@delete')->name('mixing.mixing.delete');
+            Route::get('/view', 'Mixing\MixingController@view')->name('mixing.mixing.view');
+            Route::get('/{id}/reorder', 'Mixing\MixingController@reorder')->name('mixing.mixing.reorder');
+        });
+    
+        Route::group(['middleware' => ['auth', 'checkDep:IT']], function(){        
+            Route::group(['prefix' => 'merk'], function(){
+                Route::get('/', 'Mixing\MerkController@index')->name('mixing.merk');
+                Route::get('/form', 'Mixing\MerkController@form')->name('mixing.merk.form');
+                Route::post('/add', 'Mixing\MerkController@add')->name('mixing.merk.add');
+                Route::get('/edit', 'Mixing\MerkController@edit')->name('mixing.merk.edit');
+                Route::post('/update', 'Mixing\MerkController@update')->name('mixing.merk.update');
+                Route::post('/delete', 'Mixing\MerkController@delete')->name('mixing.merk.delete');
+            });
+    
+            Route::group(['prefix' => 'product'], function(){
+                Route::get('/', 'Mixing\ProductController@index')->name('mixing.product');
+                Route::get('/form', 'Mixing\ProductController@form')->name('mixing.product.form');
+                Route::post('/add', 'Mixing\ProductController@add')->name('mixing.product.add');
+                Route::get('/edit', 'Mixing\ProductController@edit')->name('mixing.product.edit');
+                Route::post('/update', 'Mixing\ProductController@update')->name('mixing.product.update');
+                Route::post('/delete', 'Mixing\ProductController@delete')->name('mixing.product.delete');
+                Route::post('/pesan', 'Mixing\MixingController@pesanDelete')->name('mixing.product.pesanDelete');
+            });
+    
+            Route::group(['prefix' => 'formula'], function(){
+                Route::get('/', 'Mixing\FormulaController@index')->name('mixing.formula');
+                Route::get('/form', 'Mixing\FormulaController@form')->name('mixing.formula.form');
+                Route::get('/{merkId}/form', 'Mixing\FormulaController@formByMerk')->name('mixing.formula.formbymerk');
+                Route::get('/{id}/detail', 'Mixing\FormulaController@detail')->name('mixing.formula.detail');
+                Route::get('/edit', 'Mixing\FormulaController@edit')->name('mixing.formula.edit');
+                Route::post('/add', 'Mixing\FormulaController@add')->name('mixing.formula.add');
+                Route::put('/update', 'Mixing\FormulaController@update')->name('mixing.formula.update');
+                Route::post('/delete', 'Mixing\FormulaController@delete')->name('mixing.formula.delete');
+            });
+        });
+    });
 });
 
 
@@ -247,62 +297,6 @@ Route::group(['prefix' => '/backend'], function(){
         Route::group(['prefix' => 'ultah'], function(){
             Route::get('/', 'UltahController@index');
             Route::post('/save', 'UltahController@save');
-        });
-    });
-
-    // mixing
-    Route::group(['prefix' => 'customers'], function(){
-        Route::group(['prefix' => 'customers'], function(){
-            Route::get('/', 'Mixing\CustomersController@index')->name('mixing.customers');
-            Route::get('/form', 'Mixing\CustomersController@form')->name('mixing.customers.form');
-            Route::post('/add', 'Mixing\CustomersController@add')->name('mixing.customers.add');
-            Route::get('/edit', 'Mixing\CustomersController@edit')->name('mixing.customers.edit');
-            Route::get('/{id}/view', 'Mixing\CustomersController@view')->name('mixing.customers.view');
-            Route::post('/update', 'Mixing\CustomersController@update')->name('mixing.customers.update');
-            Route::post('/delete', 'Mixing\CustomersController@delete')->name('mixing.customers.delete');     
-        });
-    
-        Route::group(['prefix' => 'mixing'], function(){
-            Route::get('/', 'Mixing\MixingController@index')->name('mixing.mixing');
-            Route::get('/form', 'Mixing\MixingController@form')->name('mixing.mixing.form');
-            Route::get('/fill', 'Mixing\MixingController@fill')->name('mixing.mixing.fill');
-            Route::get('/showProduct', 'Mixing\MixingController@showProduct')->name('mixing.mixing.showProduct');
-            Route::get('/showFormula', 'Mixing\MixingController@showFormula')->name('mixing.mixing.showFormula');
-            Route::post('/add', 'Mixing\MixingController@add')->name('mixing.mixing.add');
-            Route::post('/delete', 'Mixing\MixingController@delete')->name('mixing.mixing.delete');
-            Route::get('/view', 'Mixing\MixingController@view')->name('mixing.mixing.view');
-            Route::get('/{id}/reorder', 'Mixing\MixingController@reorder')->name('mixing.mixing.reorder');
-        });
-    
-        Route::group(['middleware' => ['auth', 'checkDep:IT']], function(){        
-            Route::group(['prefix' => 'merk'], function(){
-                Route::get('/', 'Mixing\MerkController@index')->name('mixing.merk');
-                Route::get('/form', 'Mixing\MerkController@form')->name('mixing.merk.form');
-                Route::post('/add', 'Mixing\MerkController@add')->name('mixing.merk.add');
-                Route::get('/edit', 'Mixing\MerkController@edit')->name('mixing.merk.edit');
-                Route::post('/update', 'Mixing\MerkController@update')->name('mixing.merk.update');
-                Route::post('/delete', 'Mixing\MerkController@delete')->name('mixing.merk.delete');
-            });
-    
-            Route::group(['prefix' => 'product'], function(){
-                Route::get('/', 'Mixing\ProductController@index')->name('mixing.product');
-                Route::get('/form', 'Mixing\ProductController@form')->name('mixing.product.form');
-                Route::post('/add', 'Mixing\ProductController@add')->name('mixing.product.add');
-                Route::get('/edit', 'Mixing\ProductController@edit')->name('mixing.product.edit');
-                Route::post('/update', 'Mixing\ProductController@update')->name('mixing.product.update');
-                Route::post('/delete', 'Mixing\ProductController@delete')->name('mixing.product.delete');
-            });
-    
-            Route::group(['prefix' => 'formula'], function(){
-                Route::get('/', 'Mixing\FormulaController@index')->name('mixing.formula');
-                Route::get('/form', 'Mixing\FormulaController@form')->name('mixing.formula.form');
-                Route::get('/{merkId}/form', 'Mixing\FormulaController@formByMerk')->name('mixing.formula.formbymerk');
-                Route::get('/{id}/detail', 'Mixing\FormulaController@detail')->name('mixing.formula.detail');
-                Route::get('/edit', 'Mixing\FormulaController@edit')->name('mixing.formula.edit');
-                Route::post('/add', 'Mixing\FormulaController@add')->name('mixing.formula.add');
-                Route::put('/update', 'Mixing\FormulaController@update')->name('mixing.formula.update');
-                Route::post('/delete', 'Mixing\FormulaController@delete')->name('mixing.formula.delete');
-            });
         });
     });
 });

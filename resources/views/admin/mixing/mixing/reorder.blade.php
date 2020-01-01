@@ -36,7 +36,16 @@
                 <div class="form-group">
                   <label for="inputNama" class="col-form-label"><h4>Pelanggan</h4></label>
                   <div class="row">
-                    <input type="hidden" value="{{ $customer->id }}" class="idCust" name="customersId">                  
+                    <input type="hidden" value="{{ $customer->id }}" class="idCust" name="customersId">                    
+                    <div class="col-sm-3 mb-1">
+                      <label for="customerMemberId">Member ID</label>
+                      <input id="inputNama" type="text" class="form-control memberIdC" value="{{ $customer->memberId }}" id="memberIdC" readonly>
+                    </div>
+                    <div class="col-sm-1 mb-1">     
+                      <label for="searchCust" class="searchCst">&nbsp;</label>               
+                      <button type="button" class="btn btn-success fas fa-search btn-lg" id="searchCust" data-toggle="modal" data-target="#exampleModal">
+                      </button>
+                    </div> 
                     <div class="col-sm-4 mb-1">
                       <label for="customerName">Nama</label>
                       <input id="inputNama" type="text" class="form-control nameC" value="{{ $customer->name }}" id="nameC" readonly>                      
@@ -45,20 +54,11 @@
                         {{ $errors->first('name') }}
                       </div>
                       @endif
-                    </div>    
-                    <div class="col mb-1">     
-                      <label for="searchCust" class="searchCst">Search</label>               
-                      <button type="button" class="btn btn-success fas fa-search btn-lg" id="searchCust" data-toggle="modal" data-target="#exampleModal">
-                      </button>
-                    </div>            
+                    </div>           
                     <div class="col-sm-4 mb-1">
                       <label for="customerPhone">Phone</label>
                       <input id="inputNama" type="text" class="form-control phoneC" value="{{ $customer->phone }}" id="phoneC" readonly>
                     </div>                
-                    <div class="col-sm-3 mb-1">
-                      <label for="customerMemberId">Member ID</label>
-                      <input id="inputNama" type="text" class="form-control memberIdC" value="{{ $customer->memberId }}" id="memberIdC" readonly>
-                    </div>
                   </div>
                 </div>
                 <hr>
@@ -68,12 +68,6 @@
                       <label for="inputMerk">Mesin <span class="text-danger"></span></label>
                       <input type="hidden" class="form-control" name="merkId" value="{{$mixing->product->merk->id}}">
                       <input type="text" class="form-control" name="" value="{{$mixing->product->merk->name}}" readonly>
-                      <!-- <select class="form-control merkId" id="inputMerk" name="merkId" readonly>
-                      <option value=""></option>
-                      @foreach($merks as $merk)
-                        <option value="{{ $merk->id }}" {{ ($mixing->product->merk->id == $merk->id)? 'selected' : '' }} >{{ $merk->name }}</option>
-                      @endforeach
-                      </select>                 -->
                         @if($errors->has('productId'))
                         <div class="text-danger">
                           {{ $errors->first('productId') }}
@@ -84,12 +78,6 @@
                       <label for="exampleFormControlSelect1">Produk <span class="text-danger">*Pilih mesin terlebih dahulu</span></label>
                       <input type="hidden" class="form-control" name="productId" value="{{$mixing->productId}}">
                       <input type="text" class="form-control" name="" value="{{$mixing->product->name}}" readonly>
-                      <!-- <select class="form-control fillProduct" id="exampleFormControlSelect1" name="productId" readonly>
-                        <option value="">Pilih</option>
-                        @foreach($products as $product)
-                            <option value="{{ $product->id }}" {{ ($mixing->productId == $product->id)? 'selected' : '' }}>{{ $product->name }}</option>
-                        @endforeach
-                      </select>                 -->
                         @if($errors->has('productId'))
                         <div class="text-danger">
                           {{ $errors->first('productId') }}
@@ -143,7 +131,7 @@
                     </div>
                     <div class="form-group">
                       <label for="inputNama">Nama Warna</label>
-                      <input readonly id="inputNama" type="text" class="form-control" name="colorCode" value="{{ $mixing->colorName }}">                 
+                      <input readonly id="inputNama" type="text" class="form-control" name="colorName" value="{{ $mixing->colorName }}">                 
                         @if($errors->has('colorCode'))
                         <div class="text-danger">
                           {{ $errors->first('colorCode') }}
@@ -190,13 +178,13 @@
         </button>
       </div>
       <div class="modal-body">
-        <table class="table">
+        <table class="table myTable custom-table">
           <thead>
             <tr>
               <th>No</th>
+              <th>Member ID</th>
               <th>Nama</th>
               <th>Telepon</th>
-              <th>Member ID</th>
               <th>Aksi</th>
             </tr>                            
           </thead>
@@ -204,11 +192,11 @@
             @foreach($customers as $customer)
             <tr>
               <td>{{$no++}}</td>
+              <td>{{$customer->memberId}}</td>
               <td>{{$customer->name}}</td>
               <td>{{$customer->phone}}</td>
-              <td>{{$customer->memberId}}</td>
               <td>
-                <button class="btn btn-warning modalBtn" data-id="{{$customer->id}}" type="button">Pilih</button>
+                <button class="btn btn-warning modalBtn btn-sm" data-id="{{$customer->id}}" type="button">Pilih</button>
               </td>
             </tr>
             @endforeach

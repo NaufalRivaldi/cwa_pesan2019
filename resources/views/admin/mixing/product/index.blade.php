@@ -63,7 +63,7 @@
     <script>
       $(document).on('click','.delete', function() {    
           var id = $(this).data('id');
-          // console.log(id);
+          var del = "{{route('mixing.product.pesanDelete')}}"
           Swal.fire({
           title: 'Perhatian!',
           text: "Apakah anda yakin menghapus data ini?",
@@ -82,7 +82,7 @@
                   _token: '{{ csrf_token() }}'
                 },
                 success: function(data){
-                  location.reload()
+                  window.location = del;
                 }
               })
             }

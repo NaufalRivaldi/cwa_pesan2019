@@ -65,4 +65,8 @@ class ProductController extends Controller
         $data = Product::find($req->id);
         $data->delete();
     }
+
+    public function pesanDelete(){        
+        return redirect()->route('mixing.product')->with('error', 'Data berhasil dihapus!');
+    }
 }

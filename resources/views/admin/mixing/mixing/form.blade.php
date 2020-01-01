@@ -41,10 +41,10 @@
                       <label for="customerMemberId">Member ID</label>
                       <input id="inputMemberId" type="text" class="form-control memberIdC" value="" id="memberIdC" readonly>
                     </div>
-                    <div class="col-sm mb-1">     
+                    <div class="col-sm-1 mb-1">     
                       <label for="searchCust" class="searchCst">&nbsp;</label>               
                       <button type="button" class="btn btn-success fas fa-search btn-lg" id="searchCust" data-toggle="modal" data-target="#exampleModal">
-                    </button>
+                      </button>
                     </div>                  
                     <div class="col-sm-4 mb-1">
                       <label for="inputCustomerName">Nama</label>
@@ -181,14 +181,14 @@
         </button>
       </div>
       <div class="modal-body">
-        <a href="{{route('customers.form')}}" class="btn btn-success btn-md mb-3">Tambah Pelanggan</a>
-        <table class="table">
+        <a href="{{route('mixing.customers.form')}}" class="btn btn-success btn-sm mb-3">Tambah Pelanggan</a>
+        <table class="table myTable custom-table">
           <thead>
             <tr>
               <th>No</th>
+              <th>Member ID</th>
               <th>Nama</th>
               <th>Telepon</th>
-              <th>Member ID</th>
               <th>Aksi</th>
             </tr>                            
           </thead>
@@ -196,11 +196,11 @@
             @foreach($customers as $customer)
             <tr>
               <td>{{$no++}}</td>
+              <td>{{$customer->memberId}}</td>
               <td>{{$customer->name}}</td>
               <td>{{$customer->phone}}</td>
-              <td>{{$customer->memberId}}</td>
               <td>
-                <button class="btn btn-warning modalBtn" data-id="{{$customer->id}}" type="button">Pilih</button>
+                <button class="btn btn-warning modalBtn btn-sm" data-id="{{$customer->id}}" type="button">Pilih</button>
               </td>
             </tr>
             @endforeach

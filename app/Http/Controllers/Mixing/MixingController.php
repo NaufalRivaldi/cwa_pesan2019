@@ -16,7 +16,7 @@ class MixingController extends Controller
     public function index(){
         $data['menu'] = '11';
         $data['no'] = 1;
-        if (auth()->user()->roles == 1) {
+        if (auth()->user()->dep == 'IT') {
             $data['mixings'] = Mixing::orderBy('created_at', 'DESC')->get();
         } else {
             $data['mixings'] = Mixing::whereHas('user', function($query){
