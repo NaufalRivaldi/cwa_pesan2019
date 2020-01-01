@@ -9,56 +9,51 @@
         <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-align-justify"></i>
         </button>
-        <div class="row justify-content-md-center">
-            <div class="col-sm-7">
-                <div class="navbar-nav float-right">
-                    @if(count(Helper::getUltah()) > 0)
-                    <marquee behavior="" direction=""><span class="navbar-text" style="font-size: .8em">
-                        Happy birthday to 
-                        @foreach(Helper::getUltah() as $data)
-                            {{ $data->nama.' ('.$data->divisi.'),' }}
-                        @endforeach
-                        Wish you all the best.
-                    </span></marquee>
-                    @endif
-                </div>
-            </div>
-            <div class="col-sm-5">
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="navbar-nav">
-                        <!-- dropdown -->
-                        <div class="dropdown">
-                            <a class="nav-link mr-3 clickNotif" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="far fa-bell text-primary"></i>
-                                <span class="badge badge-danger countNotif">{{ Helper::countNotif() }}</span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @if(count(Helper::showNotifikasi()) > 0)
-                                    @foreach(Helper::showNotifikasi() as $n)
-                                        <a class="custom-item-dropdown notif" href="{{ url($n->link) }}" data-id="{{ $n->id }}">
-                                            <p class="<?= ($n->baca == 1) ? 'font-weight-bold' : '' ?>">
-                                                {{date('d F Y, H:i;s', strtotime($n->created_at))}}<br>
-                                                {!! $n->keterangan !!}
-                                            </p>
-                                        </a>
-                                    @endforeach
-                                @else
-                                    <a class="custom-item-dropdown">
-                                        <p>Tidak ada notifikasi.</p>
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                        <!-- dropdown -->
 
-                        <img src="{{ asset('img/user.png') }}" alt="logo-cwa" width="40">
-                        <span class="navbar-text">
-                            Halo, {{ auth()->user()->nama }} &nbsp;
-                        </span>
-                        <a class="nav-item btn btn-danger" href="{{ url('logout') }}"><i class="fas fa-power-off"></i> Logout</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-nav">
+                @if(count(Helper::getUltah()) > 0)
+                <span class="text-blink navbar-text" style="font-size: .8em">
+                    Happy birthday to 
+                    @foreach(Helper::getUltah() as $data)
+                        {{ $data->nama.' ('.$data->divisi.'),' }}
+                    @endforeach
+                    Wish you all the best.
+                </span>
+                @endif
+            </div>
+            <div class="navbar-nav ml-auto">
+                <!-- dropdown -->
+                <div class="dropdown">
+                    <a class="nav-link mr-3 clickNotif" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="far fa-bell text-primary"></i>
+                        <span class="badge badge-danger countNotif">{{ Helper::countNotif() }}</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @if(count(Helper::showNotifikasi()) > 0)
+                            @foreach(Helper::showNotifikasi() as $n)
+                                <a class="custom-item-dropdown notif" href="{{ url($n->link) }}" data-id="{{ $n->id }}">
+                                    <p class="<?= ($n->baca == 1) ? 'font-weight-bold' : '' ?>">
+                                        {{date('d F Y, H:i;s', strtotime($n->created_at))}}<br>
+                                        {!! $n->keterangan !!}
+                                    </p>
+                                </a>
+                            @endforeach
+                        @else
+                            <a class="custom-item-dropdown">
+                                <p>Tidak ada notifikasi.</p>
+                            </a>
+                        @endif
                     </div>
                 </div>
+                <!-- dropdown -->
+
+                <img src="{{ asset('img/user.png') }}" alt="logo-cwa" width="40">
+                <span class="navbar-text">
+                    Halo, {{ auth()->user()->nama }} &nbsp;
+                </span>
+                <a class="nav-item btn btn-danger" href="{{ url('logout') }}"><i class="fas fa-power-off"></i> Logout</a>
             </div>
-        </div>        
+        </div>
     </div>
 </nav>
