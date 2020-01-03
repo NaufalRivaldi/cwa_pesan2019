@@ -44,7 +44,7 @@
                         <td>{{$product->merk->name}}</td>
                         <td>{{$product->name}}</td>
                         <td>
-                          <button class="btn btn-sm btn-info fas fa-eye" data-id="{{ $product->id }}" data-toggle="modal" data-target="#baseModal"></button>
+                          <button class="btn btn-sm btn-info fas fa-eye baseModal" data-id="{{ $product->id }}" data-toggle="modal" data-target="#baseModal"></button>
                           <a href="{{ route('mixing.product.edit', ['id'=>$product->id]) }}" class="btn btn-sm btn-warning fas fa-pencil-alt"></a>
                           <button class="btn btn-sm btn-danger far fa-trash-alt delete" data-id="{{ $product->id }}"></button>
                         </td>
@@ -70,7 +70,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <a href="{{ route('mixing.base.form') }}" class="btn btn-sm btn-primary">Tambah Base</a>
+        <button class="btn btn-sm btn-primary" id="linkFormBase" data-id="0">Tambah Base</button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -109,6 +109,19 @@
               })
             }
           })
+      });
+      
+      // modal 
+      $(document).on('click', '.baseModal', function(){
+        var productId = $(this).data('id');
+        $('#linkFormBase').data('id', productId);
+      });
+
+      $(document).on('click', '#linkFormBase', function(){
+        var productId = $(this).data('id');
+        let url = "{{ route('mixing.base.form', ':productId') }}";
+        url = url.replace(':productId', productId);
+        document.location.href=url;
       });
     </script>
 

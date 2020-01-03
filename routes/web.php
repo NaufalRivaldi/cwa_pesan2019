@@ -227,7 +227,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
 
             Route::group(['prefix' => 'base'], function(){
                 Route::get('/', 'Mixing\BaseController@index')->name('mixing.base');
-                Route::get('/form', 'Mixing\BaseController@form')->name('mixing.base.form');
+                Route::get('/{productId}/form', 'Mixing\BaseController@form')->name('mixing.base.form');
                 Route::post('/add', 'Mixing\BaseController@add')->name('mixing.base.add');
                 Route::get('/edit', 'Mixing\BaseController@edit')->name('mixing.base.edit');
                 Route::post('/update', 'Mixing\BaseController@update')->name('mixing.base.update');

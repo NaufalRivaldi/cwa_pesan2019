@@ -8,8 +8,8 @@ class Base extends Model
 {
     protected $table = 'base';
     protected $fillable = [
-        'nama', 'productId'
+        'name', 'productId'
     ];
 
-    public $timestamps = true;
+    public $timestamps = false;
 }

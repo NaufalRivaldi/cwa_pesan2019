@@ -15,7 +15,7 @@ class CreateBaseTable extends Migration
     {
         Schema::create('base', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama', 50);
+            $table->string('name', 50);
             $table->unsignedInteger('productId');
 
             // fk
