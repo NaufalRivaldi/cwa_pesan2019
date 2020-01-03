@@ -224,6 +224,15 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::post('/update', 'Mixing\ProductController@update')->name('mixing.product.update');
                 Route::post('/delete', 'Mixing\ProductController@delete')->name('mixing.product.delete');
             });
+
+            Route::group(['prefix' => 'base'], function(){
+                Route::get('/', 'Mixing\BaseController@index')->name('mixing.base');
+                Route::get('/form', 'Mixing\BaseController@form')->name('mixing.base.form');
+                Route::post('/add', 'Mixing\BaseController@add')->name('mixing.base.add');
+                Route::get('/edit', 'Mixing\BaseController@edit')->name('mixing.base.edit');
+                Route::post('/update', 'Mixing\BaseController@update')->name('mixing.base.update');
+                Route::post('/delete', 'Mixing\BaseController@delete')->name('mixing.base.delete');
+            });
     
             Route::group(['prefix' => 'formula'], function(){
                 Route::get('/', 'Mixing\FormulaController@index')->name('mixing.formula');

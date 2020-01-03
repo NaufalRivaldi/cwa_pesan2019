@@ -24,11 +24,11 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-              <a href="{{route('mixing.product.form')}}" class="btn btn-success">Tambah Produk</a>
+              <a href="{{route('mixing.product.form')}}" class="btn btn-success btn-sm">Tambah Produk</a>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <table class="myTable">
+              <table class="myTable custom-table">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -44,6 +44,7 @@
                         <td>{{$product->merk->name}}</td>
                         <td>{{$product->name}}</td>
                         <td>
+                          <button class="btn btn-sm btn-info fas fa-eye" data-id="{{ $product->id }}" data-toggle="modal" data-target="#baseModal"></button>
                           <a href="{{ route('mixing.product.edit', ['id'=>$product->id]) }}" class="btn btn-sm btn-warning fas fa-pencil-alt"></a>
                           <button class="btn btn-sm btn-danger far fa-trash-alt delete" data-id="{{ $product->id }}"></button>
                         </td>
@@ -55,6 +56,27 @@
             </div>
         </div>
     </div>
+</div>
+@endsection
+
+@section('modal')
+<div class="modal fade" id="baseModal" tabindex="-1" role="dialog" aria-labelledby="baseModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Base asd</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <a href="{{ route('mixing.base.form') }}" class="btn btn-sm btn-primary">Tambah Base</a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection
 

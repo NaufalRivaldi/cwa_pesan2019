@@ -74,11 +74,11 @@ class MixingController extends Controller
         foreach($data as $data){
             $fill .= '
             <div class="col-md-3">
-            <label for="exampleFormControlSelect3">'.$data->color.'</label>
+            <label for="exampleFormControlSelect3" style="font-size:0.7em">'.$data->color.'</label>
                 <div class="form-group">                    
                     <input type="checkbox" class="form-check-input mt-2 select" value="" data-id="'.$data->id.'" data-class="cb'.$data->id.'" onclick="ifChecked(this)">
                     <input type="hidden" class="form-control" name="formulaId[]" value="'.$data->id.'">
-                    <input type="text" class="form-control cb'.$data->id.'" name="nilai[]" id="inputBox
+                    <input type="number" class="form-control form-control-sm cb'.$data->id.'" name="nilai[]" id="inputBox
                     " value="0" readonly>               
                 </div>
             </div>
