@@ -36,17 +36,27 @@ class CustomersController extends Controller
         ];
 
         $this->validate($req, [
-            'name' => 'required',
-            'phone' => 'required'
+            'name' => 'required'
         ], $msg);
     }
 
     public function add(Request $req){
         $this->val($req);
+        $memberId = '-';
+        if(!empty($req->memberId)){
+            $memberId = $req->memberId;
+        }
+
+        $phone = '-';
+        if(!empty($req->phone)){
+            $phone = $req->phone;
+        }
+
+
         Customers::create([
             'name'=>$req->name,
-            'phone'=>$req->phone,
-            'memberId'=>$req->memberId
+            'phone'=>$phone,
+            'memberId'=>$memberId
         ]);
 
         return redirect()->route('mixing.customers')->with('success', 'Data berhasil ditambah!');

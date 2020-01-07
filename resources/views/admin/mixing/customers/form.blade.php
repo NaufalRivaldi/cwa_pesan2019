@@ -45,6 +45,7 @@
                 <div class="form-group">
                   <label for="inputMemberId" class="col-form-label">Member ID</label>
                   <input id="inputMemberId" type="text" class="form-control" onkeyup="convertToMin(this);" onkeypress="return hanyaAngka(event)" name="memberId" maxlength="8" value="{{ ($id) ? $customer->memberId : '' }}" placeholder="xxx-xxxx">
+                  <p class="text-mini text-danger">Kosongkan jika tidak memiliki id member</p>
                   @if($errors->has('memberId'))
                     <div class="text-danger">
                         {{ $errors->first('memberId') }}
@@ -63,6 +64,7 @@
                 <div class="form-group">
                   <label for="inputTelepon" class="col-form-label">Telepon</label>
                   <input id="inputTelepon" type="text" class="form-control" name="phone" maxlength="14" value="{{ ($id) ? $customer->phone : '' }}">
+                  <p class="text-mini text-danger">Kosongkan jika tidak memiliki no telp</p>
                   @if($errors->has('phone'))
                     <div class="text-danger">
                         {{ $errors->first('phone') }}
