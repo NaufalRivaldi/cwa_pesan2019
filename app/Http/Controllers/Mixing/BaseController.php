@@ -18,6 +18,14 @@ class BaseController extends Controller
         return view('admin.mixing.base.form', $data);
     }
 
+    public function edit(){
+        $id = $_GET['id'];
+        $data['menu'] = 11;
+        $data['base'] = Base::find($id);
+        
+        return view('admin.mixing.base.form', $data);
+    }
+
     public function add(BaseRequest $req){
         for($i = 0; $i < count($req->name); $i++){
             Base::create([
@@ -27,5 +35,18 @@ class BaseController extends Controller
         }
 
         return redirect()->route('mixing.product')->with('success', 'Tambah base berhasil.');
+    }
+
+    public function update(Request $req){
+        $data = Base::find($req->id);
+        $data->name = $req->name;
+        $data->save();
+
+        return redirect()->route('mixing.product')->with('success', 'Edit Base Berhasil');
+    }
+
+    public function delete(Request $req){
+        $data = Base::find($req->id);
+        $data->delete();
     }
 }

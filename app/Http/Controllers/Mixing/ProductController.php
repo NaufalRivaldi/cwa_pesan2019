@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mixing\Product;
 use App\Mixing\Merk;
+use App\Mixing\Base;
 
 class ProductController extends Controller
 {
@@ -64,5 +65,13 @@ class ProductController extends Controller
     public function delete(Request $req){
         $data = Product::find($req->id);
         $data->delete();
+    }
+
+    public function showBase(){
+        $id = $_GET['id'];
+        $data['no'] = 1;
+        $data['base'] = Base::where('productId', $id)->get();
+
+        return view('admin.mixing.product.tableBase', $data);
     }
 }

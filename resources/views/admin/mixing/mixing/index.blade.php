@@ -53,7 +53,7 @@
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->unit}}</td>
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->colorCode}}</td>
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->colorName}}</td>
-                        <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->base}}</td>
+                        <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->base->name}}</td>
                         <td>
                         <p style="display:none">{{$mixing->customers->memberId}}</p>
                         <p style="display:none">{{$mixing->user->dep}}</p>

@@ -95,7 +95,8 @@
         </li>
         @endif
 
-        <li <?= ($menu == '11') ? 'class="active"' : '' ?>>
+        @if(Helper::isMixing())
+        <li <?= ($menu == '11') ? 'class="active"' : '' ?> data-toggle="tooltip" data-placement="right" title="Perekapan data mixing.">
             <a href="#pageMixing" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-file-signature"></i> Mixing
             </a>
@@ -121,6 +122,7 @@
                 </li>
             </ul>
         </li>
+        @endif
 
         <li <?= ($menu == '7') ? 'class="active"' : '' ?>>
             <a href="#ubahPassword" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-cog"></i> Ubah Password</a>
@@ -153,5 +155,5 @@
         </li>
         @endif
     </ul>
-    <p class="footer">Copyright © 2019. Naufal Rivaldi.</p>
+    <p class="footer text-white">Copyright © 2019. Naufal Rivaldi.</p>
 </nav>

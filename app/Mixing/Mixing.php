@@ -8,7 +8,7 @@ class Mixing extends Model
 {
     protected $table = 'mixing';
     protected $fillable = [
-        'createDate', 'qty', 'unit', 'colorCode', 'base', 'userId', 'customersId', 'productId','colorName'
+        'createDate', 'qty', 'unit', 'colorCode', 'baseId', 'userId', 'customersId', 'productId','colorName'
     ];
 
     // fk
@@ -26,5 +26,9 @@ class Mixing extends Model
 
     public function detailFormula(){
         return $this->hasMany('App\Mixing\detailFormula', 'mixingId');
+    }
+
+    public function base(){
+        return $this->belongsTo('App\Mixing\Base', 'baseId');
     }
 }

@@ -1,17 +1,18 @@
-$(document).ready(function () {
-    // Side Bar
-    $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('active');
-        $(this).toggleClass('active');
-    });
-
+$(function(){
     // data table
     $('#myTable').DataTable({});
     $('#myTable2').DataTable({
         paging: false
     });
     $('.myTable').DataTable({});
+});
 
+$(document).ready(function () {
+    // Side Bar
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        $(this).toggleClass('active');
+    });
 
     // file Upload
     $('input[name="file[]"]').fileuploader({

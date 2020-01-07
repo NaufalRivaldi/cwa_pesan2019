@@ -10,6 +10,7 @@ use App\Mixing\Customers;
 use App\Mixing\Merk;
 use App\Mixing\Formula;
 use App\Mixing\DetailFormula;
+use App\Mixing\Base;
 
 class MixingController extends Controller
 {
@@ -66,6 +67,17 @@ class MixingController extends Controller
         return $fill;
     }
 
+    public function showBase(){
+        $fill = "<option value=''>Pilih</option>";
+        $id = $_GET['id'];
+        $data = Base::where('productId', $id)->orderBy('name')->get();
+        foreach($data as $data){
+            $fill .= "<option value='".$data->id."'>".$data->name."</option>";
+        }
+
+        return $fill;
+    }
+
     public function showFormula(){
         $fill = '';
         $id = $_GET['id'];
@@ -78,7 +90,7 @@ class MixingController extends Controller
                 <div class="form-group">                    
                     <input type="checkbox" class="form-check-input mt-2 select" value="" data-id="'.$data->id.'" data-class="cb'.$data->id.'" onclick="ifChecked(this)">
                     <input type="hidden" class="form-control" name="formulaId[]" value="'.$data->id.'">
-                    <input type="number" class="form-control form-control-sm cb'.$data->id.'" name="nilai[]" id="inputBox
+                    <input type="text" class="form-control form-control-sm cb'.$data->id.'" name="nilai[]" id="inputBox
                     " value="0" readonly>               
                 </div>
             </div>
@@ -102,7 +114,7 @@ class MixingController extends Controller
             'custPhone'=>$data->customers->phone,
             'custMemberId'=>$data->customers->memberId,
             'productName'=>$data->product->name,
-            'base'=>$data->base,
+            'base'=>$data->base->name,
             'qty'=>$data->qty,
             'unit'=>$data->unit,
             'colorCode'=>$data->colorCode,
@@ -125,8 +137,8 @@ class MixingController extends Controller
         $this->validate($req, [
             'customersId' => 'required',
             'productId' => 'required',
-            'base' => 'required',
-            'qty' => 'required',
+            'baseId' => 'required',
+            'qty' => 'required|numeric',
             'unit' => 'required',
             'colorCode' => 'required',
             'colorName' => 'required'
@@ -141,7 +153,7 @@ class MixingController extends Controller
             'userId'=>$userId,
             'customersId'=>$req->customersId,
             'productId'=>$req->productId,
-            'base'=>$req->base,
+            'baseId'=>$req->baseId,
             'qty'=>$req->qty,
             'unit'=>$req->unit,
             'colorCode'=>$req->colorCode,

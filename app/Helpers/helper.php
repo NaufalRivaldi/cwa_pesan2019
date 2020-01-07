@@ -134,6 +134,16 @@ class helper{
         }
     }
 
+    public static function isMixing(){
+        $dep = auth()->user()->dep;
+        $data = array('IT', 'CW5');
+        if(in_array($dep, $data)){
+            return true;                                                    
+        }else{
+            return false;
+        }
+    }
+
     // set show menu
 
     // password default

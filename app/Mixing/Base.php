@@ -12,4 +12,12 @@ class Base extends Model
     ];
 
     public $timestamps = false;
+
+    public function mixing(){
+        return $this->hasMany('App\Mixing\Mixing', 'baseId');
+    }
+
+    public function product(){
+        return $this->belongsTo('App\Mixing\Product', 'productId');
+    }
 }

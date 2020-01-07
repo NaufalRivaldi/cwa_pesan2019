@@ -19,4 +19,8 @@ class Product extends Model
         return $this->hasMany('App\Mixing\Mixing', 'productId');
     }
 
+    public function base(){
+        return $this->hasMany('App\Mixing\Base', 'productId');
+    }
+
 }

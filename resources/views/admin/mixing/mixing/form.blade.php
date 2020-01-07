@@ -72,15 +72,15 @@
                         <option value="{{ $merk->id }}">{{ $merk->name }}</option>
                       @endforeach
                       </select>                
-                        @if($errors->has('productId'))
+                        @if($errors->has('merkId'))
                         <div class="text-danger">
-                          {{ $errors->first('productId') }}
+                          {{ $errors->first('merkId') }}
                         </div>
                         @endif
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Produk <span class="text-danger">*Pilih mesin terlebih dahulu</span></label>
-                      <select class="form-control fillProduct" id="exampleFormControlSelect1" name="productId">
+                      <select class="form-control fillProduct productId" id="exampleFormControlSelect1" name="productId">
                         
                       </select>                
                         @if($errors->has('productId'))
@@ -90,17 +90,13 @@
                         @endif
                     </div>
                     <div class="form-group">
-                      <label for="exampleFormControlSelect2">Base</label>
-                      <select class="form-control" id="exampleFormControlSelect2" name="base">
-                        <option value="">Pilih</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
+                      <label for="exampleFormControlSelect2">Base <span class="text-danger">*Pilih produk terlebih dahulu</span></label>
+                      <select class="form-control fillBase" id="exampleFormControlSelect2" name="baseId">
+                        
                       </select>                  
-                      @if($errors->has('base'))
+                      @if($errors->has('baseId'))
                       <div class="text-danger">
-                        {{ $errors->first('base') }}
+                        {{ $errors->first('baseId') }}
                       </div>
                       @endif
                     </div>
@@ -108,7 +104,7 @@
                      <div class="col-md-6">                       
                       <div class="form-group">
                         <label for="inputJumlah">Jumlah</label>
-                        <input id="inputJumlah" onkeypress="return hanyaAngka(event)" type="text" class="form-control" name="qty">                 
+                        <input id="inputJumlah" type="text" class="form-control" name="qty">                 
                         @if($errors->has('qty'))
                         <div class="text-danger">
                           {{ $errors->first('qty') }}
@@ -249,6 +245,20 @@
           });
         });
 
+        // show base
+        $('.productId').on('change', function(){
+          var productId = $(this).val();
+          $.ajax({
+              url: '{{ route("mixing.mixing.showBase")}}',
+              data: "id="+productId,
+              type: 'GET',              
+              success: function(data) {
+                $('.fillBase').empty();
+                $('.fillBase').append(data);
+            }              
+          });
+        });
+
         // show formula
         $('.merkId').on('change', function(){
           var merkId = $(this).val();
@@ -257,7 +267,6 @@
               data: "id="+merkId,
               type: 'GET',              
               success: function(data) {
-                console.log(data);
                 $('.fillFormula').empty();
                 $('.fillFormula').append(data);
             }              
@@ -271,7 +280,6 @@
         var id = $(e).data('id');
         var nameClass = $(e).data('class');
 
-        console.log($('.'+nameClass));
         if($(e).prop("checked") == true){
           $('.'+nameClass).removeAttr('readonly')
         }

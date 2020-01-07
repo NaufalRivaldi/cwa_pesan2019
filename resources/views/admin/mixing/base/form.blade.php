@@ -42,10 +42,10 @@
               @if($id)
                   <input type="hidden" value="{{ $base->id }}" name="id">
               @endif
-                <input type="hidden" value="{{ $product->id }}" name="productId">
+                <input type="hidden" value="{{ (empty($id)) ? $product->id : $base->product->id }}" name="productId">
                 <div class="form-group">
                   <label for="productId" class="col-form-label">Product</label>
-                  <input id="productId" type="text" class="form-control" name="product" value="{{ $product->name }}" disabled>
+                  <input id="productId" type="text" class="form-control" name="product" value="{{ (empty($id)) ? $product->name : $base->product->name }}" disabled>
                   @if($errors->has('productId'))
                     <div class="text-danger">
                         {{ $errors->first('productId') }}
@@ -57,11 +57,13 @@
                   <div class="form-group">
                     <label for="baseName" class="col-form-label">Nama Base</label>
                     <div class="input-group mb-3">
-                      <input id="baseName" type="text" class="form-control" name="name[]" aria-describedby="plusAddon">
+                      <input id="baseName" type="text" class="form-control" name="{{ (empty($id)) ? 'name[]' : 'name' }}" aria-describedby="plusAddon" value="{{ (empty($id)) ? '' : $base->name }}">
                       
+                      @if(!$id)
                       <div class="input-group-append">
                         <a href="#" id="plus" class="btn btn-success">+</a>
                       </div>
+                      @endif
                     </div>
                     
                     @if($errors->has('name'))

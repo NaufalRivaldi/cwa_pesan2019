@@ -86,10 +86,11 @@
                     </div>
                     <div class="form-group">
                       <label for="inputNama">Base</label>
-                      <input readonly id="inputNama" type="text" class="form-control" name="base" value="{{ $mixing->base }}">                  
-                      @if($errors->has('base'))
+                      <input type="hidden" name="baseId" value="{{ $mixing->base->id }}">
+                      <input readonly id="inputNama" type="text" class="form-control" name="base" value="{{ $mixing->base->name }}">                  
+                      @if($errors->has('baseid'))
                       <div class="text-danger">
-                        {{ $errors->first('base') }}
+                        {{ $errors->first('baseid') }}
                       </div>
                       @endif
                     </div>

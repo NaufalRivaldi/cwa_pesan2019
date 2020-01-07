@@ -47,7 +47,7 @@
       </div>
       <div class="card-body">
         <div class="table-responsive">
-        <table class="table">
+        <table class="table myTable">
           <thead>
             <tr>
                 <th>No</th>
@@ -69,7 +69,7 @@
                 <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->product->name}}</td>
                 <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->unit}}</td>
                 <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->colorCode}}</td>
-                <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->base}}</td>
+                <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->base->name}}</td>
                 <td>
                 <p style="display:none">{{$mixing->customers->memberId}}</p>
                     <a href="{{ route('mixing.mixing.reorder', ['id' => $mixing->id]) }}" class="btn btn-sm btn-success">Reorder</a>
@@ -83,7 +83,9 @@
     </div>
   </div>
 </div>
+@endsection
 
+@section('modal')
 <!-- Modal -->
 <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">

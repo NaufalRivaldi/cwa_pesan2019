@@ -199,6 +199,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::get('/form', 'Mixing\MixingController@form')->name('mixing.mixing.form');
             Route::get('/fill', 'Mixing\MixingController@fill')->name('mixing.mixing.fill');
             Route::get('/showProduct', 'Mixing\MixingController@showProduct')->name('mixing.mixing.showProduct');
+            Route::get('/showBase', 'Mixing\MixingController@showBase')->name('mixing.mixing.showBase');
             Route::get('/showFormula', 'Mixing\MixingController@showFormula')->name('mixing.mixing.showFormula');
             Route::post('/add', 'Mixing\MixingController@add')->name('mixing.mixing.add');
             Route::post('/delete', 'Mixing\MixingController@delete')->name('mixing.mixing.delete');
@@ -223,6 +224,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::get('/edit', 'Mixing\ProductController@edit')->name('mixing.product.edit');
                 Route::post('/update', 'Mixing\ProductController@update')->name('mixing.product.update');
                 Route::post('/delete', 'Mixing\ProductController@delete')->name('mixing.product.delete');
+                Route::get('/showBase', 'Mixing\ProductController@showBase')->name('mixing.product.showBase');
             });
 
             Route::group(['prefix' => 'base'], function(){
