@@ -225,6 +225,15 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::post('/delete', 'Mixing\ProductController@delete')->name('mixing.product.delete');
                 Route::post('/pesan', 'Mixing\MixingController@pesanDelete')->name('mixing.product.pesanDelete');
             });
+
+            Route::group(['prefix' => 'base'], function(){
+                Route::get('/', 'Mixing\BaseController@index')->name('mixing.base');
+                Route::get('/form', 'Mixing\BaseController@form')->name('mixing.base.form');
+                Route::post('/add', 'Mixing\BaseController@add')->name('mixing.base.add');
+                Route::get('/edit', 'Mixing\BaseController@edit')->name('mixing.base.edit');
+                Route::post('/update', 'Mixing\BaseController@update')->name('mixing.base.update');
+                Route::post('/delete', 'Mixing\BaseController@delete')->name('mixing.base.delete');
+            });
     
             Route::group(['prefix' => 'formula'], function(){
                 Route::get('/', 'Mixing\FormulaController@index')->name('mixing.formula');
@@ -236,6 +245,18 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::put('/update', 'Mixing\FormulaController@update')->name('mixing.formula.update');
                 Route::post('/delete', 'Mixing\FormulaController@delete')->name('mixing.formula.delete');
             });
+        });
+    });
+    // mixing
+    Route::group(['prefix' => 'pkk'], function(){
+        Route::group(['prefix' => 'periode'], function(){
+            Route::get('/', 'PKK\PeriodeController@index')->name('pkk.customers');
+            Route::get('/form', 'PKK\PeriodeController@form')->name('pkk.customers.form');
+            Route::post('/add', 'PKK\PeriodeController@add')->name('pkk.customers.add');
+            Route::get('/edit', 'PKK\PeriodeController@edit')->name('pkk.customers.edit');
+            Route::get('/{id}/view', 'PKK\PeriodeController@view')->name('pkk.customers.view');
+            Route::post('/update', 'PKK\PeriodeController@update')->name('pkk.customers.update');
+            Route::post('/delete', 'PKK\PeriodeController@delete')->name('pkk.customers.delete');     
         });
     });
 });

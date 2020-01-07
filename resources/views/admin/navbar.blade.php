@@ -11,9 +11,10 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="navbar-nav col-md-7">
+            <!-- ultah -->
+            <div class="navbar-nav col-md-6">
                 @if(count(Helper::getUltah()) > 0)
-                <marquee behavior="" direction=""><span class="navbar-text text-weight-bold" style="font-size: .8em">
+                <marquee behavior="" direction=""><span class="navbar-text font-weight-bold" style="font-size: .8em">
                     Happy birthday to 
                     @foreach(Helper::getUltah() as $data)
                         {{ $data->nama.' ('.$data->divisi.'),' }}
