@@ -10,7 +10,6 @@
             <i class="fas fa-align-justify"></i>
         </button>
 
-        <!-- user -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- ultah -->
             <div class="navbar-nav col-md-6">
@@ -54,8 +53,8 @@
                 <span class="navbar-text">
                     Halo, {{ auth()->user()->nama }} &nbsp;
                 </span>
-                <a class="nav-item btn btn-danger" href="{{ url('logout') }}"><i class="fas fa-power-off"></i></a>
+                <a class="nav-item btn btn-md btn-danger" href="{{ url('logout') }}"><i class="fas fa-power-off"></i></a>
             </div>
-        </div>       
+        </div>
     </div>
 </nav>

@@ -47,7 +47,11 @@
       </div>
       <div class="card-body">
         <div class="table-responsive">
+<<<<<<< HEAD
         <table class="table myTable">
+=======
+        <table class="myTable">
+>>>>>>> 43b5092833d4fbca12192d8fa4973b963b3ffd9f
           <thead>
             <tr>
                 <th>No</th>

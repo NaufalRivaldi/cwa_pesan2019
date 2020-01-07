@@ -44,7 +44,7 @@
                         <td>{{$product->merk->name}}</td>
                         <td>{{$product->name}}</td>
                         <td>
-                          <button class="btn btn-sm btn-info fas fa-eye baseModal" data-id="{{ $product->id }}" data-toggle="modal" data-target="#baseModal"></button>
+                          <button class="btn btn-sm btn-info fas fa-eye" data-id="{{ $product->id }}" data-toggle="modal" data-target="#baseModal"></button>
                           <a href="{{ route('mixing.product.edit', ['id'=>$product->id]) }}" class="btn btn-sm btn-warning fas fa-pencil-alt"></a>
                           <button class="btn btn-sm btn-danger far fa-trash-alt delete" data-id="{{ $product->id }}"></button>
                         </td>
@@ -64,17 +64,13 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Base</h5>
+        <h5 class="modal-title" id="exampleModalCenterTitle">Base asd</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <button class="btn btn-sm btn-primary" id="linkFormBase" data-id="0">Tambah Base</button>
-        <hr>
-        <div class="fillBase">
-        
-        </div>
+        <a href="{{ route('mixing.base.form') }}" class="btn btn-sm btn-primary">Tambah Base</a>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -112,58 +108,6 @@
               })
             }
           })
-      });
-
-      $(document).on('click','.deleteBase', function() {    
-          var id = $(this).data('id');
-          // console.log(id);
-          Swal.fire({
-          title: 'Perhatian!',
-          text: "Apakah anda yakin menghapus data ini?",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes'
-          }).then((result) => {
-            if (result.value) {
-              $.ajax({
-                type: "POST",
-                url: "{{ route('mixing.base.delete') }}",
-                data: {
-                  id: id,
-                  _token: '{{ csrf_token() }}'
-                },
-                success: function(data){
-                  location.reload()
-                }
-              })
-            }
-          })
-      });
-      
-      // modal 
-      $(document).on('click', '.baseModal', function(){
-        var productId = $(this).data('id');
-        $('#linkFormBase').data('id', productId);
-
-        // show base
-        $.ajax({
-            url: '{{ route("mixing.product.showBase")}}',
-            data: "id="+productId,
-            type: 'GET',              
-            success: function(data) {
-              $('.fillBase').empty();
-              $('.fillBase').html(data);
-          }              
-        });
-      });
-
-      $(document).on('click', '#linkFormBase', function(){
-        var productId = $(this).data('id');
-        let url = "{{ route('mixing.base.form', ':productId') }}";
-        url = url.replace(':productId', productId);
-        document.location.href=url;
       });
     </script>
 

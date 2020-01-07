@@ -41,8 +41,8 @@
                       <label for="customerMemberId">Member ID</label>
                       <input id="inputNama" type="text" class="form-control memberIdC" value="{{ $customer->memberId }}" id="memberIdC" readonly>
                     </div>
-                    <div class="col mb-1">     
-                      <label for="searchCust" class="searchCst">Search</label>               
+                    <div class="col-sm-1 mb-1">     
+                      <label for="searchCust" class="searchCst">&nbsp;</label>               
                       <button type="button" class="btn btn-success fas fa-search btn-lg" id="searchCust" data-toggle="modal" data-target="#exampleModal">
                       </button>
                     </div> 

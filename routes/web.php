@@ -248,6 +248,18 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             });
         });
     });
+    // mixing
+    Route::group(['prefix' => 'pkk'], function(){
+        Route::group(['prefix' => 'periode'], function(){
+            Route::get('/', 'PKK\PeriodeController@index')->name('pkk.customers');
+            Route::get('/form', 'PKK\PeriodeController@form')->name('pkk.customers.form');
+            Route::post('/add', 'PKK\PeriodeController@add')->name('pkk.customers.add');
+            Route::get('/edit', 'PKK\PeriodeController@edit')->name('pkk.customers.edit');
+            Route::get('/{id}/view', 'PKK\PeriodeController@view')->name('pkk.customers.view');
+            Route::post('/update', 'PKK\PeriodeController@update')->name('pkk.customers.update');
+            Route::post('/delete', 'PKK\PeriodeController@delete')->name('pkk.customers.delete');     
+        });
+    });
 });
 
 

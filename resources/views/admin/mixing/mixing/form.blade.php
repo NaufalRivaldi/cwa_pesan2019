@@ -41,10 +41,10 @@
                       <label for="customerMemberId">Member ID</label>
                       <input id="inputMemberId" type="text" class="form-control memberIdC" value="" id="memberIdC" readonly>
                     </div>
-                    <div class="col-sm mb-1">     
+                    <div class="col-sm-1 mb-1">     
                       <label for="searchCust" class="searchCst">&nbsp;</label>               
                       <button type="button" class="btn btn-success fas fa-search btn-lg" id="searchCust" data-toggle="modal" data-target="#exampleModal">
-                    </button>
+                      </button>
                     </div>                  
                     <div class="col-sm-4 mb-1">
                       <label for="inputCustomerName">Nama</label>

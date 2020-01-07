@@ -121,6 +121,23 @@
                     <a class="nav-link" href="{{ route('mixing.mixing') }}"><i class="fa fa-fw fas fa-paint-brush"></i> Mixing </a>
                 </li>
             </ul>
+        </li>        
+
+        <li <?= ($menu == '12') ? 'class="active"' : '' ?>>
+            <a href="#pagePkk" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-file-signature"></i> P. Kinerja Karyawan
+            </a>
+            <ul class="collapse list-unstyled" id="pagePkk">
+                <li>
+                    <a class="nav-link" href="{{ route('pkk.periode')}}"><i class="fa fa-fw fa-users"></i> Periode </a>
+                </li> 
+                <li>
+                    <a class="nav-link" href=""><i class="fa fa-fw fa-users"></i> Kuisioner </a>
+                </li> 
+                <li>
+                    <a class="nav-link" href=""><i class="fa fa-fw fa-users"></i> Indikator </a>
+                </li> 
+            </ul>
         </li>
         @endif
 
