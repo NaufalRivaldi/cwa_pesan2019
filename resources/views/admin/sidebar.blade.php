@@ -75,6 +75,17 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="#pageGA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">GA <span class="text-warning">*</span></a>
+                    <ul class="collapse list-unstyled" id="pageGA">
+                        <li>
+                            <a href="{{ route('form.ga.perbaikan') }}">Perbaikan Sarana</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('desainIklan') }}">Peminjaman Sarana <span class="badge badge-warning">{{ (auth()->user()->dep == 'GA')? Helper::countFormDesain() : '' }}</span></a>
+                        </li>
+                    </ul>
+                </li>
                 @if(Helper::isVerifikasi())
                 <li>
                     <a href="{{ url('admin/formhrd/verifikasi') }}">Verifikasi <span class="badge badge-warning">{{ Helper::countVerifikasi() }}</span></a>

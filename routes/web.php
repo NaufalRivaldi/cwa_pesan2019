@@ -155,6 +155,19 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         });
     });
 
+    // FORM SEMUANYA DISINI YAAA
+    Route::group(['prefix' => 'form'], function(){
+
+        // form GA
+        Route::group(['prefix' => 'ga'], function(){
+            Route::group(['prefix' => 'perbaikan-sarana'], function(){
+                Route::get('/', 'FormPerbaikanController@index')->name('form.ga.perbaikan');
+                Route::get('/form', 'FormPerbaikanController@form')->name('form.ga.perbaikan.form');
+            });
+        });
+
+    });
+
     // laporan semuanyaaa (Kodingan mulai bener wkwkw, ancur sebelumnya gara" baru nyoba FW)
     Route::group(['prefix' => 'laporan'], function(){
         Route::group(['prefix' => 'hrd', 'middleware' => ['checkDep:HRD,IT']], function(){
