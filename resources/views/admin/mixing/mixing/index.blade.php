@@ -57,7 +57,7 @@
                         <td>
                         <p style="display:none">{{$mixing->customers->memberId}}</p>
                         <p style="display:none">{{$mixing->user->dep}}</p>
-                          <a href="{{ route('mixing.mixing.reorder', ['id' => $mixing->id]) }}" class="btn btn-sm btn-success">Reorder</a>
+                          <a href="{{ route('mixing.mixing.reorder', ['id' => $mixing->id]) }}" class="btn btn-sm btn-success ">Reorder</a>
                           <button class="btn btn-danger far fa-trash-alt delete" data-id="{{ $mixing->id }}"></button>
                         </td>
                       </tr>
@@ -191,8 +191,7 @@
         });
       });
 
-      $(document).ready(function() {
-        $('.dataView').on('click', function() {
+      $(document).on('click', '.dataView', function() {
           var id = $(this).data('id');
           $.ajax({
               url: '{{ route("mixing.mixing.view")}}',
@@ -218,7 +217,6 @@
                 $('.merk').append(data.merk);
             }              
           });
-        })
       })
     </script>
 

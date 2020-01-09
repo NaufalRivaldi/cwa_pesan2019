@@ -142,18 +142,18 @@
                     <h4 class="mt-4">Formula <span class="text-danger">*Pilih mesin terlebih dahulu</span></h4>
                     <span class="row fillFormula">
                         @foreach($formula as $formula)
+                        @if($formula->nilai != 0)
                         <div class="col-md-3">
                           <div class="form-group">
-                              @if($formula->nilai != 0)
                               <label for="inputNama">{{ $formula->formula->color }}</label>
                               <input type="hidden" class="form-control" name="formulaId[]" value="{{ $formula->formulaId }}">
                               <input readonly type="text" class="form-control" name="nilai[]" value="{{ $formula->nilai }}">
-                              @else                              
-                              <input type="hidden" class="form-control" name="formulaId[]" value="{{ $formula->formulaId }}">
-                              <input readonly type="hidden" class="form-control" name="nilai[]" value="{{ $formula->nilai }}">
-                              @endif
                           </div>
                         </div>
+                        @else                                                            
+                          <input type="hidden" class="form-control" name="formulaId[]" value="{{ $formula->formulaId }}">
+                          <input readonly type="hidden" class="form-control" name="nilai[]" value="{{ $formula->nilai }}">
+                        @endif
                         @endforeach
                     </span>
                   </div>
