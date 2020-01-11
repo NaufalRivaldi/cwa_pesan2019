@@ -163,6 +163,11 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::group(['prefix' => 'perbaikan-sarana'], function(){
                 Route::get('/', 'FormPerbaikanController@index')->name('form.ga.perbaikan');
                 Route::get('/form', 'FormPerbaikanController@form')->name('form.ga.perbaikan.form');
+                Route::get('/view', 'FormPerbaikanController@view')->name('form.ga.perbaikan.view');
+                Route::post('/store', 'FormPerbaikanController@store')->name('form.ga.perbaikan.store');
+                Route::post('/validasi', 'FormPerbaikanController@validasi')->name('form.ga.perbaikan.validasi');
+                Route::post('/status', 'FormPerbaikanController@updateStatus')->name('form.ga.perbaikan.status');
+                Route::post('/delete', 'FormPerbaikanController@delete')->name('form.ga.perbaikan.delete');
             });
         });
 
@@ -181,6 +186,13 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::post('/store', 'LaporanKaryawanController@store')->name('laporan.hrd.karyawan.store');
                 Route::put('/update', 'LaporanKaryawanController@update')->name('laporan.hrd.karyawan.update');
                 Route::post('/destroy', 'LaporanKaryawanController@destroy')->name('laporan.hrd.karyawan.destroy');
+            });
+        });
+
+        Route::group(['prefix' => 'ga', 'middleware' => ['checkDep:GA,IT']], function(){
+            Route::group(['prefix' => 'perbaikan'], function(){
+                Route::get('/', 'LaporanPerbaikanSaranaController@index')->name('laporan.ga.perbaikan');
+                Route::get('/export', 'LaporanPerbaikanSaranaController@export')->name('laporan.ga.perbaikan.export');
             });
         });
     });

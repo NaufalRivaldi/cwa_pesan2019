@@ -6,23 +6,18 @@
     <div class="row">
         <div class="col-12">
             <div class="container">
+                <h2>Form Perbaikan Sarana & Prasarana</h2>
                 <div class="card">
                     <div class="card-header">
-                        <h2>Form Perbaikan Sarana & Prasarana</h2>
+                        <a href="{{ route('form.ga.perbaikan') }}" class="btn btn-sm btn-success">Kembali</a>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('desainIklan.store') }}">
+                        <form method="POST" action="{{ route('form.ga.perbaikan.store') }}">
                             @csrf
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Tanggal Pengajuan <span class="text-danger">*</span></label>
+                                <label class="col-sm-2 col-form-label">Tanggal <span class="text-danger">*</span></label>
                                 <div class="col-sm-10">
-                                    <textarea name="Tanggal Pengajuan" id="Tanggal Pengajuan" rows="5" class="form-control"></textarea>
-                                    <!-- error -->
-                                    @if($errors->has('Tanggal Pengajuan'))
-                                        <div class="text-danger">
-                                            {{ $errors->first('Tanggal Pengajuan') }}
-                                        </div>
-                                    @endif
+                                    <input type="date" name="tglPengajuan" value="{{ $dateNow }}" class="form-control col-md-6" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">

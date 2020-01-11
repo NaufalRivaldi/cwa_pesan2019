@@ -13,7 +13,7 @@ class FormPerbaikanRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,18 @@ class FormPerbaikanRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function messages(){
+        return [
+            'required' => 'Field ini tidak boleh kosong!'
+        ];
+    }
+    
+     public function rules()
     {
         return [
-            //
+            'tglPengajuan' => 'date|required',
+            'permintaan' => 'required',
+            'alasan' => 'required'
         ];
     }
 }

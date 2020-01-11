@@ -11,7 +11,7 @@
                         <h2>Form Pengajuan Desain</h2>
                     </div>
                     <div class="card-header">
-                        <a href="{{ route('desainIklan.form') }}" class="btn btn-primary btn-sm">Ajukkan Form</a>
+                        <a href="{{ route('desainIklan.form') }}" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Buat Form</a>
                     </div>
                     <div class="card-body">
                         <h3><i class="fas fa-spinner"></i> Form Progress</h3>

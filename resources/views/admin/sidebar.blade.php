@@ -71,19 +71,19 @@
                             <a href="{{ route('penanganan.it') }}">Penanganan IT</a>
                         </li>
                         <li>
-                            <a href="{{ route('desainIklan') }}">Pengajuan Desain <span class="badge badge-warning">{{ (auth()->user()->dep == 'IT')? Helper::countFormDesain() : '' }}</span></a>
+                            <a href="{{ route('desainIklan') }}">Pengajuan Desain <span class="badge badge-warning">{{ Helper::countFormDesain() }}</span></a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#pageGA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">GA <span class="text-warning">*</span></a>
+                    <a href="#pageGA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">General Affair <span class="text-warning">*</span></a>
                     <ul class="collapse list-unstyled" id="pageGA">
                         <li>
-                            <a href="{{ route('form.ga.perbaikan') }}">Perbaikan Sarana</a>
+                            <a href="{{ route('form.ga.perbaikan') }}">Perbaikan Sarana <span class="badge badge-warning">{{ Helper::countFormPerbaikan() }}</span></a>
                         </li>
-                        <li>
-                            <a href="{{ route('desainIklan') }}">Peminjaman Sarana <span class="badge badge-warning">{{ (auth()->user()->dep == 'GA')? Helper::countFormDesain() : '' }}</span></a>
-                        </li>
+                        <!-- <li>
+                            <a href="{{ route('desainIklan') }}">Peminjaman Sarana</a>
+                        </li> -->
                     </ul>
                 </li>
                 @if(Helper::isVerifikasi())
@@ -133,23 +133,6 @@
                 </li>
             </ul>
         </li>        
-
-        <li <?= ($menu == '12') ? 'class="active"' : '' ?>>
-            <a href="#pagePkk" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fas fa-file-signature"></i> P. Kinerja Karyawan
-            </a>
-            <ul class="collapse list-unstyled" id="pagePkk">
-                <li>
-                    <a class="nav-link" href="{{ route('pkk.periode')}}"><i class="fa fa-fw fa-users"></i> Periode </a>
-                </li> 
-                <li>
-                    <a class="nav-link" href=""><i class="fa fa-fw fa-users"></i> Kuisioner </a>
-                </li> 
-                <li>
-                    <a class="nav-link" href=""><i class="fa fa-fw fa-users"></i> Indikator </a>
-                </li> 
-            </ul>
-        </li>
         @endif
 
         <li <?= ($menu == '7') ? 'class="active"' : '' ?>>
@@ -164,10 +147,11 @@
             </ul>
         </li>
         
-        @if(Helper::isHRD())
+        @if(Helper::isLaporan())
         <li <?= ($menu == '9') ? 'class="active"' : '' ?>>
             <a href="#laporan" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> Laporan</a>
             <ul class="collapse list-unstyled" id="laporan">
+                @if(Helper::isHRD())
                 <li>
                     <a href="#laporanHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> HRD</a>
                     <ul class="collapse list-unstyled" id="laporanHRD">
@@ -179,6 +163,18 @@
                         </li>
                     </ul>
                 </li>
+                @endif
+
+                @if(Helper::isGA())
+                <li>
+                    <a href="#laporanGA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> General Affair</a>
+                    <ul class="collapse list-unstyled" id="laporanGA">
+                        <li>    
+                            <a href="{{ route('laporan.ga.perbaikan') }}">Perbaikan Sarana</a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
             </ul>
         </li>
         @endif

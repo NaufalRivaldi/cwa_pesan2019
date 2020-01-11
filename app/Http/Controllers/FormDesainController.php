@@ -126,7 +126,8 @@ class FormDesainController extends Controller
 
     public function val($req){
         $message = [
-            'required' => 'Tidak boleh kosong!'
+            'required' => 'Tidak boleh kosong!',
+            'numeric' => 'Kolom ini harus berupa angka'
         ];
 
         $this->validate($req, [

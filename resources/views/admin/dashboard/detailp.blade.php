@@ -39,7 +39,7 @@
                             <td width="15%" align="right">Attc :</td>
                             <td>
                                 @foreach($file as $f)
-                                    <a href="{{ url('/Upengumuman/'.$f->nama_file) }}" class="btn btn-info btn-sm">{{ $f->nama }}</a>
+                                    <a href="{{ asset('Upengumuman/'.$f->nama_file) }}" class="btn btn-info btn-sm">{{ $f->nama }}</a>
                                 @endforeach
                             </td>
                         </tr>

@@ -41,6 +41,13 @@
                                         <label for="keterangan_lain">Keterangan Lainnya</label>
                                         <input type="text" class="form-control" id="keterangan_lain" name="keterangan_lain">
                                     </div>
+
+                                        <!-- error -->
+                                    @if($errors->has('jenis_desain_id'))
+                                        <div class="text-danger">
+                                            {{ $errors->first('jenis_desain_id') }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <hr>
@@ -49,14 +56,35 @@
                                     <div class="form-group">
                                         <label for="tgl_perlu">Tanggal Diperlukan</label>
                                         <input type="date" class="form-control" id="tgl_perlu" name="tgl_perlu">
+
+                                        <!-- error -->
+                                        @if($errors->has('tgl_perlu'))
+                                            <div class="text-danger">
+                                                {{ $errors->first('tgl_perlu') }}
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="form-group">
                                         <label for="qty">Qty / Jumlah</label>
                                         <input type="number" class="form-control" id="qty" name="qty">
+
+                                        <!-- error -->
+                                        @if($errors->has('qty'))
+                                            <div class="text-danger">
+                                                {{ $errors->first('qty') }}
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="form-group">
                                         <label for="ukuran">Ukuran Cetak</label>
                                         <input type="text" class="form-control" id="ukuran" name="ukuran">
+
+                                        <!-- error -->
+                                        @if($errors->has('ukuran'))
+                                            <div class="text-danger">
+                                                {{ $errors->first('ukuran') }}
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-6">
