@@ -75,7 +75,7 @@
         <div class="form-group row justify-content-md-center">
           <label for="polingBestEmployee" class="col-sm-1 col-form-label">NIK</label>
           <div class="col-sm-10">
-              <input onkeyup="convertToMin(this);" onkeypress="return hanyaAngka(event)" type="text" class="form-control" id="polingBestEmployee" name="karyawanId" value="" placeholder=""  maxlength="9" autofocus>                        
+              <input onkeyup="convertToMin(this);" onkeypress="return hanyaAngka(event)" type="text" class="form-control" id="polingBestEmployee" name="nik" value="" placeholder=""  maxlength="9" autofocus>                        
               @if($errors->has('karyawanId'))
                   <div class="text-danger">
                       {{ $errors->first('karyawanId') }}
