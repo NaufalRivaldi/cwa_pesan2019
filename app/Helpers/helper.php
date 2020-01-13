@@ -18,6 +18,7 @@ use App\FormHRD;
 use App\Cabang;
 use App\Finance;
 use App\FormPengajuanDesain;
+use App\FormPerbaikanSarana;
 
 use Hash;
 
@@ -36,6 +37,16 @@ class helper{
     public static function isPengumuman(){
         $dep = auth()->user()->dep;
         $data = array('Office', 'HRD', 'Accounting', 'QA', 'GA', 'IT', 'Finance', 'Pajak', 'SCM', 'Gudang', 'MT');
+        if(in_array($dep, $data)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static function isLaporan(){
+        $dep = auth()->user()->dep;
+        $data = array('HRD', 'GA', 'IT');
         if(in_array($dep, $data)){
             return true;
         }else{
@@ -122,6 +133,16 @@ class helper{
         }
     }
 
+    public static function isGA(){
+        $dep = auth()->user()->dep;
+        $data = array('IT', 'GA');
+        if(in_array($dep, $data)){
+            return true;                                                    
+        }else{
+            return false;
+        }
+    }
+
     public static function isAM(){
         $dep = auth()->user()->dep;
         $level = auth()->user()->level;
@@ -136,8 +157,8 @@ class helper{
 
     public static function isMixing(){
         $dep = auth()->user()->dep;
-        $data = array('IT', 'CW5');
-        if(in_array($dep, $data)){
+        $data = array('Gudang', 'SCM', 'Office', 'Finance', 'Accounting', 'QA', 'GA', 'HRD', 'Pajak', 'MT');
+        if(!in_array($dep, $data)){
             return true;                                                    
         }else{
             return false;
@@ -327,7 +348,13 @@ class helper{
     }
 
     public static function countFormDesain(){
-        $form = FormPengajuanDesain::where('stat', 1)->count();
+        $form = FormPengajuanDesain::where('stat', '<', '4')->count();
+        
+        return $form;
+    }
+
+    public static function countFormPerbaikan(){
+        $form = FormPerbaikanSarana::where('status', '<' ,'4')->count();
         
         return $form;
     }
@@ -539,8 +566,8 @@ class helper{
         $data['stat'] = '';
 
         // Ubah ini klo ada nambah cabang ya
-        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CA5','CL1','CS1');
-        $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9', 'CB0', 'MT');
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CA5','CL1','CS1', 'CM1');
+        $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9', 'CB0', 'CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'MT');
         $gm = array('CW1','CW2');
 
         if($stat == 1){
@@ -577,8 +604,8 @@ class helper{
         $level = auth()->user()->level;
 
         // Ubah ini klo ada nambah cabang ya
-        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CA5','CL1','CS1');
-        $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9','MT');
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CA5','CL1','CS1', 'CM1');
+        $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9', 'CB0', 'CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'MT');
         $gm = array('CW1','CW2');
 
         if($level == 3){
@@ -635,7 +662,7 @@ class helper{
 
     public static function allDep(){
         // Ubah ini klo ada nambah cabang ya
-        $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office', 'MT');
+        $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office');
 
         $cabang = Cabang::all();
         foreach($cabang as $row){
@@ -690,8 +717,8 @@ class helper{
     // notif form hrd global
     public static function notifikasiFormHRD($form_id, $karyawan_id){
         // Ubah ini klo ada nambah cabang ya
-        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CA5','CL1','CS1');
-        $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9','MT');
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CA5','CL1','CS1', 'CM1');
+        $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9', 'CB0', 'CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'MT');
         $gm = array('CW1','CW2');
 
         $karyawan = KaryawanAll::find($karyawan_id);
@@ -862,7 +889,7 @@ class helper{
         }
     }
 
-    // cek status
+    // cek status form
     public static function statusDesain($val){
         $text = '';
         switch ($val) {
@@ -903,12 +930,41 @@ class helper{
 
             case '2':
                 $text = "<span class='badge badge-info'>Selesai</span>";
+                break;      
+            
+            default:
+                # code...
                 break;
+            }
+            return $text;
+        }
+    public static function statusPerbaikan($val){
+        $text = '';
+        switch ($val) {
+            case '1':
+                $text = "<span class='badge badge-warning'>Pending</span>";
+                break;
+
+            case '2':
+                $text = "<span class='badge badge-info'>Acc GA / Progress</span>";
+                break;
+
+            case '3':
+                $text = "<span class='badge badge-primary'>Dalam Pengajuan</span>";
+                break;
+
+            case '4':
+                $text = "<span class='badge badge-success'>Selesai</span>";
+                break;
+
+            case '5':
+                $text = "<span class='badge badge-danger'>Ditolak</span>";
+                break;
+            
             default:
                 # code...
                 break;
         }
-
         return $text;
     }
 
@@ -926,6 +982,37 @@ class helper{
             case '3':
                 $text = "<span class='badge badge-info'>Survei Kepuasan Karyawan</span>";
                 break;
+            
+            default:
+                # code...
+                break;
+            }
+
+            return $text;
+        }
+    public static function statusPerbaikanLaporan($val){
+        $text = '';
+        switch ($val) {
+            case '1':
+                $text = "Pending";
+                break;
+
+            case '2':
+                $text = "Acc GA / Progress";
+                break;
+
+            case '3':
+                $text = "Dalam Pengajuan";
+                break;
+
+            case '4':
+                $text = "Selesai";
+                break;
+
+            case '5':
+                $text = "Ditolak";
+                break;
+            
             default:
                 # code...
                 break;

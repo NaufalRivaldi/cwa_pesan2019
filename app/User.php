@@ -83,4 +83,8 @@ class User extends Authenticatable
     public function penilaian(){
         return $this->hasMany('App\PKK\Penilaian', 'userId');
     }
+    
+    public function formPerbaikanSarana(){
+        return $this->hasMany('App\FormPerbaikanSarana', 'userId');
+    }
 }

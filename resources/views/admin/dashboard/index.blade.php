@@ -26,17 +26,24 @@
             </div>
         </div>
         @endif
-        @if(auth()->user()->dep == 'IT')
         <div class="col-md-4">
             <div class="card text-white bg-info mb-2">
-                <div class="card-header"><i class="fas fa-file-signature"></i> Form Desain Pending</div>
+                <div class="card-header"><i class="fas fa-file-signature"></i> Form Desain (Proses)</div>
                 <div class="card-body">
                     <p class="card-text">{{ Helper::countFormDesain() }} Form</p>
                     <a href="{{ route('desainIklan') }}" class="btn btn-dark btn-sm btn-block"><i class="fas fa-eye"></i> Lihat</a>
                 </div>
             </div>
         </div>
-        @endif
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-2">
+                <div class="card-header"><i class="fas fa-file-signature"></i> Form Perbaikan Sarana (Proses)</div>
+                <div class="card-body">
+                    <p class="card-text">{{ Helper::countFormPerbaikan() }} Form</p>
+                    <a href="{{ route('desainIklan') }}" class="btn btn-dark btn-sm btn-block"><i class="fas fa-eye"></i> Lihat</a>
+                </div>
+            </div>
+        </div>
     </div>
     <hr>
     <div class="row">

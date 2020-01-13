@@ -62,16 +62,14 @@
       $(document).on('click','.delete',function() {    
           var id = $(this).data('id');
           // console.log(id);
-          Swal.fire({
+          swal({
           title: 'Perhatian!',
           text: "Apakah anda yakin menghapus data ini?",
           icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes'
-          }).then((result) => {
-            if (result.value) {
+          buttons: true,
+          dangerMode: true,
+          }).then((willDelete) => {
+            if (willDelete) {
               $.ajax({
                 type: "POST",
                 url: "{{ route('mixing.merk.delete') }}",

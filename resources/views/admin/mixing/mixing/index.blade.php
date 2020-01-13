@@ -162,31 +162,29 @@
 @section('js')
 
     <script>
-      $(document).on('click','.delete',function() {    
-          var id = $(this).data('id');
-          Swal.fire({
+      $(document).on('click','.delete',function() {
+        var id = $(this).data('id');
+        swal({
           title: 'Perhatian!',
           text: "Apakah anda yakin menghapus data ini?",
           icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes'
-          }).then((result) => {
-            if (result.value) {
-              $.ajax({
-                type: "POST",
-                url: "{{ route('mixing.mixing.delete') }}",
-                data: {
-                  id: id,
-                  _token: '{{ csrf_token() }}'
-                },
-                success: function(data){
-                  location.reload()
-                }
-              })
-            }
-          })
+          buttons: true,
+          dangerMode: true,
+        }).then((willDelete) => {
+          if (willDelete) {
+            $.ajax({
+              type: "POST",
+              url: "{{ route('mixing.mixing.delete') }}",
+              data: {
+                id: id,
+                _token: '{{ csrf_token() }}'
+              },
+              success: function(data){
+                location.reload()
+              }
+            })
+          }
+        })
       });
 
       $(document).on('click', '.dataView', function() {

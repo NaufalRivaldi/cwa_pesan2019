@@ -5,6 +5,11 @@ $(function(){
         paging: false
     });
     $('.myTable').DataTable({});
+    $('.myTableExport').DataTable({
+        buttons: [
+            'excel'
+        ]
+    });
 });
 
 $(document).ready(function () {

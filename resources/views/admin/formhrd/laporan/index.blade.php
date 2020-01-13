@@ -21,10 +21,10 @@
     <div class="row">
         <div class="col-12">
             <div class="container">
-                <h3>Laporan Form HRD</h3>
-                <hr>
-
                 <div class="card">
+                    <div class="card-header">
+                        <h3>Laporan Form HRD</h3>
+                    </div>
                     <div class="card-header">
                         <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                             <i class="fas fa-cog"></i> Pengaturan
