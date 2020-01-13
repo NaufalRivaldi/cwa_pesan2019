@@ -312,7 +312,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::get('/edit', 'PKK\PenilaianController@edit')->name('pkk.penilaian.edit');
             Route::get('/{id}/status', 'PKK\PenilaianController@status')->name('pkk.penilaian.status');
             Route::post('/update', 'PKK\PenilaianController@update')->name('pkk.penilaian.update');
-            Route::post('/delete', 'PKK\PenilaianController@delete')->name('pkk.penilaian.delete');     
+            Route::post('/delete', 'PKK\PenilaianController@delete')->name('pkk.penilaian.delete'); 
+            Route::post('/poling', 'PKK\PenilaianController@poling')->name('pkk.penilaian.poling');    
         });
     });
 });

@@ -1020,5 +1020,11 @@ class helper{
 
         return $text;
     }
+
+    public static function polingByDepartemen($dep){
+        $data['no'] = 1;
+        $data = KaryawanAll::where('dep', $dep)->where('stat', '1')->where('ket', '1')->orderBy('nama', 'ASC')->get();
+        return $data;
+    }
 }
 
