@@ -313,6 +313,11 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::get('/{id}/status', 'PKK\PenilaianController@status')->name('pkk.penilaian.status');
             Route::post('/update', 'PKK\PenilaianController@update')->name('pkk.penilaian.update');
             Route::post('/delete', 'PKK\PenilaianController@delete')->name('pkk.penilaian.delete');     
+
+            // Penilaian Kepala Bagian
+            Route::group(['prefix' => 'kabag'], function(){
+                Route::post('/', 'PKK\PenilaianKepalaBagianController@index')->name('pkk.penilaian.kabag');
+            });
         });
     });
 });

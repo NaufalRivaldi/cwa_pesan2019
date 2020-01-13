@@ -100,22 +100,25 @@
         </button>
       </div>
       <div class="modal-body">
-      <div class="form-group row justify-content-md-center">
-        <label for="kepalaBagian" class="col-sm-1 col-form-label">NIK</label>
-        <div class="col-sm-10">
-            <input onkeyup="convertToMin(this);" onkeypress="return hanyaAngka(event)" type="text" class="form-control" id="kepalaBagian" name="karyawanId" value="" placeholder="" maxlength="9" autofocus>                        
-            @if($errors->has('karyawanId'))
-                <div class="text-danger">
-                    {{ $errors->first('karyawanId') }}
-                </div>
-            @endif
-            </div>
+      <form action="{{ route('pkk.penilaian.kabag') }}" method="POST">
+      @csrf
+        <div class="form-group row justify-content-md-center">
+          <label for="kepalaBagian" class="col-sm-1 col-form-label">NIK</label>
+          <div class="col-sm-10">
+              <input onkeyup="convertToMin(this);" onkeypress="return hanyaAngka(event)" type="text" class="form-control" id="kepalaBagian" name="karyawanId" value="" placeholder="" maxlength="9" autofocus>                        
+              @if($errors->has('karyawanId'))
+                  <div class="text-danger">
+                      {{ $errors->first('karyawanId') }}
+                  </div>
+              @endif
+              </div>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Nilai</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Nilai</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

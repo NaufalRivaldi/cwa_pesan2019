@@ -37,7 +37,7 @@
                                             <td class="modalClick" data-id="{{ $data->id }}">{{ $data->permintaan }}</td>
                                             <td class="modalClick" data-id="{{ $data->id }}">{!! Helper::statusPerbaikan($data->status) !!}</td>
                                             <td>
-                                            @if(auth()->user()->dep == 'IT')
+                                            @if(auth()->user()->dep == 'GA')
                                                 @if($data->status > 1 && $data->status != 4 && $data->status != 5)
                                                     <button class="btn btn-success btn-sm modalStatus" data-id="{{ $data->id }}" data-stat="{{ $data->status }}">Ganti Status</button>
                                                 @elseif($data->status == 1)

@@ -40,7 +40,7 @@
                 <div class="card-header"><i class="fas fa-file-signature"></i> Form Perbaikan Sarana (Proses)</div>
                 <div class="card-body">
                     <p class="card-text">{{ Helper::countFormPerbaikan() }} Form</p>
-                    <a href="{{ route('desainIklan') }}" class="btn btn-dark btn-sm btn-block"><i class="fas fa-eye"></i> Lihat</a>
+                    <a href="{{ route('form.ga.perbaikan') }}" class="btn btn-dark btn-sm btn-block"><i class="fas fa-eye"></i> Lihat</a>
                 </div>
             </div>
         </div>
