@@ -162,8 +162,7 @@
 @section('js')
 
     <script>
-      $(document).on('click','.delete',function() {
-        $('.delete').on('click',function() {            
+      $(document).on('click','.delete',function() {    
           var id = $(this).data('id');
           Swal.fire({
           title: 'Perhatian!',
@@ -188,7 +187,6 @@
               })
             }
           })
-        });
       });
 
       $(document).on('click', '.dataView', function() {

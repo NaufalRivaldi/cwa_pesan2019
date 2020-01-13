@@ -255,9 +255,39 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::get('/form', 'PKK\PeriodeController@form')->name('pkk.periode.form');
             Route::post('/add', 'PKK\PeriodeController@add')->name('pkk.periode.add');
             Route::get('/edit', 'PKK\PeriodeController@edit')->name('pkk.periode.edit');
-            Route::get('/{id}/view', 'PKK\PeriodeController@view')->name('pkk.periode.view');
+            Route::get('/{id}/status', 'PKK\PeriodeController@status')->name('pkk.periode.status');
             Route::post('/update', 'PKK\PeriodeController@update')->name('pkk.periode.update');
             Route::post('/delete', 'PKK\PeriodeController@delete')->name('pkk.periode.delete');     
+        });
+
+        Route::group(['prefix' => 'kuisioner'], function(){
+            Route::get('/', 'PKK\KuisionerController@index')->name('pkk.kuisioner');
+            Route::get('/form', 'PKK\KuisionerController@form')->name('pkk.kuisioner.form');
+            Route::post('/add', 'PKK\KuisionerController@add')->name('pkk.kuisioner.add');
+            Route::get('/edit', 'PKK\KuisionerController@edit')->name('pkk.kuisioner.edit');
+            Route::get('/{id}/status', 'PKK\KuisionerController@status')->name('pkk.kuisioner.status');
+            Route::post('/update', 'PKK\KuisionerController@update')->name('pkk.kuisioner.update');
+            Route::post('/delete', 'PKK\KuisionerController@delete')->name('pkk.kuisioner.delete');     
+        });
+
+        Route::group(['prefix' => 'indikator'], function(){
+            Route::get('/', 'PKK\IndikatorController@index')->name('pkk.indikator');
+            Route::get('/form', 'PKK\IndikatorController@form')->name('pkk.indikator.form');
+            Route::post('/add', 'PKK\IndikatorController@add')->name('pkk.indikator.add');
+            Route::get('/edit', 'PKK\IndikatorController@edit')->name('pkk.indikator.edit');
+            Route::get('/{id}/status', 'PKK\IndikatorController@status')->name('pkk.indikator.status');
+            Route::post('/update', 'PKK\IndikatorController@update')->name('pkk.indikator.update');
+            Route::post('/delete', 'PKK\IndikatorController@delete')->name('pkk.indikator.delete');     
+        });
+
+        Route::group(['prefix' => 'penilaian'], function(){
+            Route::get('/', 'PKK\PenilaianController@index')->name('pkk.penilaian');
+            Route::get('/form', 'PKK\PenilaianController@form')->name('pkk.penilaian.form');
+            Route::post('/add', 'PKK\PenilaianController@add')->name('pkk.penilaian.add');
+            Route::get('/edit', 'PKK\PenilaianController@edit')->name('pkk.penilaian.edit');
+            Route::get('/{id}/status', 'PKK\PenilaianController@status')->name('pkk.penilaian.status');
+            Route::post('/update', 'PKK\PenilaianController@update')->name('pkk.penilaian.update');
+            Route::post('/delete', 'PKK\PenilaianController@delete')->name('pkk.penilaian.delete');     
         });
     });
 });

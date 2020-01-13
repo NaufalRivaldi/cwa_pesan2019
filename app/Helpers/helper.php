@@ -893,5 +893,45 @@ class helper{
 
         return $text;
     }
+
+    public static function statusPKK($val){
+        $text = '';
+        switch ($val) {
+            case '1':
+                $text = "<span class='badge badge-warning'>Aktif</span>";
+                break;
+
+            case '2':
+                $text = "<span class='badge badge-info'>Selesai</span>";
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        return $text;
+    }
+
+    public static function kategoriPKK($val){
+        $text = '';
+        switch ($val) {
+            case '1':
+                $text = "<span class='badge badge-warning'>Best Employee</span>";
+                break;
+
+            case '2':
+                $text = "<span class='badge badge-info'>Penilaian Kepala Bagian</span>";
+                break;
+
+            case '3':
+                $text = "<span class='badge badge-info'>Survei Kepuasan Karyawan</span>";
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        return $text;
+    }
 }
 

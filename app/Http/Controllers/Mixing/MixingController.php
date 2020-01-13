@@ -41,7 +41,8 @@ class MixingController extends Controller
         $data['no'] = 1;
         $mixing = Mixing::find($id);
         $data['mixing'] = $mixing;
-        $data['products'] = Product::orderBy('merkId', 'ASC')->get();
+        $data['products'] = Product::where('merkId', $mixing->product->merk->id)->get();
+        $data['base'] = Base::where('productId', $mixing->base->product->id)->get();
         $data['customers'] = Customers::orderBy('name', 'ASC')->get();
         $data['customer'] = Customers::find($mixing->customersId);
         $data['merks'] = Merk::orderBy('name')->get();

@@ -129,13 +129,16 @@
             </a>
             <ul class="collapse list-unstyled" id="pagePkk">
                 <li>
-                    <a class="nav-link" href="{{ route('pkk.periode')}}"><i class="fa fa-fw fa-users"></i> Periode </a>
+                    <a class="nav-link" href="{{ route('pkk.penilaian') }}"><i class="fa fa-fw fa-users"></i> Penilaian </a>
                 </li> 
                 <li>
-                    <a class="nav-link" href=""><i class="fa fa-fw fa-users"></i> Kuisioner </a>
+                    <a class="nav-link" href="{{ route('pkk.periode') }}"><i class="fa fa-fw fa-users"></i> Periode </a>
                 </li> 
                 <li>
-                    <a class="nav-link" href=""><i class="fa fa-fw fa-users"></i> Indikator </a>
+                    <a class="nav-link" href="{{ route('pkk.kuisioner') }}"><i class="fa fa-fw fa-users"></i> Kuesioner </a>
+                </li> 
+                <li>
+                    <a class="nav-link" href="{{ route('pkk.indikator') }}"><i class="fa fa-fw fa-users"></i> Indikator </a>
                 </li> 
             </ul>
         </li>

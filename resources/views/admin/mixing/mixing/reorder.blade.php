@@ -8,7 +8,7 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
             <h2 class="pageheader-title">
-            Reorder Mixing
+            Input Data Mixing
             </h2>
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
@@ -31,34 +31,28 @@
         <div class="card-body">          
               <form action="{{route('mixing.mixing.add')}}" method="post">
                 <!-- read id -->
-                {{csrf_field()}}
-                <input type="hidden" value="{{ $customer->id }}" name="customersId">                 
+                {{csrf_field()}}              
                 <div class="form-group">
-                  <label for="inputNama" class="col-form-label"><h4>Pelanggan</h4></label>
+                  <label for="inputPelanggan" class="col-form-label"><h4>Pelanggan</h4></label>
                   <div class="row">
-                    <input type="hidden" value="{{ $customer->id }}" class="idCust" name="customersId">                    
+                    <input type="hidden" value="{{$customer->id}}" class="idCust" name="customersId">                
                     <div class="col-sm-3 mb-1">
                       <label for="customerMemberId">Member ID</label>
-                      <input id="inputNama" type="text" class="form-control memberIdC" value="{{ $customer->memberId }}" id="memberIdC" readonly>
-                    </div>
-                    <div class="col-sm-1 mb-1">     
-                      <label for="searchCust" class="searchCst">&nbsp;</label>               
-                      <button type="button" class="btn btn-success fas fa-search btn-lg" id="searchCust" data-toggle="modal" data-target="#exampleModal">
-                      </button>
-                    </div> 
-                    <div class="col-sm-4 mb-1">
-                      <label for="customerName">Nama</label>
-                      <input id="inputNama" type="text" class="form-control nameC" value="{{ $customer->name }}" id="nameC" readonly>                      
-                      @if($errors->has('name'))
+                      <input id="inputMemberId" type="text" class="form-control memberIdC" value="{{$customer->memberId}}" id="memberIdC" readonly>
+                    </div>                  
+                    <div class="col-sm-5 mb-1">
+                      <label for="inputCustomerName">Nama</label>
+                      <input id="inputCustomerName" type="text" class="form-control nameC" value="{{$customer->name}}" id="nameC" readonly>                      
+                      @if($errors->has('customersId'))
                       <div class="text-danger">
-                        {{ $errors->first('name') }}
+                        {{ $errors->first('customersId') }}
                       </div>
                       @endif
-                    </div>           
-                    <div class="col-sm-4 mb-1">
-                      <label for="customerPhone">Phone</label>
-                      <input id="inputNama" type="text" class="form-control phoneC" value="{{ $customer->phone }}" id="phoneC" readonly>
                     </div>                
+                    <div class="col-sm-4 mb-1">
+                      <label for="inputCustomerPhone">Phone</label>
+                      <input id="inputCustomerPhone" type="text" class="form-control phoneC" value="{{$customer->phone}}" id="phoneC" readonly>
+                    </div>
                   </div>
                 </div>
                 <hr>
@@ -66,18 +60,25 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="inputMerk">Mesin <span class="text-danger"></span></label>
-                      <input type="hidden" class="form-control" name="merkId" value="{{$mixing->product->merk->id}}">
-                      <input type="text" class="form-control" name="" value="{{$mixing->product->merk->name}}" readonly>
-                        @if($errors->has('productId'))
+                      <select class="form-control merkId" id="inputMerk" name="merkId">
+                      <option value=""></option>
+                      @foreach($merks as $merk)
+                        <option value="{{ $merk->id }}" {{($mixing->product->merk->id == $merk->id)?'selected':''}} >{{ $merk->name }}</option>
+                      @endforeach
+                      </select>                
+                        @if($errors->has('merkId'))
                         <div class="text-danger">
-                          {{ $errors->first('productId') }}
+                          {{ $errors->first('merkId') }}
                         </div>
                         @endif
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Produk <span class="text-danger">*Pilih mesin terlebih dahulu</span></label>
-                      <input type="hidden" class="form-control" name="productId" value="{{$mixing->productId}}">
-                      <input type="text" class="form-control" name="" value="{{$mixing->product->name}}" readonly>
+                      <select class="form-control fillProduct productId" id="exampleFormControlSelect1" name="productId">
+                      @foreach($products as $product)
+                        <option value="{{ $product->id }}" {{($mixing->product->id == $product->id)?'selected':''}} >{{ $product->name }}</option>
+                      @endforeach
+                      </select>                
                         @if($errors->has('productId'))
                         <div class="text-danger">
                           {{ $errors->first('productId') }}
@@ -85,20 +86,23 @@
                         @endif
                     </div>
                     <div class="form-group">
-                      <label for="inputNama">Base</label>
-                      <input type="hidden" name="baseId" value="{{ $mixing->base->id }}">
-                      <input readonly id="inputNama" type="text" class="form-control" name="base" value="{{ $mixing->base->name }}">                  
-                      @if($errors->has('baseid'))
+                      <label for="exampleFormControlSelect2">Base <span class="text-danger">*Pilih produk terlebih dahulu</span></label>
+                      <select class="form-control fillBase" id="exampleFormControlSelect2" name="baseId">
+                      @foreach($base as $base)
+                        <option value="{{ $base->id }}" {{($mixing->base->id == $base->id)?'selected':''}} >{{ $base->name }}</option>
+                      @endforeach
+                      </select>                  
+                      @if($errors->has('baseId'))
                       <div class="text-danger">
-                        {{ $errors->first('baseid') }}
+                        {{ $errors->first('baseId') }}
                       </div>
                       @endif
                     </div>
                     <div class="row">
                      <div class="col-md-6">                       
                       <div class="form-group">
-                        <label for="inputNama">Jumlah</label>
-                        <input readonly id="inputNama" type="text" class="form-control" name="qty" value="{{ $mixing->qty }}">                 
+                        <label for="inputJumlah">Jumlah</label>
+                        <input id="inputJumlah" type="text" class="form-control" name="qty" value="{{$mixing->qty}}">                 
                         @if($errors->has('qty'))
                         <div class="text-danger">
                           {{ $errors->first('qty') }}
@@ -108,9 +112,14 @@
                      </div>
                      <div class="col-md-6">
                       <div class="form-group">
-                        <label for="exampleFormControlSelect1">Kemasan</label>
-                        <input type="hidden" value="{{$mixing->unit}}" name="unit">                        
-                        <input type="text" class="form-control" value="{{$mixing->unit}}" name="" readonly>
+                        <label for="exampleFormControlSelect3">Kemasan</label>
+                        <select class="form-control" id="exampleFormControlSelect3" name="unit">
+                          <option value="">Pilih</option>
+                          <option value="PAIL" {{($mixing->unit == 'PAIL')?'selected':''}}>PAIL</option>
+                          <option value="GALON" {{($mixing->unit == 'GALON')?'selected':''}}>GALON</option>
+                          <option value="KG" {{($mixing->unit == 'KG')?'selected':''}}>KG</option>
+                          <option value="LITER" {{($mixing->unit == 'LITER')?'selected':''}}>LITER</option>
+                        </select>
                         @if($errors->has('unit'))
                           <div class="text-danger">
                               {{ $errors->first('unit') }}
@@ -122,8 +131,8 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="inputNama">Kode Warna</label>
-                      <input readonly id="inputNama" type="text" class="form-control" name="colorCode" value="{{ $mixing->colorCode }}">                 
+                      <label for="inputKodeWarna">Kode Warna</label>
+                      <input id="inputKodeWarna" type="text" class="form-control" name="colorCode" value="{{$mixing->colorCode}}">                 
                         @if($errors->has('colorCode'))
                         <div class="text-danger">
                           {{ $errors->first('colorCode') }}
@@ -131,31 +140,28 @@
                         @endif
                     </div>
                     <div class="form-group">
-                      <label for="inputNama">Nama Warna</label>
-                      <input readonly id="inputNama" type="text" class="form-control" name="colorName" value="{{ $mixing->colorName }}">                 
-                        @if($errors->has('colorCode'))
+                      <label for="inputNamaWarna">Nama Warna</label>
+                      <input id="inputNamaWarna" type="text" class="form-control" name="colorName" value="{{$mixing->colorName}}">                 
+                        @if($errors->has('colorName'))
                         <div class="text-danger">
-                          {{ $errors->first('colorCode') }}
+                          {{ $errors->first('colorName') }}
                         </div>
                         @endif
                     </div>
-                    <h4 class="mt-4">Formula <span class="text-danger">*Pilih mesin terlebih dahulu</span></h4>
-                    <span class="row fillFormula">
-                        @foreach($formula as $formula)
-                        @if($formula->nilai != 0)
-                        <div class="col-md-3">
-                          <div class="form-group">
-                              <label for="inputNama">{{ $formula->formula->color }}</label>
-                              <input type="hidden" class="form-control" name="formulaId[]" value="{{ $formula->formulaId }}">
-                              <input readonly type="text" class="form-control" name="nilai[]" value="{{ $formula->nilai }}">
-                          </div>
+                    <label for="exampleFormControlSelect1">Formula <span class="text-danger">*Pilih mesin terlebih dahulu</span></label>
+                    <div class="row fillFormula">
+                    @foreach($formula as $formula)
+                    <div class="col-md-3">
+                    <label for="exampleFormControlSelect3" style="font-size:0.7em">{{$formula->formula->color}}</label>
+                        <div class="form-group">                    
+                            <input {{($formula->nilai != 0)?'checked':''}} type="checkbox" class="form-check-input mt-2 select" value="" data-id="'{{$formula->formula->id}}'" data-class="cb{{$formula->formula->id}}" onclick="ifChecked(this)">
+                            <input type="hidden" class="form-control" name="formulaId[]" value="{{$formula->formula->id}}">
+                            <input type="text" class="form-control form-control-sm cb{{$formula->formula->id}}" name="nilai[]" id="inputBox
+                            " value="{{$formula->nilai}}" {{($formula->nilai != 0)?'':'readonly'}}>               
                         </div>
-                        @else                                                            
-                          <input type="hidden" class="form-control" name="formulaId[]" value="{{ $formula->formulaId }}">
-                          <input readonly type="hidden" class="form-control" name="nilai[]" value="{{ $formula->nilai }}">
-                        @endif
-                        @endforeach
-                    </span>
+                    </div>
+                    @endforeach                    
+                    </div>
                   </div>
                 </div>                   
                 <input type="submit" value="Simpan" class="btn btn-primary">
@@ -179,6 +185,7 @@
         </button>
       </div>
       <div class="modal-body">
+        <a href="{{route('mixing.customers.form')}}" class="btn btn-success btn-sm mb-3">Tambah Pelanggan</a>
         <table class="table myTable custom-table">
           <thead>
             <tr>
@@ -214,24 +221,24 @@
 
 @section('js')
     <script>
-      $(document).ready(function() {
-        $('.modalBtn').on('click', function() {
-          var id = $(this).data('id');
-          $.ajax({
-              url: '{{ route("mixing.mixing.fill")}}',
-              data: "id="+id,
-              type: 'GET',              
-              success: function(data) {
-                var json = data
-                $('#exampleModal').modal('hide');
-                $('.idCust').val(json.id);
-                $('.nameC').val(json.name);
-                $('.phoneC').val(json.phone);
-                $('.memberIdC').val(json.memberId);
-            }              
-          });
+      $(document).on('click', '.modalBtn', function() {
+        var id = $(this).data('id');
+        $.ajax({
+            url: '{{ route("mixing.mixing.fill")}}',
+            data: "id="+id,
+            type: 'GET',              
+            success: function(data) {
+              var json = data
+              $('#exampleModal').modal('hide');
+              $('.idCust').val(json.id);
+              $('.nameC').val(json.name);
+              $('.phoneC').val(json.phone);
+              $('.memberIdC').val(json.memberId);
+          }              
         });
+      });
 
+      $(document).ready(function() {
         // show product
         $('.merkId').on('change', function(){
           var merkId = $(this).val();
@@ -246,6 +253,20 @@
           });
         });
 
+        // show base
+        $('.productId').on('change', function(){
+          var productId = $(this).val();
+          $.ajax({
+              url: '{{ route("mixing.mixing.showBase")}}',
+              data: "id="+productId,
+              type: 'GET',              
+              success: function(data) {
+                $('.fillBase').empty();
+                $('.fillBase').append(data);
+            }              
+          });
+        });
+
         // show formula
         $('.merkId').on('change', function(){
           var merkId = $(this).val();
@@ -254,12 +275,34 @@
               data: "id="+merkId,
               type: 'GET',              
               success: function(data) {
-                console.log(data);
                 $('.fillFormula').empty();
                 $('.fillFormula').append(data);
             }              
           });
         });
-      });
+
+      });      
+
+      //if checked
+      function ifChecked(e) {
+        var id = $(e).data('id');
+        var nameClass = $(e).data('class');
+
+        if($(e).prop("checked") == true){
+          $('.'+nameClass).removeAttr('readonly')
+        }
+        else if($(e).prop("checked") == false){          
+          $('.'+nameClass).attr('readonly',true)
+        }
+      }
+
+      function hanyaAngka(evt) {
+		  var charCode = (evt.which) ? evt.which : event.keyCode
+		   if (charCode > 31 && (charCode < 48 || charCode > 57))
+ 
+		    return false;
+		  return true;
+		}
+
     </script>
 @endsection

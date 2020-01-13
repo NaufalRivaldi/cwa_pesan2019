@@ -213,24 +213,24 @@
 
 @section('js')
     <script>
-      $(document).ready(function() {
-        $('.modalBtn').on('click', function() {
-          var id = $(this).data('id');
-          $.ajax({
-              url: '{{ route("mixing.mixing.fill")}}',
-              data: "id="+id,
-              type: 'GET',              
-              success: function(data) {
-                var json = data
-                $('#exampleModal').modal('hide');
-                $('.idCust').val(json.id);
-                $('.nameC').val(json.name);
-                $('.phoneC').val(json.phone);
-                $('.memberIdC').val(json.memberId);
-            }              
-          });
+      $(document).on('click', '.modalBtn', function() {
+        var id = $(this).data('id');
+        $.ajax({
+            url: '{{ route("mixing.mixing.fill")}}',
+            data: "id="+id,
+            type: 'GET',              
+            success: function(data) {
+              var json = data
+              $('#exampleModal').modal('hide');
+              $('.idCust').val(json.id);
+              $('.nameC').val(json.name);
+              $('.phoneC').val(json.phone);
+              $('.memberIdC').val(json.memberId);
+          }              
         });
+      });
 
+      $(document).ready(function() {
         // show product
         $('.merkId').on('change', function(){
           var merkId = $(this).val();

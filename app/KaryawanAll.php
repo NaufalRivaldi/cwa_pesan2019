@@ -23,4 +23,16 @@ class KaryawanAll extends Model
     public function formPengajuanDesain(){
         return $this->hasMany('App\FormPengajuanDesain', 'karyawan_all_id');
     }
+
+    public function poling(){
+        return $this->hasOne('App\PKK\Poling', 'karyawanId');
+    }    
+
+    public function penilaian(){
+        return $this->hasOne('App\PKK\Penilaian', 'karyawanId');
+    }
+
+    public function detailPoling(){
+        return $this->hasMany('App\PKK\DetailPoling', 'karyawanId');
+    }
 }
