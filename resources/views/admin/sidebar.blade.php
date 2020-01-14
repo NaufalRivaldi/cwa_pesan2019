@@ -181,6 +181,9 @@
                         <li>
                             <a href="{{ url('admin/formhrd/laporan') }}">Form HRD</a>
                         </li>
+                        <li>
+                            <a href="{{ route('laporan.hrd.hasilpoling') }}">Hasil Poling</a>
+                        </li>
                     </ul>
                 </li>
                 @endif
