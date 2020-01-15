@@ -566,9 +566,9 @@ class helper{
         $data['stat'] = '';
 
         // Ubah ini klo ada nambah cabang ya
-        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CA5','CL1','CS1', 'CM1');
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'CW1','CW2', 'CA5','CL1','CS1', 'CM1');
         $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9', 'CB0', 'CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'MT');
-        $gm = array('CW1','CW2');
+        $gm = array();
 
         if($stat == 1){
             $data['title'] = 'Kepala Bagian';
@@ -604,9 +604,9 @@ class helper{
         $level = auth()->user()->level;
 
         // Ubah ini klo ada nambah cabang ya
-        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CA5','CL1','CS1', 'CM1');
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'CW1','CW2', 'CA5','CL1','CS1', 'CM1');
         $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9', 'CB0', 'CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'MT');
-        $gm = array('CW1','CW2');
+        $gm = array();
 
         if($level == 3){
             return $am;
@@ -717,9 +717,9 @@ class helper{
     // notif form hrd global
     public static function notifikasiFormHRD($form_id, $karyawan_id){
         // Ubah ini klo ada nambah cabang ya
-        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CA5','CL1','CS1', 'CM1');
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CW1','CW2','CA5','CL1','CS1', 'CM1');
         $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9', 'CB0', 'CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'MT');
-        $gm = array('CW1','CW2');
+        $gm = array();
 
         $karyawan = KaryawanAll::find($karyawan_id);
         $data = array();
@@ -1019,6 +1019,12 @@ class helper{
         }
 
         return $text;
+    }
+
+    public static function polingByDepartemen($dep){
+        $data['no'] = 1;
+        $data = KaryawanAll::where('dep', $dep)->where('stat', '1')->where('ket', '1')->orderBy('nama', 'ASC')->get();
+        return $data;
     }
 }
 

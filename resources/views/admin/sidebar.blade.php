@@ -107,32 +107,41 @@
         @endif
 
         @if(Helper::isMixing())
-        <li <?= ($menu == '11') ? 'class="active"' : '' ?> data-toggle="tooltip" data-placement="right" title="Perekapan data mixing.">
-            <a href="#pageMixing" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fas fa-file-signature"></i> Mixing
-            </a>
-            <ul class="collapse list-unstyled" id="pageMixing">
+            @if(auth()->user()->dep != 'IT')
                 <li>
-                    <a class="nav-link" href="{{ route('mixing.customers') }}"><i class="fa fa-fw fa-users"></i> Pelanggan </a>
-                </li>                    
-                @if(auth()->user()->dep == 'IT')
+                    <a href="{{ route('mixing.customers') }}"><i class="fa fa-users"></i> Mixing - Pelanggan </a>
+                </li>
+                <li>
+                    <a href="{{ route('mixing.mixing') }}"><i class="fa fas fa-paint-brush"></i> Mixing - Mixing </a>
+                </li>
+            @else
+                <li <?= ($menu == '11') ? 'class="active"' : '' ?> data-toggle="tooltip" data-placement="right" title="Perekapan data mixing.">
+                    <a href="#pageMixing" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-file-signature"></i> Mixing
+                    </a>
+                    <ul class="collapse list-unstyled" id="pageMixing">
+                        <li>
+                            <a class="nav-link" href="{{ route('mixing.customers') }}"><i class="fa fa-fw fa-users"></i> Pelanggan </a>
+                        </li>                    
+                        @if(auth()->user()->dep == 'IT')
 
-                <li>
-                    <a class="nav-link" href="{{ route('mixing.merk') }}"><i class="fa fa-fw fas fa-dolly"></i> Mesin </a>
-                </li>
+                        <li>
+                            <a class="nav-link" href="{{ route('mixing.merk') }}"><i class="fa fa-fw fas fa-dolly"></i> Mesin </a>
+                        </li>
 
-                <li>
-                    <a class="nav-link" href="{{ route('mixing.product') }}"><i class="fa fa-fw fas fa-dolly"></i> Produk </a>
+                        <li>
+                            <a class="nav-link" href="{{ route('mixing.product') }}"><i class="fa fa-fw fas fa-dolly"></i> Produk </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="{{ route('mixing.formula') }}"><i class="fas fa-flask"></i> Formula</a>
+                        </li>
+                        @endif
+                        <li>
+                            <a class="nav-link" href="{{ route('mixing.mixing') }}"><i class="fa fa-fw fas fa-paint-brush"></i> Mixing </a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a class="nav-link" href="{{ route('mixing.formula') }}"><i class="fas fa-flask"></i> Formula</a>
-                </li>
-                @endif
-                <li>
-                    <a class="nav-link" href="{{ route('mixing.mixing') }}"><i class="fa fa-fw fas fa-paint-brush"></i> Mixing </a>
-                </li>
-            </ul>
-        </li>
+            @endif
         @endif
         
         <li <?= ($menu == '12') ? 'class="active"' : '' ?>>

@@ -313,10 +313,13 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::get('/{id}/status', 'PKK\PenilaianController@status')->name('pkk.penilaian.status');
             Route::post('/update', 'PKK\PenilaianController@update')->name('pkk.penilaian.update');
             Route::post('/delete', 'PKK\PenilaianController@delete')->name('pkk.penilaian.delete');     
+            Route::post('/delete', 'PKK\PenilaianController@delete')->name('pkk.penilaian.delete'); 
+            Route::post('/poling', 'PKK\PenilaianController@poling')->name('pkk.penilaian.poling');    
 
             // Penilaian Kepala Bagian
             Route::group(['prefix' => 'kabag'], function(){
-                Route::post('/', 'PKK\PenilaianKepalaBagianController@index')->name('pkk.penilaian.kabag');
+                Route::get('/', 'PKK\PenilaianKepalaBagianController@index')->name('pkk.penilaian.kabag');
+                Route::post('/store', 'PKK\PenilaianKepalaBagianController@store')->name('pkk.penilaian.kabag.store');
             });
         });
     });
