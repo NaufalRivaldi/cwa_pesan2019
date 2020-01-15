@@ -24,8 +24,12 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <a href="{{ route('mixing.formula') }}" class="btn btn-info btn-sm">Kembali</a>
-        <a href="{{ route('mixing.formula.formbymerk', ['merkId'=>$merk->id]) }}" class="btn btn-success btn-sm">Tambah Formula</a>
+        <a href="{{ route('mixing.formula') }}" class="btn btn-success btn-sm"><li class="fa fa-angle-left"></li></a>
+        <a href="{{ route('mixing.formula.formbymerk', ['merkId'=>$merk->id]) }}" class="btn btn-primary btn-sm">
+          <li class="fa fa-plus-circle">
+          </li>
+          Tambah
+        </a>
       </div>
       <div class="card-body">
         <div class="table-responsive">

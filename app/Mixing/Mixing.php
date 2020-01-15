@@ -8,7 +8,7 @@ class Mixing extends Model
 {
     protected $table = 'mixing';
     protected $fillable = [
-        'createDate', 'qty', 'unit', 'colorCode', 'baseId', 'userId', 'customersId', 'productId','colorName'
+        'tglMixing', 'qty', 'unit', 'colorCode', 'baseId', 'userId', 'customersId', 'productId','colorName'
     ];
 
     // fk

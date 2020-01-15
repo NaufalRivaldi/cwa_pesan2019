@@ -24,7 +24,11 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-              <a href="{{route('mixing.product.form')}}" class="btn btn-success btn-sm">Tambah Produk</a>
+              <a href="{{route('mixing.product.form')}}" class="btn btn-primary btn-sm">
+                <li class="fa fa-plus-circle">
+                </li>
+                Tambah
+              </a>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -70,7 +74,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <button class="btn btn-sm btn-primary" id="linkFormBase" data-id="0">Tambah Base</button>
+        <button class="btn btn-sm btn-primary" id="linkFormBase" data-id="0"><li class="fa fa-plus-circle"></li> Tambah</button>
         <hr>
         <div class="fillBase">
         

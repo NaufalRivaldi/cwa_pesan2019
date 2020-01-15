@@ -1035,8 +1035,6 @@ class helper{
             $query->where('dep', $dep);
         })->groupBy('karyawanId')->orderBy('skor', 'DESC')->get();
         
-        // dd($data);
-
         return $data;
     }
 }

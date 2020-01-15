@@ -24,7 +24,11 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-              <a href="{{route('mixing.merk.form')}}" class="btn btn-success">Tambah Mesin</a>
+              <a href="{{route('mixing.merk.form')}}" class="btn btn-primary btn-sm">
+                <li class="fa fa-plus-circle">
+                </li>
+                Tambah
+              </a>
             </div>
             <div class="card-body">
               <div class="table-responsive">
