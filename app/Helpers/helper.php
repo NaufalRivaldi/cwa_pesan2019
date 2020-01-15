@@ -19,6 +19,7 @@ use App\Cabang;
 use App\Finance;
 use App\FormPengajuanDesain;
 use App\FormPerbaikanSarana;
+use App\PKK\DetailPoling;
 
 use Hash;
 
@@ -1024,6 +1025,16 @@ class helper{
     public static function polingByDepartemen($dep){
         $data['no'] = 1;
         $data = KaryawanAll::where('dep', $dep)->where('stat', '1')->where('ket', '1')->orderBy('nama', 'ASC')->get();
+        return $data;
+    }
+
+    public static function laporanHasilPoling($dep){
+        $data['no'] = 1;
+        
+        $data = DetailPoling::select('karyawanId', DB::raw('COUNT(karyawanId) as skor'))->whereHas('karyawan', function($query) use ($dep){
+            $query->where('dep', $dep);
+        })->groupBy('karyawanId')->orderBy('skor', 'DESC')->get();
+        
         return $data;
     }
 }

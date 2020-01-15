@@ -65,6 +65,15 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
+                      <label for="inputMerk">Tanggal Mixing <span class="text-danger"></span></label>
+                        <input type="date" name="tglMixing" id="" class="form-control">                
+                        @if($errors->has('tglMixing'))
+                        <div class="text-danger">
+                          {{ $errors->first('tglMixing') }}
+                        </div>
+                        @endif
+                    </div>
+                    <div class="form-group">
                       <label for="inputMerk">Mesin <span class="text-danger"></span></label>
                       <select class="form-control merkId" id="inputMerk" name="merkId">
                       <option value=""></option>

@@ -120,7 +120,7 @@ class MixingController extends Controller
             'unit'=>$data->unit,
             'colorCode'=>$data->colorCode,
             'colorName'=>$data->colorName,
-            'createDate'=>date('d F Y', strtotime($data->created_at)),
+            'createDate'=>$data->tglMixing,
             'storeName'=>$data->user->dep,
             'storeInitial'=>$data->user->dep,
             'formula' => $text,
@@ -137,6 +137,7 @@ class MixingController extends Controller
 
         $this->validate($req, [
             'customersId' => 'required',
+            'tglMixing' => 'required',
             'productId' => 'required',
             'baseId' => 'required',
             'qty' => 'required|numeric',
@@ -154,6 +155,7 @@ class MixingController extends Controller
             'userId'=>$userId,
             'customersId'=>$req->customersId,
             'productId'=>$req->productId,
+            'tglMixing'=>$req->tglMixing,
             'baseId'=>$req->baseId,
             'qty'=>$req->qty,
             'unit'=>$req->unit,

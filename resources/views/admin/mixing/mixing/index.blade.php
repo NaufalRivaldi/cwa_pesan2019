@@ -24,7 +24,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-              <a href="{{route('mixing.mixing.form')}}" class="btn btn-success btn-sm">Tambah Mixing</a>
+              <a href="{{route('mixing.mixing.form')}}" class="btn btn-primary btn-sm"><li class="fa fa-plus-circle"></li> Tambah</a>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -47,7 +47,7 @@
                     @foreach($mixings as $mixing)
                       <tr>
                         <td data-id="{{$mixing->id}}" class="dataView">{{$no++}}</td>
-                        <td data-id="{{$mixing->id}}" class="dataView">{{date('d/m/Y', strtotime($mixing->created_at))}}</td>
+                        <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->tglMixing}}</td>
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->customers->name}}</td>
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->product->name}}</td>
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->unit}}</td>

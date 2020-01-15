@@ -6,9 +6,10 @@
 <!-- Page Header -->
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-    <h2>Halo, {{$karyawan->nama}}</h2>
+    <h2>Halo, {{$karyawan->nama}}.</h2>
+    <!-- read-id -->
         <div class="page-header">
-            <h2 class="pageheader-title">Pilih Kandidat Best Employee</h2>
+            <h2 class="pageheader-title">Silahkan pilih kandidat Best Employee</h2>
             <div class="page-breadcrumb">
                 <!-- <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -21,9 +22,12 @@
 </div>
 
 <!-- content -->
-      <form action="">
-        
+      <form action="{{route('pkk.penilaian.poling.add')}}" method="post">
+      @csrf        
+        <input type="hidden" value="{{$karyawan->id}}" name="karyawanIds">
+        <input type="hidden" value="{{$periode->id}}" name="periodeIds">
       <table class="table">
+      <?php $index = 0; ?>
     @foreach($dep as $dep)
             <?php
                 $no = 1;
@@ -38,15 +42,18 @@
             <tbody>
             @foreach(Helper::polingByDepartemen($dep) as $karyawan)
                 <tr data-id="{{$karyawan->id}}">
-                    <th width="1%">{{$no++}}</th>
+                    <th width="10%">{{$no++}}</th>
                     <td>{{$karyawan->nama}}</td>
-                    <td><input type="checkbox" aria-label="" value="{{$karyawan->id}}" name="karyawanId[{{$dep}}][]"></td>
+                    <td><input type="checkbox" aria-label="" value="{{$karyawan->id}}" name="karyawanId[{{$index}}]"></td>
                 </tr>
-            @endforeach
+            @endforeach            
+            <?php
+                $index++;
+            ?>
             </tbody>
     @endforeach
         </table>
-          <input type="submit" value="Submit" class="btn btn-sm btn-primary float-right">
+          <input type="submit" value="Submit" class="btn btn-primary float-right">
       </form>
 @endsection
 

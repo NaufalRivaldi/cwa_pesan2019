@@ -187,6 +187,11 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::put('/update', 'LaporanKaryawanController@update')->name('laporan.hrd.karyawan.update');
                 Route::post('/destroy', 'LaporanKaryawanController@destroy')->name('laporan.hrd.karyawan.destroy');
             });
+
+            Route::group(['prefix' => 'hasilpoling'], function(){
+                Route::get('/','PKK\LaporanHasilPolingController@index')->name('laporan.hrd.hasilpoling');
+                Route::get('/detail','PKK\LaporanHasilPolingController@detail')->name('laporan.hrd.hasilpoling.detail');
+            });
         });
 
         Route::group(['prefix' => 'ga', 'middleware' => ['checkDep:GA,IT']], function(){
@@ -314,7 +319,11 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::post('/update', 'PKK\PenilaianController@update')->name('pkk.penilaian.update');
             Route::post('/delete', 'PKK\PenilaianController@delete')->name('pkk.penilaian.delete');     
             Route::post('/delete', 'PKK\PenilaianController@delete')->name('pkk.penilaian.delete'); 
-            Route::post('/poling', 'PKK\PenilaianController@poling')->name('pkk.penilaian.poling');    
+            Route::post('/poling', 'PKK\PenilaianController@poling')->name('pkk.penilaian.poling'); 
+            Route::group(['prefix' => 'poling'], function(){
+                Route::post('/', 'PKK\PolingController@index')->name('pkk.penilaian.poling'); 
+                Route::post('/add', 'PKK\PolingController@add')->name('pkk.penilaian.poling.add');   
+            });   
 
             // Penilaian Kepala Bagian
             Route::group(['prefix' => 'kabag'], function(){

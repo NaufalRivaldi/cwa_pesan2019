@@ -14,6 +14,8 @@ class Poling extends Model
         'status',
         'kategori'
     ];
+
+    public $timestamps = true;
     
     public function karyawan(){
         return $this->belongsTo('App\KaryawanAll', 'karyawanId');
