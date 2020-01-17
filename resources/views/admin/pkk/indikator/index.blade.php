@@ -50,8 +50,18 @@
                       <td>{!!Helper::statusPKK($indikator->status)!!}</td>
                       <td>{!!Helper::kategoriPKK($indikator->kategori)!!}</td>
                       <td>
-                        <a href=""><li class="btn btn-sm btn-success fas fa-eye"></li></a>
-                        <a href="{{route('pkk.indikator.edit', ['id'=>$indikator->id])}}"><li class="btn btn-sm btn-warning fas fa-edit"></li></a>
+                      @if($indikator->status != 1)
+                        <a href="{{ route('pkk.indikator.status', ['id'=>$indikator->id]) }}" class=""><li class="btn btn-success fa fa-check-circle btn-sm"></li></a>
+                        <a href="#" class="activated"><li class="fa fa-edit btn btn-warning btn-sm"></li></a>
+                      @else
+                        <a href="{{ route('pkk.indikator.status', ['id'=>$indikator->id]) }}" class=""><li class="btn btn-danger btn-sm fa fa-times-circle"></li></a>
+                        <!-- <button class="fa fa-trash btn btn-danger delete" data-id="{{ $indikator->id }}"></button> -->
+                        <a href="{{ route('pkk.indikator.edit', ['id'=>$indikator->id]) }}"><li class="btn btn-sm btn-warning fas fa-edit"></li></a>
+                      @endif
+                        
+                      @if(auth()->user()->dep == 'IT')
+                        <button class="btn btn-sm btn-danger fas fa-trash delete"data-id="{{ $indikator->id }}"></button>
+                      @endif 
                       </td>
                     </tr>
                   </tbody>
@@ -62,4 +72,36 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+
+    <script>
+      $(document).on('click','.delete',function() {    
+          var id = $(this).data('id');
+          console.log(id);
+          swal({
+          title: 'Perhatian!',
+          text: "Apakah anda yakin menghapus data ini?",
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true,
+          }).then((willDelete) => {
+            if (willDelete) {
+              $.ajax({
+                type: "POST",
+                url: "{{ route('pkk.indikator.delete') }}",
+                data: {
+                  id: id,
+                  _token: '{{ csrf_token() }}'
+                },
+                success: function(data){
+                  location.reload()
+                }
+              })
+            }
+          })
+      });
+    </script>
+
 @endsection

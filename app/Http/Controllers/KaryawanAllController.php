@@ -23,6 +23,7 @@ class KaryawanAllController extends Controller
     }
 
     public function edit($id){
+        $no = 1;
         $data['title'] = 'Edit Karyawan';
         $karyawan = KaryawanAll::find($id);
         $data['cabang'] = Cabang::orderBy('inisial', 'desc')->get();

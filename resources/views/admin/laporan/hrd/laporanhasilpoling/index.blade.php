@@ -23,16 +23,31 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
-              <div class="row">
-              <div class="col-sm-6">              
+            <div class="card-header">                          
               <h2>Data Hasil Poling</h2>
-              </div>
-              <div class="col-sm-6">
-                <a href="{{route('laporan.hrd.hasilpoling.detail')}}" class="btn btn-primary float-right mt-1">Detail Hasil Poling</a>
-              </div>                
+            </div>
+          <form action="" method="get">
+            <div class="card-header">
+              <div class="container">
+                <div class="row">            
+                  <select class="form-control col-sm-9" id="periodeId" name="periodeId">
+                      @foreach($searchPeriode as $p)
+                        <option value="{{ $p->id }}">{{$p->namaPeriode}}</option>
+                      @endforeach
+                  </select>
+                  <?php
+                    $url = '';
+                    if ($_GET) {
+                      $url = '?'.$_SERVER['QUERY_STRING'];
+                    }
+                  ?>
+                  <button type="submit" class="btn ml-2 btn-success">Cari</button>
+                  <a href="{{ route('laporan.hrd.hasilpoling.detail').$url }}" class="btn ml-2 btn-primary float-right">Detail Hasil Poling</a>
+                </div>
               </div>              
             </div>
+          </form>
+
             <div class="card-body">
               <div class="table-responsive">
               <table class="myTable custom-table">
@@ -40,6 +55,7 @@
                     <tr>
                       <th>No</th>
                       <th>Nama</th>
+                      <th>Periode</th>
                       <th>Departemen</th>
                       <th>Skor</th>
                     </tr>
@@ -58,6 +74,7 @@
                           <tr>
                             <td>{{$no++}}</td>
                             <td>{{$hasil->karyawan->nama}}</td>
+                            <td>{{$hasil->poling->periode->namaPeriode}}</td>
                             <td>{{$hasil->karyawan->dep}}</td>
                             <td>{{$hasil->skor}}</td>
                          </tr>

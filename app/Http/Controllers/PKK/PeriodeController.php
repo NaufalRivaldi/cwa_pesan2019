@@ -36,11 +36,23 @@ class PeriodeController extends Controller
     
     public function add(Request $req){
         $this->val($req);
+        if (!empty($req->status)) {
+            $status = $req->status;
+            $periode = Periode::where('status', '1')->where('kategori', $req->kategori)->get();
+            if (!empty($periode)) {
+                foreach ($periode as $key) {
+                    $key->status=2;
+                    $key->save();
+                }
+            }
+        } else {
+            $status = 2;
+        }
         Periode::create([
             'namaPeriode'=>$req->namaPeriode,
             'tglMulai'=>$req->tglMulai,
             'tglSelesai'=>$req->tglSelesai,
-            'status'=>1,
+            'status'=>$status,
             'kategori'=>$req->kategori
         ]);
 
@@ -67,11 +79,18 @@ class PeriodeController extends Controller
     }
 
     public function status(Request $req){
-        $data = Periode::find($req->id);
-        if ($data->status=='1') {
+        $data = Periode::find($req->id);        
+        if ($data->status=='1') {            
             $data->status=2;
             $data->save();
         } else {
+            $periode = Periode::where('status', '1')->where('kategori', $data->kategori)->get();
+            if (!empty($periode)) {
+                foreach ($periode as $key) {
+                    $key->status=2;
+                    $key->save();
+                }
+            }
             $data->status=1;
             $data->save();
         }

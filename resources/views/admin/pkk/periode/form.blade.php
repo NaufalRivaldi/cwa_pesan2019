@@ -80,6 +80,12 @@
                             <option {{($id)? ($periode->kategori == '2') ? 'selected': '' : ''}} value="2">Penilaian Kepala Bagian</option>
                             <option {{($id)? ($periode->kategori == '3') ? 'selected': '' : ''}} value="3">Survei Kepuasan Karyawan</option>
                         </select>
+                        <div class="form-check mt-1">
+                          <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1" name="status">
+                          <label class="form-check-label" for="defaultCheck1">
+                            Aktifkan periode
+                          </label>
+                        </div>
                         @if($errors->has('kategori'))
                           <div class="text-danger">
                               {{ $errors->first('kategori') }}
