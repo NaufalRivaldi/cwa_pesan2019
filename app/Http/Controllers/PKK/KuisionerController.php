@@ -64,4 +64,23 @@ class KuisionerController extends Controller
 
         return redirect()->route('pkk.kuisioner')->with('success', 'Data berhasil diubah!');
     }
+
+    public function status(Request $req)
+    {
+        $data = Kuisioner::find($req->id);
+        if ($data->status == '1') {
+            $data->status = 2;
+            $data->save();
+        } else {
+            $data->status = 1;
+            $data->save();
+        }
+
+        return redirect()->route('pkk.kuisioner')->with('success', 'Status berhasil diubah!');
+    }
+
+    public function delete(Request $req){
+        $data = Kuisioner::find($req->id);
+        $data->delete();
+    }
 }

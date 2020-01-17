@@ -22,6 +22,7 @@ use App\FormPerbaikanSarana;
 use App\PKK\DetailPoling;
 use App\PKK\DetailPenilaian;
 use App\PKK\DetailKuisioner;
+use App\PKK\Periode;
 
 use Hash;
 
@@ -932,11 +933,11 @@ class helper{
         $text = '';
         switch ($val) {
             case '1':
-                $text = "<span class='badge badge-warning'>Aktif</span>";
+                $text = "<span class='badge badge-success'>Aktif</span>";
                 break;
 
             case '2':
-                $text = "<span class='badge badge-info'>Selesai</span>";
+                $text = "<span class='badge badge-danger'>Tidak Aktif</span>";
                 break;      
             
             default:
@@ -1036,10 +1037,21 @@ class helper{
 
     public static function laporanHasilPoling($dep){
         $data['no'] = 1;
-        
-        $data = DetailPoling::select('karyawanId', DB::raw('COUNT(karyawanId) as skor'))->whereHas('karyawan', function($query) use ($dep){
-            $query->where('dep', $dep);
-        })->groupBy('karyawanId')->orderBy('skor', 'DESC')->get();
+        if ($_GET) {
+            $periodeId = $_GET['periodeId'];
+            $data = DetailPoling::select('karyawanId','polingId', DB::raw('COUNT(karyawanId) as skor'))->whereHas('karyawan', function($query) use ($dep){
+                $query->where('dep', $dep);
+            })->whereHas('poling', function($query) use ($periodeId){
+                $query->where('periodeId', $periodeId);
+            })->groupBy('karyawanId')->orderBy('skor', 'DESC')->get();
+        } else {
+            $periode = Periode::orderBy('id', 'DESC')->where('kategori', '1')->first();
+            $data = DetailPoling::select('karyawanId','polingId', DB::raw('COUNT(karyawanId) as skor'))->whereHas('karyawan', function($query) use ($dep){
+                $query->where('dep', $dep);
+            })->whereHas('poling', function($query) use ($periode){
+                $query->where('periodeId', $periode->id);
+            })->groupBy('karyawanId')->orderBy('skor', 'DESC')->get();
+        } 
         
         return $data;
     }

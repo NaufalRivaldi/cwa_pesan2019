@@ -50,10 +50,20 @@
                       <td>{!!Helper::statusPKK($kuisioner->status)!!}</td>
                       <td>{!!Helper::kategoriPKK($kuisioner->kategori)!!}</td>
                       <td>
-                        <a href=""><li class="btn btn-sm btn-success fas fa-eye"></li></a>
+                      @if($kuisioner->status != 1)
+                        <a href="{{ route('pkk.kuisioner.status', ['id'=>$kuisioner->id]) }}" class=""><li class="btn btn-success fa fa-check-circle btn-sm"></li></a>
+                        <a href="#" class="activated"><li class="fa fa-edit btn btn-warning btn-sm"></li></a>
+                      @else
+                        <a href="{{ route('pkk.kuisioner.status', ['id'=>$kuisioner->id]) }}" class=""><li class="btn btn-danger btn-sm fa fa-times-circle"></li></a>
+                        <!-- <button class="fa fa-trash btn btn-danger delete" data-id="{{ $kuisioner->id }}"></button> -->
                         <a href="{{ route('pkk.kuisioner.edit', ['id'=>$kuisioner->id]) }}"><li class="btn btn-sm btn-warning fas fa-edit"></li></a>
-                        <button class="btn btn-sm btn-danger fas fa-trash"></button>
-                      </td>
+                      @endif
+                        
+                        @if(auth()->user()->dep == 'IT')
+                        <button class="btn btn-sm btn-danger fas fa-trash delete"data-id="{{ $kuisioner->id }}"></button>
+                        @endif 
+                      </td>                     
+                      
                     </tr>                    
                   </tbody>
                   @endforeach
@@ -63,4 +73,36 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+
+    <script>
+      $(document).on('click','.delete',function() {    
+          var id = $(this).data('id');
+          console.log(id);
+          swal({
+          title: 'Perhatian!',
+          text: "Apakah anda yakin menghapus data ini?",
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true,
+          }).then((willDelete) => {
+            if (willDelete) {
+              $.ajax({
+                type: "POST",
+                url: "{{ route('pkk.kuisioner.delete') }}",
+                data: {
+                  id: id,
+                  _token: '{{ csrf_token() }}'
+                },
+                success: function(data){
+                  location.reload()
+                }
+              })
+            }
+          })
+      });
+    </script>
+
 @endsection

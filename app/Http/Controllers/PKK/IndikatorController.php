@@ -68,4 +68,10 @@ class IndikatorController extends Controller
 
         return redirect()->route('pkk.indikator')->with('success', 'Data berhasil diubah!');
     }
+
+    public function delete(Request $req)
+    {
+        $data = Indikator::find($req->id);
+        $data->delete();
+    }
 }

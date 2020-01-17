@@ -62,8 +62,6 @@ class PolingController extends Controller
         
         $data = Poling::orderBy('created_at', 'DESC')->first();
         foreach ($req->karyawanId as $karyawan) {
-            // echo $data->id;
-            // echo $karyawan;
             DetailPoling::create([
                 'polingId' => $data->id,
                 'karyawanId' => $karyawan
