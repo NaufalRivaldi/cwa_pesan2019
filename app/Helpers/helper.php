@@ -20,6 +20,8 @@ use App\Finance;
 use App\FormPengajuanDesain;
 use App\FormPerbaikanSarana;
 use App\PKK\DetailPoling;
+use App\PKK\DetailPenilaian;
+use App\PKK\DetailKuisioner;
 
 use Hash;
 
@@ -349,7 +351,11 @@ class helper{
     }
 
     public static function countFormDesain(){
-        $form = FormPengajuanDesain::where('stat', '<', '4')->count();
+        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'Accounting'){
+            $form = FormPengajuanDesain::where('stat', '<', '4')->count();
+        }else{
+            $form = FormPengajuanDesain::where('user_id', auth()->user()->id)->where('stat', '<', '4')->count();
+        }
         
         return $form;
     }
@@ -1036,6 +1042,55 @@ class helper{
         })->groupBy('karyawanId')->orderBy('skor', 'DESC')->get();
         
         return $data;
+    }
+
+    public static function skorPenilaianKabag($karyawanId, $periodeId){
+        $total = 0;
+        $penilaian = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
+            $query->where('periodeId', $periodeId);
+        })->where('karyawanId', $karyawanId)->get();
+
+        foreach($penilaian as $penilaian){
+            foreach($penilaian->detailIndikator as $detail){
+                $total += $detail->nilai;
+            }
+        }
+
+        // tanya hrd ntar
+
+        return $total;
+    }
+
+    public static function jmlNilaiKabag($karyawanId, $periodeId, $indikatorId){
+        $jmlNilai = 0;
+        $penilaian = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
+            $query->where('periodeId', $periodeId);
+        })->where('karyawanId', $karyawanId)->get();
+        
+        foreach($penilaian as $data){
+            foreach($data->detailIndikator as $dtlData){
+                if($dtlData->indikator->id == $indikatorId){
+                    $jmlNilai += $dtlData->nilai;
+                }
+            }
+        }
+
+        return $jmlNilai;
+    }
+
+    public static function jawabanKuisioner($karyawanId, $periodeId, $kuisionerId){
+        $arrayId = array();
+        $penilaian = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
+            $query->where('periodeId', $periodeId);
+        })->where('karyawanId', $karyawanId)->get();
+
+        foreach($penilaian as $data){
+            array_push($arrayId, $data->id);
+        }
+
+        $detailKuisioner = DetailKuisioner::whereIn('detailPenilaianId', $arrayId)->where('kuisionerId', $kuisionerId)->get();
+
+        return $detailKuisioner;
     }
 }
 

@@ -192,6 +192,11 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::get('/','PKK\LaporanHasilPolingController@index')->name('laporan.hrd.hasilpoling');
                 Route::get('/detail','PKK\LaporanHasilPolingController@detail')->name('laporan.hrd.hasilpoling.detail');
             });
+
+            Route::group(['prefix' => 'penilaiankabag'], function(){
+                Route::get('/', 'PKK\LaporanPenilaianKabagController@index')->name('laporan.hrd.penilaian.kabag');
+                Route::get('/{karyawanId}/{periodeId}/detail', 'PKK\LaporanPenilaianKabagController@detail')->name('laporan.hrd.penilaian.kabag.detail');
+            });
         });
 
         Route::group(['prefix' => 'ga', 'middleware' => ['checkDep:GA,IT']], function(){

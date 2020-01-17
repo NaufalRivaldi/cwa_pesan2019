@@ -18,7 +18,7 @@ class DetailPenilaian extends Model
     }
 
     public function karyawan(){
-        return $this->belongsTo('App\Karyawan', 'karyawanId');
+        return $this->belongsTo('App\KaryawanAll', 'karyawanId');
     }
 
     public function detailKuisioner()

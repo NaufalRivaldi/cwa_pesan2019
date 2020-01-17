@@ -15,7 +15,7 @@ class FormDesainController extends Controller
         $data['menu'] = 8;
         $data['no'] = 1;
         
-        if(auth()->user()->dep == 'IT'){
+        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'Accounting'){
             $data['form_proses'] = FormPengajuanDesain::where('stat', '<', 4)->orderBy('created_at', 'desc')->get();
             $data['form_done'] = FormPengajuanDesain::where('stat', '>', 3)->orderBy('created_at', 'desc')->get();
         }else{

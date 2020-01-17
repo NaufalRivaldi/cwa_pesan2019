@@ -46,7 +46,9 @@
                                                 @endif
                                                 
                                             @endif
+                                            @if(auth()->user()->id == $data->userId)
                                                 <a href="#" class="btn btn-danger btn-sm remove-form-perbaikan" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></a>
+                                            @endif
                                             </td>
                                         </tr>
                                     @endforeach
