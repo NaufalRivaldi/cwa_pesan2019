@@ -16,19 +16,9 @@ class FormPerbaikanController extends Controller
     public function index(){
         $data['menu'] = 8;
 
-        if(Auth()->user()->dep == 'GA'){
-            $data['formProgress'] = FormPerbaikanSarana::where('status', '<', '4')->orderBy('created_at', 'desc')->get();
+        $data['formProgress'] = FormPerbaikanSarana::where('status', '<', '4')->orderBy('created_at', 'desc')->get();
 
-            $data['formSelesai'] = FormPerbaikanSarana::where('status', '>', '3')->orderBy('created_at', 'desc')->get();
-        }else{
-            $data['formProgress'] = FormPerbaikanSarana::whereHas('user', function($query){
-                $query->where('dep', Auth()->user()->dep);
-            })->where('status', '<', '4')->orderBy('created_at', 'desc')->get();
-
-            $data['formSelesai'] = FormPerbaikanSarana::whereHas('user', function($query){
-                $query->where('dep', Auth()->user()->dep);
-            })->where('status', '>', '3')->orderBy('created_at', 'desc')->get();
-        }
+        $data['formSelesai'] = FormPerbaikanSarana::where('status', '>', '3')->orderBy('created_at', 'desc')->get();
         
         return view('admin.form.ga.perbaikan.index', $data);
     }

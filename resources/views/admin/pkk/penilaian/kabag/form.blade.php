@@ -16,6 +16,9 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
+                <a href="{{ route('pkk.penilaian') }}" class="btn btn-sm btn-success"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+            </div>
+            <div class="card-header">
                 <table class="table">
                     <tr>
                         <td width="10%">NIK</td>
@@ -56,8 +59,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Penilaian</th>
-                            <th>Nilai</th>
+                            <th width="50%">Penilaian</th>
+                            <th colspan="5">Nilai</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,25 +70,11 @@
                             <tr>
                                 <td width="5%">{{ $no++ }}</td>
                                 <td>{{ $indikator->pertanyaan }}</td>
-                                <td>
-                                    <div class="row justify-content-md-center">
-                                        <div class="col-md-2">
-                                            <input type="radio" name="indikatorValue[{{ $idx }}]" value="1">1 
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="radio" name="indikatorValue[{{ $idx }}]" value="2">2 
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="radio" name="indikatorValue[{{ $idx }}]" value="3">3 
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="radio" name="indikatorValue[{{ $idx }}]" value="4">4 
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="radio" name="indikatorValue[{{ $idx++ }}]" value="5">5 
-                                        </div>
-                                    </div>
-                                </td>
+                                <td><input type="radio" name="indikatorValue[{{ $idx }}]" value="1">1</td>
+                                <td><input type="radio" name="indikatorValue[{{ $idx }}]" value="2">2</td>
+                                <td><input type="radio" name="indikatorValue[{{ $idx }}]" value="3">3</td>
+                                <td><input type="radio" name="indikatorValue[{{ $idx }}]" value="4">4</td>
+                                <td><input type="radio" name="indikatorValue[{{ $idx++ }}]" value="5">5</td>
                             </tr>
                         @endforeach
                     </tbody>

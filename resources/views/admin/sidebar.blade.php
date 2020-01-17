@@ -109,10 +109,15 @@
         @if(Helper::isMixing())
             @if(auth()->user()->dep != 'IT')
                 <li>
-                    <a href="{{ route('mixing.customers') }}"><i class="fa fa-users"></i> Mixing - Pelanggan </a>
+                    <a href="" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-file-signature"></i> Mixing
+                    </a>
                 </li>
                 <li>
-                    <a href="{{ route('mixing.mixing') }}"><i class="fa fas fa-paint-brush"></i> Mixing - Mixing </a>
+                    <a href="{{ route('mixing.customers') }}" class="ml-3"><i class="fa fa-users"></i> Pelanggan </a>
+                </li>
+                <li>
+                    <a href="{{ route('mixing.mixing') }}" class="ml-3"><i class="fa fas fa-paint-brush"></i> Mixing </a>
                 </li>
             @else
                 <li <?= ($menu == '11') ? 'class="active"' : '' ?> data-toggle="tooltip" data-placement="right" title="Perekapan data mixing.">
@@ -192,6 +197,9 @@
                         </li>
                         <li>
                             <a href="{{ route('laporan.hrd.hasilpoling') }}">Hasil Poling</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('laporan.hrd.penilaian.kabag') }}">Hasil Penilaian Kabag</a>
                         </li>
                     </ul>
                 </li>

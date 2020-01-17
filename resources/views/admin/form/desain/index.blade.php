@@ -52,7 +52,11 @@
                                                 @endif
                                                 
                                             @endif
-                                                <a href="#" class="btn btn-danger btn-sm remove-form-desain" data-id="{{ $form->id }}"><i class="fas fa-trash"></i></a>
+                                                @if(auth()->user()->dep == 'IT')
+                                                    <a href="#" class="btn btn-danger btn-sm remove-form-desain" data-id="{{ $form->id }}"><i class="fas fa-trash"></i></a>
+                                                @elseif(auth()->user()->id == $form->user_id)
+                                                    <a href="#" class="btn btn-danger btn-sm remove-form-desain" data-id="{{ $form->id }}"><i class="fas fa-trash"></i></a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -68,6 +72,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Pengaju</th>
                                         <th>Status</th>
                                         <th>Tanggal Pengajuan</th>
                                         <th>Deadline</th>
@@ -77,9 +82,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $no = 1; ?>
                                     @foreach($form_done as $form)
                                         <tr>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ $no++ }}</td>
+                                            <td class="modalClick" data-id="{{ $form->id }}">{{ $form->user->nama }}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}">{!! Helper::statusDesain($form->stat) !!}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ Helper::setDate($form->created_at) }}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ Helper::setDate($form->tgl_perlu) }}</td>
