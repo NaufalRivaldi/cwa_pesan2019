@@ -14,21 +14,27 @@ use App\KaryawanAll;
 class LaporanPenilaianKabagController extends Controller
 {
     public function index(){
-        $data['menu'] = '12';
+        $data['menu'] = '9';
         $data['no'] = '1';
         
-        $periode = Periode::where('kategori', 2)->orderBy('id', 'desc')->first();
+        if($_GET['periodeId']){
+            $periode = Periode::find($_GET['periodeId']);    
+        }else{
+            $periode = Periode::where('kategori', 2)->orderBy('id', 'desc')->first();
+        }
+
         $data['penilaian'] = DetailPenilaian::whereHas('penilaian', function($query) use ($periode){
             $query->where('periodeId', $periode->id);
         })->groupBy('karyawanId')->get();
 
         $data['periode'] = $periode;
+        $data['searchPeriode'] = Periode::where('kategori', 2)->orderBy('id', 'desc')->get();
 
         return view('admin.laporan.hrd.penilaiankabag.index', $data);
     }
 
     public function detail($karyawanId, $periodeId){
-        $data['menu'] = '12';
+        $data['menu'] = '9';
         $data['no'] = 1;
 
         $penilaian = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
