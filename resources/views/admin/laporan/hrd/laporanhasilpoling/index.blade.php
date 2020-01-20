@@ -30,9 +30,9 @@
             <div class="card-header">
               <div class="container">
                 <div class="row">            
-                  <select class="form-control col-sm-9" id="periodeId" name="periodeId">
+                  <select class="form-control col-sm-8" id="periodeId" name="periodeId">
                       @foreach($searchPeriode as $p)
-                        <option value="{{ $p->id }}">{{$p->namaPeriode}}</option>
+                        <option value="{{ $p->id }}" {{($_GET)?($_GET['periodeId']==$p->id)?'selected':'':''}}>{{$p->namaPeriode}}</option>
                       @endforeach
                   </select>
                   <?php
@@ -43,6 +43,7 @@
                   ?>
                   <button type="submit" class="btn ml-2 btn-success">Cari</button>
                   <a href="{{ route('laporan.hrd.hasilpoling.detail').$url }}" class="btn ml-2 btn-primary float-right">Detail Hasil Poling</a>
+                  <a href="{{ route('laporan.hrd.hasilpoling.export').$url }}" class="btn ml-2 btn-primary float-right">Excel</a>
                 </div>
               </div>              
             </div>

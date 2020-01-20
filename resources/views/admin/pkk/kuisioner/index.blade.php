@@ -59,9 +59,9 @@
                         <a href="{{ route('pkk.kuisioner.edit', ['id'=>$kuisioner->id]) }}"><li class="btn btn-sm btn-warning fas fa-edit"></li></a>
                       @endif
                         
-                        @if(auth()->user()->dep == 'IT')
+                      @if(auth()->user()->dep == 'IT')
                         <button class="btn btn-sm btn-danger fas fa-trash delete"data-id="{{ $kuisioner->id }}"></button>
-                        @endif 
+                      @endif 
                       </td>                     
                       
                     </tr>                    

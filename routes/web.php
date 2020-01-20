@@ -191,6 +191,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::group(['prefix' => 'hasilpoling'], function(){
                 Route::get('/','PKK\LaporanHasilPolingController@index')->name('laporan.hrd.hasilpoling');
                 Route::get('/detail','PKK\LaporanHasilPolingController@detail')->name('laporan.hrd.hasilpoling.detail');
+                Route::get('/export','PKK\LaporanHasilPolingController@export')->name('laporan.hrd.hasilpoling.export');
             });
 
             Route::group(['prefix' => 'penilaiankabag'], function(){
