@@ -26,9 +26,27 @@
             <div class="card-header">
                 <h2>Data Hasil Penilaian Kepala Bagian</h2>                 
             </div>
-            <div class="card-header">
-                
-            </div>
+            <form action="" method="get">
+                <div class="card-header">
+                    <div class="container">
+                        <div class="row">            
+                        <select class="form-control col-sm-9" id="periodeId" name="periodeId">
+                            @foreach($searchPeriode as $p)
+                                <option value="{{ $p->id }}" {{ ($_GET)?($_GET['periodeId'] == $p->id)?'selected':'':'' }}>{{$p->namaPeriode}}</option>
+                            @endforeach
+                        </select>
+                        <?php
+                            $url = '';
+                            if ($_GET) {
+                            $url = '?'.$_SERVER['QUERY_STRING'];
+                            }
+                        ?>
+                        <button type="submit" class="btn ml-2 btn-success">Cari</button>
+                        <a href="{{ route('laporan.hrd.hasilpoling.detail').$url }}" class="btn ml-2 btn-primary float-right">Excel</a>
+                        </div>
+                    </div>              
+                </div>
+            </form>
             <div class="card-body">
               <div class="table-responsive">
               <table class="myTable custom-table">

@@ -234,79 +234,76 @@
 
 @section('js')
     <script>
-        $(document).ready(function(){
-            // view
-            $('.modalClick').on('click', function(){
-                var id = $(this).data('id');
-                $.ajax({
-                    url: '{{ route("desainIklan.view") }}',
-                    data: "id="+id,
-                    type: 'GET',
-                    success: function(data){
-                        console.log(data.status);
-                        $('.status').empty();
-                        $('.jenisDesain').empty();
-                        $('.keterangan_lain').empty();
-                        
-                        $('.status').append(data.status);
-                        $('.jenisDesain').append(data.jenisDesain);
-                        $('.keterangan_lain').append(data.keterangan_lain);
-                        $('.tgl_pengajuan').val(data.tglPengajuan);
-                        $('.tgl_perlu').val(data.tglDiperlukan);
-                        $('.qty').val(data.qty);
-                        $('.ukuran').val(data.ukuranCetak);
-                        $('.deskripsi').val(data.deskripsi);
-                        $('.karyawan_all').val(data.karyawan_all);
-                        
-                    }
-                });
-                $('.modalDesain').modal('show');
+       $(document).on('click', '.modalClick', function(){
+            var id = $(this).data('id');
+            $.ajax({
+                url: '{{ route("desainIklan.view") }}',
+                data: "id="+id,
+                type: 'GET',
+                success: function(data){
+                    console.log(data.status);
+                    $('.status').empty();
+                    $('.jenisDesain').empty();
+                    $('.keterangan_lain').empty();
+                    
+                    $('.status').append(data.status);
+                    $('.jenisDesain').append(data.jenisDesain);
+                    $('.keterangan_lain').append(data.keterangan_lain);
+                    $('.tgl_pengajuan').val(data.tglPengajuan);
+                    $('.tgl_perlu').val(data.tglDiperlukan);
+                    $('.qty').val(data.qty);
+                    $('.ukuran').val(data.ukuranCetak);
+                    $('.deskripsi').val(data.deskripsi);
+                    $('.karyawan_all').val(data.karyawan_all);
+                    
+                }
             });
+            $('.modalDesain').modal('show');
+        });
 
-            // modal validasi
-            $('.modalVal').on('click', function(){
-                $('#modalValidate').modal('show');
-                var id = $(this).data('id');
-                var val = $(this).data('val');
+        // modal validasi
+        $(document).on('click', '.modalVal', function(){
+            $('#modalValidate').modal('show');
+            var id = $(this).data('id');
+            var val = $(this).data('val');
 
-                switch (val) {
-                    case 1:
-                        $('.valTitle').empty();
-                        $('.valText').empty();
-                        $('.alasan').empty();
+            switch (val) {
+                case 1:
+                    $('.valTitle').empty();
+                    $('.valText').empty();
+                    $('.alasan').empty();
 
-                        $('.valTitle').append('ACC Form Pengajuan Desain');
-                        $('.valText').append("Masukkan NIK dan Password kepala bagian IT untuk acc form desain tersebut");
-                        break;
+                    $('.valTitle').append('ACC Form Pengajuan Desain');
+                    $('.valText').append("Masukkan NIK dan Password kepala bagian IT untuk acc form desain tersebut");
+                    break;
 
-                    case 2:
-                        $('.valTitle').empty();
-                        $('.valText').empty();
-                        $('.alasan').empty();
+                case 2:
+                    $('.valTitle').empty();
+                    $('.valText').empty();
+                    $('.alasan').empty();
 
-                        $('.valTitle').append('Tolak Form Pengajuan Desain');
-                        $('.valText').append("Masukkan NIK dan Password kepala bagian IT untuk tolak form desain tersebut");
-                        $('.alasan').append('<label>Alasan</label><textarea name="keterangan" id="" class="form-control" rows="5"></textarea>');
-                        break;
-                
-                    default:
-                        break;
-                } 
+                    $('.valTitle').append('Tolak Form Pengajuan Desain');
+                    $('.valText').append("Masukkan NIK dan Password kepala bagian IT untuk tolak form desain tersebut");
+                    $('.alasan').append('<label>Alasan</label><textarea name="keterangan" id="" class="form-control" rows="5"></textarea>');
+                    break;
+            
+                default:
+                    break;
+            } 
 
-                $('.idForm').val(id);
-                $('.type').val(val);
-            });
+            $('.idForm').val(id);
+            $('.type').val(val);
+        });
 
-            // modal validasi
-            $('.modalStatus').on('click', function(){
-                $('#modalStatus').modal('show');
-                var id = $(this).data('id');
-                var stat = $(this).data('stat');
-                $('.idForm').val(id);
-                console.log(stat);
+        // modal validasi
+        $(document).on('click', '.modalStatus', function(){
+            $('#modalStatus').modal('show');
+            var id = $(this).data('id');
+            var stat = $(this).data('stat');
+            $('.idForm').val(id);
+            console.log(stat);
 
-                $("select option[value='"+stat+"']").attr("disabled",true);
-            });
+            $("select option[value='"+stat+"']").attr("disabled",true);
         });
     </script>
 @endsection
