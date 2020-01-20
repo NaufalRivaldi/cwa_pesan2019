@@ -7,11 +7,13 @@
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
-            <h2 class="pageheader-title">Data Pelanggan</h2>
+            <!-- <h2 class="pageheader-title">Data Pelanggan</h2> -->
+            
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">Pelanggan</li>
+                        <a href="{{route('mixing.customers')}}"><li class="breadcrumb-item" aria-current="page">Pelanggan</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Detail</li>
                     </ol>
                 </nav>
             </div>
@@ -24,7 +26,7 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <a href="{{route('mixing.customers')}}" class="btn btn-success btn-sm">Kembali</a>
+        <a href="{{route('mixing.customers')}}" class="btn btn-success btn-sm "><i class="fas fa-arrow-circle-left"></i> Kembali</a>
       </div>
       <div class="card-header">
         <table class="" width="100%">

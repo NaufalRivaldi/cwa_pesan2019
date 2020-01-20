@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
-            <h2 class="pageheader-title">Mesin</h2>
+            <!-- <h2 class="pageheader-title">Mesin</h2> -->
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -32,7 +32,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <table class="myTable">
+              <table class="myTable table custom-table">
                 <thead>
                   <tr>
                     <th>No</th>

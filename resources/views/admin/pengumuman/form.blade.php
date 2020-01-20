@@ -5,7 +5,15 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <h2>Form Pengumuman</h2>
+            <!-- <h2>Form Pengumuman</h2>             -->
+            <div class="page-breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <a href="{{route('pengumuman.index')}}"><li class="breadcrumb-item" aria-current="page">Pengumuman</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Form</li>
+                    </ol>
+                </nav>
+            </div>
             <div class="card">
                 <div class="card-header">
                     <a href="{{ url('/admin/pengumuman') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>

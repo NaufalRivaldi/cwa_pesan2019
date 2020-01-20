@@ -5,11 +5,15 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <div class="container">
+            <div class="container">                       
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Form Penanganan IT</li>
+                        </ol>
+                    </nav>
+                </div>            
                 <div class="card">
-                    <div class="card-header">
-                        <h2>Form Penanganan IT</h2>
-                    </div>
                     @if(auth()->user()->dep == 'IT')
                     <div class="card-header">
                         <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#formCollapse" role="button" aria-expanded="false" aria-controls="formCollapse"><i class="fas fa-envelope"></i> Buat Form</a> 
@@ -121,7 +125,7 @@
                                         <th>Permasalahan</th>
                                         <th>Penyelesaian</th>
                                         <th>Stat</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -152,7 +156,7 @@
                                             </td>
                                             <td>
                                                 @if(auth()->user()->dep == 'IT' && $row->stat == 1)
-                                                    <a href="#" class="btn btn-danger btn-sm delete_form_it" data-id="{{ $row->id }}"><i class="fas fa-trash"></i></a>
+                                                    <a href="#" class="delete_form_it" data-id="{{ $row->id }}"><i class="btn btn-danger btn-sm far fa-trash-alt"></i></a>
                                                 @endif
 
                                                 @if(auth()->user()->dep != 'IT' && $row->stat == 1)

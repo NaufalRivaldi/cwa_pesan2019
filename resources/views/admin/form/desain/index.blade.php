@@ -5,11 +5,15 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <div class="container">
+            <div class="container">                       
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Form Pengajuan Desain</li>
+                        </ol>
+                    </nav>
+                </div>            
                 <div class="card">
-                    <div class="card-header">
-                        <h2>Form Pengajuan Desain</h2>
-                    </div>
                     <div class="card-header">
                         <a href="{{ route('desainIklan.form') }}" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Buat Form</a>
                     </div>
@@ -27,7 +31,7 @@
                                         <th>Jenis Desain</th>
                                         <th>Ukuran</th>
                                         <th>Keterangan</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,17 +49,17 @@
                                             <td>
                                             @if(auth()->user()->dep == 'IT')
                                                 @if($form->stat > 1 && $form->stat != 4 && $form->stat != 5)
-                                                    <button class="btn btn-success btn-sm modalStatus" data-id="{{ $form->id }}" data-stat="{{ $form->stat }}">Ganti Status</button>
+                                                    <button class="btn btn-success btn-sm modalStatus" data-id="{{ $form->id }}" data-stat="{{ $form->stat }}"><i class="fas fa-exchange-alt"></i></button>
                                                 @elseif($form->stat == 1)
-                                                    <button class="btn btn-success btn-sm modalVal" data-id="{{ $form->id }}" data-val="1">Acc</button>
-                                                    <button class="btn btn-danger btn-sm modalVal" data-id="{{ $form->id }}" data-val="2">Tolak</button>
+                                                    <button class="btn btn-success btn-sm  modalVal" data-id="{{ $form->id }}" data-val="1"><i class="fas fa-user-check"></i></button>
+                                                    <button class="btn btn-danger btn-sm modalVal" data-id="{{ $form->id }}" data-val="2"><i class="fas fa-times-circle"></i></button>
                                                 @endif
                                                 
                                             @endif
                                                 @if(auth()->user()->dep == 'IT')
-                                                    <a href="#" class="btn btn-danger btn-sm remove-form-desain" data-id="{{ $form->id }}"><i class="fas fa-trash"></i></a>
+                                                    <a href="#" class="btn btn-danger btn-sm remove-form-desain" data-id="{{ $form->id }}"><i class="far fa-trash-alt"></i></a>
                                                 @elseif(auth()->user()->id == $form->user_id)
-                                                    <a href="#" class="btn btn-danger btn-sm remove-form-desain" data-id="{{ $form->id }}"><i class="fas fa-trash"></i></a>
+                                                    <a href="#" class="btn btn-danger btn-sm remove-form-desain" data-id="{{ $form->id }}"><i class="far fa-trash-alt"></i></a>
                                                 @endif
                                             </td>
                                         </tr>

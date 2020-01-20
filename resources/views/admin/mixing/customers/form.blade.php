@@ -14,7 +14,7 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
             <h2 class="pageheader-title">
-            {{ ($id) ? 'Edit Data Pelanggan' : 'Input Data Pelanggan' }}
+            <!-- {{ ($id) ? 'Edit Data Pelanggan' : 'Input Data Pelanggan' }} -->
             </h2>
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
@@ -31,10 +31,15 @@
 <!-- content -->
 <!-- <div class="container"> -->
   <div class="row justify-content-md-center">
-    <div class="col-md-12">
-      <h3 class="card-header">Form Pelanggan</h3>
-      <div class="card">
+    <div class="col-md-12"> 
+      <div class="card">     
+      <div class="card-header">
+          <a href="{{ route('mixing.customers') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+      </div>
         <div class="card-body">
+          <!-- <div class="display-4 mb-3">
+            Form Pelanggan
+          </div> -->
           <div class="row justify-content-md-center">  
             <div class="col-md-6">          
               <form action="{{($id)?route('mixing.customers.update'):route('mixing.customers.add')}}" method="post">

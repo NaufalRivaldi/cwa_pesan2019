@@ -5,11 +5,18 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <div class="container">
+            <div class="container">                                   
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Perbaikan Sarana & Prasarana</li>
+                        </ol>
+                    </nav>
+                </div>
                 <div class="card">
-                    <div class="card-header">
+                    <!-- <div class="card-header">
                         <h2>Perbaikan Sarana & Prasarana</h2>
-                    </div>
+                    </div> -->
                     <div class="card-header">
                         <a href="{{ route('form.ga.perbaikan.form') }}" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Buat Form</a>
                     </div>
@@ -39,15 +46,15 @@
                                             <td>
                                             @if(auth()->user()->dep == 'GA')
                                                 @if($data->status > 1 && $data->status != 4 && $data->status != 5)
-                                                    <button class="btn btn-success btn-sm modalStatus" data-id="{{ $data->id }}" data-stat="{{ $data->status }}">Ganti Status</button>
+                                                    <button class="btn btn-success btn-sm modalStatus" data-id="{{ $data->id }}" data-stat="{{ $data->status }}"><i class="fas fa-exchange-alt"></i></button>
                                                 @elseif($data->status == 1)
-                                                    <button class="btn btn-success btn-sm modalVal" data-id="{{ $data->id }}" data-val="1">Acc</button>
-                                                    <button class="btn btn-danger btn-sm modalVal" data-id="{{ $data->id }}" data-val="2">Tolak</button>
+                                                    <button class="btn btn-success btn-sm modalVal" data-id="{{ $data->id }}" data-val="1"><i class="fas fa-user-check"></i></button>
+                                                    <button class="btn btn-danger btn-sm modalVal" data-id="{{ $data->id }}" data-val="2"><i class="fas fa-times-circle"></i></button>
                                                 @endif
                                                 
                                             @endif
                                             @if(auth()->user()->id == $data->userId)
-                                                <a href="#" class="btn btn-danger btn-sm remove-form-perbaikan" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></a>
+                                                <a href="#" class="remove-form-perbaikan" data-id="{{ $data->id }}"><i class="btn btn-danger btn-sm far fa-trash-alt"></i></a>
                                             @endif
                                             </td>
                                         </tr>

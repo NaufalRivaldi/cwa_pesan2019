@@ -180,7 +180,7 @@ $(document).ready(function () {
     function cekChecked() {
         if ($('.chcks').is(':checked')) {
             $('#insert-menu').empty();
-            $('#insert-menu').append('<a href="#" class="btn btn-danger btn-sm remove-pesan-checked" data-id="{{ $data->id }}"><i class="fas fa-trash"></i> Hapus yang ditandai</a>');
+            $('#insert-menu').append('<a href="#" class="btn btn-danger btn-sm remove-pesan-checked" data-id="{{ $data->id }}"><i class="far fa-trash-alt"></i> Hapus yang ditandai</a>');
         } else {
             $('#insert-menu').empty();
         }
@@ -189,7 +189,7 @@ $(document).ready(function () {
     function cekCheckedOutbox() {
         if ($('.chcksOutbox').is(':checked')) {
             $('#insert-menu').empty();
-            $('#insert-menu').append('<a href="#" class="btn btn-danger btn-sm remove-pesan-checked-outbox" data-id="{{ $data->id }}"><i class="fas fa-trash"></i> Hapus yang ditandai</a>');
+            $('#insert-menu').append('<a href="#" class="btn btn-danger btn-sm remove-pesan-checked-outbox" data-id="{{ $data->id }}"><i class="far fa-trash-alt"></i> Hapus yang ditandai</a>');
         } else {
             $('#insert-menu').empty();
         }

@@ -46,6 +46,7 @@ class FormulaController extends Controller
     public function formByMerk($merkId){
         $data['menu'] = '11';
         $data['merk'] = Merk::find($merkId);
+        $data['merkId'] = $merkId;
         return view('admin.mixing.formula.formbymerk', $data);
     }
 

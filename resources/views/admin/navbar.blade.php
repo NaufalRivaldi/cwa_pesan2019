@@ -53,7 +53,7 @@
                 <span class="navbar-text">
                     Halo, {{ auth()->user()->nama }} &nbsp;
                 </span>
-                <a class="nav-item btn btn-md btn-danger" href="{{ url('logout') }}"><i class="fas fa-power-off"></i></a>
+                <a class="nav-item btn btn-danger" href="{{ url('logout') }}"><i class="fas fa-power-off"></i></a>
             </div>
         </div>
     </div>

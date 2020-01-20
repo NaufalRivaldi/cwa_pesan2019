@@ -5,13 +5,24 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <div class="container">
-                <h2>Form Perbaikan Sarana & Prasarana</h2>
+            <div class="container">            
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <a href="{{route('form.ga.perbaikan')}}"><li class="breadcrumb-item" aria-current="page">Form Perbaikan Sarana & Prasarana</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Form</li>
+                        </ol>
+                    </nav>
+                </div>
+                <!-- <h2>Form Perbaikan Sarana & Prasarana</h2> -->
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('form.ga.perbaikan') }}" class="btn btn-sm btn-success">Kembali</a>
+                        <a href="{{ route('form.ga.perbaikan') }}" class="btn btn-sm btn-success"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                     </div>
                     <div class="card-body">
+                    <div class="display-4 mb-3">
+                        Form Perbaikan
+                    </div>
                         <form method="POST" action="{{ route('form.ga.perbaikan.store') }}">
                             @csrf
                             <div class="form-group row">

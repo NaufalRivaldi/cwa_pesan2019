@@ -6,10 +6,17 @@
     <div class="row">
         <div class="col-12">
             <div class="container">
+            <div class="page-breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Pesan Masuk</li>
+                    </ol>
+                </nav>
+            </div>
                 <div class="card">
-                    <div class="card-header">
+                    <!-- <div class="card-header">
                         <h2>Pesan Masuk</h2>
-                    </div>
+                    </div> -->
                     <div class="card-header">
                         <a href="{{ url('admin/pesan/form') }}" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Buat Pesan</a> 
                         <span id="insert-menu"></span>
@@ -25,7 +32,7 @@
                                         <th width="20%">Dari</th>
                                         <th>Subject</th>
                                         <th>Tanggal</th>
-                                        <th></th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,7 +62,7 @@
                                             <a href="{{ url($url) }}" class="a-block">{{ date('d F Y', strtotime($data->tgl)) }}<br>{{ date('H:i:s', strtotime($data->tgl)) }}</a>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-danger btn-sm remove-pesan" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></a>
+                                            <a href="#" class="remove-pesan" data-id="{{ $data->id }}"><i class="btn btn-danger btn-sm far fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach

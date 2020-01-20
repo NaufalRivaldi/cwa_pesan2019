@@ -5,10 +5,17 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <h2>Pengumuman</h2>
+            <!-- <h2>Pengumuman</h2> -->
+            <div class="page-breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Pengumuman</li>
+                    </ol>
+                </nav>
+            </div>
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ url('/admin/pengumuman/form') }}" class="btn btn-primary btn-sm">Buat Pengumuman</a>
+                    <a href="{{ url('/admin/pengumuman/form') }}" class="btn btn-primary btn-sm"><li class="fa fa-plus-circle"></li> Buat Pengumuman</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -21,7 +28,7 @@
                                     <th>Nama - Departemen</th>
                                     <th>Subject</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,14 +60,14 @@
                                             <td>
                                                 <!-- stat -->
                                                 @if($row->stat == 1)
-                                                    <a href="{{ url('/admin/pengumuman/nonactive/'.$row->id) }}" class="btn btn-danger btn-sm clickPengumuman" data-toggle="modal" data-target="#nonactiveModal" data-id="{{ $row->id }}">Nonactive</a>
+                                                    <a href="{{ url('/admin/pengumuman/nonactive/'.$row->id) }}" class="btn btn-danger btn-sm clickPengumuman fa fa-times-circle" data-toggle="modal" data-target="#nonactiveModal" data-id="{{ $row->id }}"></a>
                                                 @elseif($row->stat == 2 || $row->stat == 3)
-                                                    <a href="#" class="btn btn-success btn-sm clickPengumuman" data-toggle="modal" data-target="#activeModal" data-id="{{ $row->id }}">Active</a>
+                                                    <a href="#" class="btn btn-success btn-sm clickPengumuman fa fa-check-circle" data-toggle="modal" data-target="#activeModal" data-id="{{ $row->id }}"></a>
                                                 @endif
 
                                                 @if($row->stat == 2 || $row->stat == 3)
-                                                    <a href="{{ url('/admin/pengumuman/edit/'.$row->id) }}" class="btn btn-success btn-sm"><i class="fas fa-cog"></i></a>
-                                                    <a href="#" class="btn btn-danger btn-sm remove-pengumuman" data-id="{{ $row->id }}"><i class="fas fa-trash-alt"></i></a>
+                                                    <a href="{{ url('/admin/pengumuman/edit/'.$row->id) }}" class=""><li class=" btn btn-info btn-sm fas fa-cog"></li></a>
+                                                    <a href="#" class="remove-pengumuman" data-id="{{ $row->id }}"><i class="btn btn-danger btn-sm fas fa-trash-alt"></i></a>
                                                 @endif
                                             </td>
                                         </tr>

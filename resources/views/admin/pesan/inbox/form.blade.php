@@ -6,13 +6,21 @@
     <div class="row">
         <div class="col-12">
             <div class="container">
-                <a href="{{ url('admin/pesan/inbox') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
-                <hr>
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <a href="{{route('inbox')}}"><li class="breadcrumb-item" aria-current="page">Pesan Masuk</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Form</li>
+                        </ol>
+                    </nav>
+                </div>
                 <div class="card">
                     <div class="card-header">
-                        <h2>Pesan</h2>
+                    <a href="{{ url('admin/pesan/inbox') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                     </div>
                     <div class="card-body">
+                    
+                    <div class="display-4 mb-3">Pesan Baru</div>
                         <form action="{{ url('admin/pesan/store') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                             <div class="form-group row">
@@ -67,7 +75,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
-                                    <input type="submit" value="Kirim Pesan" class="btn btn-primary">
+                                    <input type="submit" value="Kirim" class="btn btn-primary">
                                 </div>
                             </div>
                         </form>

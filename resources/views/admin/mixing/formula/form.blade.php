@@ -12,7 +12,7 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
             <h2 class="pageheader-title">
-            {{ ($id) ? 'Edit Data Formula' : 'Input Data Formula' }}
+            <!-- {{ ($id) ? 'Edit Data Formula' : 'Input Data Formula' }} -->
             </h2>
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
@@ -30,8 +30,11 @@
 <!-- <div class="container"> -->
   <div class="row justify-content-md-center">
     <div class="col-md-12">
-      <h3 class="card-header">Form Formula</h3>
-      <div class="card">
+      <!-- <h3 class="card-header">Form Formula</h3> -->
+      <div class="card"> 
+        <div class="card-header">
+            <a href="{{ route('mixing.formula') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+        </div>
         <div class="card-body">
           <div class="row justify-content-md-center">  
             <div class="col-md-6">          

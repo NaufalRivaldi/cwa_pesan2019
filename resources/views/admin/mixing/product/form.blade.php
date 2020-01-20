@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
-            <h2 class="pageheader-title">{{($id)?'Edit Data Produk':'Input Data Produk'}}</h2>
+            <!-- <h2 class="pageheader-title">{{($id)?'Edit Data Produk':'Input Data Produk'}}</h2> -->
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -30,9 +30,11 @@
 <!-- <div class="container"> -->
   <div class="row justify-content-md-center">
     <div class="col-md-12">
-      <h3 class="card-header">Form Produk</h3>
-      <div class="card">
-        <div class="card-body">
+      <div class="card">   
+        <div class="card-header">
+            <a href="{{ route('mixing.product') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+        </div>
+        <div class="card-body"> 
           <div class="row justify-content-md-center">  
             <div class="col-md-6">          
               <form action="{{ ($id)?route('mixing.product.update') : route('mixing.product.add') }}" method="post">

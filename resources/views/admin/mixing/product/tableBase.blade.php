@@ -1,4 +1,10 @@
-<table class="table myTable customTable">
+
+
+
+
+
+
+<table class="table">
     <thead>
         <tr>
             <th>No</th>

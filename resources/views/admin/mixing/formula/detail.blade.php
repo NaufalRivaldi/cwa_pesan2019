@@ -7,11 +7,12 @@
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
-            <h2 class="pageheader-title">Data Formula</h2>
+            <!-- <h2 class="pageheader-title">Data Formula</h2> -->
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">Formula</li>
+                        <a href="{{route('mixing.formula')}}"><li class="breadcrumb-item" aria-current="page">Formula</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Detail</li>
                     </ol>
                 </nav>
             </div>
@@ -33,7 +34,7 @@
       </div>
       <div class="card-body">
         <div class="table-responsive">
-        <h3 class="display-6">{{ $merk->name }}</h3>
+        <h3 class="display-4 mb-3">{{ $merk->name }}</h3>
         <table class="table myTable custom-table">
           <thead>
             <tr>

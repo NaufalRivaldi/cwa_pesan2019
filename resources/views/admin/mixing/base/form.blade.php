@@ -14,13 +14,14 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
             <h2 class="pageheader-title">
-            {{ ($id) ? 'Edit Data Base Product' : 'Input Data Base Product' }}
+            <!-- {{ ($id) ? 'Edit Data Base Product' : 'Input Data Base Product' }} -->
             </h2>
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <a href="{{route('mixing.product')}}"><li class="breadcrumb-item" aria-current="page">Product</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Form</li>
+                        <li class="breadcrumb-item" aria-current="page"><a href="{{route('mixing.product')}}">Base</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Form Base</li>
                     </ol>
                 </nav>
             </div>
@@ -32,8 +33,10 @@
 <!-- <div class="container"> -->
   <div class="row justify-content-md-center">
     <div class="col-md-12">
-      <div class="card">
-        <h3 class="card-header">Form Base Product</h3>
+      <div class="card">  
+        <div class="card-header">
+            <a href="{{ route('mixing.product') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+        </div>
         <div class="card-body">
           <div class="row justify-content-md-center">  
             <div class="col-md-6">          

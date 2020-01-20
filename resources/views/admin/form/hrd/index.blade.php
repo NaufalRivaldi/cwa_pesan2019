@@ -5,11 +5,15 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <div class="container">
+            <div class="container">                       
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Form HRD</li>
+                        </ol>
+                    </nav>
+                </div>
                 <div class="card">
-                    <div class="card-header">
-                        <h2>Form HRD</h2>
-                    </div>
                     <div class="card-header">
                         <a href="{{ url('admin/formhrd/form') }}" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Buat Form</a> 
                         <span id="insert-menu"></span>
@@ -18,7 +22,7 @@
                         <h3><i class="fas fa-spinner"></i> Form Progress</h3>
                         <div class="table-responsive">
                             <table class="myTable custom-table table table-hover">
-                                <thead>
+                                <thead> 
                                     <tr>
                                         <th>No</th>
                                         <th>Tanggal</th>
@@ -27,7 +31,7 @@
                                         <th>Bagian</th>
                                         <th>Status</th>
                                         <th width="150px">Keterangan</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -62,7 +66,7 @@
                                                 
                                                 <td>
                                                     @if($row->stat == 1)
-                                                        <a href="#" class="btn btn-danger btn-sm delete_form_hrd" data-id="{{ $row->id }}"><i class="fas fa-trash"></i></a>
+                                                        <a href="#" class="delete_form_hrd" data-id="{{ $row->id }}"><i class="btn btn-danger btn-sm far fa-trash-alt"></i></a>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -96,7 +100,7 @@
                                             
                                             <td>
                                                 @if($row->stat == 1)
-                                                    <a href="#" class="btn btn-danger btn-sm remove-form-hrd" data-id="{{ $row->id }}" data-toggle="modal" data-target="#remove-form-hrd"><i class="fas fa-trash"></i></a>
+                                                    <a href="#" class="remove-form-hrd" data-id="{{ $row->id }}" data-toggle="modal" data-target="#remove-form-hrd"><i class="btn btn-danger btn-sm far fa-trash-alt"></i></a>
                                                 @endif
                                             </td>
                                         </tr>

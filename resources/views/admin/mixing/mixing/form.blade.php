@@ -8,7 +8,7 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
             <h2 class="pageheader-title">
-            Input Data Mixing
+            <!-- Input Data Mixing -->
             </h2>
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
@@ -26,9 +26,11 @@
 <!-- <div class="container"> -->
   <div class="row justify-content-md-center">
     <div class="col-md-12">
-      <h3 class="card-header">Form Mixing</h3>
-      <div class="card">
-        <div class="card-body">          
+      <div class="card">     
+      <div class="card-header">
+          <a href="{{ route('mixing.mixing') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+      </div>
+        <div class="card-body">      
               <form action="{{route('mixing.mixing.add')}}" method="post">
                 <!-- read id -->
                 {{csrf_field()}}
@@ -185,9 +187,13 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <a href="{{route('mixing.customers.form')}}" class="btn btn-success btn-sm mb-3">Tambah Pelanggan</a>
-        <table class="table myTable custom-table">
+      <div class="modal-body">       
+        <div class="card">
+          <div class="card-header">
+            <a href="{{route('mixing.customers.form')}}" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i> Tambah</a>
+          </div>
+          <div class="card-body">
+          <table class="table myTable custom-table">
           <thead>
             <tr>
               <th>No</th>
@@ -211,6 +217,8 @@
             @endforeach
           </tbody>
         </table>
+          </div>
+        </div>        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Batal</button>

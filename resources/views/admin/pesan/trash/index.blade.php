@@ -6,10 +6,14 @@
     <div class="row">
         <div class="col-12">
             <div class="container">
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Tempat Sampah</li>
+                        </ol>
+                    </nav>
+                </div>
                 <div class="card">
-                    <div class="card-header">
-                        <h2>Tempat Sampah</h2>
-                    </div>
                     <div class="card-header">
                         <span id="insert-menu"></span>
                     </div>
@@ -55,8 +59,8 @@
                                             <a href="{{ url($url) }}" class="a-block">{{ date('d F Y', strtotime($data->tgl)) }}<br>{{ date('H:i:s', strtotime($data->tgl)) }}</a>
                                         </td>
                                         <td>
-                                            <a href="{{ url('admin/pesan/trash/buInbox/'.$data->id) }}" class="btn btn-success btn-sm backup-pesan-outbox-inbox" data-id="{{ $data->id }}"><i class="fas fa-undo-alt"></i> Pulihkan</a>
-                                            <a href="#" class="btn btn-danger btn-sm remove-pesaninbox-trash" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></a>
+                                            <a href="{{ url('admin/pesan/trash/buInbox/'.$data->id) }}" class="backup-pesan-outbox-inbox" data-id="{{ $data->id }}"><i class="btn btn-success btn-sm fas fa-undo-alt"></i></a>
+                                            <a href="#" class="remove-pesaninbox-trash" data-id="{{ $data->id }}"><i class="btn btn-danger btn-sm  far fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -92,9 +96,9 @@
                                             <a href="{{ url($url) }}" class="a-block">{{ date('d F Y', strtotime($data->tgl)) }}<br>{{ date('H:i:s', strtotime($data->tgl)) }}</a>
                                         </td>
                                         <td>
-                                            <a href="{{ url('admin/pesan/trash/buOutbox/'.$data->id) }}" class="btn btn-success btn-sm backup-pesan-outbox-outbox" data-id="{{ $data->id }}"><i class="fas fa-undo-alt"></i> Pulihkan</a>
+                                            <a href="{{ url('admin/pesan/trash/buOutbox/'.$data->id) }}" class="backup-pesan-outbox-outbox" data-id="{{ $data->id }}"><i class="btn btn-success btn-sm fas fa-undo-alt"></i></a>
 
-                                            <a href="#" class="btn btn-danger btn-sm remove-pesanoutbox-trash" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></a>
+                                            <a href="#" class="remove-pesanoutbox-trash" data-id="{{ $data->id }}"><i class="btn btn-danger btn-sm fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach

@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
-            <h2 class="pageheader-title">Mixing</h2>
+            <!-- <h2 class="pageheader-title">Mixing</h2> -->
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -57,8 +57,8 @@
                         <td>
                         <p style="display:none">{{$mixing->customers->memberId}}</p>
                         <p style="display:none">{{$mixing->user->dep}}</p>
-                          <a href="{{ route('mixing.mixing.reorder', ['id' => $mixing->id]) }}" class="btn btn-sm btn-success ">Reorder</a>
-                          <button class="btn btn-danger far fa-trash-alt delete" data-id="{{ $mixing->id }}"></button>
+                          <a href="{{ route('mixing.mixing.reorder', ['id' => $mixing->id]) }}" class="btn btn-sm btn-success fas fa-history"></a>
+                          <button class="btn btn-danger btn-sm far fa-trash-alt delete" data-id="{{ $mixing->id }}"></button>
                         </td>
                       </tr>
                     @endforeach

@@ -60,7 +60,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
 
     // pengumuman
     Route::group(['prefix' => '/pengumuman', 'middleware' => ['checkDep:IT,SCM,HRD,Pajak,QA,GA,MT,Accounting,Finance,Office,Gudang']], function(){
-        Route::get('/', 'PengumumanController@index');
+        Route::get('/', 'PengumumanController@index')->name('pengumuman.index');
         Route::get('/form', 'PengumumanController@form');
         Route::get('/detail/{id}', 'PengumumanController@detail');
         Route::get('/edit/{id}', 'PengumumanController@edit');
