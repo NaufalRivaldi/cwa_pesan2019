@@ -135,8 +135,8 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="{{ route('laporan.edit', ['id'=>$row->id]) }}" class="btn btn-success btn-sm"><i class="fas fa-cog"></i></a>
-                                                <a href="#" class="btn btn-danger btn-sm remove-form-hrd" data-id="{{ $row->id }}" data-toggle="modal" data-target="#remove-form-hrd"><i class="fas fa-trash"></i></a>
+                                                <a href="{{ route('laporan.edit', ['id'=>$row->id]) }}" class=""><i class="btn btn-info btn-sm fas fa-cog"></i></a>
+                                                <a href="#" class="btn btn-danger btn-sm remove-form-hrd far fa-trash-alt" data-id="{{ $row->id }}" data-toggle="modal" data-target="#remove-form-hrd"><i class=""></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

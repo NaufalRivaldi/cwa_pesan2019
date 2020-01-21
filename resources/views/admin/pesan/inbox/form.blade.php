@@ -8,15 +8,14 @@
             <div class="container">
                 <div class="page-breadcrumb">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <a href="{{route('inbox')}}"><li class="breadcrumb-item" aria-current="page">Pesan Masuk</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Form</li>
+                        <ol class="breadcrumb">                            
+                            <li class="breadcrumb-item active" aria-current="page">Pesan Baru</li>
                         </ol>
                     </nav>
                 </div>
                 <div class="card">
                     <div class="card-header">
-                    <a href="{{ url('admin/pesan/inbox') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                    <a href="{{ url()->previous() }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                     </div>
                     <div class="card-body">
                     

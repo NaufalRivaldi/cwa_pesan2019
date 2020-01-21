@@ -647,9 +647,13 @@ class helper{
         $waktu = '-';
         $diff = date_diff(date_create($tgl_a), date_create($tgl_b));
         if($lembur == 1){
-            $waktu = $diff->h;
+            if ($diff->i <= 30) {
+                $waktu = $diff->h;
+            } else {
+                $waktu = $diff->h.':'.$diff->i;
+            }
         }
-
+        // dd($waktu);
         return $waktu;
     }
 
@@ -658,13 +662,15 @@ class helper{
         $diff = date_diff(date_create($tgl_a), date_create($tgl_b));
         if($lembur == 1){
             $jam = $diff->h;
-            if($jam < 5){
-                $upah = $jam * 10000;
-            }else if($jam > 4){
-                $upah = (4 * 10000) + ($jam - 4) * 15000;
+            $menit = ($diff->i)/60;
+            $jm = $jam + $menit;
+            if($jm < 4.5){
+                $upah = ($jam * 10000);
+            }else if($jm > 4.5){
+                $upah = (4 * 10000) + ($jm - 4) * 15000;
             }
         }
-
+        // dd($jm);
         return $upah;
     }
 

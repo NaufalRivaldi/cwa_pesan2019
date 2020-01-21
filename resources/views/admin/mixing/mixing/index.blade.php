@@ -47,7 +47,7 @@
                     @foreach($mixings as $mixing)
                       <tr>
                         <td data-id="{{$mixing->id}}" class="dataView">{{$no++}}</td>
-                        <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->tglMixing}}</td>
+                        <td data-id="{{$mixing->id}}" class="dataView">{!!Helper::setDate($mixing->tglMixing)!!}</td>
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->customers->name}}</td>
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->product->name}}</td>
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->unit}}</td>

@@ -8,13 +8,13 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
             <h2 class="pageheader-title">
-            Input Data Mixing
+            <!-- Input Data Mixing -->
             </h2>
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <a href="{{route('mixing.mixing')}}"><li class="breadcrumb-item" aria-current="page">Mixing</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Form</li>
+                        <li class="breadcrumb-item active" aria-current="page">Reorder</li>
                     </ol>
                 </nav>
             </div>
@@ -26,8 +26,10 @@
 <!-- <div class="container"> -->
   <div class="row justify-content-md-center">
     <div class="col-md-12">
-      <h3 class="card-header">Form Mixing</h3>
-      <div class="card">
+      <div class="card">    
+        <div class="card-header">
+            <a href="{{ url()->previous() }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+        </div>
         <div class="card-body">          
               <form action="{{route('mixing.mixing.add')}}" method="post">
                 <!-- read id -->

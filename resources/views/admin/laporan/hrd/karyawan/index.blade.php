@@ -6,12 +6,16 @@
     <div class="row">
         <div class="col-12">
             <div class="container">
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Data Karyawan</li>
+                        </ol>
+                    </nav>
+                </div>
                 <div class="card">
                     <div class="card-header">
-                        <h2>Data Karyawan</h2>
-                    </div>
-                    <div class="card-header">
-                        <a href="{{ route('laporan.hrd.karyawan.form') }}" class="btn btn-primary btn-sm">+ Tambah Karyawan</a> 
+                        <a href="{{ route('laporan.hrd.karyawan.form') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i> Tambah</a> 
                         <span id="insert-menu"></span>
                     </div>
                     <div class="card-body">
@@ -39,15 +43,15 @@
                                             <td>{!! Helper::statusUser($karyawan->ket) !!}</td>
                                             <td>
                                                 @if($karyawan->ket == 1)
-                                                    <a href="{{ route('laporan.hrd.karyawan.nonaktif', ['id' => $karyawan->id]) }}" class="btn btn-sm btn-danger">Nonaktif</a>
+                                                    <a href="{{ route('laporan.hrd.karyawan.nonaktif', ['id' => $karyawan->id]) }}" class="btn btn-danger btn-sm fa fa-times-circle"></a>
                                                 @else
-                                                    <a href="{{ route('laporan.hrd.karyawan.aktif', ['id' => $karyawan->id]) }}" class="btn btn-sm btn-success">Aktif</a>
+                                                    <a href="{{ route('laporan.hrd.karyawan.aktif', ['id' => $karyawan->id]) }}" class="btn btn-success fa fa-check-circle btn-sm"></a>
                                                 @endif
 
-                                                <a href="{{ route('laporan.hrd.karyawan.edit', ['id' => $karyawan->id]) }}" class="btn btn-sm btn-success"><i class="fas fa-cog"></i></a>
+                                                <a href="{{ route('laporan.hrd.karyawan.edit', ['id' => $karyawan->id]) }}" class=""><i class="btn btn-sm btn-info fas fa-cog"></i></a>
 
                                                 @if(auth()->user()->dep == 'IT')
-                                                <button class="btn btn-sm btn-danger btn-delete" data-id="{{ $karyawan->id }}"><i class="far fa-trash-alt"></i></button>
+                                                <button class="btn btn-sm btn-danger btn-delete far fa-trash-alt" data-id="{{ $karyawan->id }}"><i class=""></i></button>
                                                 @endif
                                             </td>
                                         </tr>

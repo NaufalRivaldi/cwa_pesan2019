@@ -5,7 +5,14 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <h2>Form Tambah Karyawan</h2>
+            <div class="page-breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <a href="{{route('laporan.hrd.karyawan')}}"><li class="breadcrumb-item" aria-current="page">Data Karyawan</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Form</li>
+                    </ol>
+                </nav>
+            </div>
             <div class="card">
                 <div class="card-header">
                     <a href="{{ route('laporan.hrd.karyawan') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
