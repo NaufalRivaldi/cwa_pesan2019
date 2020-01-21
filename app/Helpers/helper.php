@@ -666,11 +666,17 @@ class helper{
             $jm = $jam + $menit;
             if($jm < 4.5){
                 $upah = ($jam * 10000);
+                if ($menit > 0.5) {
+                    $upah += $menit * 10000;
+                }
             }else if($jm > 4.5){
-                $upah = (4 * 10000) + ($jm - 4) * 15000;
+                $upah = (4 * 10000) + ($jam - 4) * 15000;
+                if ($menit > 0.5) {                    
+                $upah += $menit * 15000;
+                }
             }
         }
-        // dd($jm);
+        // dd();
         return $upah;
     }
 
