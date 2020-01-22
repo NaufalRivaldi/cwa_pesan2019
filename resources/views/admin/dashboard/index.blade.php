@@ -66,7 +66,7 @@
                 <div class="card-header"><i class="fas fa-file-signature"></i> Form HRD Proses</div>
                 <div class="card-body">
                     <p class="card-text">{{ Helper::countPending() }} Form</p>
-                    <a href="{{ route('form.hrd') }}" class="btn btn-dark btn-sm btn-block"><i class="fas fa-eye"></i> Lihat</a>
+                    <a href="{{ route('form.hrd') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
                 </div>
             </div>
 
@@ -75,7 +75,7 @@
                 <div class="card-header"><i class="fas fa-file-signature"></i> Form HRD Belum terverifikasi</div>
                 <div class="card-body">
                     <p class="card-text">{{ Helper::countVerifikasi() }} Form</p>
-                    <a href="{{ route('verifikasi') }}" class="btn btn-dark btn-sm btn-block"><i class="fas fa-eye"></i> Lihat</a>
+                    <a href="{{ route('verifikasi') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
                 </div>
             </div>
             @endif
@@ -84,7 +84,7 @@
                 <div class="card-header"><i class="fas fa-file-signature"></i> Form Desain (Proses)</div>
                 <div class="card-body">
                     <p class="card-text">{{ Helper::countFormDesain() }} Form</p>
-                    <a href="{{ route('desainIklan') }}" class="btn btn-dark btn-sm btn-block"><i class="fas fa-eye"></i> Lihat</a>
+                    <a href="{{ route('desainIklan') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
                 </div>
             </div>
 
@@ -92,7 +92,7 @@
                 <div class="card-header"><i class="fas fa-file-signature"></i> Form Perbaikan Sarana (Proses)</div>
                 <div class="card-body">
                     <p class="card-text">{{ Helper::countFormPerbaikan() }} Form</p>
-                    <a href="{{ route('form.ga.perbaikan') }}" class="btn btn-dark btn-sm btn-block"><i class="fas fa-eye"></i> Lihat</a>
+                    <a href="{{ route('form.ga.perbaikan') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
                 </div>
             </div>
         </div>
