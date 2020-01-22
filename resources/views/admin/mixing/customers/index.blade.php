@@ -50,7 +50,7 @@
                 <td>{{$customer->name}}</td>
                 <td>{{$customer->phone}}</td>
                 <td>
-                  <a href="{{ route('mixing.customers.view', ['id'=>$customer->id]) }}" class="btn btn-sm btn-info fas fa-eye"></a>
+                  <a href="{{ route('mixing.customers.view', ['id'=>$customer->id]) }}" class="btn btn-sm btn-info far fa-eye"></a>
                 @if(auth()->user()->dep == 'IT')
                   <a href="{{ route('mixing.customers.edit', ['id'=>$customer->id]) }}" class="btn btn-sm btn-warning fas fa-pencil-alt"></a>
                   <button class="btn btn-sm btn-danger far fa-trash-alt delete" data-id="{{ $customer->id }}"></button>  

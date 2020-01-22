@@ -41,7 +41,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Password Baru</label>
                             <div class="col-sm-10">
-                                <input type="password" name="password" class="form-control col-7">
+                                <input type="password" name="password" class="form-control col-7 newPassword">
                                 <!-- error -->
                                 @if($errors->has('password'))
                                     <div class="text-danger">
@@ -53,13 +53,19 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Konfirmasi Password</label>
                             <div class="col-sm-10">
-                                <input type="password" name="password2" class="form-control col-7">
+                                <input type="password" name="password2" class="form-control col-7 confirmPassword">
                                 <!-- error -->
                                 @if($errors->has('password2'))
                                     <div class="text-danger">
                                         {{ $errors->first('password2') }}
                                     </div>
-                                @endif
+                                @endif                                
+                                <div class="valid-feedback">
+                                    Password sudah sesuai.
+                                </div>
+                                <div class="invalid-feedback">
+                                    Password tidak sesuai.
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">

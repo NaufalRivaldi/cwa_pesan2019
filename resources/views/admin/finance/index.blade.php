@@ -64,7 +64,7 @@
                                             <td>{{ $no++ }}</td>
                                             <td>{{ date('l, d F Y', strtotime($data->nama)) }}</td>
                                             <td>
-                                                <a href="{{ url('/admin/finance/detail/'.$data->nama) }}" class="btn btn-success btn-sm">Lihat</a>
+                                                <a href="{{ url('/admin/finance/detail/'.$data->nama) }}" class="btn btn-info btn-sm far fa-eye"><i class=""></i></a>
                                             </td>
                                         </tr>
                                         @endforeach

@@ -283,6 +283,23 @@
 
         // enable tooltip
         $('[data-toggle="tooltip"]').tooltip()
+
+        // reset password
+        $('.confirmPassword').on('keyup', function() {
+            var newPass = $('.newPassword').val();
+            var confirmPass = $('.confirmPassword').val();            
+            if (newPass != confirmPass) {
+            $('.btnSave').attr("disabled",'disabled');
+            $('.confirmPassword').addClass('is-invalid');            
+            $('.confirmPassword').removeClass('is-valid');
+            }else{              
+            $('.confirmPassword').removeClass('is-invalid');
+            $('.confirmPassword').addClass('is-valid');
+            $('.btnSave').removeAttr('disabled');
+            }
+            // console.log(confirmPass);
+        
+        })
     });
 </script>
 

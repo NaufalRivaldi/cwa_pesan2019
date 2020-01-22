@@ -60,7 +60,7 @@
                                     <td>{{ $data['file_name'] }}</td>
                                     <td>{{ $data['tgl'] }}</td>
                                     <td>
-                                        <a href="{{ asset('file-master/'.$data['file_name']) }}" class="btn btn-success btn-sm">Download</a>
+                                        <a href="{{ asset('file-master/'.$data['file_name']) }}" class="btn btn-success btn-sm">Unduh <i class="fas fa-download"></i></a>
                                     </td>
                                 </tr>
                             @endif

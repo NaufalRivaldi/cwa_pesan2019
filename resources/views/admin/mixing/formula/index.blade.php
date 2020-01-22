@@ -46,7 +46,7 @@
                     <td>{{ $no++ }}</td>
                     <td>{{ $formula->merk->name }}</td>
                     <td>
-                        <a href="{{ route('mixing.formula.detail', ['id' => $formula->merkId]) }}" class=""><i class="btn btn-info btn-sm fas fa-eye"></i></a>
+                        <a href="{{ route('mixing.formula.detail', ['id' => $formula->merkId]) }}" class=""><i class="btn btn-info btn-sm far fa-eye"></i></a>
                     </td>
                 </tr>
             @endforeach

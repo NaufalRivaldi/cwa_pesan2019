@@ -48,7 +48,7 @@
                         <td>{{$product->merk->name}}</td>
                         <td>{{$product->name}}</td>
                         <td>
-                          <button class="btn btn-sm btn-info fas fa-eye baseModal" data-id="{{ $product->id }}" data-toggle="modal" data-target="#baseModal"></button>
+                          <button class="btn btn-sm btn-info far fa-eye baseModal" data-id="{{ $product->id }}" data-toggle="modal" data-target="#baseModal"></button>
                           <a href="{{ route('mixing.product.edit', ['id'=>$product->id]) }}" class="btn btn-sm btn-warning fas fa-pencil-alt"></a>
                           <button class="btn btn-sm btn-danger far fa-trash-alt delete" data-id="{{ $product->id }}"></button>
                         </td>
