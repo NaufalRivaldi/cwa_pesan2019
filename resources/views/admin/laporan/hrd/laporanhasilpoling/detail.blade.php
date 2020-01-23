@@ -11,7 +11,7 @@
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <a href=" {{ route('laporan.hrd.hasilpoling') }} "><li class="breadcrumb-item" aria-current="page">Hasil Poling</a></li>
+                        <a href=" {{ route('laporan.hrd.hasilpoling') }} "><li class="breadcrumb-item" aria-current="page">Data Hasil Poling</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Detail</li>
                     </ol>
                 </nav>
@@ -24,9 +24,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
-              <h2>Detail Poling</h2>
-            </div>
+                <div class="card-header">
+                    <a href="{{ url()->previous() }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                </div>
             <div class="card-body">
               <div class="table-responsive">
               <table class="myTable custom-table">

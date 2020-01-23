@@ -21,11 +21,18 @@
 
 <!-- content -->
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12">    
+        <div class="page-breadcrumb">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Data Hasil Poling</li>
+                </ol>
+            </nav>
+        </div>
         <div class="card">
-            <div class="card-header">                          
+            <!-- <div class="card-header">                          
               <h2>Data Hasil Poling</h2>
-            </div>
+            </div> -->
           <form action="" method="get">
             <div class="card-header">
               <div class="container">
@@ -42,8 +49,8 @@
                     }
                   ?>
                   <button type="submit" class="btn ml-2 btn-success">Cari</button>
-                  <a href="{{ route('laporan.hrd.hasilpoling.detail').$url }}" class="btn ml-2 btn-primary float-right">Detail Hasil Poling</a>
-                  <a href="{{ route('laporan.hrd.hasilpoling.export').$url }}" class="btn ml-2 btn-primary float-right">Excel</a>
+                  <a href="{{ route('laporan.hrd.hasilpoling.detail').$url }}" class="btn ml-2 btn-primary float-right">Detail Poling</a>
+                  <a href="{{ route('laporan.hrd.hasilpoling.export').$url }}" class="btn btn-s ml-2 btn-success float-right">Export <i class="far fa-file-excel"></i></a>
                 </div>
               </div>              
             </div>
