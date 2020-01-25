@@ -8,6 +8,11 @@ use File;
 use DB;
 use DateTime;
 
+// excel
+use Excel;
+use App\Exports\ScoreExport;
+use App\Exports\ScoreAllExport;
+
 use App\Karyawan;
 use App\HistoryJual;
 use App\RecordScore;
@@ -254,6 +259,15 @@ class ScoreboardController extends Controller
         $divisi = helper::get_divisi($divisi);
 
         return view((empty(auth()->user())) ? 'frontend.score-detail' : 'admin.score.detail', compact('setting', 'score', 'diff', 'divisi', 'score_jual', 'karyawan', 'menu'));
+    }
+
+    // export all
+    public function export(){
+        return (new ScoreExport)->download('data-scoreboard.xlsx');
+    }
+
+    public function exportAll(){
+        return (new ScoreAllExport)->download('data-all-scoreboard.xlsx');
     }
 
     // function tambahan

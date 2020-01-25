@@ -54,6 +54,12 @@
                 </div>
                 <div class="card-body">
                     @if($_GET)
+                        @if(in_array(auth()->user()->dep, Helper::setOffice()))
+                            <a href="{{ route('scoreboard.export').'?dari_tgl='.$_GET['dari_tgl'].'&sampai_tgl='.$_GET['sampai_tgl'] }}" class="btn btn-success btn-sm mb-3"><i class="fas fa-file-excel"></i> Export Percabang</a>
+                            
+                            <a href="{{ route('scoreboard.exportAll').'?dari_tgl='.$_GET['dari_tgl'].'&sampai_tgl='.$_GET['sampai_tgl'] }}" class="btn btn-success btn-sm mb-3"><i class="fas fa-file-excel"></i> Export Semua Data</a>
+                        @endif
+
                         <table id="<?= (isset($_GET['group'])) ? '' : 'myTable' ?>" class="custom-table table table-hover">
                         @if(isset($_GET['group']))
                             <thead>

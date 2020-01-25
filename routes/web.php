@@ -75,6 +75,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
     // scoreboard
     Route::get('/scoreboard', 'ScoreboardController@scoreboard');
     Route::get('/scoreboarddetail', 'ScoreboardController@scoreboarddetail');
+    Route::get('/scoreboardexport', 'ScoreboardController@export')->name('scoreboard.export');
+    Route::get('/scoreboardexportall', 'ScoreboardController@exportAll')->name('scoreboard.exportAll');
 
     // penjualan PU
     Route::group(['prefix' => '/penjualanpu', 'middleware' => ['checkDep:IT,SCM']], function(){
