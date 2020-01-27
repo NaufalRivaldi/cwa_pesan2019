@@ -173,6 +173,18 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             });
         });
 
+        Route::group(['prefix' => 'ga'], function(){
+            Route::group(['prefix' => 'peminjaman-sarana'], function(){
+                Route::get('/', 'FormPeminjamanController@index')->name('form.ga.peminjaman');
+                Route::get('/form', 'FormPeminjamanController@form')->name('form.ga.peminjaman.form');
+                Route::get('/view', 'FormPeminjamanController@view')->name('form.ga.peminjaman.view');
+                Route::post('/store', 'FormPeminjamanController@store')->name('form.ga.peminjaman.store');
+                Route::post('/validasi', 'FormPeminjamanController@validasi')->name('form.ga.peminjaman.validasi');
+                Route::post('/status', 'FormPeminjamanController@updateStatus')->name('form.ga.peminjaman.status');
+                Route::post('/delete', 'FormPeminjamanController@delete')->name('form.ga.peminjaman.delete');
+            });
+        });
+
     });
 
     // laporan semuanyaaa (Kodingan mulai bener wkwkw, ancur sebelumnya gara" baru nyoba FW)

@@ -80,6 +80,7 @@
                     <ul class="collapse list-unstyled" id="pageGA">
                         <li>
                             <a href="{{ route('form.ga.perbaikan') }}">Perbaikan Sarana <span class="badge badge-warning">{{ Helper::countFormPerbaikan() }}</span></a>
+                            <a href="{{ route('form.ga.peminjaman') }}">Peminjaman Sarana <span class="badge badge-warning">{{ Helper::countFormPerbaikan() }}</span></a>
                         </li>
                         <!-- <li>
                             <a href="{{ route('desainIklan') }}">Peminjaman Sarana</a>

@@ -17,7 +17,7 @@ class LaporanPenilaianKabagController extends Controller
         $data['menu'] = '9';
         $data['no'] = '1';
         
-        if($_GET['periodeId']){
+        if($_GET){
             $periode = Periode::find($_GET['periodeId']);    
         }else{
             $periode = Periode::where('kategori', 2)->orderBy('id', 'desc')->first();
