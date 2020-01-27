@@ -27,7 +27,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Tgl Pelaporan</th>
+                                        <th>Tgl Pengajuan</th>
                                         <th>Dept</th>
                                         <th>Permintaan</th>
                                         <th>Status</th>
