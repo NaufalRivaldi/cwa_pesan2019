@@ -49,17 +49,17 @@
                                             <td>
                                             @if(auth()->user()->dep == 'IT')
                                                 @if($form->stat > 1 && $form->stat != 4 && $form->stat != 5)
-                                                    <button class="btn btn-success btn-sm fas fa-exchange-alt modalStatus" data-id="{{ $form->id }}" data-stat="{{ $form->stat }}"><i class=""></i></button>
+                                                    <button class="btn btn-success btn-sm fas fa-exchange-alt modalStatus" data-id="{{ $form->id }}" data-stat="{{ $form->stat }}"></button>
                                                 @elseif($form->stat == 1)
-                                                    <button class="btn btn-success btn-sm fas fa-user-check  modalVal" data-id="{{ $form->id }}" data-val="1"><i class=""></i></button>
-                                                    <button class="btn btn-danger btn-sm fas fa-times-circle modalVal" data-id="{{ $form->id }}" data-val="2"><i class=""></i></button>
+                                                    <button class="btn btn-success btn-sm fas fa-user-check  modalVal" data-id="{{ $form->id }}" data-val="1"></button>
+                                                    <button class="btn btn-danger btn-sm fas fa-times-circle modalVal" data-id="{{ $form->id }}" data-val="2"></button>
                                                 @endif
                                                 
                                             @endif
                                                 @if(auth()->user()->dep == 'IT')
-                                                    <a href="#" class="btn btn-danger far fa-trash-alt btn-sm remove-form-desain" data-id="{{ $form->id }}"><i class=""></i></a>
+                                                    <a href="#" class="btn btn-danger far fa-trash-alt btn-sm remove-form-desain" data-id="{{ $form->id }}"></a>
                                                 @elseif(auth()->user()->id == $form->user_id)
-                                                    <a href="#" class="btn btn-danger far fa-trash-alt btn-sm remove-form-desain" data-id="{{ $form->id }}"><i class=""></i></a>
+                                                    <a href="#" class="btn btn-danger far fa-trash-alt btn-sm remove-form-desain" data-id="{{ $form->id }}"></a>
                                                 @endif
                                             </td>
                                         </tr>
