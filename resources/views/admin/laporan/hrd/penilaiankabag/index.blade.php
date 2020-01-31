@@ -64,7 +64,7 @@
                 </div>
             </form>            
             <div class="card-header">
-                <a href="{{ route('laporan.hrd.hasilpoling.export').$url }}" class="btn btn-sm btn-success">Export <i class="far fa-file-excel"></i></a>
+                <a href="{{ route('laporan.hrd.penilaiankabag.export').$url }}" class="btn btn-sm btn-success">Export <i class="far fa-file-excel"></i></a>
             </div>
             <div class="card-body">
               <div class="table-responsive">

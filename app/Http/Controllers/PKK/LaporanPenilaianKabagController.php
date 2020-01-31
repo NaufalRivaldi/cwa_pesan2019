@@ -10,6 +10,7 @@ use App\PKK\DetailKuisioner;
 use App\PKK\Penilaian;
 use App\PKK\Periode;
 use App\KaryawanAll;
+use App\Exports\LaporanPenilaianKepalaBagian;
 
 class LaporanPenilaianKabagController extends Controller
 {
@@ -59,5 +60,10 @@ class LaporanPenilaianKabagController extends Controller
         $data['periode'] = Periode::find($periodeId);
 
         return view('admin.laporan.hrd.penilaiankabag.detail', $data);
+    }
+    
+    public function export()
+    {
+        return (new LaporanPenilaianKepalaBagian)->download('data-penilaian-kabag.xlsx');
     }
 }

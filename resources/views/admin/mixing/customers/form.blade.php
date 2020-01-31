@@ -59,7 +59,7 @@
                 </div>
                 <div class="form-group">
                   <label for="inputNama" class="col-form-label">Nama</label>
-                  <input id="inputNama" type="text" class="form-control" name="name" value="{{ ($id) ? $customer->name : '' }}">
+                  <input id="inputNama" type="text" class="form-control" name="name" value="{{ ($id) ? $customer->name : '' }}" {{(auth()->user()->dep == 'IT')?'':'readonly'}}>
                   @if($errors->has('name'))
                     <div class="text-danger">
                         {{ $errors->first('name') }}
@@ -68,7 +68,7 @@
                 </div>
                 <div class="form-group">
                   <label for="inputTelepon" class="col-form-label">Telepon</label>
-                  <input id="inputTelepon" type="text" class="form-control" name="phone" maxlength="14" value="{{ ($id) ? $customer->phone : '' }}">
+                  <input id="inputTelepon" type="text" class="form-control" name="phone" maxlength="14" value="{{ ($id) ? $customer->phone : '' }}" {{(auth()->user()->dep == 'IT')?'':'readonly'}}>
                   <p class="text-mini text-danger">Kosongkan jika tidak memiliki no telp</p>
                   @if($errors->has('phone'))
                     <div class="text-danger">
