@@ -46,21 +46,21 @@
                   <tbody>
                     <tr>
                       <td>{{$no++}}</td>
-                      <td>{{$kuisioner->pertanyaan}}</td>
+                      <td width="50%">{{$kuisioner->pertanyaan}}</td>
                       <td>{!!Helper::statusPKK($kuisioner->status)!!}</td>
                       <td>{!!Helper::kategoriPKK($kuisioner->kategori)!!}</td>
                       <td>
                       @if($kuisioner->status != 1)
-                        <a href="{{ route('pkk.kuisioner.status', ['id'=>$kuisioner->id]) }}" class=""><li class="btn btn-success fa fa-check-circle btn-sm"></li></a>
-                        <a href="#" class="activated"><li class="fa fa-edit btn btn-warning btn-sm"></li></a>
+                        <a href="{{ route('pkk.kuisioner.status', ['id'=>$kuisioner->id]) }}" class="btn btn-success fa fa-check-circle btn-sm"><i class=""></i></a>
+                        <a href="#" class="activated"><i class="fa fa-edit btn btn-warning btn-sm"></i></a>
                       @else
-                        <a href="{{ route('pkk.kuisioner.status', ['id'=>$kuisioner->id]) }}" class=""><li class="btn btn-danger btn-sm fa fa-times-circle"></li></a>
+                        <a href="{{ route('pkk.kuisioner.status', ['id'=>$kuisioner->id]) }}" class=""><i class="btn btn-danger btn-sm fa fa-times-circle"></i></a>
                         <!-- <button class="fa fa-trash btn btn-danger delete" data-id="{{ $kuisioner->id }}"></button> -->
-                        <a href="{{ route('pkk.kuisioner.edit', ['id'=>$kuisioner->id]) }}"><li class="btn btn-sm btn-warning fas fa-edit"></li></a>
+                        <a href="{{ route('pkk.kuisioner.edit', ['id'=>$kuisioner->id]) }}"><i class="btn btn-sm btn-warning fas fa-edit"></i></a>
                       @endif
                         
                       @if(auth()->user()->dep == 'IT')
-                        <button class="btn btn-sm btn-danger fas fa-trash delete"data-id="{{ $kuisioner->id }}"></button>
+                        <button class="btn btn-sm btn-danger far fa-trash-alt delete"data-id="{{ $kuisioner->id }}"></button>
                       @endif 
                       </td>                     
                       

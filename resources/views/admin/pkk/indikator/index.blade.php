@@ -46,7 +46,7 @@
                   <tbody>
                     <tr>
                       <td>{{$no++}}</td>
-                      <td>{{$indikator->pertanyaan}}</td>
+                      <td width="50%">{{$indikator->pertanyaan}}</td>
                       <td>{!!Helper::statusPKK($indikator->status)!!}</td>
                       <td>{!!Helper::kategoriPKK($indikator->kategori)!!}</td>
                       <td>
@@ -60,7 +60,7 @@
                       @endif
                         
                       @if(auth()->user()->dep == 'IT')
-                        <button class="btn btn-sm btn-danger fas fa-trash delete"data-id="{{ $indikator->id }}"></button>
+                        <button class="btn btn-sm btn-danger far fa-trash-alt delete"data-id="{{ $indikator->id }}"></button>
                       @endif 
                       </td>
                     </tr>

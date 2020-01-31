@@ -44,7 +44,7 @@ class LaporanHasilPolingController extends Controller
                 $query->where('periodeId', $periodeId);
             })->orderBy('skor', 'DESC')->get();
         } else {    
-            $periodeId = Periode::orderBy('id', 'DESC')->first();          
+            $periodeId = Periode::orderBy('id', 'DESC')->where('kategori', 1)->first();          
             $data['hasilPoling'] = DetailPoling::select('karyawanId', DB::raw('COUNT(karyawanId) as skor'))->groupBy('karyawanId')->whereHas('poling', function($query) use ($periodeId){
                 $query->where('periodeId', $periodeId->id);
             })->orderBy('skor', 'DESC')->get();
