@@ -21,12 +21,12 @@
             <div class="card-header">
                 <table class="table">
                     <tr>
-                        <td width="10%">NIK</td>
+                        <td width="20%">NIK</td>
                         <td width="2%">:</td>
                         <td>{{ $kabag->nik }}</td>
                     </tr>
                     <tr>
-                        <td>Nama</td>
+                        <td>Nama Kepala Bagian</td>
                         <td>:</td>
                         <td>{{ $kabag->nama }}</td>
                     </tr>
@@ -38,12 +38,12 @@
                     <tr>
                         <td>Periode</td>
                         <td>:</td>
-                        <td>{{ $periode->namaPeriode }}</td>
+                        <td><span class="badge badge-primary">{{ $periode->namaPeriode }}</span></td>
                     </tr>
                     <tr>
                         <td>Tanggal</td>
                         <td>:</td>
-                        <td><span class="badge badge-primary">{{ Helper::setDate($periode->tglMulai).' - '.Helper::setDate($periode->tglSelesai) }}</span></td>
+                        <td><span class="badge badge-primary">{{ date('d F Y') }}</span></td>
                     </tr>
                 </table>
             </div>

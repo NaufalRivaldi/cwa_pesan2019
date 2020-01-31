@@ -33,29 +33,32 @@
             <!-- <div class="card-header">                          
               <h2>Data Hasil Poling</h2>
             </div> -->
-          <form action="" method="get">
-            <div class="card-header">
-              <div class="container">
-                <div class="row">            
-                  <select class="form-control col-sm-8" id="periodeId" name="periodeId">
-                      @foreach($searchPeriode as $p)
-                        <option value="{{ $p->id }}" {{($_GET)?($_GET['periodeId']==$p->id)?'selected':'':''}}>{{$p->namaPeriode}}</option>
-                      @endforeach
-                  </select>
-                  <?php
-                    $url = '';
-                    if ($_GET) {
-                      $url = '?'.$_SERVER['QUERY_STRING'];
-                    }
-                  ?>
-                  <button type="submit" class="btn ml-2 btn-success">Cari</button>
-                  <a href="{{ route('laporan.hrd.hasilpoling.detail').$url }}" class="btn ml-2 btn-primary float-right">Detail Poling</a>
-                  <a href="{{ route('laporan.hrd.hasilpoling.export').$url }}" class="btn btn-s ml-2 btn-success float-right">Export <i class="far fa-file-excel"></i></a>
-                </div>
-              </div>              
+            <form action="" method="get">
+              <div class="card-header">
+                <div class="row"> 
+                  <div class="col-sm-10">
+                    <select class="form-control" id="periodeId" name="periodeId">
+                        @foreach($searchPeriode as $p)
+                          <option value="{{ $p->id }}" {{($_GET)?($_GET['periodeId']==$p->id)?'selected':'':''}}>{{$p->namaPeriode}}</option>
+                        @endforeach
+                    </select>                
+                  </div>
+                  <div class="col-sm-2">
+                    <button type="submit" class="btn col btn-success">Cari</button>
+                  </div> 
+                </div>              
+              </div>
+            </form>
+            <div class="card-header">          
+              <?php
+                $url = '';
+                if ($_GET) {
+                  $url = '?'.$_SERVER['QUERY_STRING'];
+                }
+              ?>                    
+              <a href="{{ route('laporan.hrd.hasilpoling.detail').$url }}" class="btn btn-sm btn-primary">Detail Poling</a>
+              <a href="{{ route('laporan.hrd.hasilpoling.export').$url }}" class="btn btn-sm btn-success">Export <i class="far fa-file-excel"></i></a>
             </div>
-          </form>
-
             <div class="card-body">
               <div class="table-responsive">
               <table class="myTable custom-table">

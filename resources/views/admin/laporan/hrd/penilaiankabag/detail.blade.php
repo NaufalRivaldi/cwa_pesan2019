@@ -8,12 +8,14 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
             <!-- <h2 class="pageheader-title">Data Hasil Poling</h2> -->
+            
             <div class="page-breadcrumb">
-                <!-- <nav aria-label="breadcrumb">
+                <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">Hasil Poling</li>
+                        <a href=" {{ route('laporan.hrd.penilaian.kabag') }} "><li class="breadcrumb-item" aria-current="page">Data Hasil Penilaian Kepala Bagian</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Detail</li>
                     </ol>
-                </nav> -->
+                </nav>
             </div>
         </div>
     </div>
@@ -23,9 +25,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
+            <!-- <div class="card-header">
                 <h2>Data Hasil Penilaian Kepala Bagian</h2>                 
-            </div>
+            </div> -->
             <div class="card-header">
                 <a href="{{ url()->previous() }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
             </div>
@@ -50,11 +52,6 @@
                         <td>Periode</td>
                         <td>:</td>
                         <td>{{ $periode->namaPeriode }}</td>
-                    </tr>
-                    <tr>
-                        <td>Tanggal</td>
-                        <td>:</td>
-                        <td><span class="badge badge-primary">{{ Helper::setDate($periode->tglMulai).' - '.Helper::setDate($periode->tglSelesai) }}</span></td>
                     </tr>
                     <tr>
                         <td>Menilai</td>

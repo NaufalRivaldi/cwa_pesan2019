@@ -10,21 +10,31 @@ use App\PKK\DetailKuisioner;
 use App\PKK\Penilaian;
 use App\PKK\Periode;
 use App\KaryawanAll;
+use App\Exports\LaporanPenilaianKepalaBagian;
 
 class LaporanPenilaianKabagController extends Controller
 {
     public function index(){
         $data['menu'] = '9';
         $data['no'] = '1';
+        $periodeId = '0';
         
         if($_GET){
-            $periode = Periode::find($_GET['periodeId']);    
+            $periode = Periode::find($_GET['periodeId']);            
+            $dep = $_GET['dep'];
+            $periodeId = $periode->id;    
         }else{
-            $periode = Periode::where('kategori', 2)->orderBy('id', 'desc')->first();
+            $periode = Periode::where('kategori', 2)->where('status', 1)->orderBy('id', 'desc')->first();
+            if (!empty($periode)) {
+                $periodeId = $periode->id;
+            }
+            $dep = '';
         }
-
-        $data['penilaian'] = DetailPenilaian::whereHas('penilaian', function($query) use ($periode){
-            $query->where('periodeId', $periode->id);
+        
+        $data['penilaian'] = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
+            $query->where('periodeId', $periodeId);
+        })->whereHas('karyawan', function($query) use ($dep){
+            $query->where('dep', 'like', "%".$dep."%");
         })->groupBy('karyawanId')->get();
 
         $data['periode'] = $periode;
@@ -50,5 +60,10 @@ class LaporanPenilaianKabagController extends Controller
         $data['periode'] = Periode::find($periodeId);
 
         return view('admin.laporan.hrd.penilaiankabag.detail', $data);
+    }
+    
+    public function export()
+    {
+        return (new LaporanPenilaianKepalaBagian)->download('data-penilaian-kabag.xlsx');
     }
 }

@@ -21,21 +21,9 @@ class PenilaianKepalaBagianController extends Controller
 {
     public function index(Request $req){
         $data['menu'] = '12';
-        $dep = [
-            'Accounting',
-            'Finance',
-            'Gudang',
-            'HRD',
-            'IT',
-            'GA',
-            'MT',
-            'PAJAK',
-            'QA',
-            'SCM'
-        ];
         $dateNow = date('Y-m-d');
-        $karyawan = KaryawanAll::where('nik', $req->nik)->where('stat', 1)->whereIn('dep', $dep)->first();
-        $periode = Periode::where('status', 1)->where('tglMulai', '<', $dateNow)->where('tglSelesai', '>', $dateNow)->first();
+        $karyawan = KaryawanAll::where('nik', $req->nik)->where('stat', 1)->first();
+        $periode = Periode::where('status', 1)->where('kategori','2')->where('tglMulai', '<', $dateNow)->where('tglSelesai', '>', $dateNow)->first();
         $data['indikator'] = Indikator::where('kategori', 2)->where('status', 1)->get();
         $data['kuisioner'] = Kuisioner::where('kategori', 2)->where('status', 1)->get();
 

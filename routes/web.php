@@ -211,6 +211,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::group(['prefix' => 'penilaiankabag'], function(){
                 Route::get('/', 'PKK\LaporanPenilaianKabagController@index')->name('laporan.hrd.penilaian.kabag');
                 Route::get('/{karyawanId}/{periodeId}/detail', 'PKK\LaporanPenilaianKabagController@detail')->name('laporan.hrd.penilaian.kabag.detail');
+                Route::get('/export','PKK\LaporanPenilaianKabagController@export')->name('laporan.hrd.penilaiankabag.export');
             });
         });
 
