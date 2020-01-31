@@ -219,6 +219,12 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::get('/', 'LaporanPerbaikanSaranaController@index')->name('laporan.ga.perbaikan');
                 Route::get('/export', 'LaporanPerbaikanSaranaController@export')->name('laporan.ga.perbaikan.export');
             });
+
+            Route::group(['prefix' => 'sarana'], function(){
+                Route::get('/', 'SaranaController@index')->name('laporan.ga.list.sarana');
+                Route::get('/form', 'SaranaController@form')->name('laporan.ga.sarana.form');
+                Route::get('/{id}/edit', 'SaranaController@edit')->name('laporan.ga.sarana.edit');
+            });
         });
     });
 
