@@ -31,12 +31,16 @@ class PenilaianKepalaBagianController extends Controller
             if(!empty($periode)){
                 $penilaian = Penilaian::where('karyawanId', $karyawan->id)->where('periodeId', $periode->id)->first();
                 if(empty($penilaian)){
-                    $data['karyawan'] = $karyawan;
                     $data['kabag'] = $karyawan::where('stat', 2)->where('dep', $karyawan->dep)->first();
-                    $data['periode'] = $periode;
-                    return view('admin.pkk.penilaian.kabag.form', $data);
+                    if (!empty($data['kabag'])) {                        
+                        $data['karyawan'] = $karyawan;
+                        $data['periode'] = $periode;
+                        return view('admin.pkk.penilaian.kabag.form', $data);
+                    } else {
+                        return redirect()->route('pkk.penilaian')->with('error', 'Data kepala bagian tidak valid!');
+                    }
                 }else{
-                    return redirect()->route('pkk.penilaian')->with('error', 'NIK sudah pernah melakukan poling!');
+                    return redirect()->route('pkk.penilaian')->with('error', 'Anda sudah pernah melakukan poling!');
                 }
             }else{
                 return redirect()->route('pkk.penilaian')->with('error', 'Periode tidak valid!');

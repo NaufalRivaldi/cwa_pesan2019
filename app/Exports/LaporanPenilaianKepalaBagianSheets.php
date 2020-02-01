@@ -26,7 +26,7 @@ class LaporanPenilaianKepalaBagianSheets implements FromQuery, WithTitle
     public function query()
     {
 
-        dd($this->karyawanId);
+        dd($this->kbag);
         // return Invoice
         //     ::query()
         //     ->whereYear('created_at', $this->year)
