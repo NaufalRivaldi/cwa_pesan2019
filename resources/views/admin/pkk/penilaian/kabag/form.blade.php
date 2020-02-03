@@ -54,7 +54,7 @@
             <input type="hidden" name="kabagId" value="{{ $kabag->id }}">
             <input type="hidden" name="periodeId" value="{{ $periode->id }}">
             <div class="card-body">
-                <h5>Ketentuan Nilai</h5>
+                <h2>Ketentuan Nilai</h2>
                 <table class="table table-bordered">
                     <thead>
                         <tr>

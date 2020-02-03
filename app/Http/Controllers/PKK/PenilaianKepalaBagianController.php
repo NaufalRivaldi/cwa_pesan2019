@@ -16,6 +16,7 @@ use App\PKK\DetailIndikator;
 use App\PKK\DetailKuisioner;
 
 use Auth;
+use App\Helpers\helper;
 
 class PenilaianKepalaBagianController extends Controller
 {
@@ -24,8 +25,16 @@ class PenilaianKepalaBagianController extends Controller
         $dateNow = date('Y-m-d');
         $karyawan = KaryawanAll::where('nik', $req->nik)->where('stat', 1)->first();
         $periode = Periode::where('status', 1)->where('kategori','2')->where('tglMulai', '<', $dateNow)->where('tglSelesai', '>', $dateNow)->first();
-        $data['indikator'] = Indikator::where('kategori', 2)->where('status', 1)->get();
-        $data['kuisioner'] = Kuisioner::where('kategori', 2)->where('status', 1)->get();
+        $kategori = 2;
+        if(in_array($karyawan->dep, helper::office())){
+           $kategori = 2;
+        }else{
+            $kategori = 3;
+        }
+
+        $data['indikator'] = Indikator::where('kategori', $kategori)->where('status', 1)->get();
+        $data['kuisioner'] = Kuisioner::where('kategori', $kategori)->where('status', 1)->get();
+        
 
         if(!empty($karyawan)){
             if(!empty($periode)){

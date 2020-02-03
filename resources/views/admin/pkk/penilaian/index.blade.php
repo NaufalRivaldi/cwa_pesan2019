@@ -23,29 +23,61 @@
 
 <div class="row justify-content-md-center">
     <div class="col-md-4 text-center">
-        <div class="card-border text-center" style="width: 18rem;">
-        <img src="{{asset('/img/user1.png')}}" class="card-img-top w-50" alt="...">
+        <div class="card text-center">
+            <div class="card-header justify-content-center">
+              <img src="{{asset('/img/user1.png')}}" class="card-img-top w-50" alt="...">
+            </div>
             <div class="card-body">
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#bestEmployee">Best Employee</a>
+                <p><b>Periode : </b><br>
+                @if(!empty($periodeBestEmployee))
+                  {{ $periodeBestEmployee->namaPeriode }}</p>
+                  <p><span class="badge badge-success">{{ Helper::setDate($periodeBestEmployee->tglMulai).' - '.Helper::setDate($periodeBestEmployee->tglSelesai) }}</span></p>
+                @else
+                  <p><span class="badge badge-danger">Tidak ada periode!</span></p>
+                @endif
+                <a href="#" class="btn btn-primary btn-block btn-sm {{ (empty($periodeBestEmployee)) ? 'disabled' : '' }}" data-toggle="modal" data-target="#bestEmployee">Best Employee</a>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card-border text-center" style="width: 18rem;">
-        <img src="{{asset('/img/user1.png')}}" class="card-img-top w-50 text-center" alt="...">
+        <div class="card text-center">
+            <div class="card-header justify-content-center">
+              <img src="{{asset('/img/user1.png')}}" class="card-img-top w-50" alt="...">
+            </div>
             <div class="card-body">
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#kepalaBagian">Kepala Bagian</a>
+                <p><b>Periode Kepala Bagian Toko: </b><br>
+                @if(!empty($periodeKabagToko))
+                  {{ $periodeKabagToko->namaPeriode }}</p>
+                  <p><span class="badge badge-success">{{ Helper::setDate($periodeKabagToko->tglMulai).' - '.Helper::setDate($periodeKabagToko->tglSelesai) }}</span></p>
+                @else
+                  <p><span class="badge badge-danger">Tidak ada periode!</span></p>
+                @endif
+                <hr>
+                <p><b>Periode Kepala Bagian Office: </b><br>
+                @if(!empty($periodeKabagOffice))
+                  {{ $periodeKabagOffice->namaPeriode }}</p>
+                  <p><span class="badge badge-success">{{ Helper::setDate($periodeKabagOffice->tglMulai).' - '.Helper::setDate($periodeKabagOffice->tglSelesai) }}</span></p>
+                @else
+                  <p><span class="badge badge-danger">Tidak ada periode!</span></p>
+                @endif
+                <a href="#" class="btn btn-primary btn-block btn-sm {{ (empty($periodeKabagToko) && empty($periodeKabagOffice)) ? 'disabled' : '' }}" data-toggle="modal" data-target="#kepalaBagian">Kepala Bagian</a>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card-border text-center" style="width: 18rem;">
-        <img src="{{asset('/img/user1.png')}}" class="card-img-top w-50 " alt="...">
+        <div class="card text-center">
+            <div class="card-header justify-content-center">
+              <img src="{{asset('/img/user1.png')}}" class="card-img-top w-50" alt="...">
+            </div>
             <div class="card-body">
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#suveiKepuasan">Survei Kepuasan Karyawan</a>
+                <p><b>Periode : </b><br>
+                @if(!empty($periodeKepuasan))
+                  {{ $periodeKepuasan->namaPeriode }}</p>
+                  <p><span class="badge badge-success">{{ Helper::setDate($periodeKepuasan->tglMulai).' - '.Helper::setDate($periodeKepuasan->tglSelesai) }}</span></p>
+                @else
+                  <p><span class="badge badge-danger">Tidak ada periode!</span></p>
+                @endif
+                <a href="#" class="btn btn-primary btn-block btn-sm {{ (empty($periodeKepuasan)) ? 'disabled' : '' }}" data-toggle="modal" data-target="#suveiKepuasan">Survei Kepuasan Karyawan</a>
             </div>
         </div>
     </div>
