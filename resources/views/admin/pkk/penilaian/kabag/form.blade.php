@@ -31,7 +31,7 @@
                         <td>{{ $kabag->nama }}</td>
                     </tr>
                     <tr>
-                        <td>Dep</td>
+                        <td>Departemen</td>
                         <td>:</td>
                         <td>{{ $kabag->dep }}</td>
                     </tr>

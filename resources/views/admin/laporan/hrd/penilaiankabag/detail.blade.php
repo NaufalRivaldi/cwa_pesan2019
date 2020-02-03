@@ -44,7 +44,7 @@
                         <td>{{ $karyawan->nama }}</td>
                     </tr>
                     <tr>
-                        <td>Dep</td>
+                        <td>Departemen</td>
                         <td>:</td>
                         <td>{{ $karyawan->dep }}</td>
                     </tr>
