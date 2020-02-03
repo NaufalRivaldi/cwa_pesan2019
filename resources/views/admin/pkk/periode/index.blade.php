@@ -7,7 +7,6 @@
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
-            <h2 class="pageheader-title">Data Periode</h2>
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -32,7 +31,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <table class="myTable custom-table">
+              <table class="table myTable custom-table">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -44,8 +43,8 @@
                       <th>Aksi</th>
                     </tr>
                   </thead>
-                  @foreach($periode as $periode)
                   <tbody>
+                  @foreach($periode as $periode)
                     <tr>
                       <td>{{$no++}}</td>
                       <td>{{$periode->namaPeriode}}</td>
@@ -63,9 +62,9 @@
                         <!-- <button class="fa fa-trash btn btn-danger delete" data-id="{{ $periode->id }}"></button> -->
                       </td>
                       @endif
-                    </tr>                      
-                  </tbody>                  
-                  @endforeach
+                    </tr>                   
+                  @endforeach                     
+                  </tbody>
                 </table>
               </div>
             </div>

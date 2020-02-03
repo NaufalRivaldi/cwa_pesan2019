@@ -7,7 +7,6 @@
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
-            <h2 class="pageheader-title">Data Kuesioner</h2>
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -32,7 +31,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <table class="myTable custom-table">
+              <table class="myTable table custom-table">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -42,8 +41,8 @@
                       <th>Aksi</th>
                     </tr>
                   </thead>
-                  @foreach($kuisioner as $kuisioner)
                   <tbody>
+                  @foreach($kuisioner as $kuisioner)
                     <tr>
                       <td>{{$no++}}</td>
                       <td width="50%">{{$kuisioner->pertanyaan}}</td>
@@ -64,9 +63,9 @@
                       @endif 
                       </td>                     
                       
-                    </tr>                    
+                    </tr>   
+                  @endforeach                 
                   </tbody>
-                  @endforeach
                 </table>
               </div>
             </div>

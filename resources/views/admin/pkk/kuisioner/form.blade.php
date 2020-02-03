@@ -13,7 +13,6 @@
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
-            <h2 class="pageheader-title">{{($id)?'Ubah Data Kuesioner':'Tambah Data Kuesioner'}}</h2>
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -30,8 +29,10 @@
 <!-- <div class="container"> -->
   <div class="row justify-content-md-center">
     <div class="col-md-12">
-      <h3 class="card-header">Form Kuesioner</h3>
-      <div class="card">
+      <div class="card">  
+      <div class="card-header">
+          <a href="{{ route('pkk.kuisioner') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+      </div>
         <div class="card-body">   
                 <form action="{{ ($id)?route('pkk.kuisioner.update'):route('pkk.kuisioner.add') }}" method="post">
                     <!-- read id -->
@@ -55,10 +56,10 @@
                         <div class="col-sm-5">
                         <select id="kategori" class="form-control" name="kategori">
                         <option value="">Pilih...</option>
-                            <option {{($id)? ($indikator->kategori == '1') ? 'selected': '' : ''}} value="1">Best Employee</option>
-                            <option {{($id)? ($indikator->kategori == '2') ? 'selected': '' : ''}} value="2">Penilaian Kepala Departemen</option>
-                            <option {{($id)? ($indikator->kategori == '3') ? 'selected': '' : ''}} value="3">Penilaian Kepala Toko</option>
-                            <option {{($id)? ($indikator->kategori == '4') ? 'selected': '' : ''}} value="4">Survei Kepuasan Karyawan</option>
+                            <option {{($id)? ($kuisioner->kategori == '1') ? 'selected': '' : ''}} value="1">Best Employee</option>
+                            <option {{($id)? ($kuisioner->kategori == '2') ? 'selected': '' : ''}} value="2">Penilaian Kepala Departemen</option>
+                            <option {{($id)? ($kuisioner->kategori == '3') ? 'selected': '' : ''}} value="3">Penilaian Kepala Toko</option>
+                            <option {{($id)? ($kuisioner->kategori == '4') ? 'selected': '' : ''}} value="4">Survei Kepuasan Karyawan</option>
                         </select>
                         @if($errors->has('kategori'))
                           <div class="text-danger">

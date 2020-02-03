@@ -7,7 +7,6 @@
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
-            <h2 class="pageheader-title">Data Indikator</h2>
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -42,8 +41,8 @@
                       <th>Aksi</th>
                     </tr>
                   </thead>
-                  @foreach($indikator as $indikator)
                   <tbody>
+                  @foreach($indikator as $indikator)
                     <tr>
                       <td>{{$no++}}</td>
                       <td width="50%">{{$indikator->pertanyaan}}</td>
@@ -64,8 +63,8 @@
                       @endif 
                       </td>
                     </tr>
-                  </tbody>
                   @endforeach
+                  </tbody>
                 </table>
               </div>
             </div>
