@@ -1120,5 +1120,12 @@ class helper{
 
         return $detailKuisioner;
     }
+
+    public static function office(){
+        // Ubah ini klo ada nambah cabang ya
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office');
+        
+        return $office;
+    }
 }
 

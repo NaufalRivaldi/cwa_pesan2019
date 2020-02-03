@@ -4,7 +4,8 @@ namespace App\Http\Controllers\PKK;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Helpers\helper;
+use App\Cabang;
 use App\PKK\DetailPenilaian;
 use App\PKK\DetailKuisioner;
 use App\PKK\Penilaian;
@@ -17,25 +18,38 @@ class LaporanPenilaianKabagController extends Controller
     public function index(){
         $data['menu'] = '9';
         $data['no'] = '1';
-        $periodeId = '0';
-        
-        if($_GET){
-            $periode = Periode::find($_GET['periodeId']);            
+        $dep = '';
+
+        if (isset($_GET['periodeId']) || !empty($_GET['dep'])) {            
+            $periode = Periode::find($_GET['periodeId']); 
+            $periodeId = $periode->id;           
             $dep = $_GET['dep'];
-            $periodeId = $periode->id;    
-        }else{
+            if ($dep == 'office') {
+                $office = Helper::office();
+                $dep = $office;
+            } elseif($dep == 'toko') {
+                $cabang = Cabang::all();
+                $dep = $cabang;
+            } else {
+                $dep = Helper::allDep();
+            }         
+            $data['penilaian'] = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
+                $query->where('periodeId', $periodeId);
+            })->whereHas('karyawan', function($query) use ($dep){
+                $query->whereIn('dep', $dep);
+            })->groupBy('karyawanId')->get();
+        } else {            
             $periode = Periode::where('kategori', 2)->where('status', 1)->orderBy('id', 'desc')->first();
             if (!empty($periode)) {
                 $periodeId = $periode->id;
+                // dd($periodeId);
+                $data['penilaian'] = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
+                    $query->where('periodeId', $periodeId);
+                })->whereHas('karyawan', function($query) use ($dep){
+                    $query->where('dep', 'like', "%".$dep."%");
+                })->groupBy('karyawanId')->get();
             }
-            $dep = '';
         }
-        
-        $data['penilaian'] = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
-            $query->where('periodeId', $periodeId);
-        })->whereHas('karyawan', function($query) use ($dep){
-            $query->where('dep', 'like', "%".$dep."%");
-        })->groupBy('karyawanId')->get();
 
         $data['periode'] = $periode;
         $data['searchPeriode'] = Periode::where('kategori', 2)->orderBy('id', 'desc')->get();
