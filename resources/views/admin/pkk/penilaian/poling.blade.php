@@ -50,6 +50,11 @@
             <?php
                 $index++;
             ?>
+            <!-- @if($errors->has('karyawanId[$index]'))
+                <div class="text-danger">
+                    {{ $errors->first('karyawanId[$index]') }}
+                </div>
+            @endif -->
             </tbody>
     @endforeach
         </table>

@@ -75,10 +75,11 @@
                         <label for="kategori" class="col-sm-2 col-form-label">Kategori</label>
                         <div class="col-sm-5">
                         <select id="kategori" class="form-control" name="kategori">
-                            <option value="">Pilih...</option>
-                            <option {{($id)? ($periode->kategori == '1') ? 'selected': '' : ''}} value="1">Best Employee</option>
-                            <option {{($id)? ($periode->kategori == '2') ? 'selected': '' : ''}} value="2">Penilaian Kepala Bagian</option>
-                            <option {{($id)? ($periode->kategori == '3') ? 'selected': '' : ''}} value="3">Survei Kepuasan Karyawan</option>
+                        <option value="">Pilih...</option>
+                            <option {{($id)? ($indikator->kategori == '1') ? 'selected': '' : ''}} value="1">Best Employee</option>
+                            <option {{($id)? ($indikator->kategori == '2') ? 'selected': '' : ''}} value="2">Penilaian Kepala Departemen</option>
+                            <option {{($id)? ($indikator->kategori == '3') ? 'selected': '' : ''}} value="3">Penilaian Kepala Toko</option>
+                            <option {{($id)? ($indikator->kategori == '4') ? 'selected': '' : ''}} value="4">Survei Kepuasan Karyawan</option>
                         </select>
                         <div class="form-check mt-1">
                           <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1" name="status">

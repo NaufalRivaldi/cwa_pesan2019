@@ -996,10 +996,14 @@ class helper{
                 break;
 
             case '2':
-                $text = "<span class='badge badge-info'>Penilaian Kepala Bagian</span>";
+                $text = "<span class='badge badge-info'>Penilaian Kepala Departemen</span>";
                 break;
 
             case '3':
+                $text = "<span class='badge badge-info'>Penilaian Kepala Toko</span>";
+                break;
+
+            case '4':
                 $text = "<span class='badge badge-info'>Survei Kepuasan Karyawan</span>";
                 break;
             
