@@ -46,9 +46,11 @@
                         <div class="col-sm-5">           
                             <select class="form-control" id="dep" name="dep">
                             <option value="">Pilih...</option>
-                                @foreach(Helper::allDep() as $p)
+                            <option value="office">Office</option>
+                            <option value="toko">Toko</option>
+                                <!-- @foreach(Helper::allDep() as $p)
                                     <option value="{{ $p }}" {{ ($_GET)?($_GET['dep'] == $p)?'selected':'':'' }}>{{$p}}</option>
-                                @endforeach
+                                @endforeach -->
                             </select>
                         </div>
                         <?php

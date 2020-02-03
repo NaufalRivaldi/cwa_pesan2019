@@ -19,7 +19,6 @@ class PolingController extends Controller
         $data['dep'] = [
             'Accounting',
             'Finance',
-            'Gudang',
             'HRD',
             'IT',
             'GA',
@@ -60,27 +59,14 @@ class PolingController extends Controller
             'kategori'=>1
         ]);
         
-        $data = Poling::orderBy('created_at', 'DESC')->first();            
-        // $this->val($req);
-        if (!empty($req->karyawanId)) {            
-            foreach ($req->karyawanId as $karyawan) {
-                DetailPoling::create([
-                    'polingId' => $data->id,
-                    'karyawanId' => $karyawan
-                ]);
-            }
+        $data = Poling::orderBy('created_at', 'DESC')->first();
+        foreach ($req->karyawanId as $karyawan) {
+            DetailPoling::create([
+                'polingId' => $data->id,
+                'karyawanId' => $karyawan
+            ]);
         }
 
         return redirect()->route('pkk.penilaian')->with('success', 'Terimakasih sudah melakukan poling!');
     }
-
-    // public function val($req){
-    //     $msg = [
-    //         'required' => 'Kolom ini tidak boleh kosong!'
-    //     ];
-
-    //     $this->validate($req, [
-    //         'karyawanId' => 'required'
-    //     ], $msg);
-    // }
 }

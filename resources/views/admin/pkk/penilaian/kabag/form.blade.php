@@ -54,12 +54,43 @@
             <input type="hidden" name="kabagId" value="{{ $kabag->id }}">
             <input type="hidden" name="periodeId" value="{{ $periode->id }}">
             <div class="card-body">
-                <h5>Indikator</h5>
+                <h5>Ketentuan Nilai</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nilai</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Apabila performa kepala departemen sangat kurang dan kepala departemen tidak dapat menjalankan perannya sebagai kepala departemen</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Apabila performa kepala departemen kurang baik, dan diperlukan peningkatan segera</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Apabila indikator penilaian kepala departemen sudah terpenuhi, tetapi masih harus lebih konsisten</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Apabila performa kepala departemen melebihi ekspektasi dan selalu membantu departemen lain juga</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Apabila performa departemen melebihi ekspektasi, sudah konsisten  dan berkontribusi terhadap departemen lain</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th width="50%">Penilaian</th>
+                            <th width="50%">Indikator Penilaian</th>
                             <th colspan="5">Nilai</th>
                         </tr>
                     </thead>
@@ -84,9 +115,8 @@
                       {{ $errors->first('indikatorValue') }}
                   </div>
                 @endif
-
+                <h2>Kuisioner</h2>
                 <hr>
-                <h5>Kuisioner</h5>
                 <table class="table table-bordered">
                     <?php $idx = 0; ?>
                     @foreach($kuisioner as $kuisioner)
