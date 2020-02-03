@@ -211,6 +211,9 @@
                     <a href="#laporanGA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> General Affair</a>
                     <ul class="collapse list-unstyled" id="laporanGA">
                         <li>    
+                            <a href="{{ route('laporan.ga.list.sarana') }}">List Peminjaman Sarana</a>
+                        </li>
+                        <li>    
                             <a href="{{ route('laporan.ga.perbaikan') }}">Perbaikan Sarana</a>
                         </li>
                     </ul>

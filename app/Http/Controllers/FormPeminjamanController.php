@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use FormPeminjamanSarana;
+use App\FormPeminjamanSarana;
 
 class FormPeminjamanController extends Controller
 {
@@ -17,5 +17,11 @@ class FormPeminjamanController extends Controller
         $data['formSelesai'] = FormPeminjamanSarana::where('status', '>', '1')->orderBy('created_at', 'desc')->get();
 
         return view('admin.form.ga.peminjaman.index', $data);
+    }
+
+    public function form(){
+        $data['menu'] = 8;
+    
+        return view('admin.laporam.ga.sarana.index', $data);
     }
 }

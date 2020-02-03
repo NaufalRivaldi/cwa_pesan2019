@@ -32,12 +32,13 @@ class LaporanPenilaianKepalaBagian implements WithMultipleSheets
 
         $kbag = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
             $query->where('periodeId', $periodeId)->where('status', 1)->where('kategori', 2);
+        })->whereHas('karyawan', function($query) use ($dep){
+            $query->where('dep', 'like', '%'.$dep.'%');
         })->groupBy('karyawanId')->get();
 
         $sheets = [];
-
-        for ($i = 1; $i <= count($kbag); $i++) {
-            $sheets[] = new LaporanPenilaianKepalaBagianSheets($kbag->karyawanId, $periodeId);
+        foreach($kbag as $row){
+            $sheets[] = new LaporanPenilaianKepalaBagianSheets($row->karyawanId, $periodeId, $row->karyawan->dep);
         }
 
         return $sheets;

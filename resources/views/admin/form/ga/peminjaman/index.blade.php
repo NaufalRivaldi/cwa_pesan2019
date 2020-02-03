@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', '- Perbaikan Sarana & Prasarana')
+@section('title', '- Peminjaman Sarana & Prasarana')
 
 @section('content')
     <div class="row">
@@ -9,7 +9,7 @@
                 <div class="page-breadcrumb">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item active" aria-current="page">Perbaikan Sarana & Prasarana</li>
+                            <li class="breadcrumb-item active" aria-current="page">Peminjaman Sarana & Prasarana</li>
                         </ol>
                     </nav>
                 </div>
@@ -18,7 +18,7 @@
                         <h2>Perbaikan Sarana & Prasarana</h2>
                     </div> -->
                     <div class="card-header">
-                        <a href="{{ route('form.ga.perbaikan.form') }}" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Buat Form</a>
+                        <a href="{{ route('form.ga.peminjaman.form') }}" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Buat Form</a>
                     </div>
                     <div class="card-body">
                         <h3><i class="fas fa-spinner"></i> Form Progress</h3>
@@ -28,8 +28,8 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Tgl Pengajuan</th>
+                                        <th>Sarana</th>
                                         <th>Dept</th>
-                                        <th>Permintaan</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -39,15 +39,17 @@
                                     @foreach($formProgress as $data)
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td class="modalClick" data-id="{{ $data->id }}" data-id="{{ $data->id }}">{{ Helper::setDate($data->tglPengajuan) }}</td>
+                                            <td class="modalClick" data-id="{{ $data->id }}" data-id="{{ $data->id }}">{{ Helper::setDate($data->created_at) }}</td>
+                                            <td class="modalClick" data-id="{{ $data->id }}">
+                                                @foreach($data->detailForm as $detail)
+                                                    <span class="badge badge-primary">$detail->sarana->namaSarana</span><br>
+                                                @endforeach
+                                            </td>
                                             <td class="modalClick" data-id="{{ $data->id }}">{{ $data->user->dep }}</td>
-                                            <td class="modalClick" data-id="{{ $data->id }}">{{ $data->permintaan }}</td>
-                                            <td class="modalClick" data-id="{{ $data->id }}">{!! Helper::statusPerbaikan($data->status) !!}</td>
+                                            <td class="modalClick" data-id="{{ $data->id }}">{!! Helper::statusPeminjaman($data->status) !!}</td>
                                             <td>
                                             @if(auth()->user()->dep == 'GA')
-                                                @if($data->status > 1 && $data->status != 4 && $data->status != 5)
-                                                    <button class="btn btn-success btn-sm modalStatus" data-id="{{ $data->id }}" data-stat="{{ $data->status }}"><i class="fas fa-exchange-alt"></i></button>
-                                                @elseif($data->status == 1)
+                                                @if($data->status == 1)
                                                     <button class="btn btn-success btn-sm modalVal" data-id="{{ $data->id }}" data-val="1"><i class="fas fa-user-check"></i></button>
                                                     <button class="btn btn-danger btn-sm modalVal" data-id="{{ $data->id }}" data-val="2"><i class="fas fa-times-circle"></i></button>
                                                 @endif
