@@ -253,7 +253,7 @@ class ScoreboardController extends Controller
             $karyawan = (object) $data;
         }
         
-        $score_jual = HistoryJual::select('tgl', 'kd_barang', DB::raw('SUM(jml) AS total_jml'), DB::raw('SUM(skor) AS total_skor'))->whereBetween('tgl', [$tgl_a, $tgl_b])->groupBy('kd_barang')->where('kd_sales', $kd_sales)->orderBy('tgl', 'desc')->get();
+        $score_jual = HistoryJual::select('tgl', 'kd_barang', DB::raw('SUM(jml) AS total_jml'), DB::raw('SUM(skor) AS total_skor'))->whereBetween('tgl', [$tgl_a, $tgl_b])->groupBy('tgl')->groupBy('kd_barang')->where('kd_sales', $kd_sales)->where('divisi', $divisi)->orderBy('tgl', 'desc')->get();
 
         // covert divisi
         $divisi = helper::get_divisi($divisi);

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" id="navbarFixed">
     <div class="container-fluid">
 
         <button type="button" id="sidebarCollapse" class="navbar-btn">

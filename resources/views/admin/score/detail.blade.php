@@ -41,7 +41,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped myTable">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -72,12 +72,14 @@
                                     <td>{{ $row->total_skor }}</td>
                                 </tr>
                                 @endforeach
+                            </tbody>
+                            <tfoot>
                                 <tr>
                                     <td colspan="4" align="right"><b>Total : </b></td>
                                     <td><b>{{ $total_jml }}</b></td>
                                     <td><b>{{ number_format($total_skor) }}</b></td>
                                 </tr>
-                            </tbody>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
