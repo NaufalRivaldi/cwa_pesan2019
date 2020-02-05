@@ -299,8 +299,14 @@
             }
             // console.log(confirmPass);
         
+        })       
+
+        $('.filter').on('change', function() {
+            $('#submitFilter').submit();
         })
     });
+
+    
 </script>
 
 <!-- Script -->

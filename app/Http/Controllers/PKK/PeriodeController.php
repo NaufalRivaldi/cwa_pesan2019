@@ -11,8 +11,13 @@ class PeriodeController extends Controller
 {
     public function index(){        
         $data['menu'] = '12';
-        $data['periode'] = Periode::all();
         $data['no'] = 1;
+        $kategori = '';
+        if ($_GET) {
+            $kategori = $_GET['kategori'];
+        }
+        $data['periode'] = Periode::where('kategori', 'like', '%'.$kategori.'%')->get();
+
         return view('admin.pkk.periode.index', $data);
     }
 
