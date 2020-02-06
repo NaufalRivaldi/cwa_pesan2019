@@ -24,7 +24,6 @@ class PenilaianKepalaBagianController extends Controller
         $data['menu'] = '12';
         $dateNow = date('Y-m-d');
         $karyawan = KaryawanAll::where('nik', $req->nik)->where('dep', auth()->user()->dep)->where('stat', 1)->first();
-        $periode = Periode::where('status', 1)->where('kategori','2')->where('tglMulai', '<', $dateNow)->where('tglSelesai', '>', $dateNow)->first();
         $kategori = 2;
 
         if(!empty($karyawan)){
@@ -32,10 +31,10 @@ class PenilaianKepalaBagianController extends Controller
                 $kategori = 2;
             }else{
                 $kategori = 3;
-            }
-    
+            }    
             $data['indikator'] = Indikator::where('kategori', $kategori)->where('status', 1)->get();
             $data['kuisioner'] = Kuisioner::where('kategori', $kategori)->where('status', 1)->get();
+            $periode = Periode::where('status', 1)->where('kategori', $kategori)->where('tglMulai', '<', $dateNow)->where('tglSelesai', '>', $dateNow)->first();
             if(!empty($periode)){
                 $penilaian = Penilaian::where('karyawanId', $karyawan->id)->where('periodeId', $periode->id)->first();
                 if(empty($penilaian)){

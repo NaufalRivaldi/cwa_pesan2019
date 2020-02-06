@@ -17,8 +17,50 @@ class LaporanPenilaianKabagController extends Controller
 {
     public function index(){
         $data['menu'] = '9';
+
+        return view('admin.laporan.hrd.penilaiankabag.index', $data);
+    }
+
+    public function indexKDepartemen()
+    {
+        $data['menu'] = '9';        
         $data['no'] = '1';
         $dep = '';
+        $kategori = '';
+
+        if (isset($_GET['periodeId']) || !empty($_GET['dep'])) {            
+            $periode = Periode::find($_GET['periodeId']); 
+            $periodeId = $periode->id;           
+            $dep = $_GET['dep'];
+            $data['penilaian'] = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
+                $query->where('periodeId', $periodeId);
+            })->whereHas('karyawan', function($query) use ($dep){
+                $query->where('dep', 'like', '%'.$dep.'%');
+            })->groupBy('karyawanId')->get();
+        } else {            
+            $periode = Periode::where('kategori', 2)->where('status', 1)->orderBy('id', 'desc')->first();
+            if (!empty($periode)) {
+                $periodeId = $periode->id;
+                // dd($periodeId);
+                $data['penilaian'] = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
+                    $query->where('periodeId', $periodeId);
+                })->whereHas('karyawan', function($query) use ($dep){
+                    $query->where('dep', 'like', "%".$dep."%");
+                })->groupBy('karyawanId')->get();
+            }
+        }
+
+        $data['periode'] = $periode;
+        $data['searchPeriode'] = Periode::where('kategori', 2)->orderBy('id', 'desc')->get();
+        return view('admin.laporan.hrd.penilaiankabag.departemen.index', $data);
+    }
+
+    public function indexToko()
+    {
+        $data['menu'] = '9';        
+        $data['no'] = '1';
+        $dep = '';
+        $kategori = '';
 
         if (isset($_GET['periodeId']) || !empty($_GET['dep'])) {            
             $periode = Periode::find($_GET['periodeId']); 
@@ -39,7 +81,7 @@ class LaporanPenilaianKabagController extends Controller
                 $query->whereIn('dep', $dep);
             })->groupBy('karyawanId')->get();
         } else {            
-            $periode = Periode::where('kategori', 2)->where('status', 1)->orderBy('id', 'desc')->first();
+            $periode = Periode::where('kategori', 'like', '%'.$kategori.'%')->where('status', 1)->orderBy('id', 'desc')->first();
             if (!empty($periode)) {
                 $periodeId = $periode->id;
                 // dd($periodeId);
@@ -52,9 +94,9 @@ class LaporanPenilaianKabagController extends Controller
         }
 
         $data['periode'] = $periode;
-        $data['searchPeriode'] = Periode::where('kategori', 2)->orderBy('id', 'desc')->get();
+        $data['searchPeriode'] = Periode::where('kategori', 3)->orderBy('id', 'desc')->get();
 
-        return view('admin.laporan.hrd.penilaiankabag.index', $data);
+        return view('admin.laporan.hrd.penilaiankabag.toko.index', $data);
     }
 
     public function detail($karyawanId, $periodeId){

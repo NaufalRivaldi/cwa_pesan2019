@@ -212,6 +212,14 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::get('/', 'PKK\LaporanPenilaianKabagController@index')->name('laporan.hrd.penilaian.kabag');
                 Route::get('/{karyawanId}/{periodeId}/detail', 'PKK\LaporanPenilaianKabagController@detail')->name('laporan.hrd.penilaian.kabag.detail');
                 Route::get('/export','PKK\LaporanPenilaianKabagController@export')->name('laporan.hrd.penilaiankabag.export');
+
+                Route::group(['prefix' => 'departemen'], function(){
+                    Route::get('/', 'PKK\LaporanPenilaianKabagController@indexKDepartemen')->name('laporan.hrd.penilaian.kabag.departemen');
+                });
+                
+                Route::group(['prefix' => 'toko'], function(){
+                    Route::get('/', 'PKK\LaporanPenilaianKabagController@indexToko')->name('laporan.hrd.penilaian.kabag.toko');
+                });
             });
         });
 
