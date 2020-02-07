@@ -1127,5 +1127,37 @@ class helper{
         
         return $office;
     }
+
+    public static function progressKabagOffice($dep){
+        $total = 0;
+        $periode = Periode::where('kategori', 2)->where('status', 1)->orderBy('id', 'desc')->first();
+        $karyawan = KaryawanAll::where('stat', 1)->whereIn('dep', $dep)->get();
+        if (!empty($periode)) {
+            $periodeId = $periode->id;
+            $tlhMenilai = DetailPenilaian::whereHas('penilaian', function($query) use($periodeId){
+                $query->where('periodeId', $periodeId);
+            })->get();
+
+            $total = $tlhMenilai->count() / $karyawan->count();
+        }
+
+        return round($total, 2);
+    }
+
+    public static function progressKabagToko($dep){
+        $total = 0;
+        $periode = Periode::where('kategori', 2)->where('status', 1)->orderBy('id', 'desc')->first();
+        $karyawan = KaryawanAll::where('stat', 1)->whereNotIn('dep', $dep)->get();
+        if (!empty($periode)) {
+            $periodeId = $periode->id;
+            $tlhMenilai = DetailPenilaian::whereHas('penilaian', function($query) use($periodeId){
+                $query->where('periodeId', $periodeId);
+            })->get();
+
+            $total = $tlhMenilai->count() / $karyawan->count();
+        }
+
+        return round($total, 2);
+    }
 }
 

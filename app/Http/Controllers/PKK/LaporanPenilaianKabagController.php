@@ -112,7 +112,9 @@ class LaporanPenilaianKabagController extends Controller
         $karyawan = KaryawanAll::find($karyawanId);
         $data['karyawan'] = $karyawan;
         $data['penilai'] = KaryawanAll::where('stat', 1)->where('dep', $karyawan->dep)->where('ket', 1)->get();
-        $data['tlhMenilai'] = DetailPenilaian::where('karyawanId', $karyawan->id)->get();
+        $data['tlhMenilai'] = DetailPenilaian::whereHas('penilaian', function($query) use($periodeId){
+            $query->where('periodeId', $periodeId);
+        })->where('karyawanId', $karyawan->id)->get();
         $data['periode'] = Periode::find($periodeId);
 
         return view('admin.laporan.hrd.penilaiankabag.detail', $data);
