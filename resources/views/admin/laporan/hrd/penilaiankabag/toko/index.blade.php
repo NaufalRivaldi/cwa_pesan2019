@@ -39,11 +39,9 @@
                         <div class="col-sm-5">           
                             <select class="form-control" id="dep" name="dep">
                             <option value="">Pilih...</option>
-                            <option value="office">Office</option>
-                            <option value="toko">Toko</option>
-                                <!-- @foreach(Helper::allDep() as $p)
-                                    <option value="{{ $p }}" {{ ($_GET)?($_GET['dep'] == $p)?'selected':'':'' }}>{{$p}}</option>
-                                @endforeach -->
+                                @foreach($cabang as $p)
+                                    <option value="{{ $p->id }}" {{ ($_GET)?($_GET['dep'] == $p->id)?'selected':'':'' }}>{{$p->inisial}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <?php
@@ -59,7 +57,7 @@
                 </div>
             </form>            
             <div class="card-header">
-                <a href="{{ route('laporan.hrd.penilaiankabag.export').$url }}" class="btn btn-sm btn-success">Export <i class="far fa-file-excel"></i></a>
+                <a href="{{ route('laporan.hrd.penilaiankabag.export', ['kategori'=>3]).$url }}" class="btn btn-sm btn-success">Export <i class="far fa-file-excel"></i></a>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -75,12 +73,25 @@
                   </thead>
                   <tbody>
                     @foreach($penilaian as $penilaian)
+                        <?php
+                            $url = route('laporan.hrd.penilaian.kabag.detail.toko', ['karyawanId'=>$penilaian->karyawan->id, 'periodeId'=>$periode->id])
+                        ?>
                         <tr>
-                            <td>{{ $no++ }}</td>
-                            <td>{{ $penilaian->karyawan->nama }}</td>
-                            <td>{{ $penilaian->karyawan->dep }}</td>
-                            <td>{{ Helper::skorPenilaianKabag($penilaian->karyawan->id, $periode->id) }}</td>
-                            <td><a href="{{ route('laporan.hrd.penilaian.kabag.detail', ['karyawanId' => $penilaian->karyawan->id, 'periodeId' => $periode->id]) }}" class="btn btn-info btn-sm far fa-eye"><i class=""></i></a></td>
+                            <td>
+                              <a href="{{ $url }}">{{ $no++ }}</a>
+                            </td>
+                            <td>
+                              <a href="{{ $url }}">{{ $penilaian->karyawan->nama }}</a>  
+                            </td>
+                            <td>
+                              <a href="{{ $url }}">{{ $penilaian->karyawan->dep }}</a>  
+                            </td>
+                            <td>
+                              <a href="{{ $url }}">{{ Helper::skorPenilaianKabag($penilaian->karyawan->id, $periode->id) }}</a>
+                            </td>
+                            <td>
+                              <a href=""></a>
+                            </td>
                         </tr>
                     @endforeach
                   </tbody>

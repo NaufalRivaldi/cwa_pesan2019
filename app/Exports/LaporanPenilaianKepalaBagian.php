@@ -16,6 +16,14 @@ class LaporanPenilaianKepalaBagian implements WithMultipleSheets
     /**
      * @return array
      */
+
+    private $kategori;
+
+    public function __construct(int $kategori)
+    {
+        $this->kategori = $kategori;
+    }
+
     public function sheets(): array
     {
         if($_GET){
@@ -23,7 +31,7 @@ class LaporanPenilaianKepalaBagian implements WithMultipleSheets
             $dep = $_GET['dep'];
             $periodeId = $periode->id;    
         }else{
-            $periode = Periode::where('kategori', 2)->where('status', 1)->orderBy('id', 'desc')->first();
+            $periode = Periode::where('kategori', $this->kategori)->where('status', 1)->orderBy('id', 'desc')->first();            
             if (!empty($periode)) {
                 $periodeId = $periode->id;
             }

@@ -13,6 +13,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <a href=" {{ route('laporan.hrd.penilaian.kabag') }} "><li class="breadcrumb-item" aria-current="page">Data Hasil Penilaian Kepala Bagian</a></li>
+                        <li class="breadcrumb-item" aria-current="page"><a href=" {{ url()->previous() }} ">{{ (Request::segment(5) == 'departemen') ? 'Departemen' : 'Toko' }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Detail</li>
                     </ol>
                 </nav>

@@ -57,11 +57,11 @@
                 </div>
             </form>            
             <div class="card-header">
-                <a href="{{ route('laporan.hrd.penilaiankabag.export').$url }}" class="btn btn-sm btn-success">Export <i class="far fa-file-excel"></i></a>
+                <a href="{{ route('laporan.hrd.penilaiankabag.export', ['kategori'=>2]).$url }}" class="btn btn-sm btn-success">Export <i class="far fa-file-excel"></i></a>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <table class="myTable custom-table">
+              <table class="myTable custom-table table">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -73,12 +73,25 @@
                   </thead>
                   <tbody>
                     @foreach($penilaian as $penilaian)
+                        <?php
+                          $url = route('laporan.hrd.penilaian.kabag.detail.departemen', ['karyawanId'=>$penilaian->karyawan->id, 'periodeId'=>$periode->id]);
+                        ?>
                         <tr>
-                            <td>{{ $no++ }}</td>
-                            <td>{{ $penilaian->karyawan->nama }}</td>
-                            <td>{{ $penilaian->karyawan->dep }}</td>
-                            <td>{{ Helper::skorPenilaianKabag($penilaian->karyawan->id, $periode->id) }}</td>
-                            <td></td>
+                            <td>
+                              <a href="{{ $url }}">{{ $no++ }}</a>
+                            </td>
+                            <td>
+                              <a href="{{ $url }}">{{ $penilaian->karyawan->nama }}</a>  
+                            </td>
+                            <td>
+                              <a href="{{ $url }}">{{ $penilaian->karyawan->dep }}</a>  
+                            </td>
+                            <td>
+                              <a href="{{ $url }}">{{ Helper::skorPenilaianKabag($penilaian->karyawan->id, $periode->id) }}</a>
+                            </td>
+                            <td>
+                              <a href=""></a>
+                            </td>
                         </tr>
                     @endforeach
                   </tbody>
@@ -88,4 +101,35 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+
+    <script>
+      $(document).on('click','.delete',function() {
+        var id = $(this).data('id');
+        swal({
+          title: 'Perhatian!',
+          text: "Apakah anda yakin menghapus data ini?",
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true,
+        }).then((willDelete) => {
+          if (willDelete) {
+            $.ajax({
+              type: "POST",
+              url: "{{ route('mixing.mixing.delete') }}",
+              data: {
+                id: id,
+                _token: '{{ csrf_token() }}'
+              },
+              success: function(data){
+                location.reload()
+              }
+            })
+          }
+        })
+      });
+    </script>
+
 @endsection
