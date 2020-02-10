@@ -1138,7 +1138,7 @@ class helper{
                 $query->where('periodeId', $periodeId);
             })->get();
 
-            $total = $tlhMenilai->count() / $karyawan->count();
+            $total = ($tlhMenilai->count() / $karyawan->count()) * 100;
         }
 
         return round($total, 2);
@@ -1146,7 +1146,7 @@ class helper{
 
     public static function progressKabagToko($dep){
         $total = 0;
-        $periode = Periode::where('kategori', 2)->where('status', 1)->orderBy('id', 'desc')->first();
+        $periode = Periode::where('kategori', 3)->where('status', 1)->orderBy('id', 'desc')->first();
         $karyawan = KaryawanAll::where('stat', 1)->whereNotIn('dep', $dep)->get();
         if (!empty($periode)) {
             $periodeId = $periode->id;
@@ -1154,8 +1154,21 @@ class helper{
                 $query->where('periodeId', $periodeId);
             })->get();
 
-            $total = $tlhMenilai->count() / $karyawan->count();
+            $total = ($tlhMenilai->count() / $karyawan->count()) * 100;
         }
+
+        return round($total, 2);
+    }
+
+    public static function progressKabagDetail($karyawanId, $periodeId){
+        $total = 0;
+        $karyawan = KaryawanAll::find($karyawanId);
+        $karyawan = KaryawanAll::where('stat', 1)->where('dep', $karyawan->dep)->get();
+        $tlhMenilai = DetailPenilaian::whereHas('penilaian', function($query) use($periodeId){
+            $query->where('periodeId', $periodeId);
+        })->where('karyawanId', $karyawanId)->get();
+
+        $total = ($tlhMenilai->count() / $karyawan->count()) * 100;
 
         return round($total, 2);
     }

@@ -90,7 +90,12 @@
                               <a href="{{ $url }}">{{ Helper::skorPenilaianKabag($penilaian->karyawan->id, $periode->id) }}</a>
                             </td>
                             <td>
-                              <a href=""></a>
+                              <a href="{{ $url }}">
+                              {{ Helper::progressKabagDetail($penilaian->karyawan->id, $periode->id) }}%
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{ Helper::progressKabagDetail($penilaian->karyawan->id, $periode->id) }}%"></div>
+                                </div>
+                              </a>
                             </td>
                         </tr>
                     @endforeach
