@@ -41,13 +41,17 @@ class LaporanPenilaianKabagController extends Controller
         } else {            
             $periode = Periode::where('kategori', 2)->where('status', 1)->orderBy('id', 'desc')->first();
             if (!empty($periode)) {
+                $periodeId = $periode->id; 
+            }else{
+                $periode = Periode::where('kategori', 2)->orderBy('id', 'desc')->first();
                 $periodeId = $periode->id;
-                $data['penilaian'] = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
-                    $query->where('periodeId', $periodeId);
-                })->whereHas('karyawan', function($query) use ($dep){
-                    $query->where('dep', 'like', "%".$dep."%");
-                })->groupBy('karyawanId')->get();
             }
+
+            $data['penilaian'] = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
+                $query->where('periodeId', $periodeId);
+            })->whereHas('karyawan', function($query) use ($dep){
+                $query->where('dep', 'like', "%".$dep."%");
+            })->groupBy('karyawanId')->get();
         }
 
         $data['periode'] = $periode;
@@ -76,12 +80,16 @@ class LaporanPenilaianKabagController extends Controller
             $periode = Periode::where('kategori', 'like', '%'.$kategori.'%')->where('status', 1)->orderBy('id', 'desc')->first();
             if (!empty($periode)) {
                 $periodeId = $periode->id;
-                $data['penilaian'] = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
-                    $query->where('periodeId', $periodeId);
-                })->whereHas('karyawan', function($query) use ($dep){
-                    $query->where('dep', 'like', "%".$dep."%");
-                })->groupBy('karyawanId')->get();
+            }else{
+                $periode = Periode::where('kategori', 'like', '%'.$kategori.'%')->orderBy('id', 'desc')->first();
+                $periodeId = $periode->id;
             }
+
+            $data['penilaian'] = DetailPenilaian::whereHas('penilaian', function($query) use ($periodeId){
+                $query->where('periodeId', $periodeId);
+            })->whereHas('karyawan', function($query) use ($dep){
+                $query->where('dep', 'like', "%".$dep."%");
+            })->groupBy('karyawanId')->get();
         }
 
         $data['cabang'] = Cabang::all();
