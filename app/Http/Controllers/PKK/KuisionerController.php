@@ -12,7 +12,12 @@ class KuisionerController extends Controller
     public function index(){
         $data['menu'] = '12';
         $data['no'] = '1';
-        $data['kuisioner'] = Kuisioner::all();
+        $kategori = '';
+        if ($_GET) {
+            $kategori = $_GET['kategori'];
+        }        
+        $data['kuisioner'] = Kuisioner::where('kategori', 'like', '%'.$kategori.'%')->get();
+
         return view('admin.pkk.kuisioner.index', $data);
     }
 

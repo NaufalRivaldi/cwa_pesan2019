@@ -14,9 +14,19 @@
                     </nav>
                 </div>
                 <div class="card">
-                    <div class="card-header">
-                        <a href="{{ route('laporan.hrd.karyawan.form') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i> Tambah</a> 
-                        <span id="insert-menu"></span>
+                    <div class="container">
+                        <div class="card-header row">
+                            <a href="{{ route('laporan.hrd.karyawan.form') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i> Tambah</a>
+                                          
+                            <form action="{{route('laporan.hrd.karyawan')}}" method="get" class="ml-auto" id="submitFilter">
+                                <select class="form-control-sm filter" name="dep" id="exampleFormControlSelect1">
+                                <option value="">Pilih Departemen...</option>
+                                @foreach(Helper::allDep() as $dep)
+                                <option value="{{$dep}}" {{ ($_GET)?($_GET['dep']) == $dep ?'selected':'':'' }}>{{$dep}}</option>
+                                @endforeach
+                                </select>
+                            </form>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

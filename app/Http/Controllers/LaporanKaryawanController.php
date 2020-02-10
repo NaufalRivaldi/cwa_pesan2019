@@ -13,7 +13,11 @@ class LaporanKaryawanController extends Controller
     public function index(){
         $data['menu'] = 9;
         $data['no'] = 1;
-        $data['karyawan'] = KaryawanAll::orderBy('dep', 'asc')->get();
+        $dep = '';
+        if ($_GET) {
+            $dep = $_GET['dep'];
+        }
+        $data['karyawan'] = KaryawanAll::where('dep', 'like', '%'.$dep.'%')->orderBy('stat', 'desc')->get();
 
         return view('admin.laporan.hrd.karyawan.index', $data);
     }

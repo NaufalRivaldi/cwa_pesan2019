@@ -13,7 +13,11 @@ class IndikatorController extends Controller
     {
         $data['menu'] = '12';
         $data['no'] = '1';
-        $data['indikator'] = Indikator::all();
+        $kategori = '';
+        if ($_GET) {
+            $kategori = $_GET['kategori'];
+        }
+        $data['indikator'] = Indikator::where('kategori', 'like', '%'.$kategori.'%')->get();
         return view('admin.pkk.indikator.index', $data);
     }
 

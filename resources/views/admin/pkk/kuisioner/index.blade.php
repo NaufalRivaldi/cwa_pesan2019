@@ -22,13 +22,24 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
+          <div class="container">
+            <div class="card-header row">
               <a href="{{ route('pkk.kuisioner.form') }}" class="btn btn-primary btn-sm">
                 <li class="fa fa-plus-circle">
                 </li>
                 Tambah
-              </a>
+              </a>              
+              <form action="{{route('pkk.kuisioner')}}" method="get" class="ml-auto" id="submitFilter">
+                <select class="form-control-sm filter" name="kategori" id="exampleFormControlSelect1">
+                  <option value="">Pilih Kategori...</option>
+                  <option value="1" {{ ($_GET)?($_GET['kategori']) == 1 ?'selected':'':'' }}>Best Employee</option>
+                  <option value="2" {{ ($_GET)?($_GET['kategori']) == 2 ?'selected':'':'' }}>Penilaian Kepala Departemen</option>
+                  <option value="3" {{ ($_GET)?($_GET['kategori']) == 3 ?'selected':'':'' }}>Penilaian Kepala Toko</option>
+                  <option value="4" {{ ($_GET)?($_GET['kategori']) == 4 ?'selected':'':'' }}>Survei Kepuasan Karyawan</option>
+                </select>
+              </form>
             </div>
+          </div>
             <div class="card-body">
               <div class="table-responsive">
               <table class="myTable table custom-table">

@@ -16,7 +16,7 @@ class PeriodeController extends Controller
         if ($_GET) {
             $kategori = $_GET['kategori'];
         }
-        $data['periode'] = Periode::where('kategori', 'like', '%'.$kategori.'%')->get();
+        $data['periode'] = Periode::where('kategori', 'like', '%'.$kategori.'%')->orderBy('kategori', 'asc')->get();
 
         return view('admin.pkk.periode.index', $data);
     }
