@@ -9,14 +9,14 @@ use App\Mixing\Merk;
 class MerkController extends Controller
 {
     public function index(){
-        $data['menu'] = '11';
+        $data['menu'] = '13';
         $data['merks'] = Merk::all();
         $data['no'] = 1;
         return view('admin.mixing.merk.index', $data);
     }
 
     public function form(){
-        $data['menu'] = '11';
+        $data['menu'] = '13';
         return view('admin.mixing.merk.form', $data);
     }
 
@@ -40,7 +40,7 @@ class MerkController extends Controller
     }
 
     public function edit(){
-        $data['menu'] = '11';
+        $data['menu'] = '13';
         $id = $_GET['id'];
         $data['merk'] = Merk::find($id);        
         return view('admin.mixing.merk.form', $data);

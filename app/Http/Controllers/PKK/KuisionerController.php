@@ -10,7 +10,7 @@ use App\PKK\Kuisioner;
 class KuisionerController extends Controller
 {
     public function index(){
-        $data['menu'] = '12';
+        $data['menu'] = '13';
         $data['no'] = '1';
         $kategori = '';
         if ($_GET) {
@@ -22,7 +22,7 @@ class KuisionerController extends Controller
     }
 
     public function form(){
-        $data['menu'] = '12';
+        $data['menu'] = '13';
         return view('admin.pkk.kuisioner.form', $data);
     }
 
@@ -52,7 +52,7 @@ class KuisionerController extends Controller
     public function edit()
     {
         $id = $_GET['id'];
-        $data['menu'] = '12';
+        $data['menu'] = '13';
         $data['kuisioner'] = Kuisioner::find($id);
 
         return view('admin.pkk.kuisioner.form', $data);

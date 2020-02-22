@@ -1,11 +1,6 @@
 $(function(){
     // data table
-    $('#myTable').DataTable({
-        fixedHeader:{
-            header:true,
-            headerOffset: $('#navbarFixed').outerHeight()
-        }
-    });
+    $('#myTable').DataTable();
     $('#myTable2').DataTable({
         paging: false
     });

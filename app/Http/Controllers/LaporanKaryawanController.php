@@ -11,7 +11,7 @@ use App\KaryawanAll;
 class LaporanKaryawanController extends Controller
 {
     public function index(){
-        $data['menu'] = 9;
+        $data['menu'] = 13;
         $data['no'] = 1;
         $dep = '';
         if ($_GET) {
@@ -23,14 +23,14 @@ class LaporanKaryawanController extends Controller
     }
 
     public function form(){
-        $data['menu'] = 9;
+        $data['menu'] = 13;
         $data['departemen'] = helper::allDep();
 
         return view('admin.laporan.hrd.karyawan.form', $data);
     }
 
     public function edit($id){
-        $data['menu'] = 9;
+        $data['menu'] = 13;
         $data['id'] = $id;
         $data['departemen'] = helper::allDep();
         $data['karyawan'] = KaryawanAll::find($id);

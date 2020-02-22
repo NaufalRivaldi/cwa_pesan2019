@@ -18,6 +18,79 @@
         <li <?= ($menu == '0') ? 'class="active"' : '' ?>>
             <a href="{{ route('dashboard') }}" data-toggle="tooltip" data-placement="right" title="Berisi Informasi seputaran CWJA"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
         </li>
+
+        @if(Helper::isLaporan())
+        <li <?= ($menu == '13') ? 'class="active"' : '' ?>>
+            <a href="#dataMaster" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-database"></i> Data Master</a>
+            <ul class="collapse list-unstyled" id="dataMaster">
+                <li>                    
+                    <a href="#masterIT" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-laptop-code"></i> IT</a>
+                    <ul class="collapse list-unstyled" id="masterIT">
+                        <a href="#mixingMaster" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-paint-brush"></i> Mixing</a>
+                        <ul class="collapse list-unstyled" id="mixingMaster">
+                            <li>
+                                <a class="nav-link" href="{{ route('mixing.merk') }}"><i class="fa fa-fw fas fa-dolly"></i> Mesin </a>
+                            </li>
+
+                            <li>
+                                <a class="nav-link" href="{{ route('mixing.product') }}"><i class="fa fa-fw fas fa-dolly"></i> Produk </a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="{{ route('mixing.formula') }}"><i class="fas fa-flask"></i> Formula</a>
+                            </li>
+                        </ul>
+                    </ul>
+                </li>
+                @if(Helper::isHRD())
+                <li>
+                    <a href="#laporanHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-users"></i> HRD</a>
+                    <ul class="collapse list-unstyled" id="laporanHRD">
+                        <li>    
+                            <a href="{{ route('laporan.hrd.karyawan') }}" data-toggle="tooltip" data-placement="right" title="Data Karyawan Citra Warna."><i class="fas fa-users"></i> Karyawan</a>
+                        </li>
+                        <a href="#masterPKK" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-users"></i> Kinerja Karyawan</a>
+                        <ul class="collapse list-unstyled" id="masterPKK">                            
+                            <li>
+                                <a class="nav-link" href="{{ route('pkk.periode') }}"><i class="fa fa-fw fa-users"></i> Periode </a>
+                            </li> 
+                            <li>
+                                <a class="nav-link" href="{{ route('pkk.kuisioner') }}"><i class="fa fa-fw fa-users"></i> Kuesioner </a>
+                            </li> 
+                            <li>
+                                <a class="nav-link" href="{{ route('pkk.indikator') }}"><i class="fa fa-fw fa-users"></i> Indikator </a>
+                            </li> 
+                        </ul>
+                        <a href="#masterForms" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-users"></i> Form Cuti</a>
+                        <ul class="collapse list-unstyled" id="masterForms">                            
+                            <li>
+                                <a class="nav-link" href="{{ route('form.hrd.cuti') }}"><i class="fa fa-fw fa-users"></i> Cuti </a>
+                            </li>                            
+                            <li>
+                                <a class="nav-link" href="{{ route('form.hrd.cuti.kategori') }}"><i class="fa fa-fw fa-users"></i> Kategori Cuti </a>
+                            </li> 
+                        </ul>
+                    </ul>
+                </li>
+                @endif
+
+                @if(Helper::isGA())
+                <li>
+                    <a href="#masterGA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> General Affair</a>
+                    <ul class="collapse list-unstyled" id="masterGA">
+                        <li>    
+                            <a href="#masterPeminjaman" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-users"></i> Form Peminjaman</a>
+                            <ul class="collapse list-unstyled" id="masterPeminjaman">     
+                                <li>
+                                    <a class="nav-link" href="{{ route('master.sarana.index') }}"><i class="fa fa-fw fa-users"></i> List Sarana </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                @endif
+            </ul>
+        </li>
+        @endif
         
         @if(Helper::isPengumuman())
             <li <?= ($menu == '2') ? 'class="active"' : '' ?>>
@@ -61,8 +134,18 @@
                 <i class="fas fa-file-signature"></i> E-Form <span class="text-warning">*</span>
             </a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
-                <li>
+                <!-- <li>
                     <a href="{{ url('admin/formhrd') }}">HRD <span class="badge badge-warning">{{ Helper::countPending() }}</span></a>
+                </li> -->
+                <li>
+                    <a href="#pageHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">HRD</a> 
+                    <ul class="collapse list-unstyled" id="pageHRD">
+                        <li>
+                            <a href="{{ url('admin/formhrd') }}">Form Umum<span class="badge badge-warning">{{ Helper::countPending() }}</span></a>
+                        </li>
+                            <a href="{{ route('form.hrd.cuti') }}">Form Cuti <span class="badge badge-warning">{{ Helper::countPending() }}</span></a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#pageIT" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">IT Support <span class="badge badge-warning">{{ (auth()->user()->dep == 'IT')? Helper::countFormDesain() : '' }}</span></a>
@@ -105,7 +188,7 @@
             <a href="{{ url('/admin/master') }}"><i class="fas fa-file-download"></i> Update Master</a>
         </li>
         @endif
-
+        
         @if(Helper::isMixing())
             @if(auth()->user()->dep != 'IT')
                 <li>
@@ -127,20 +210,7 @@
                     <ul class="collapse list-unstyled" id="pageMixing">
                         <li>
                             <a class="nav-link" href="{{ route('mixing.customers') }}"><i class="fa fa-fw fa-users"></i> Pelanggan </a>
-                        </li>                    
-                        @if(auth()->user()->dep == 'IT')
-
-                        <li>
-                            <a class="nav-link" href="{{ route('mixing.merk') }}"><i class="fa fa-fw fas fa-dolly"></i> Mesin </a>
                         </li>
-
-                        <li>
-                            <a class="nav-link" href="{{ route('mixing.product') }}"><i class="fa fa-fw fas fa-dolly"></i> Produk </a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="{{ route('mixing.formula') }}"><i class="fas fa-flask"></i> Formula</a>
-                        </li>
-                        @endif
                         <li>
                             <a class="nav-link" href="{{ route('mixing.mixing') }}"><i class="fa fa-fw fas fa-paint-brush"></i> Mixing </a>
                         </li>
@@ -157,17 +227,6 @@
                 <li>
                     <a class="nav-link" href="{{ route('pkk.penilaian') }}"><i class="fa fa-fw fa-users"></i> Penilaian </a>
                 </li>
-                @if(Helper::isHRD()) 
-                <li>
-                    <a class="nav-link" href="{{ route('pkk.periode') }}"><i class="fa fa-fw fa-users"></i> Periode </a>
-                </li> 
-                <li>
-                    <a class="nav-link" href="{{ route('pkk.kuisioner') }}"><i class="fa fa-fw fa-users"></i> Kuesioner </a>
-                </li> 
-                <li>
-                    <a class="nav-link" href="{{ route('pkk.indikator') }}"><i class="fa fa-fw fa-users"></i> Indikator </a>
-                </li> 
-                @endif
             </ul>
         </li>
 
@@ -191,9 +250,6 @@
                 <li>
                     <a href="#laporanHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> HRD</a>
                     <ul class="collapse list-unstyled" id="laporanHRD">
-                        <li>    
-                            <a href="{{ route('laporan.hrd.karyawan') }}" data-toggle="tooltip" data-placement="right" title="Data Karyawan Citra Warna.">Karyawan</a>
-                        </li>
                         <li>
                             <a href="{{ url('admin/formhrd/laporan') }}">Form HRD</a>
                         </li>

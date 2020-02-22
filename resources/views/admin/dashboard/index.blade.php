@@ -8,7 +8,7 @@
         <div class="col-md-8 mb-3">
             <div class="card">
                 <div class="card-header">
-                    <h4>Pengumuman Internal</h4>
+                    <h4 class="display-4" style="font-size: 2.5em">Pengumuman Internal</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

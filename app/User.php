@@ -87,6 +87,10 @@ class User extends Authenticatable
     public function formPerbaikanSarana(){
         return $this->hasMany('App\FormPerbaikanSarana', 'userId');
     }
+    
+    public function verifikasi_cuti(){
+        return $this->hasMany('App\Forms\formcuti\VerifikasiFormCuti', 'userId');
+    }
 
     public function formPeminjamanSarana(){
         return $this->hasMany('App\FormPeminjamanSarana', 'userId');

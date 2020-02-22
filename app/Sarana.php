@@ -8,7 +8,7 @@ class Sarana extends Model
 {
     protected $table = 'sarana';
     protected $fillable = ['namaSarana'];
-    public $timestampt = false;
+    public $timestamps = false;
 
     // fk
     public function detailForm(){

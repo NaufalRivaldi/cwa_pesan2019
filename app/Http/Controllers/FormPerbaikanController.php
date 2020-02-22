@@ -42,7 +42,7 @@ class FormPerbaikanController extends Controller
         $array = [
             "tglPengajuan" => helper::setDate($data->tglPengajuan),
             "tglSelesai" => helper::setDate($data->tglSelesai),
-            "pengaju" => Auth()->user()->nama.' ('.Auth()->user()->dep.')',
+            "pengaju" => $data->user->nama,
             "status" => helper::statusPerbaikan($data->status),
             "permintaan" => $data->permintaan,
             "alasan" => $data->alasan,
