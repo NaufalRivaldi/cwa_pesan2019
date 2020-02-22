@@ -10,7 +10,7 @@ use App\PKK\Periode;
 class PeriodeController extends Controller
 {
     public function index(){        
-        $data['menu'] = '12';
+        $data['menu'] = '13';
         $data['no'] = 1;
         $kategori = '';
         if ($_GET) {
@@ -22,7 +22,7 @@ class PeriodeController extends Controller
     }
 
     public function form(){
-        $data['menu'] = '12';
+        $data['menu'] = '13';
         return view('admin.pkk.periode.form', $data);
     }
 
@@ -65,7 +65,7 @@ class PeriodeController extends Controller
     }
 
     public function edit(){
-        $data['menu'] = '12';
+        $data['menu'] = '13';
         $id = $_GET['id'];
         $data['periode'] = Periode::find($id);
         return view('admin.pkk.periode.form', $data);

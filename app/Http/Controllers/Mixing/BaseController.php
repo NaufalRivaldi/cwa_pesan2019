@@ -12,7 +12,7 @@ use App\Mixing\Product;
 class BaseController extends Controller
 {
     public function form($id){
-        $data['menu'] = 11;
+        $data['menu'] = 13;
         $data['product'] = Product::find($id);
         
         return view('admin.mixing.base.form', $data);
@@ -20,7 +20,7 @@ class BaseController extends Controller
 
     public function edit(){
         $id = $_GET['id'];
-        $data['menu'] = 11;
+        $data['menu'] = 13;
         $data['base'] = Base::find($id);
         
         return view('admin.mixing.base.form', $data);

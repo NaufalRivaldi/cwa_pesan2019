@@ -12,7 +12,7 @@ use App\Mixing\Formula;
 class FormulaController extends Controller
 {
     public function index(){
-        $data['menu'] = '11';
+        $data['menu'] = '13';
         $data['no'] = 1;
         $data['formula'] = Formula::groupBy('merkId')->get();
         
@@ -20,7 +20,7 @@ class FormulaController extends Controller
     }
 
     public function detail($id){
-        $data['menu'] = '11';
+        $data['menu'] = '13';
         $data['no'] = 1;
         $data['formula'] = Formula::where('merkId', $id)->orderBy('id', 'asc')->get();
         $data['merk'] = Merk::find($id);
@@ -29,14 +29,14 @@ class FormulaController extends Controller
     }
 
     public function form(){
-        $data['menu'] = '11';
+        $data['menu'] = '13';
         $data['merk'] = Merk::orderBy('name', 'asc')->get();
         
         return view('admin.mixing.formula.form', $data);
     }
 
     public function edit(){
-        $data['menu'] = '11';
+        $data['menu'] = '13';
         $id = $_GET['id'];
         $data['formula'] = Formula::find($id);
         $data['merk'] = Merk::orderBy('name', 'asc')->get();        
@@ -44,7 +44,7 @@ class FormulaController extends Controller
     }
 
     public function formByMerk($merkId){
-        $data['menu'] = '11';
+        $data['menu'] = '13';
         $data['merk'] = Merk::find($merkId);
         $data['merkId'] = $merkId;
         return view('admin.mixing.formula.formbymerk', $data);

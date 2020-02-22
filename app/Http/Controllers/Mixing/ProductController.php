@@ -11,14 +11,14 @@ use App\Mixing\Base;
 class ProductController extends Controller
 {
     public function index(){
-        $data['menu'] = '11';
+        $data['menu'] = '13';
         $data['products'] = Product::all();
         $data['no'] = 1;
         return view('admin.mixing.product.index', $data);
     }
 
     public function form(){
-        $data['menu'] = '11';
+        $data['menu'] = '13';
         $data['merks'] = Merk::orderBy('name', 'ASC')->get();
         return view('admin.mixing.product.form', $data);
     }
@@ -45,7 +45,7 @@ class ProductController extends Controller
     }
 
     public function edit(){
-        $data['menu'] = '11';
+        $data['menu'] = '13';
         $id = $_GET['id'];
         $data['product'] = Product::find($id);
         $data['merks'] = Merk::orderBy('name', 'ASC')->get();
