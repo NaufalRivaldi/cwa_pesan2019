@@ -19,10 +19,12 @@ use App\Cabang;
 use App\Finance;
 use App\FormPengajuanDesain;
 use App\FormPerbaikanSarana;
+use App\FormPeminjamanSarana;
 use App\PKK\DetailPoling;
 use App\PKK\DetailPenilaian;
 use App\PKK\DetailKuisioner;
 use App\PKK\Periode;
+use App\PKK\Poling;
 
 use Hash;
 
@@ -362,8 +364,20 @@ class helper{
     }
 
     public static function countFormPerbaikan(){
-        $form = FormPerbaikanSarana::where('status', '<' ,'4')->count();
-        
+        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA'){
+            $form = FormPerbaikanSarana::where('status', '<' ,'4')->count();
+        }else{
+            $form = FormPerbaikanSarana::where('userId', auth()->user()->id)->where('status', '<' ,'4')->count();
+        }
+        return $form;
+    }
+
+    public static function countFormPeminjaman(){
+        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA'){
+            $form = FormPeminjamanSarana::where('status', '<' ,'2')->count();
+        }else{
+            $form = FormPeminjamanSarana::where('userId', auth()->user()->id)->where('status', '<' ,'2')->count();
+        }
         return $form;
     }
 
@@ -574,8 +588,8 @@ class helper{
         $data['stat'] = '';
 
         // Ubah ini klo ada nambah cabang ya
-        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'CW1','CW2', 'CA5','CL1','CS1', 'CM1');
-        $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9', 'CB0', 'CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'MT');
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'CW1','CW2', 'CA5','CL1','CS1', 'CM1','CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9', 'CB0', 'CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'MT');
+        $am = array();
         $gm = array();
 
         if($stat == 1){
@@ -612,8 +626,8 @@ class helper{
         $level = auth()->user()->level;
 
         // Ubah ini klo ada nambah cabang ya
-        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'CW1','CW2', 'CA5','CL1','CS1', 'CM1');
-        $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9', 'CB0', 'CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'MT');
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'CW1','CW2', 'CA5','CL1','CS1', 'CM1','CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9', 'CB0', 'CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'MT');
+        $am = array();
         $gm = array();
 
         if($level == 3){
@@ -738,8 +752,8 @@ class helper{
     // notif form hrd global
     public static function notifikasiFormHRD($form_id, $karyawan_id){
         // Ubah ini klo ada nambah cabang ya
-        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CW1','CW2','CA5','CL1','CS1', 'CM1');
-        $am = array('CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9', 'CB0', 'CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'MT');
+        $office = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak','CW1','CW2','CA5','CL1','CS1', 'CM1', 'CW3','CW4','CW5','CW6','CW7','CW8','CW9','CA0','CA1','CA2','CA3','CA4','CA6','CA7','CA8','CA9', 'CB0', 'CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'MT');
+        $am = array();
         $gm = array();
 
         $karyawan = KaryawanAll::find($karyawan_id);
@@ -1007,6 +1021,10 @@ class helper{
             case '4':
                 $text = "<span class='badge badge-info'>Survei Kepuasan Karyawan</span>";
                 break;
+
+            case '5':
+                $text = "<span class='badge badge-info'>Penilaian Karyawan</span>";
+                break;
             
             default:
                 # code...
@@ -1172,6 +1190,26 @@ class helper{
         $total = ($tlhMenilai->count() / $karyawan->count()) * 100;
 
         return round($total, 2);
+    }
+
+    public static function jmlKaryawan($dep){
+        $karyawan = KaryawanAll::where('stat', 1)->where('ket', 1)->where('dep', $dep)->get();
+
+        return $karyawan->count();
+    }
+
+    public static function jmlPenilai($dep){
+        if($_GET){
+            $periode = Periode::find($_GET['periodeId']);
+        }else{
+            $periode = Periode::where('kategori', 1)->orderBy('id', 'desc')->first();
+        }
+
+        $poling = Poling::where('kategori', 1)->where('status', 1)->where('periodeId', $periode->id)->whereHas('karyawan', function($query) use ($dep){
+            $query->where('dep', $dep);
+        })->get();
+
+        return $poling->count();
     }
 }
 

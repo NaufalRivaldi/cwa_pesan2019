@@ -28,14 +28,14 @@
               <img src="{{asset('/img/user1.png')}}" class="card-img-top w-50" alt="...">
             </div>
             <div class="card-body">
-                <p><b>Periode : </b><br>
+                <p><b>Periode Best Employee: </b><br>
                 @if(!empty($periodeBestEmployee))
                   {{ $periodeBestEmployee->namaPeriode }}</p>
                   <p><span class="badge badge-success">{{ Helper::setDate($periodeBestEmployee->tglMulai).' - '.Helper::setDate($periodeBestEmployee->tglSelesai) }}</span></p>
                 @else
                   <p><span class="badge badge-danger">Tidak ada periode!</span></p>
                 @endif
-                <a href="#" class="btn btn-primary btn-block btn-sm {{ (empty($periodeBestEmployee)) ? 'disabled' : '' }}" data-toggle="modal" data-target="#bestEmployee">Best Employee</a>
+                <a href="#" class="btn btn-primary btn-block btn-sm {{ (empty($periodeBestEmployee)) ? 'disabled' : '' }}" data-toggle="modal" data-target="#bestEmployee">Nilai</a>
             </div>
         </div>
     </div>
@@ -52,15 +52,7 @@
                 @else
                   <p><span class="badge badge-danger">Tidak ada periode!</span></p>
                 @endif
-                <hr>
-                <p><b>Periode Kepala Bagian Office: </b><br>
-                @if(!empty($periodeKabagOffice))
-                  {{ $periodeKabagOffice->namaPeriode }}</p>
-                  <p><span class="badge badge-success">{{ Helper::setDate($periodeKabagOffice->tglMulai).' - '.Helper::setDate($periodeKabagOffice->tglSelesai) }}</span></p>
-                @else
-                  <p><span class="badge badge-danger">Tidak ada periode!</span></p>
-                @endif
-                <a href="#" class="btn btn-primary btn-block btn-sm {{ (empty($periodeKabagToko) && empty($periodeKabagOffice)) ? 'disabled' : '' }}" data-toggle="modal" data-target="#kepalaBagian">Kepala Bagian</a>
+                <a href="#" class="btn btn-primary btn-block btn-sm {{ (empty($periodeKabagToko) && empty($periodeKabagOffice)) ? 'disabled' : '' }}" data-toggle="modal" data-target="#kepalaBagian">Nilai</a>
             </div>
         </div>
     </div>
@@ -70,17 +62,54 @@
               <img src="{{asset('/img/user1.png')}}" class="card-img-top w-50" alt="...">
             </div>
             <div class="card-body">
-                <p><b>Periode : </b><br>
-                @if(!empty($periodeKepuasan))
-                  {{ $periodeKepuasan->namaPeriode }}</p>
-                  <p><span class="badge badge-success">{{ Helper::setDate($periodeKepuasan->tglMulai).' - '.Helper::setDate($periodeKepuasan->tglSelesai) }}</span></p>
+                <p><b>Periode Kepala Bagian Office: </b><br>
+                @if(!empty($periodeKabagOffice))
+                  {{ $periodeKabagOffice->namaPeriode }}</p>
+                  <p><span class="badge badge-success">{{ Helper::setDate($periodeKabagOffice->tglMulai).' - '.Helper::setDate($periodeKabagOffice->tglSelesai) }}</span></p>
                 @else
                   <p><span class="badge badge-danger">Tidak ada periode!</span></p>
                 @endif
-                <a href="#" class="btn btn-primary btn-block btn-sm {{ (empty($periodeKepuasan)) ? 'disabled' : '' }}" data-toggle="modal" data-target="#suveiKepuasan">Survei Kepuasan Karyawan</a>
+                <a href="#" class="btn btn-primary btn-block btn-sm {{ (empty($periodeKabagToko) && empty($periodeKabagOffice)) ? 'disabled' : '' }}" data-toggle="modal" data-target="#kepalaBagian">Nilai</a>
             </div>
         </div>
     </div>
+</div>
+
+<div class="row justify-content-md-center mt-3">
+  <div class="col-md-4">
+    <div class="card text-center">
+      <div class="card-header justify-content-center">
+        <img src="{{asset('/img/user1.png')}}" class="card-img-top w-50" alt="...">
+      </div>
+      <div class="card-body">
+          <p><b>Periode Penilaian Kepala Bagian Terhadap Karyawan: </b><br>
+          @if(!empty($periodeKepuasan))
+            {{ $periodeKepuasan->namaPeriode }}</p>
+            <p><span class="badge badge-success">{{ Helper::setDate($periodeKepuasan->tglMulai).' - '.Helper::setDate($periodeKepuasan->tglSelesai) }}</span></p>
+          @else
+            <p><span class="badge badge-danger">Tidak ada periode!</span></p>
+          @endif
+          <a href="#" class="btn btn-primary btn-block btn-sm {{ (empty($periodeKepuasan)) ? 'disabled' : '' }}" data-toggle="modal" data-target="#suveiKepuasan">Nilai</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center">
+      <div class="card-header justify-content-center">
+        <img src="{{asset('/img/user1.png')}}" class="card-img-top w-50" alt="...">
+      </div>
+      <div class="card-body">
+          <p><b>Periode Survei Kepuasan Karyawan: </b><br>
+          @if(!empty($periodeKepuasan))
+            {{ $periodeKepuasan->namaPeriode }}</p>
+            <p><span class="badge badge-success">{{ Helper::setDate($periodeKepuasan->tglMulai).' - '.Helper::setDate($periodeKepuasan->tglSelesai) }}</span></p>
+          @else
+            <p><span class="badge badge-danger">Tidak ada periode!</span></p>
+          @endif
+          <a href="#" class="btn btn-primary btn-block btn-sm {{ (empty($periodeKepuasan)) ? 'disabled' : '' }}" data-toggle="modal" data-target="#suveiKepuasan">Nilai</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 @endsection

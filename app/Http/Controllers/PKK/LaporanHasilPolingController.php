@@ -9,6 +9,8 @@ use App\Exports\HasilPolingExport;
 use App\PKK\DetailPoling;
 use DB;
 use App\PKK\Periode;
+use App\PKK\Poling;
+use App\KaryawanAll;
 
 class LaporanHasilPolingController extends Controller
 {
@@ -17,20 +19,10 @@ class LaporanHasilPolingController extends Controller
         $skor = 0;
         $data['menu'] = '9';
         $data['no'] = 1;        
-        $data['dep'] = [
-            'Accounting',
-            'Finance',
-            'Gudang',
-            'HRD',
-            'IT',
-            'GA',
-            'MT',
-            'PAJAK',
-            'QA',
-            'SCM'
-        ];
-        $dep = $data['dep'];
-        $data['searchPeriode'] = Periode::orderBy('id', 'DESC')->get();
+        $data['dep'] = $this->dep();
+        $dep = $this->dep();
+        $data['searchPeriode'] = Periode::orderBy('id', 'DESC')->where('kategori', 1)->get();
+        $data['persentase'] = $this->persentase();
         return view('admin.laporan.hrd.laporanhasilpoling.index', $data);
     }
 
@@ -56,5 +48,36 @@ class LaporanHasilPolingController extends Controller
     public function export()
     {
         return (new HasilPolingExport)->download('data-hasil-poling.xlsx');
+    }
+
+    public function persentase(){
+        $dep = $this->dep();
+        $karyawan = KaryawanAll::where('stat', 1)->where('ket', 1)->whereIn('dep', $dep)->get();
+        if($_GET){
+            $periode = Periode::find($_GET['periodeId']);
+        }else{
+            $periode = Periode::where('kategori', 1)->orderBy('id', 'desc')->first();
+        }
+        $poling = Poling::where('kategori', 1)->where('periodeId', $periode->id)->get();
+
+        $total = ($poling->count() / $karyawan->count()) * 100;
+        
+        return round($total);
+    }
+
+    public function dep(){
+        $dep = [
+            'Accounting',
+            'Finance',
+            'HRD',
+            'IT',
+            'GA',
+            'MT',
+            'PAJAK',
+            'QA',
+            'SCM'
+        ];
+
+        return $dep;
     }
 }

@@ -15,7 +15,7 @@ class DetailFormPeminjamanSarana extends Model
         'formPeminjamanId',
         'saranaId'
     ];
-    public $timestampt = false;
+    public $timestamps = false;
 
     // fk
     public function sarana(){

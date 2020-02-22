@@ -16,9 +16,15 @@ class FormPerbaikanController extends Controller
     public function index(){
         $data['menu'] = 8;
 
-        $data['formProgress'] = FormPerbaikanSarana::where('status', '<', '4')->orderBy('created_at', 'desc')->get();
+        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA'){
+            $data['formProgress'] = FormPerbaikanSarana::where('status', '<', '4')->orderBy('created_at', 'desc')->get();
 
-        $data['formSelesai'] = FormPerbaikanSarana::where('status', '>', '3')->orderBy('created_at', 'desc')->get();
+            $data['formSelesai'] = FormPerbaikanSarana::where('status', '>', '3')->orderBy('created_at', 'desc')->get();
+        }else{
+            $data['formProgress'] = FormPerbaikanSarana::where('userId', auth()->user()->id)->where('status', '<', '4')->orderBy('created_at', 'desc')->get();
+
+            $data['formSelesai'] = FormPerbaikanSarana::where('userId', auth()->user()->id)->where('status', '>', '3')->orderBy('created_at', 'desc')->get();
+        }
         
         return view('admin.form.ga.perbaikan.index', $data);
     }
@@ -65,26 +71,24 @@ class FormPerbaikanController extends Controller
         $nik = $req->nik;
         $password = sha1($req->password);
 
-        $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', 'GA')->first();
+        $karyawan = KaryawanAll::where('stat', 2)->where('nik', $nik)->where('password', $password)->where('dep', 'GA')->first();
 
         if(!empty($karyawan)){
-            if($karyawan->nik == '0317.1204' || '0217.1203'){
-                $form = FormPerbaikanSarana::find($req->id);
-                switch ($req->type) {
-                    case '1':
-                        $form->status = 2;
-                        $form->save();
-                        break;
-                    
-                    default:
-                        $form->status = 5;
-                        $form->keterangan = $req->keterangan;
-                        $form->save();
-                        break;
-                }
-
-                return redirect()->route('form.ga.perbaikan')->with('success', 'Form telah di verifikasi');
+            $form = FormPerbaikanSarana::find($req->id);
+            switch ($req->type) {
+                case '1':
+                    $form->status = 2;
+                    $form->save();
+                    break;
+                
+                default:
+                    $form->status = 5;
+                    $form->keterangan = $req->keterangan;
+                    $form->save();
+                    break;
             }
+
+            return redirect()->route('form.ga.perbaikan')->with('success', 'Form telah di verifikasi');
         }
 
         return redirect()->route('form.ga.perbaikan')->with('error', 'Form gagal di verifikasi');

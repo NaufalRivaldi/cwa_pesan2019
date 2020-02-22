@@ -79,12 +79,11 @@
                     <a href="#pageGA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">General Affair <span class="text-warning">*</span></a>
                     <ul class="collapse list-unstyled" id="pageGA">
                         <li>
-                            <a href="{{ route('form.ga.perbaikan') }}">Perbaikan Sarana <span class="badge badge-warning">{{ Helper::countFormPerbaikan() }}</span></a>
-                            <a href="{{ route('form.ga.peminjaman') }}">Peminjaman Sarana <span class="badge badge-warning">{{ Helper::countFormPerbaikan() }}</span></a>
+                            <a href="{{ route('form.ga.peminjaman') }}">Peminjaman Sarana <span class="badge badge-warning">{{ Helper::countFormPeminjaman() }}</span></a>
                         </li>
-                        <!-- <li>
-                            <a href="{{ route('desainIklan') }}">Peminjaman Sarana</a>
-                        </li> -->
+                        <li>
+                            <a href="{{ route('form.ga.perbaikan') }}">Perbaikan Sarana <span class="badge badge-warning">{{ Helper::countFormPerbaikan() }}</span></a>
+                        </li>
                     </ul>
                 </li>
                 @if(Helper::isVerifikasi())
@@ -157,7 +156,8 @@
             <ul class="collapse list-unstyled" id="pagePkk">
                 <li>
                     <a class="nav-link" href="{{ route('pkk.penilaian') }}"><i class="fa fa-fw fa-users"></i> Penilaian </a>
-                </li> 
+                </li>
+                @if(Helper::isHRD()) 
                 <li>
                     <a class="nav-link" href="{{ route('pkk.periode') }}"><i class="fa fa-fw fa-users"></i> Periode </a>
                 </li> 
@@ -167,6 +167,7 @@
                 <li>
                     <a class="nav-link" href="{{ route('pkk.indikator') }}"><i class="fa fa-fw fa-users"></i> Indikator </a>
                 </li> 
+                @endif
             </ul>
         </li>
 

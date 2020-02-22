@@ -39,12 +39,12 @@
                                     @foreach($formProgress as $data)
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td class="modalClick" data-id="{{ $data->id }}" data-id="{{ $data->id }}">{{ Helper::setDate($data->tglPengajuan) }}</td>
+                                            <td class="modalClick" data-id="{{ $data->id }}">{{ Helper::setDate($data->tglPengajuan) }}</td>
                                             <td class="modalClick" data-id="{{ $data->id }}">{{ $data->user->dep }}</td>
                                             <td class="modalClick" data-id="{{ $data->id }}">{{ $data->permintaan }}</td>
                                             <td class="modalClick" data-id="{{ $data->id }}">{!! Helper::statusPerbaikan($data->status) !!}</td>
                                             <td>
-                                            @if(auth()->user()->dep == 'GA')
+                                            @if(auth()->user()->dep == 'GA' || auth()->user()->dep == 'IT')
                                                 @if($data->status > 1 && $data->status != 4 && $data->status != 5)
                                                     <button class="btn btn-success btn-sm modalStatus" data-id="{{ $data->id }}" data-stat="{{ $data->status }}"><i class="fas fa-exchange-alt"></i></button>
                                                 @elseif($data->status == 1)

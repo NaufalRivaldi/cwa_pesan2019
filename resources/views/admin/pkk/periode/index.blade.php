@@ -36,6 +36,7 @@
                   <option value="2" {{ ($_GET)?($_GET['kategori']) == 2 ?'selected':'':'' }}>Penilaian Kepala Departemen</option>
                   <option value="3" {{ ($_GET)?($_GET['kategori']) == 3 ?'selected':'':'' }}>Penilaian Kepala Toko</option>
                   <option value="4" {{ ($_GET)?($_GET['kategori']) == 4 ?'selected':'':'' }}>Survei Kepuasan Karyawan</option>
+                  <option value="5" {{ ($_GET)?($_GET['kategori']) == 5 ?'selected':'':'' }}>Penilaian Karyawan</option>
                 </select>
               </form>
             </div>

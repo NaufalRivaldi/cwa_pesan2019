@@ -9,7 +9,8 @@ class FormPeminjamanSarana extends Model
     protected $table = 'form_peminjaman_sarana';
     protected $fillable = [
         'status',
-        'userId'
+        'userId',
+        'keterangan'
     ];
     public $timestampt = false;
 

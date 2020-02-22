@@ -178,10 +178,13 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::get('/', 'FormPeminjamanController@index')->name('form.ga.peminjaman');
                 Route::get('/form', 'FormPeminjamanController@form')->name('form.ga.peminjaman.form');
                 Route::get('/view', 'FormPeminjamanController@view')->name('form.ga.peminjaman.view');
+                Route::get('/table', 'FormPeminjamanController@table')->name('form.ga.peminjaman.table');
                 Route::post('/store', 'FormPeminjamanController@store')->name('form.ga.peminjaman.store');
+                Route::post('/update-sarana', 'FormPeminjamanController@updateSarana')->name('form.ga.peminjaman.update.sarana');
                 Route::post('/validasi', 'FormPeminjamanController@validasi')->name('form.ga.peminjaman.validasi');
-                Route::post('/status', 'FormPeminjamanController@updateStatus')->name('form.ga.peminjaman.status');
+                Route::get('/edit-sarana', 'FormPeminjamanController@editSarana')->name('form.ga.peminjaman.editSarana');
                 Route::post('/delete', 'FormPeminjamanController@delete')->name('form.ga.peminjaman.delete');
+                Route::post('/delete-sarana', 'FormPeminjamanController@deleteSarana')->name('form.ga.peminjaman.delete.sarana');
             });
         });
 
@@ -314,9 +317,10 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             });
         });
     });
+
     // penilaian kinerja karyawan
     Route::group(['prefix' => 'pkk'], function(){
-        Route::group(['prefix' => 'periode'], function(){
+        Route::group(['prefix' => 'periode', 'middleware' => ['checkDep:HRD,IT']], function(){
             Route::get('/', 'PKK\PeriodeController@index')->name('pkk.periode');
             Route::get('/form', 'PKK\PeriodeController@form')->name('pkk.periode.form');
             Route::post('/add', 'PKK\PeriodeController@add')->name('pkk.periode.add');
@@ -326,7 +330,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::post('/delete', 'PKK\PeriodeController@delete')->name('pkk.periode.delete');     
         });
 
-        Route::group(['prefix' => 'kuisioner'], function(){
+        Route::group(['prefix' => 'kuisioner', 'middleware' => ['checkDep:HRD,IT']], function(){
             Route::get('/', 'PKK\KuisionerController@index')->name('pkk.kuisioner');
             Route::get('/form', 'PKK\KuisionerController@form')->name('pkk.kuisioner.form');
             Route::post('/add', 'PKK\KuisionerController@add')->name('pkk.kuisioner.add');
@@ -336,7 +340,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::post('/delete', 'PKK\KuisionerController@delete')->name('pkk.kuisioner.delete');     
         });
 
-        Route::group(['prefix' => 'indikator'], function(){
+        Route::group(['prefix' => 'indikator', 'middleware' => ['checkDep:HRD,IT']], function(){
             Route::get('/', 'PKK\IndikatorController@index')->name('pkk.indikator');
             Route::get('/form', 'PKK\IndikatorController@form')->name('pkk.indikator.form');
             Route::post('/add', 'PKK\IndikatorController@add')->name('pkk.indikator.add');

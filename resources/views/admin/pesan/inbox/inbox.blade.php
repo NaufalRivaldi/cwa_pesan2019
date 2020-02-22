@@ -49,7 +49,7 @@
                                         </td>
                                         <td>
                                             <a href="{{ url($url) }}" class="a-block">
-                                                <b>{{ $data->subject }}</b>
+                                                {{ $data->subject }}
                                                 - {{ Helper::setDesc($data->message) }} ...
                                             </a>
                                             @foreach($data->attach as $att)
