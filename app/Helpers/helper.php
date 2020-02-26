@@ -171,6 +171,16 @@ class helper{
         }
     }
 
+    public static function isOffice(){
+        $dep = auth()->user()->dep;
+        $data = array('Gudang', 'SCM', 'Office', 'Finance', 'Accounting', 'QA', 'GA', 'HRD', 'Pajak', 'MT', 'IT');
+        if(in_array($dep, $data)){
+            return true;                                                    
+        }else{
+            return false;
+        }
+    }
+
     // set show menu
 
     // password default
@@ -993,6 +1003,29 @@ class helper{
                 break;
 
             case '5':
+                $text = "<span class='badge badge-danger'>Ditolak</span>";
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        
+        return $text;
+    }
+
+    public static function statusPeminjaman($val){
+        $text = '';
+        switch ($val) {
+            case '1':
+                $text = "<span class='badge badge-warning'>Pending</span>";
+                break;
+
+            case '2':
+                $text = "<span class='badge badge-success'>Selesai</span>";
+                break;
+
+            case '3':
                 $text = "<span class='badge badge-danger'>Ditolak</span>";
                 break;
             

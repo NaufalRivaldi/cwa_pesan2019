@@ -134,15 +134,13 @@
                 <i class="fas fa-file-signature"></i> E-Form <span class="text-warning">*</span>
             </a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
-                <!-- <li>
-                    <a href="{{ url('admin/formhrd') }}">HRD <span class="badge badge-warning">{{ Helper::countPending() }}</span></a>
-                </li> -->
                 <li>
                     <a href="#pageHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">HRD</a> 
                     <ul class="collapse list-unstyled" id="pageHRD">
                         <li>
                             <a href="{{ url('admin/formhrd') }}">Form Umum<span class="badge badge-warning">{{ Helper::countPending() }}</span></a>
                         </li>
+                        <li>
                             <a href="{{ route('form.hrd.cuti') }}">Form Cuti <span class="badge badge-warning">{{ Helper::countPending() }}</span></a>
                         </li>
                     </ul>
@@ -161,9 +159,11 @@
                 <li>
                     <a href="#pageGA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">General Affair <span class="text-warning">*</span></a>
                     <ul class="collapse list-unstyled" id="pageGA">
+                        @if(Helper::isOffice())
                         <li>
                             <a href="{{ route('form.ga.peminjaman') }}">Peminjaman Sarana <span class="badge badge-warning">{{ Helper::countFormPeminjaman() }}</span></a>
                         </li>
+                        @endif
                         <li>
                             <a href="{{ route('form.ga.perbaikan') }}">Perbaikan Sarana <span class="badge badge-warning">{{ Helper::countFormPerbaikan() }}</span></a>
                         </li>
@@ -268,7 +268,7 @@
                     <a href="#laporanGA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> General Affair</a>
                     <ul class="collapse list-unstyled" id="laporanGA">
                         <li>    
-                            <a href="{{ route('laporan.ga.list.sarana') }}">List Peminjaman Sarana</a>
+                            <a href="{{ route('laporan.ga.peminjaman.index') }}">Peminjaman Sarana</a>
                         </li>
                         <li>    
                             <a href="{{ route('laporan.ga.perbaikan') }}">Perbaikan Sarana</a>

@@ -69,7 +69,7 @@ class FormPeminjamanController extends Controller
         $array = [
             "tglPengajuan" => helper::setDate($data->tglPengajuan),
             "pengaju" => Auth()->user()->nama.' ('.Auth()->user()->dep.')',
-            "status" => helper::statusPerbaikan($data->status),
+            "status" => helper::statusPeminjaman($data->status),
             "keterangan" => $data->keterangan
         ];
 
