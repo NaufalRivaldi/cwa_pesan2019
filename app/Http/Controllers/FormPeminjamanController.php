@@ -13,6 +13,8 @@ use App\KaryawanAll;
 
 use App\Helpers\helper;
 
+use Auth;
+
 class FormPeminjamanController extends Controller
 {
     public function index(){
@@ -20,7 +22,7 @@ class FormPeminjamanController extends Controller
         $data['no'] = 1;
         $data['sarana'] = Sarana::all();
         
-        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA'){
+        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA' || auth()->user()->dep == 'Accounting'){
             $data['formProgress'] = FormPeminjamanSarana::where('status', '<', '2')->orderBy('created_at', 'desc')->get();
 
             $data['formSelesai'] = FormPeminjamanSarana::where('status', '>', '1')->orderBy('created_at', 'desc')->get();
@@ -60,6 +62,9 @@ class FormPeminjamanController extends Controller
             ]);
         }
 
+        // notif
+        helper::notifikasiFormPeminjaman(Auth::user()->nama);
+
         return redirect()->route('form.ga.peminjaman')->with('success', 'Form Sudah diajukan.');
     }
 
@@ -67,8 +72,8 @@ class FormPeminjamanController extends Controller
         $id = $_GET['id'];
         $data = FormPeminjamanSarana::find($id);
         $array = [
-            "tglPengajuan" => helper::setDate($data->tglPengajuan),
-            "pengaju" => Auth()->user()->nama.' ('.Auth()->user()->dep.')',
+            "tglPengajuan" => helper::setDate($data->created_at),
+            "pengaju" => $data->user->nama.' ('.$data->user->dep.')',
             "status" => helper::statusPeminjaman($data->status),
             "keterangan" => $data->keterangan
         ];
@@ -126,6 +131,8 @@ class FormPeminjamanController extends Controller
                     $form->save();
                     break;
             }
+
+            helper::notifikasiAccPeminjaman($form->id);
 
             return redirect()->route('form.ga.peminjaman')->with('success', 'Form telah di verifikasi');
         }

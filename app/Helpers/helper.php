@@ -374,7 +374,7 @@ class helper{
     }
 
     public static function countFormPerbaikan(){
-        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA'){
+        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA' || auth()->user()->dep == 'Accounting'){
             $form = FormPerbaikanSarana::where('status', '<' ,'4')->count();
         }else{
             $form = FormPerbaikanSarana::where('userId', auth()->user()->id)->where('status', '<' ,'4')->count();
@@ -383,7 +383,7 @@ class helper{
     }
 
     public static function countFormPeminjaman(){
-        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA'){
+        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA' || auth()->user()->dep == 'Accounting'){
             $form = FormPeminjamanSarana::where('status', '<' ,'2')->count();
         }else{
             $form = FormPeminjamanSarana::where('userId', auth()->user()->id)->where('status', '<' ,'2')->count();
@@ -905,6 +905,56 @@ class helper{
         $link = 'admin/formit/desain/';
         $ket = 'Anda telah menerima Form Pengajuan Desain dari '.$nama;
         $user = User::where('dep', 'IT')->get();
+        // save notif
+        foreach($user as $row){
+            $data = [
+                "link" => $link,
+                "keterangan" => $ket,
+                "user_id" => $row->id,
+                "stat" => 1
+            ];
+        
+            Notifikasi::create($data);
+        }
+    }
+
+    public static function notifikasiFormPeminjaman($nama){
+        $link = 'admin/form/ga/peminjaman-sarana';
+        $ket = 'Anda telah menerima Form Peminjaman dari '.$nama;
+        $user = User::where('dep', 'GA')->get();
+        // save notif
+        foreach($user as $row){
+            $data = [
+                "link" => $link,
+                "keterangan" => $ket,
+                "user_id" => $row->id,
+                "stat" => 1
+            ];
+        
+            Notifikasi::create($data);
+        }
+    }
+
+    public static function notifikasiAccPeminjaman($form_id){
+        $form = FormPeminjamanSarana::find($form_id);
+
+        $link = 'admin/form/ga/peminjaman-sarana';
+        $ket = 'Form peminjaman sarana sudah diverifikasi oleh GA.';
+        
+        // save notif
+        $data = [
+            "link" => $link,
+            "keterangan" => $ket,
+            "user_id" => $form->userId,
+            "stat" => 1
+        ];
+    
+        Notifikasi::create($data);
+    }
+
+    public static function notifikasiFormGlobal($link, $nama, $to, $text){
+        $ket = $text.' '.$nama;
+        $user = User::where('dep', $to)->get();
         // save notif
         foreach($user as $row){
             $data = [
