@@ -216,7 +216,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         });
 
         Route::group(['prefix' => 'ga'], function(){
-            Route::group(['prefix' => 'peminjaman-sarana'], function(){
+            Route::group(['prefix' => 'peminjaman-sarana', 'middleware' => ['checkDep:IT,SCM,HRD,Pajak,QA,GA,MT,Accounting,Finance,Office,Gudang']], function(){
                 Route::get('/', 'FormPeminjamanController@index')->name('form.ga.peminjaman');
                 Route::get('/form', 'FormPeminjamanController@form')->name('form.ga.peminjaman.form');
                 Route::get('/view', 'FormPeminjamanController@view')->name('form.ga.peminjaman.view');
@@ -275,9 +275,15 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         });
 
         Route::group(['prefix' => 'ga', 'middleware' => ['checkDep:GA,IT']], function(){
+            // perbaikan
             Route::group(['prefix' => 'perbaikan'], function(){
                 Route::get('/', 'LaporanPerbaikanSaranaController@index')->name('laporan.ga.perbaikan');
                 Route::get('/export', 'LaporanPerbaikanSaranaController@export')->name('laporan.ga.perbaikan.export');
+            });
+
+            Route::group(['prefix' => 'peminjaman'], function(){
+                Route::get('/', 'LaporanPeminjamanSaranaController@index')->name('laporan.ga.peminjaman.index');
+                Route::get('/export', 'LaporanPeminjamanSaranaController@export')->name('laporan.ga.peminjaman.export');
             });
 
             Route::group(['prefix' => 'sarana'], function(){

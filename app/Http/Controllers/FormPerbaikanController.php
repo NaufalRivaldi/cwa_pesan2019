@@ -16,7 +16,7 @@ class FormPerbaikanController extends Controller
     public function index(){
         $data['menu'] = 8;
 
-        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA'){
+        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA' || auth()->user()->dep == 'Accounting'){
             $data['formProgress'] = FormPerbaikanSarana::where('status', '<', '4')->orderBy('created_at', 'desc')->get();
 
             $data['formSelesai'] = FormPerbaikanSarana::where('status', '>', '3')->orderBy('created_at', 'desc')->get();
@@ -62,6 +62,9 @@ class FormPerbaikanController extends Controller
             'keterangan' => '-',
             'userId' => Auth()->user()->id
         ]);
+
+        // notif
+        helper::notifikasiFormGlobal('admin/form/ga/perbaikan-sarana', Auth::user()->nama, 'GA', 'Anda telah menerima Form Perbaikan dari');
 
         return redirect()->route('form.ga.perbaikan')->with('success', 'Form telah diajukan.');
     }

@@ -96,6 +96,7 @@
                 </div>
             </div>
 
+            @if(Helper::isOffice())
             <div class="card text-white bg-warning mb-2">
                 <div class="card-header"><i class="fas fa-file-signature"></i> Form Peminjaman Sarana <span class="badge badge-pill badge-danger">Proses</span></div>
                 <div class="card-body">
@@ -103,6 +104,7 @@
                     <a href="{{ route('form.ga.peminjaman') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
                 </div>
             </div>
+            @endif
         </div>
     </div>
     <div class="row">

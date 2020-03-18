@@ -183,6 +183,16 @@ class helper{
         }
     }
 
+    public static function isOffice(){
+        $dep = auth()->user()->dep;
+        $data = array('Gudang', 'SCM', 'Office', 'Finance', 'Accounting', 'QA', 'GA', 'HRD', 'Pajak', 'MT', 'IT');
+        if(in_array($dep, $data)){
+            return true;                                                    
+        }else{
+            return false;
+        }
+    }
+
     // set show menu
 
     // password default
@@ -386,7 +396,7 @@ class helper{
     }
 
     public static function countFormPerbaikan(){
-        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA'){
+        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA' || auth()->user()->dep == 'Accounting'){
             $form = FormPerbaikanSarana::where('status', '<' ,'4')->count();
         }else{
             $form = FormPerbaikanSarana::where('userId', auth()->user()->id)->where('status', '<' ,'4')->count();
@@ -395,7 +405,7 @@ class helper{
     }
 
     public static function countFormPeminjaman(){
-        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA'){
+        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA' || auth()->user()->dep == 'Accounting'){
             $form = FormPeminjamanSarana::where('status', '<' ,'2')->count();
         }else{
             $form = FormPeminjamanSarana::where('userId', auth()->user()->id)->where('status', '<' ,'2')->count();
@@ -930,6 +940,56 @@ class helper{
         }
     }
 
+    public static function notifikasiFormPeminjaman($nama){
+        $link = 'admin/form/ga/peminjaman-sarana';
+        $ket = 'Anda telah menerima Form Peminjaman dari '.$nama;
+        $user = User::where('dep', 'GA')->get();
+        // save notif
+        foreach($user as $row){
+            $data = [
+                "link" => $link,
+                "keterangan" => $ket,
+                "user_id" => $row->id,
+                "stat" => 1
+            ];
+        
+            Notifikasi::create($data);
+        }
+    }
+
+    public static function notifikasiAccPeminjaman($form_id){
+        $form = FormPeminjamanSarana::find($form_id);
+
+        $link = 'admin/form/ga/peminjaman-sarana';
+        $ket = 'Form peminjaman sarana sudah diverifikasi oleh GA.';
+        
+        // save notif
+        $data = [
+            "link" => $link,
+            "keterangan" => $ket,
+            "user_id" => $form->userId,
+            "stat" => 1
+        ];
+    
+        Notifikasi::create($data);
+    }
+
+    public static function notifikasiFormGlobal($link, $nama, $to, $text){
+        $ket = $text.' '.$nama;
+        $user = User::where('dep', $to)->get();
+        // save notif
+        foreach($user as $row){
+            $data = [
+                "link" => $link,
+                "keterangan" => $ket,
+                "user_id" => $row->id,
+                "stat" => 1
+            ];
+        
+            Notifikasi::create($data);
+        }
+    }
+
     // cek cabang
     public static function cekUpdateFinance(){
         $cabang = Cabang::where('inisial', auth()->user()->dep)->first();
@@ -1015,6 +1075,29 @@ class helper{
                 break;
 
             case '5':
+                $text = "<span class='badge badge-danger'>Ditolak</span>";
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        
+        return $text;
+    }
+
+    public static function statusPeminjaman($val){
+        $text = '';
+        switch ($val) {
+            case '1':
+                $text = "<span class='badge badge-warning'>Pending</span>";
+                break;
+
+            case '2':
+                $text = "<span class='badge badge-success'>Selesai</span>";
+                break;
+
+            case '3':
                 $text = "<span class='badge badge-danger'>Ditolak</span>";
                 break;
             
