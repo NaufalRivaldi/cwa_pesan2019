@@ -37,10 +37,15 @@ class KaryawanAll extends Model
     }
 
     public function cuti(){
-        return $this->hasMany('App\Forms\formcuti\FormCuti', 'idKaryawanAll');
+        return $this->hasMany('App\Forms\formcuti\Cuti', 'idKaryawan');
     } 
 
     public function verifikasi_cuti(){
-        return $this->hasMany('App\Forms\formcuti\VerifikasiFormCuti', 'karyawanAllId');
+        return $this->hasMany('App\Forms\formcuti\VerifikasiFormCuti', 'karyawanId');
+    }
+
+    public function formCuti()
+    {
+        return $this->hasMany('App\Forms\formcuti\FormCuti', 'karyawanId');
     }
 }

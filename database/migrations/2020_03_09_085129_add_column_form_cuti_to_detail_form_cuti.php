@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnKaryawanIdToFormCuti extends Migration
+class AddColumnFormCutiToDetailFormCuti extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class AddColumnKaryawanIdToFormCuti extends Migration
      */
     public function up()
     {
-        Schema::table('form_cuti', function (Blueprint $table) {
-            $table->unsignedInteger('idKaryawan');
+        Schema::table('detail_form_cuti', function (Blueprint $table) {
+            $table->unsignedInteger('idFormCuti');            
 
-            $table->foreign('idKaryawan')
+            $table->foreign('idFormCuti')
                     ->references('id')
-                    ->on('karyawan_all')
+                    ->on('form_cuti')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
         });
@@ -31,7 +31,7 @@ class AddColumnKaryawanIdToFormCuti extends Migration
      */
     public function down()
     {
-        Schema::table('form_cuti', function (Blueprint $table) {
+        Schema::table('detail_form_cuti', function (Blueprint $table) {
             //
         });
     }

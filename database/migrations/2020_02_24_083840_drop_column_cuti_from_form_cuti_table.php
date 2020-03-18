@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnKaryawanIdToFormCuti extends Migration
+class DropColumnCutiFromFormCutiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,7 @@ class AddColumnKaryawanIdToFormCuti extends Migration
     public function up()
     {
         Schema::table('form_cuti', function (Blueprint $table) {
-            $table->unsignedInteger('idKaryawan');
-
-            $table->foreign('idKaryawan')
-                    ->references('id')
-                    ->on('karyawan_all')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+            $table->dropColumn('cuti');
         });
     }
 

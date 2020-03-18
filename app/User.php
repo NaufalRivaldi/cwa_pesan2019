@@ -95,4 +95,9 @@ class User extends Authenticatable
     public function formPeminjamanSarana(){
         return $this->hasMany('App\FormPeminjamanSarana', 'userId');
     }
+
+    public function formCuti()
+    {
+        return $this->hasMany('App\Forms\formcuti\FormCuti', 'userId');
+    }
 }

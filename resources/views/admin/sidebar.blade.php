@@ -143,7 +143,7 @@
                         <li>
                             <a href="{{ url('admin/formhrd') }}">Form Umum<span class="badge badge-warning">{{ Helper::countPending() }}</span></a>
                         </li>
-                            <a href="{{ route('form.hrd.cuti') }}">Form Cuti <span class="badge badge-warning">{{ Helper::countPending() }}</span></a>
+                            <a href="{{ route('form.hrd.cuti.formcuti') }}">Form Cuti <span class="badge badge-warning">{{ Helper::countPendingCuti() }}</span></a>
                         </li>
                     </ul>
                 </li>
@@ -172,6 +172,11 @@
                 @if(Helper::isVerifikasi())
                 <li>
                     <a href="{{ url('admin/formhrd/verifikasi') }}">Verifikasi <span class="badge badge-warning">{{ Helper::countVerifikasi() }}</span></a>
+                </li>
+                @endif
+                @if(Helper::isVerifikasiCuti())
+                <li>
+                    <a href="{{ route('form.hrd.cuti.verifikasiCuti') }}">Verifikasi Cuti <span class="badge badge-warning"></span></a>
                 </li>
                 @endif
             </ul>
@@ -252,6 +257,9 @@
                     <ul class="collapse list-unstyled" id="laporanHRD">
                         <li>
                             <a href="{{ url('admin/formhrd/laporan') }}">Form HRD</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('laporan.hrd.formcuti') }}">Form Cuti</a>
                         </li>
                         <li>
                             <a href="{{ route('laporan.hrd.hasilpoling') }}">Hasil Poling</a>

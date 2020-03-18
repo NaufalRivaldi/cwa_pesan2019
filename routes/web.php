@@ -139,7 +139,10 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::group(['prefix' => '/cuti'], function(){
             Route::get('/', 'Forms\Cuti\CutiController@index')->name('form.hrd.cuti');
             Route::get('/form', 'Forms\Cuti\CutiController@form')->name('form.hrd.cuti.form');
+            Route::get('/{id}/edit', 'Forms\Cuti\CutiController@form')->name('form.hrd.cuti.edit');
             Route::post('/add', 'Forms\Cuti\CutiController@add')->name('form.hrd.cuti.add');
+            Route::post('/delete', 'Forms\Cuti\CutiController@delete')->name('form.hrd.cuti.delete');
+            Route::get('/generate', 'Forms\Cuti\CutiController@generate')->name('form.hrd.cuti.generate');
 
             Route::get('/fillCuti', 'Forms\Cuti\CutiController@fillCuti')->name('form.hrd.cuti.fillCuti');
             Route::get('/cekKaryawan', 'Forms\Cuti\CutiController@cekKaryawan')->name('form.hrd.cuti.cekKaryawan');
@@ -153,6 +156,25 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::get('/{id}/edit', 'Forms\Cuti\KategoriCutiController@form')->name('form.hrd.cuti.kategori.edit');
                 Route::post('/update', 'Forms\Cuti\KategoriCutiController@update')->name('form.hrd.cuti.kategori.update');
                 Route::post('/delete', 'Forms\Cuti\KategoriCutiController@delete')->name('form.hrd.cuti.kategori.delete');
+            });
+
+            Route::group(['prefix' => '/formcuti'], function(){
+                Route::get('/', 'Forms\Cuti\FormCutiController@index')->name('form.hrd.cuti.formcuti');
+                Route::get('/form', 'Forms\Cuti\FormCutiController@form')->name('form.hrd.cuti.formcuti.form');
+                Route::get('/kategori', 'Forms\Cuti\FormCutiController@kategori')->name('form.hrd.cuti.formcuti.kategori');
+                Route::get('/maxCuti', 'Forms\Cuti\FormCutiController@maxCuti')->name('form.hrd.cuti.formcuti.maxCuti');
+                Route::post('/add', 'Forms\Cuti\FormCutiController@add')->name('form.hrd.cuti.formcuti.add');
+                Route::get('/detail', 'Forms\Cuti\FormCutiController@detail')->name('form.hrd.cuti.formcuti.detail');
+                Route::get('/detailCuti', 'Forms\Cuti\FormCutiController@detailCuti')->name('form.hrd.cuti.formcuti.detailCuti');
+                Route::post('/verifikasi', 'Forms\Cuti\FormCutiController@verifikasi')->name('form.hrd.cuti.formcuti.verifikasi');
+                Route::post('/delete', 'Forms\Cuti\FormCutiController@delete')->name('form.hrd.cuti.formcuti.delete');
+            });
+
+
+            Route::group(['prefix' => '/verifikasiCuti', 'middleware' => ['checkDep:Office,HRD']], function(){
+                Route::get('/', 'Forms\Cuti\VerifikasiCutiController@index')->name('form.hrd.cuti.verifikasiCuti');
+                Route::post('/verifikasiHRD', 'Forms\Cuti\VerifikasiCutiController@verifikasiHRD')->name('form.hrd.cuti.verifikasiCuti.hrd');
+                Route::post('/verifikasiAM', 'Forms\Cuti\VerifikasiCutiController@verifikasiAM')->name('form.hrd.cuti.verifikasiCuti.am');
             });
         });
     });
@@ -244,6 +266,11 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                     Route::get('/', 'PKK\LaporanPenilaianKabagController@indexToko')->name('laporan.hrd.penilaian.kabag.toko');                    
                     Route::get('/{karyawanId}/{periodeId}/detail', 'PKK\LaporanPenilaianKabagController@detail')->name('laporan.hrd.penilaian.kabag.detail.toko');
                 });
+            });
+
+            Route::group(['prefix'=>'formcuti'], function(){
+                Route::get('/', 'Forms\Cuti\LaporanFormCutiController@index')->name('laporan.hrd.formcuti');
+                Route::get('/viewCuti', 'Forms\Cuti\LaporanFormCutiController@viewCuti')->name('laporan.hrd.formcuti.viewCuti');
             });
         });
 

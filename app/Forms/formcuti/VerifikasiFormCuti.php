@@ -8,16 +8,16 @@ class VerifikasiFormCuti extends Model
 {
     protected $table = 'verifikasi_cuti';
     protected $fillable = [
-        'detailCutiId',
+        'idFormCuti',
         'userId',
-        'karyawanAllId',
+        'karyawanId',
         'status',
         'keterangan'
     ];
 
-    public function detail_cuti()
+    public function formCuti()
     {
-        return $this->belongsTo('App\Forms\formcuti\DetailFormCuti', 'detailCutiId');
+        return $this->belongsTo('App\Forms\formcuti\FormCuti', 'idFormCuti');
     }
 
     public function user()

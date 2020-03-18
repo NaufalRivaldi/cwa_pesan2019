@@ -41,7 +41,7 @@
                     <input type="hidden" value="" class="idCust" name="customersId">                
                     <div class="col-sm-3 mb-1">
                       <label for="customerMemberId">Member ID</label>
-                      <input id="inputMemberId" type="text" class="form-control memberIdC" value="" id="memberIdC" readonly>
+                      <input id="inputMemberId" type="text" class="form-control memberIdC" value="" id="memberIdC" readonly required>
                     </div>
                     <div class="col-sm-1 mb-1">     
                       <label for="searchCust" class="searchCst">&nbsp;</label>               
@@ -50,7 +50,7 @@
                     </div>                  
                     <div class="col-sm-4 mb-1">
                       <label for="inputCustomerName">Nama</label>
-                      <input id="inputCustomerName" type="text" class="form-control nameC" value="" id="nameC" readonly>                      
+                      <input id="inputCustomerName" type="text" class="form-control nameC" value="" id="nameC" readonly required>                      
                       @if($errors->has('customersId'))
                       <div class="text-danger">
                         {{ $errors->first('customersId') }}
@@ -59,7 +59,7 @@
                     </div>                
                     <div class="col-sm-4 mb-1">
                       <label for="inputCustomerPhone">Phone</label>
-                      <input id="inputCustomerPhone" type="text" class="form-control phoneC" value="" id="phoneC" readonly>
+                      <input id="inputCustomerPhone" type="text" class="form-control phoneC" value="" id="phoneC" readonly required>
                     </div>
                   </div>
                 </div>
@@ -68,7 +68,7 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="inputMerk">Tanggal Mixing <span class="text-danger"></span></label>
-                        <input type="date" name="tglMixing" id="" class="form-control">                
+                        <input type="date" name="tglMixing" id="" class="form-control" required>                
                         @if($errors->has('tglMixing'))
                         <div class="text-danger">
                           {{ $errors->first('tglMixing') }}
@@ -77,7 +77,7 @@
                     </div>
                     <div class="form-group">
                       <label for="inputMerk">Mesin <span class="text-danger"></span></label>
-                      <select class="form-control merkId" id="inputMerk" name="merkId">
+                      <select class="form-control merkId" id="inputMerk" name="merkId" required>
                       <option value=""></option>
                       @foreach($merks as $merk)
                         <option value="{{ $merk->id }}">{{ $merk->name }}</option>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Produk <span class="text-danger">*Pilih mesin terlebih dahulu</span></label>
-                      <select class="form-control fillProduct productId" id="exampleFormControlSelect1" name="productId">
+                      <select class="form-control fillProduct productId" id="exampleFormControlSelect1" name="productId" required>
                         
                       </select>                
                         @if($errors->has('productId'))
@@ -102,7 +102,7 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlSelect2">Base <span class="text-danger">*Pilih produk terlebih dahulu</span></label>
-                      <select class="form-control fillBase" id="exampleFormControlSelect2" name="baseId">
+                      <select class="form-control fillBase" id="exampleFormControlSelect2" name="baseId" required>
                         
                       </select>                  
                       @if($errors->has('baseId'))
@@ -115,7 +115,7 @@
                      <div class="col-md-6">                       
                       <div class="form-group">
                         <label for="inputJumlah">Jumlah</label>
-                        <input id="inputJumlah" type="text" class="form-control" name="qty">                 
+                        <input id="inputJumlah" type="text" class="form-control" name="qty" required>                 
                         @if($errors->has('qty'))
                         <div class="text-danger">
                           {{ $errors->first('qty') }}
@@ -126,7 +126,7 @@
                      <div class="col-md-6">
                       <div class="form-group">
                         <label for="exampleFormControlSelect3">Kemasan</label>
-                        <select class="form-control" id="exampleFormControlSelect3" name="unit">
+                        <select class="form-control" id="exampleFormControlSelect3" name="unit" required>
                           <option value="">Pilih</option>
                           <option value="PAIL">PAIL</option>
                           <option value="GALON">GALON</option>
@@ -145,7 +145,7 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="inputKodeWarna">Kode Warna</label>
-                      <input id="inputKodeWarna" type="text" class="form-control" name="colorCode">                 
+                      <input id="inputKodeWarna" type="text" class="form-control" name="colorCode" required>                 
                         @if($errors->has('colorCode'))
                         <div class="text-danger">
                           {{ $errors->first('colorCode') }}
@@ -154,7 +154,7 @@
                     </div>
                     <div class="form-group">
                       <label for="inputNamaWarna">Nama Warna</label>
-                      <input id="inputNamaWarna" type="text" class="form-control" name="colorName">                 
+                      <input id="inputNamaWarna" type="text" class="form-control" name="colorName" required>                 
                         @if($errors->has('colorName'))
                         <div class="text-danger">
                           {{ $errors->first('colorName') }}
