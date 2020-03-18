@@ -303,6 +303,7 @@ class FormHRDController extends Controller
 
     public function laporanDelete(Request $req){
         $id = $req->form_hrd_id;
+        // dd($id);
         $nik = $req->nik;
         $password = sha1($req->password);
         $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', auth()->user()->dep)->where('stat', '>=', '2')->first();
