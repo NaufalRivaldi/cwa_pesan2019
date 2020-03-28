@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($detailCuti as $detail)
+        @foreach($detailFormCuti as $detail)
             <tr>
                 <td>{{ $no++ }}</td>
                 <td>{!!Helper::setDate($detail->tanggalCuti)!!}</td>

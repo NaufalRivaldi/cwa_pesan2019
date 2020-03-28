@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\KaryawanRequest;
+use App\Imports\MasaKerjaImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use App\Helpers\helper;
+use DB;
+use Carbon\Carbon;
 
 use App\KaryawanAll;
 
@@ -45,7 +50,8 @@ class LaporanKaryawanController extends Controller
             'nama' => $req->nama,
             'dep' => $req->dep,
             'stat' => $req->stat,
-            'ket' => 1
+            'ket' => 1,
+            'masaKerja' => $req->masaKerja
         ]);
 
         return redirect()->route('laporan.hrd.karyawan')->with('success', 'Data karyawan berhasil ditambahkan.');
@@ -58,6 +64,7 @@ class LaporanKaryawanController extends Controller
         $data->dep = $req->dep;
         $data->stat = $req->stat;
         $data->ket = 1;
+        $data->masaKerja = $req->masaKerja;
         $data->save();
 
         return redirect()->route('laporan.hrd.karyawan')->with('success', 'Data karyawan berhasil diupdate.');
@@ -84,5 +91,22 @@ class LaporanKaryawanController extends Controller
         $data->save();
 
         return redirect()->route('laporan.hrd.karyawan')->with('success', 'Data karyawan berhasil diupdate.');
+    }
+
+    public function generate(Request $req)
+    {
+        $data = Excel::toArray(new MasaKerjaImport, $req->file('file')); 
+        // dd($data);
+        
+        return collect(head($data))
+        ->each(function ($row, $key) {
+            // dd(Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['masaKerja'])));
+            DB::table('karyawan_all')
+                ->where('id', $row['id'])
+                ->update([
+                    'masaKerja'=>Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['masaKerja']))
+                ]);
+        });
+
     }
 }

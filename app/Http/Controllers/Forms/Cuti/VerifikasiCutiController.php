@@ -32,15 +32,14 @@ class VerifikasiCutiController extends Controller
         $hrd = KaryawanAll::where('dep', 'HRD')->where('nik', $nik)->where('password', $password)->first();
 
         if (!empty($hrd)) {
-            $form = FormCuti::find($req->id);
-            $jumlahCuti = count(DetailFormCuti::where('idFormCuti', $req->id)->get());
-            $idCuti = DetailFormCuti::where('idFormCuti', $req->id)->first();
-            $cuti = Cuti::where('id', $idCuti->idCuti)->first();
+            $form = FormCuti::find($req->id);           
+            $detailFormCuti = DetailFormCuti::where('idFormCuti', $req->id)->first();
+            $cuti = Cuti::find($detailFormCuti->idCuti);
             switch ($req->type) {
                 case '1':
                     if ($form->karyawan->stat == '5') {
                         $form->status = 4;
-                        $cuti->sisaCuti = ($cuti->sisaCuti - $jumlahCuti);
+                        // $cuti->sisaCuti = ($cuti->sisaCuti - $jumlahCuti);
                         if ($cuti->sisaCuti == 0) {
                             $cuti->status = 2;
                         }
@@ -52,7 +51,9 @@ class VerifikasiCutiController extends Controller
                     $this->validasiVerifikasi($req, $hrd->id);
                     break;
                 
-                default:
+                default:                
+                    $cuti->sisaCuti = $cuti->sisaCuti + $form->detailCuti->count();
+                    $cuti->save();
                     $form->status = 5;
                     $form->save();
                     $this->validasiVerifikasi($req, $hrd->id);
@@ -73,20 +74,25 @@ class VerifikasiCutiController extends Controller
         $am = KaryawanAll::where('stat', '5')->where('nik', $nik)->where('password', $password)->first();
         if (!empty($am)) {
             $form = FormCuti::find($req->id);
-            $jumlahCuti = count(DetailFormCuti::where('idFormCuti', $req->id)->get());
-            $idCuti = DetailFormCuti::where('idFormCuti', $req->id)->first();
-            $cuti = Cuti::where('id', $idCuti->idCuti)->first();
+            $detailFormCuti = DetailFormCuti::where('idFormCuti', $req->id)->first();
+            $cuti = Cuti::find($detailFormCuti->idCuti);
+            // $idCuti = DetailFormCuti::where('idFormCuti', $req->id)->first();
+            // $cuti = Cuti::where('id', $idCuti->idCuti)->first();
             // dd($cuti->sisaCuti - $jumlahCuti);
             switch ($req->type) {
                 case '1':
                     $form->status = 4;
-                    $cuti->sisaCuti = ($cuti->sisaCuti - $jumlahCuti);
-                    $form->save();
+                    if ($cuti->sisaCuti == 0) {
+                        $cuti->status = 2;
+                    }
                     $cuti->save();
+                    $form->save();
                     $this->validasiVerifikasi($req, $am->id);
                     break;
                 
-                default:
+                default:                
+                    $cuti->sisaCuti = $cuti->sisaCuti + $form->detailCuti->count();
+                    $cuti->save();
                     $form->status = 5;
                     $form->save();
                     $this->validasiVerifikasi($req, $am->id);

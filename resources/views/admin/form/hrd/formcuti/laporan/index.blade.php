@@ -25,10 +25,10 @@
                 <tbody>
                     @foreach($cuti as $cuti)
                     <tr>
-                        <td data-id="{{$cuti->id}}" class="viewCuti">{{$no++}}</td>
-                        <td data-id="{{$cuti->id}}" class="viewCuti">{{$cuti->karyawan->nama}}</td>
-                        <td data-id="{{$cuti->id}}" class="viewCuti">{{$cuti->karyawan->dep}}</td>
-                        <td data-id="{{$cuti->id}}" class="viewCuti">{{$cuti->sisaCuti}}</td>
+                        <td data-id="{{$cuti->karyawan->id}}" class="viewCuti">{{$no++}}</td>
+                        <td data-id="{{$cuti->karyawan->id}}" class="viewCuti">{{$cuti->karyawan->nama}}</td>
+                        <td data-id="{{$cuti->karyawan->id}}" class="viewCuti">{{$cuti->karyawan->dep}}</td>
+                        <td data-id="{{$cuti->karyawan->id}}" class="viewCuti">{{$cuti->sisa}}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -53,7 +53,6 @@
                         <th>Departemen</th>
                         <th>Kategori</th>
                         <th>Status</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,7 +64,6 @@
                         <td data-id="{{$form->id}}" class="dataView">{{$form->karyawan->dep}}</td>
                         <td data-id="{{$form->id}}" class="dataView">{!!Helper::getKategoriCuti($form->id)!!}</td>
                         <td data-id="{{$form->id}}" class="dataView">{!!Helper::statusFormCuti($form->status)!!}</td>
-                        <td></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -221,15 +219,7 @@
 <script>
     $(document).on('click', '.viewCuti', function() {
       var id = $(this).data('id');
-      $.ajax({
-        url: '{{ route("laporan.hrd.formcuti.viewCuti") }}',
-        data: "id="+id,
-        type: 'GET',
-        success: function(data){
-          console.log(data);
-          $('#viewModalCuti').modal('show');
-        }
-      });
+      window.location.href = '{{ url("/admin/laporan/hrd/formcuti/detail") }}'+"/"+id;
     });
 
     $(document).on('click', '.dataView', function() {

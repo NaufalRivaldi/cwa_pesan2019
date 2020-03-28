@@ -728,7 +728,7 @@ class helper{
 
     public static function allDep(){
         // Ubah ini klo ada nambah cabang ya
-        $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office');
+        $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'PAJAK', 'MT', 'Office');
         // $dep = array('Accounting', 'Finance', 'GA', 'Gudang', 'HRD', 'IT', 'MT', 'Office', 'Pajak', 'QA', 'SCM');
 
         $cabang = Cabang::all();

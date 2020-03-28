@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Forms\formcuti\FormCuti;
 use App\Forms\formcuti\Cuti;
 use App\Forms\formcuti\DetailFormCuti;
+use DB;
 
 class LaporanFormCutiController extends Controller
 {
@@ -14,30 +15,23 @@ class LaporanFormCutiController extends Controller
     {
         $data['menu'] = '9';
         $data['no'] = '1';
-        $data['formCuti'] = FormCuti::where('status', '>=', 4)->get();        
+        $data['formCuti'] = FormCuti::where('status', '>=', 4)->orderBy('id', 'desc')->get();        
         
-        $data['cuti'] = Cuti::groupBy('idKaryawan')->whereHas('karyawan', function($query){
+        $data['cuti'] = Cuti::select('*', DB::raw('sum(sisaCuti) as sisa'))->groupBy('idKaryawan')->whereHas('karyawan', function($query){
             $query->orderBy('dep', 'asc');
         })->get();
-
-
         return view('admin.form.hrd.formcuti.laporan.index', $data);
     }
 
-    public function viewCuti()
+    public function detail($id)
     {
-        $id = $_GET['id'];
-        $cuti = Cuti::where('id', $id)->groupBy('idKaryawan')->get();
-
-        // $arr = [
-        //     'namaKaryawan'=>$cuti->karyawan->nama,
-        //     'departemen'=>$cuti->karyawan->dep,
-        //     'kategori'=>$cuti->kategoriCuti->kategori,
-        //     'periode'=>$cuti->periode,
-        //     'status'=>$cuti->status,
-        //     'sisaCuti'=>$cuti->sisaCuti
-        // ];
-
-        return $cuti;
+        $data['no'] = '1';
+        $data['menu'] = '9';
+        $data['cuti'] = Cuti::where('idKaryawan', $id)->select('*', DB::raw('sum(sisaCuti) as sisa'))->first();
+        $data['detailCuti'] = DetailFormCuti::whereHas('formCuti', function($query) use ($id){
+            $query->where('karyawanId', $id);
+        })->get();
+        // dd($data['detailCuti']);
+        return view('admin.form.hrd.formcuti.laporan.detail', $data);
     }
 }

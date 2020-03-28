@@ -47,7 +47,7 @@
                         <div class="form-group row">
                             <label for="inputSisaCuti" class="col-sm-2 col-form-label">Sisa Cuti</label>
                             <div class="col-sm-10">
-                            <input type="number" class="form-control sisaCuti" id="inputSisaCuti" name="sisaCuti" value="{{$cuti->sisaCuti}}" readonly>                           
+                            <input type="number" class="form-control sisaCuti" id="inputSisaCuti" name="sisaCuti" value="{{$cuti->sisaCuti}}">                           
                             @if($errors->has('sisaCuti'))
                             <div class="text-danger">
                                 {{ $errors->first('sisaCuti') }}
@@ -58,7 +58,7 @@
                         <div class="form-group row">
                             <label for="inputPeriode" class="col-sm-2 col-form-label">Periode</label>
                             <div class="col-sm-10">
-                            <input type="text" class="form-control periode" id="inputPeriode" name="periode" value="{{$cuti->periode}}" readonly>                           
+                            <input type="text" class="form-control periode" id="inputPeriode" name="periode" value="{{$cuti->periode}}">                           
                             @if($errors->has('periode'))
                             <div class="text-danger">
                                 {{ $errors->first('periode') }}

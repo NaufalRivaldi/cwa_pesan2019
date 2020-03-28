@@ -66,6 +66,7 @@
                                             <select name="dep" class="form-control dep-select">
                                                 <option value="All" {{ (!empty($_GET['dep'])) ? ($_GET['dep'] == 'All') ? 'selected' : '' : '' }}>All</option>
                                                 <option value="Office" {{ (!empty($_GET['dep'])) ? ($_GET['dep'] == 'Office') ? 'selected' : '' : '' }}>Office</option>
+                                                <option value="Gudang" {{ (!empty($_GET['dep'])) ? ($_GET['dep'] == 'Gudang') ? 'selected' : '' : '' }}>Gudang</option>
                                                 @foreach($cabang as $row)
                                                     <option value="{{ $row->inisial }}" {{ (!empty($_GET['dep'])) ? ($_GET['dep'] == $row->inisial) ? 'selected' : '' : '' }}>{{ $row->inisial }}</option>
                                                 @endforeach

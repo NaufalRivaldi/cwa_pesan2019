@@ -17,7 +17,9 @@
                     <div class="container">
                         <div class="card-header row">
                             <a href="{{ route('laporan.hrd.karyawan.form') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i> Tambah</a>
-                                          
+                            @if(auth()->user()->dep == 'IT')              
+                            <button type="button" class="btn btn-success btn-sm ml-2 modalGen"><i class="fas fa-plus-circle"></i> Generate Masa Kerja</button>
+                            @endif
                             <form action="{{route('laporan.hrd.karyawan')}}" method="get" class="ml-auto" id="submitFilter">
                                 <select class="form-control-sm filter" name="dep" id="exampleFormControlSelect1">
                                 <option value="">Pilih Departemen...</option>
@@ -76,10 +78,37 @@
     </div>
 @endsection
 
+@section('modal')
+<div class="modal fade" id="viewModalGen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="{{route('laporan.hrd.karyawan.generate')}}" method="post" id="formGenerate" enctype="multipart/form-data">
+        @csrf
+        <div class="form-group">
+          <label for="exampleFormControlFile1">Generate Masa Kerja Karyawan Bosqu</label>
+          <input type="file" class="form-control-file" id="exampleFormControlFile1" name="file">
+        </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary submitForm">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
+
 @section('js')
 <script>
-    $(document).ready(function(){
-        $('.btn-delete').on('click', function(){
+    $(document).on('click', '.btn-delete', function(){
             var id = $(this).data('id');
             swal({
                 title: "Hapus Data?",
@@ -103,7 +132,13 @@
                     });
                 }
             });
-        });
     });
+    $('.modalGen').on('click', function(){
+      $('#viewModalGen').modal('show');
+    })
+
+    $('.submitForm').on('click', function(){
+      $('#formGenerate').submit();
+    })
 </script>
 @endsection

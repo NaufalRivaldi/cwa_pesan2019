@@ -43,10 +43,22 @@ class FormCutiController extends Controller
         return view('admin.form.hrd.formcuti.form', $data);
     }
 
+    public function periode()
+    {        
+        $karyawanId = $_GET['id'];
+        $periode = Cuti::where('idKaryawan', $karyawanId)->groupBy('idKategori')->get();
+        $text = '<option value="">Pilih Periode...</option>';
+        foreach ($periode as $p) {
+            $text .= '<option value="'.$p->periode.'">'.$p->periode.'</option>';
+        }
+        return $text;        
+    }
+
     public function kategori()
     {
-        $karyawanId = $_GET['id'];
-        $kategori = Cuti::where('idKaryawan', $karyawanId)->get();
+        $periode = $_GET['id'];
+        $karyawanId = $_GET['karyawanId'];
+        $kategori = Cuti::where('idKaryawan', $karyawanId)->where('periode', $periode)->get();
         $text = '<option value="">Pilih Kategori...</option>';
         foreach ($kategori as $k) {
             $text .= '<option value="'.$k->id.'">'.$k->kategoriCuti->kategori.'</option>';
@@ -56,21 +68,27 @@ class FormCutiController extends Controller
 
     public function maxCuti()
     {
+        $nilaiMax = 0;
         $idCuti = $_GET['id'];
         $maxCuti = Cuti::where('id', $idCuti)->first();
         $sisaCuti = $maxCuti->sisaCuti;
         $batasCuti = date('n')+1;
-
         if ($sisaCuti >= $batasCuti) {
-            return $batasCuti;
+            $nilaiMax = $batasCuti;
         } else {
-            return $sisaCuti;
+            $nilaiMax = $sisaCuti;
         }
+
+        return [
+            'nilaiMax' => $nilaiMax,
+            'batasCuti' => $batasCuti,
+            'sisaCuti' => $sisaCuti
+        ];
     }
 
     public function add(FormCutiRequest $req)
     {         
-        $karyawan = KaryawanAll::where('id', $req->karyawanId)->where('stat', '=' , 1)->first();
+        $karyawan = KaryawanAll::where('id', $req->karyawanId)->where('stat', 1)->first();
 
         if (!empty($karyawan)) {
             $status = 1;
@@ -85,7 +103,6 @@ class FormCutiController extends Controller
         ]);
 
         $formCuti = FormCuti::orderBy('id', 'desc')->first();
-
         for ($i=0; $i < count($req->tanggalCuti); $i++) {
             DetailFormCuti::create([
                 'idFormCuti'=>$formCuti->id,
@@ -94,6 +111,10 @@ class FormCutiController extends Controller
                 'keterangan'=>$req->keterangan[$i]
             ]);
         }
+
+        $cuti = Cuti::where('id', $req->idCuti)->first();
+        $cuti->sisaCuti = $cuti->sisaCuti - count($req->tanggalCuti);
+        $cuti->save();
 
         return redirect()->route('form.hrd.cuti.formcuti')->with('success', 'Data berhasil ditambah!');
     }
@@ -149,6 +170,10 @@ class FormCutiController extends Controller
                     break;
                 
                 default:
+                    $detailFormCuti = DetailFormCuti::where('idFormCuti', $req->id)->first();
+                    $cuti = Cuti::find($detailFormCuti->idCuti);
+                    $cuti->sisaCuti = $cuti->sisaCuti + $form->detailCuti->count();
+                    $cuti->save();
                     $form->status = 5;
                     $form->save();
                     $this->validasiVerifikasi($req, $karyawan->id);
@@ -180,6 +205,12 @@ class FormCutiController extends Controller
     public function delete(Request $req)
     {
         $data = FormCuti::find($req->id);
+        
+        $detailFormCuti = DetailFormCuti::where('idFormCuti', $req->id)->first();
+        $cuti = Cuti::find($detailFormCuti->idCuti);
+        $cuti->sisaCuti = $cuti->sisaCuti + $data->detailCuti->count();
+        $cuti->save();
+
         $data->delete();
     }
 }

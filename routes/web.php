@@ -122,7 +122,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         
         Route::group(['middleware' => ['checkDep:HRD,IT']], function(){
             Route::post('/accHRD/{id}', 'FormHRDController@accHRD');
-            Route::post('/tolakHRD/{id}', 'FormHRDController@tolakHRD');
+            Route::post('/tolakHRD/{id}', 'FormHRDController@tolakHform.hrd.cuti.formcuti.detailform.hrd.cuti.formcuti.detailRD');
             Route::get('/laporan', 'FormHRDController@laporan')->name('laporan');
             Route::post('/laporan/view/', 'FormHRDController@view')->name('laporan.view');
             Route::get('/laporan/edit/{id}', 'FormHRDController@edit')->name('laporan.edit');
@@ -161,6 +161,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::group(['prefix' => '/formcuti'], function(){
                 Route::get('/', 'Forms\Cuti\FormCutiController@index')->name('form.hrd.cuti.formcuti');
                 Route::get('/form', 'Forms\Cuti\FormCutiController@form')->name('form.hrd.cuti.formcuti.form');
+                Route::get('/periode', 'Forms\Cuti\FormCutiController@periode')->name('form.hrd.cuti.formcuti.periode');
                 Route::get('/kategori', 'Forms\Cuti\FormCutiController@kategori')->name('form.hrd.cuti.formcuti.kategori');
                 Route::get('/maxCuti', 'Forms\Cuti\FormCutiController@maxCuti')->name('form.hrd.cuti.formcuti.maxCuti');
                 Route::post('/add', 'Forms\Cuti\FormCutiController@add')->name('form.hrd.cuti.formcuti.add');
@@ -239,6 +240,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::group(['prefix' => 'karyawan'], function(){
                 Route::get('/', 'LaporanKaryawanController@index')->name('laporan.hrd.karyawan');
                 Route::get('/form', 'LaporanKaryawanController@form')->name('laporan.hrd.karyawan.form');
+                Route::post('/generate', 'LaporanKaryawanController@generate')->name('laporan.hrd.karyawan.generate');
                 Route::get('/{id}/edit', 'LaporanKaryawanController@edit')->name('laporan.hrd.karyawan.edit');
                 Route::get('/{id}/aktif', 'LaporanKaryawanController@aktif')->name('laporan.hrd.karyawan.aktif');
                 Route::get('/{id}/nonaktif', 'LaporanKaryawanController@nonaktif')->name('laporan.hrd.karyawan.nonaktif');
@@ -270,7 +272,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
 
             Route::group(['prefix'=>'formcuti'], function(){
                 Route::get('/', 'Forms\Cuti\LaporanFormCutiController@index')->name('laporan.hrd.formcuti');
-                Route::get('/viewCuti', 'Forms\Cuti\LaporanFormCutiController@viewCuti')->name('laporan.hrd.formcuti.viewCuti');
+                Route::get('/detail/{id}', 'Forms\Cuti\LaporanFormCutiController@detail')->name('laporan.hrd.formcuti.detail');
             });
         });
 

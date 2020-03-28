@@ -33,7 +33,8 @@ class KaryawanRequest extends FormRequest
             'nik' => 'required',
             'nama' => 'required',
             'dep' => 'required',
-            'stat' => 'required'
+            'stat' => 'required',
+            'masaKerja' => 'required'
         ];
     }
 }
