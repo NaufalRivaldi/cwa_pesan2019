@@ -43,4 +43,12 @@ class KaryawanAll extends Model
     public function verifikasi_cuti(){
         return $this->hasMany('App\Forms\formcuti\VerifikasiFormCuti', 'karyawanAllId');
     }
+
+    public function kanidat(){
+        return $this->hasMany('App\PKK\Kanidat', 'karyawanId');
+    }
+
+    public function penilaianEmployee(){
+        return $this->hasMany('App\PKK\PenilaianEmployee', 'karyawanId');
+    }
 }

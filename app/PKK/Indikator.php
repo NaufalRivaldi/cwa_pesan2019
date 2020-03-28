@@ -19,4 +19,8 @@ class Indikator extends Model
     {
         return $this->hasMany('App\PKK\DetailIndikator', 'indikatorId');
     }
+
+    public function detailPenilaianEmployee(){
+        return $this->hasMany('App\PKK\DetailPenilaianEmployee', 'indikatorId');
+    }
 }
