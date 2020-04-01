@@ -134,7 +134,7 @@ class FormHRDController extends Controller
                             if($value[1] == 'All'){
                                 $dep = helper::allDep();
                             }else if($value[1] == 'Office'){
-                                    $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office');
+                                    $dep = array('IT', 'QA', 'GA', 'HRD', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office');
                             }else{
                                 $dep[] = $value[1];
                             }
@@ -151,7 +151,7 @@ class FormHRDController extends Controller
                             if($value[1] == 'All'){
                                 $dep = helper::allDep();
                             }else if($value[1] == 'Office'){
-                                    $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office');
+                                    $dep = array('IT', 'QA', 'GA', 'HRD', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office');
                             }else{
                                 $dep[] = $value[1];
                             }

@@ -28,6 +28,7 @@
         <i class="fas fa-user text-primary"></i> Verifikasi Kepala Bagian
       </div>
       <div class="card-body">
+        @if(!empty($periode))
         <form action="{{ route('pkk.bestemp.validasi') }}" method="POST">
           @csrf
           <input type="hidden" name="periodeId" value="{{ $periode->id }}">
@@ -54,6 +55,11 @@
           </div>
           <button type="submit" class="btn btn-primary">Verifikasi</button>
         </form>
+        @else
+          <div class="alert alert-danger" role="alert">
+            Periode tidak ada!
+          </div>
+        @endif
       </div>
     </div>
   </div>

@@ -25,6 +25,8 @@ use App\PKK\DetailPenilaian;
 use App\PKK\DetailKuisioner;
 use App\PKK\Periode;
 use App\PKK\Poling;
+use App\Forms\formcuti\DetailFormCuti;
+use App\Forms\formcuti\FormCuti;
 
 use Hash;
 
@@ -120,6 +122,16 @@ class helper{
     }
 
     public static function isVerifikasi(){
+        $dep = auth()->user()->dep;
+        $data = array('Office', 'HRD');
+        if(in_array($dep, $data)){
+            return true;                                                    
+        }else{
+            return false;
+        }
+    }
+
+    public static function isVerifikasiCuti(){
         $dep = auth()->user()->dep;
         $data = array('Office', 'HRD');
         if(in_array($dep, $data)){
@@ -326,6 +338,16 @@ class helper{
                 $count += 1;
             }
         }
+
+        return $count;
+    }
+
+    public static function countPendingCuti(){
+        $form = FormCuti::whereHas('user', function($query){
+            $query->whereDep(auth()->user()->dep);
+        })->where('status', '<', '4')->orderBy('created_at', 'desc')->get();
+
+        $count = $form->count();
 
         return $count;
     }
@@ -671,7 +693,7 @@ class helper{
         $waktu = '-';
         $diff = date_diff(date_create($tgl_a), date_create($tgl_b));
         if($lembur == 1){
-            if ($diff->i <= 30) {
+            if ($diff->i < 30) {
                 $waktu = $diff->h;
             } else {
                 $waktu = $diff->h.':'.$diff->i;
@@ -690,23 +712,23 @@ class helper{
             $jm = $jam + $menit;
             if($jm < 4.5){
                 $upah = ($jam * 10000);
-                if ($menit > 0.5) {
+                if ($menit >= 0.5) {
                     $upah += $menit * 10000;
                 }
             }else if($jm > 4.5){
                 $upah = (4 * 10000) + ($jam - 4) * 15000;
-                if ($menit > 0.5) {                    
+                if ($menit >= 0.5) {                    
                 $upah += $menit * 15000;
                 }
             }
         }
-        // dd();
+        // dd($jm);
         return $upah;
     }
 
     public static function allDep(){
         // Ubah ini klo ada nambah cabang ya
-        $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'Pajak', 'MT', 'Office');
+        $dep = array('IT', 'QA', 'GA', 'HRD', 'Gudang', 'Finance', 'Accounting', 'SCM', 'PAJAK', 'MT', 'Office');
         // $dep = array('Accounting', 'Finance', 'GA', 'Gudang', 'HRD', 'IT', 'MT', 'Office', 'Pajak', 'QA', 'SCM');
 
         $cabang = Cabang::all();
@@ -1116,6 +1138,7 @@ class helper{
 
             return $text;
         }
+
     public static function statusPerbaikanLaporan($val){
         $text = '';
         switch ($val) {
@@ -1293,6 +1316,79 @@ class helper{
         })->get();
 
         return $poling->count();
+    }
+
+    public static function statusCuti($val){
+        $text = '';
+        switch ($val) {
+            case '1':
+                $text = "<span class='badge badge-primary'>Aktif</span>";
+                break;
+
+            case '2':
+                $text = "<span class='badge badge-danger'>Tidak aktif</span>";
+                break;
+
+            default:
+                # code...
+                break;
+            }
+
+            return $text;
+    }
+
+    public static function kategoriCuti($val){
+        $text = '';
+        switch ($val) {
+            case '1':
+                $text = "<span class='badge badge-primary'>Aktif</span>";
+                break;
+
+            case '2':
+                $text = "<span class='badge badge-danger'>Tidak aktif</span>";
+                break;
+
+            default:
+                # code...
+                break;
+            }
+
+            return $text;
+    }
+
+    public static function statusFormCuti($val){
+        $text = '';
+        switch ($val) {
+            case '1':
+                $text = "<span class='badge badge-primary'>Pending</span>";
+                break;
+
+            case '2':
+                $text = "<span class='badge badge-info'>Menunggu Acc HRD</span>";
+                break;
+
+            case '3':
+                $text = "<span class='badge badge-info'>Menunggu Acc AM</span>";
+                break;
+
+            case '4':
+                $text = "<span class='badge badge-success'>Selesai</span>";
+                break;
+
+            default:
+                $text = "<span class='badge badge-danger'>Ditolak</span>";
+                break;
+            }
+
+            return $text;
+    }
+
+    public static function getKategoriCuti($idFormCuti)
+    {
+        $data = DetailFormCuti::where('idFormCuti', $idFormCuti)->first();
+        $kategori = "<span class='badge badge-success'>".$data->cuti->kategoriCuti->kategori."</span>";
+
+        return $kategori;
     }
 }
 

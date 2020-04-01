@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVerifikasiCutiTable extends Migration
+class CreateFormCuti2Table extends Migration
 {
     /**
      * Run the migrations.
@@ -13,30 +13,22 @@ class CreateVerifikasiCutiTable extends Migration
      */
     public function up()
     {
-        Schema::create('verifikasi_cuti', function (Blueprint $table) {
+        Schema::create('form_cuti', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('detailCutiId');
-            $table->unsignedInteger('userId');
             $table->unsignedInteger('karyawanId');
-            $table->enum('status', ['0','1','2','3','4']);
-            $table->text('keterangan');
-            $table->timestamps();
+            $table->unsignedInteger('userId');
+            $table->enum('status', ['1','2','3','4']);
+            $table->timestamps();            
 
-            $table->foreign('detailCutiId')
+            $table->foreign('karyawanId')
                     ->references('id')
-                    ->on('detail_form_cuti')
+                    ->on('karyawan_all')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 
             $table->foreign('userId')
                     ->references('id')
                     ->on('user')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
-
-            $table->foreign('karyawanId')
-                    ->references('id')
-                    ->on('karyawan_all')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
         });
@@ -49,6 +41,6 @@ class CreateVerifikasiCutiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('verifikasi_cuti');
+        Schema::dropIfExists('form_cuti_2');
     }
 }

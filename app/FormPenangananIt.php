@@ -8,7 +8,7 @@ class FormPenangananIt extends Model
 {
     protected $table = 'form_penanganan_it';
     protected $fillable = [
-        'tgl', 'masalah', 'penyelesaian', 'stat', 'user_id', 'karyawan_all_id'
+        'kode', 'tgl', 'masalah', 'penyelesaian', 'stat', 'user_id', 'karyawan_all_id'
     ];
 
     // fk

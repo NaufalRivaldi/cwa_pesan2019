@@ -40,7 +40,8 @@ class KaryawanAllController extends Controller
             "password" => sha1($req->nik),
             "nama" => $req->nama,
             "dep" => $req->dep,
-            "stat" => $req->stat
+            "stat" => $req->stat,
+            "masaKerja"=> $req->masaKerja
         ]);
 
         return redirect('/backend/karyawan')->with('status', 'simpan-success');
@@ -66,6 +67,7 @@ class KaryawanAllController extends Controller
         $karyawan->nama = $req->nama;
         $karyawan->dep = $req->dep;
         $karyawan->stat = $req->stat;
+        $karyawan->masaKerja = $req->masaKerja;
 
         $karyawan->save();
 
@@ -96,7 +98,8 @@ class KaryawanAllController extends Controller
             "nik" => "required|min:8",
             "nama" => "required|min:5|string",
             "dep" => "required",
-            "stat" => "required"
+            "stat" => "required",
+            "masaKerja" => "required"
         ], $message);
     }
 

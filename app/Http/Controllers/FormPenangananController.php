@@ -16,6 +16,7 @@ class FormPenangananController extends Controller
     public function index(){
         $data['menu'] = '8';
         $data['no'] = '1';
+        $data['kode'] = $this->generateKode();
         $data['cabang'] = Cabang::orderBy('inisial', 'asc')->get();
         $data['karyawan'] = KaryawanAll::where('dep', 'IT')->where('ket', '1')->get();
         
@@ -34,6 +35,7 @@ class FormPenangananController extends Controller
         $user = User::where('dep', $req->cabang)->first();
 
         FormPenangananIt::create([
+            'kode' => $req->kode,
             'tgl' => date('Y-m-d'),
             'masalah' => $req->masalah,
             'penyelesaian' => $req->penyelesaian,
@@ -74,5 +76,20 @@ class FormPenangananController extends Controller
             'masalah' => 'required',
             'penyelesaian' => 'required'
         ], $message);
+    }
+
+    public function generateKode(){
+        $kode = 'FID';
+        $date = date('Y-m');
+        $data = FormPenangananIt::where('tgl', 'like', '%'.$date.'%')->orderBy('id', 'desc')->first();
+
+        if(empty($data)){
+            $kode .= date('ym').'001';
+        }else{
+            $row = explode(date('ym'), $data->kode);
+            $kode .= date('ym').$row[1]+1;
+        }
+
+        return $kode;
     }
 }

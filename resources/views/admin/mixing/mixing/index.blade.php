@@ -36,11 +36,11 @@
                       <th>Tanggal</th>
                       <th>Pelanggan</th>
                       <th>Produk</th>
-                      <th>Kemasan</th>
+                      <!-- <th>Kemasan</th> -->
                       <th>Kode Warna</th>
                       <th>Nama Warna</th>
                       <th>Base</th>
-                      <th>Aksi</th>
+                      <th width="15%">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -50,15 +50,15 @@
                         <td data-id="{{$mixing->id}}" class="dataView">{!!Helper::setDate($mixing->tglMixing)!!}</td>
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->customers->name}}</td>
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->product->name}}</td>
-                        <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->unit}}</td>
+                        <!-- <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->unit}}</td> -->
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->colorCode}}</td>
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->colorName}}</td>
                         <td data-id="{{$mixing->id}}" class="dataView">{{$mixing->base->name}}</td>
                         <td>
                         <p style="display:none">{{$mixing->customers->memberId}}</p>
                         <p style="display:none">{{$mixing->user->dep}}</p>
-                          <a href="{{ route('mixing.mixing.reorder', ['id' => $mixing->id]) }}" class="btn btn-sm btn-success fas fa-history"></a>
-                          <button class="btn btn-danger btn-sm far fa-trash-alt delete" data-id="{{ $mixing->id }}"></button>
+                          <a href="{{ route('mixing.mixing.reorder', ['id' => $mixing->id]) }}" class="btn btn-sm btn-success">Reorder</a>
+                          <button class="btn btn-danger btn-sm delete" data-id="{{ $mixing->id }}"><i class="far fa-trash-alt "></i></button>
                         </td>
                       </tr>
                     @endforeach

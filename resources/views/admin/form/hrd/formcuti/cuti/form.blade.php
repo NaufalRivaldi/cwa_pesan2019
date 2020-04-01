@@ -20,20 +20,20 @@
                 <div class="card-body">
                     <form action="{{route('form.hrd.cuti.add')}}" method="POST">
                         @csrf
-                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="id" value="{{$cuti->id}}">
                         
                         <div class="form-group row">
                             <label for="selectKaryawan" class="col-sm-2 col-form-label">Karyawan</label>
                             <div class="col-sm-10">
-                                <select class="form-control karyawan" id="selectKaryawan" name="idKaryawanAll">
+                                <select class="form-control karyawan" id="selectKaryawan" name="idKaryawan">
                                 <option value="">Pilih Karyawan...</option>
                                 @foreach($karyawan as $k)
-                                <option value="{{$k->id}}">{{$k->nama}}</option>
+                                <option value="{{$k->id}}" {{($cuti->idKaryawan == $k->id)?'selected':''}}>{{$k->nama}}</option>
                                 @endforeach
                                 </select>                  
-                                @if($errors->has('idKaryawanAll'))
+                                @if($errors->has('idKaryawan'))
                                 <div class="text-danger">
-                                    {{ $errors->first('idKaryawanAll') }}
+                                    {{ $errors->first('idKaryawan') }}
                                 </div>
                                 @endif
                                 <div class="valid-feedback">
@@ -44,38 +44,10 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="form-group row">
-                            <label for="selectKategori" class="col-sm-2 col-form-label">Kategori</label>
-                            <div class="col-sm-10">
-                                <select class="form-control kategori" id="selectKategori" name="idKategori" readonly>
-                                <option value="">Pilih Kategori...</option>
-                                @foreach($kategori as $k)
-                                <option value="{{$k->id}}">{{$k->kategori}}</option>
-                                @endforeach
-                                </select>                         
-                                @if($errors->has('idKategori'))
-                                <div class="text-danger">
-                                    {{ $errors->first('idKategori') }}
-                                </div>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputCuti" class="col-sm-2 col-form-label">Cuti</label>
-                            <div class="col-sm-10">
-                            <input type="number" class="form-control cuti" id="inputCuti" name="cuti" value="" readonly>                           
-                            @if($errors->has('cuti'))
-                            <div class="text-danger">
-                                {{ $errors->first('cuti') }}
-                            </div>
-                            @endif
-                            </div>
-                        </div>
                         <div class="form-group row">
                             <label for="inputSisaCuti" class="col-sm-2 col-form-label">Sisa Cuti</label>
                             <div class="col-sm-10">
-                            <input type="number" class="form-control sisaCuti" id="inputSisaCuti" name="sisaCuti" value="" readonly>                           
+                            <input type="number" class="form-control sisaCuti" id="inputSisaCuti" name="sisaCuti" value="{{$cuti->sisaCuti}}">                           
                             @if($errors->has('sisaCuti'))
                             <div class="text-danger">
                                 {{ $errors->first('sisaCuti') }}
@@ -86,12 +58,29 @@
                         <div class="form-group row">
                             <label for="inputPeriode" class="col-sm-2 col-form-label">Periode</label>
                             <div class="col-sm-10">
-                            <input type="text" class="form-control periode" id="inputPeriode" name="periode" value="" readonly>                           
+                            <input type="text" class="form-control periode" id="inputPeriode" name="periode" value="{{$cuti->periode}}">                           
                             @if($errors->has('periode'))
                             <div class="text-danger">
                                 {{ $errors->first('periode') }}
                             </div>
                             @endif
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="selectKategori" class="col-sm-2 col-form-label">Kategori</label>
+                            <div class="col-sm-10">
+                                <select class="form-control kategori" id="selectKategori" name="idKategori" disabled>
+                                <option value="">Pilih Kategori...</option>
+                                @foreach($kategori as $k)
+                                <option value="{{$k->id}}" {{($cuti->idKategori == $k->id)?'selected':''}}>{{$k->kategori}}</option>
+                                @endforeach
+                                </select>                         
+                                @if($errors->has('idKategori'))
+                                <div class="text-danger">
+                                    {{ $errors->first('idKategori') }}
+                                </div>
+                                @endif
                             </div>
                         </div>
                         <input type="submit" value="Tambah" class="btn btn-primary float-right">
@@ -109,6 +98,7 @@
 
         $('.karyawan').on('change', function(){
         var karyawanId = $(this).val();
+        var dt = new Date();
             $.ajax({
                 url: '{{ route("form.hrd.cuti.cekKaryawan")}}',
                 data: "id="+karyawanId,
@@ -116,17 +106,15 @@
                 success: function(data) {
                     console.log(data);
                     if (data.y >= 1) {
-                        $('.kategori').attr('readonly', false);
+                        $('.kategori').attr('disabled', false);
                         $('.kategori').val('');
-                        $('.cuti').val('');
-                        $('.sisaCuti').val('');
-                        $('.periode').val('');
+                        $('.sisaCuti').val(data.sisaCuti);
+                        $('.periode').val(data.yearNow);
                         $('.karyawan').addClass('is-valid');            
                         $('.karyawan').removeClass('is-invalid');
                     } else {
-                        $('.kategori').attr('readonly', true);
+                        $('.kategori').attr('disabled', true);
                         $('.kategori').val('');
-                        $('.cuti').val('');
                         $('.sisaCuti').val('');
                         $('.periode').val('');
                         $('.karyawan').removeClass('is-valid');
@@ -135,36 +123,6 @@
                 }              
             });
         });
-        
-        $('.kategori').on('change', function(){
-          var kategoriId = $(this).val();
-          var dt = new Date();
-          console.log(kategoriId);
-          $.ajax({
-              url: '{{ route("form.hrd.cuti.fillCuti")}}',
-              data: "id="+kategoriId,
-              type: 'GET',              
-              success: function(data) {
-                $('.cuti').val(data.jumlahCuti);
-                $('.sisaCuti').val(data.jumlahCuti)
-                $('.periode').val(dt.getFullYear());
-            }              
-          });
-        });
-
-        // $('.kategori').on('change', function(){
-        // var kategoriId = $(this).val('.karyawanId');
-        // var dt = new Date();
-        // console.log(kategoriId);
-        //     $.ajax({
-        //         url: '{{ route("form.hrd.cuti.cekBulan")}}',
-        //         data: "id="+kategoriId,
-        //         type: 'GET',              
-        //         success: function(data) {
-        //             console.log(data);
-        //         }              
-        //     });
-        // });
 
     });
 </script>

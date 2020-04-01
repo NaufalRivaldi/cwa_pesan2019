@@ -28,7 +28,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">NIK <span class="text-danger">*</span></label>
                             <div class="col-sm-10">
-                                <input type="text" name="nik" class="form-control col-md-6" value="{{ (!empty($id)? $karyawan->nik : '') }}" required>
+                                <input onkeyup="convertToMin(this);" onkeypress="return hanyaAngka(event)" type="text" name="nik" class="form-control col-md-6" value="{{ (!empty($id)? $karyawan->nik : '') }}" maxlength="9" required>
 
                                 <!-- error -->
                                 @if($errors->has('nik'))
@@ -47,6 +47,19 @@
                                 @if($errors->has('nama'))
                                     <div class="text-danger">
                                         {{ $errors->first('nama') }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Tanggal Bekerja <span class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                <input type="date" name="masaKerja" class="form-control" value="{{ (!empty($id)? $karyawan->masaKerja : '') }}" required>
+
+                                <!-- error -->
+                                @if($errors->has('masaKerja'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('masaKerja') }}
                                     </div>
                                 @endif
                             </div>
@@ -106,5 +119,31 @@
     $('document').ready(function(){
         
     });
+
+    function convertToMin(objek) {
+      separator = ".";
+      a = objek.value;
+      b = a.replace(/[^\d]/g, "");
+      c = "";
+      panjang = b.length;
+      j = 0;
+      for (i = panjang; i > 0; i--) {
+          j = j + 1;
+          if (((j % 4) == 1) && (j != 1)) {
+              c = b.substr(i - 1, 1) + separator + c;
+          } else {
+              c = b.substr(i - 1, 1) + c;
+          }
+      }
+      objek.value = c;
+    }
+
+    function hanyaAngka(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+            return false;
+            return true;
+    }
 </script>
 @endsection

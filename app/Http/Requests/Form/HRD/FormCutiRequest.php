@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Form\HRD;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CutiRequest extends FormRequest
+class FormCutiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,21 +21,21 @@ class CutiRequest extends FormRequest
      *
      * @return array
      */
-
     public function messages()
     {
         return [
-            'required' => 'Kolom ini tidak boleh kosong!'
+            'required'=>'Kolom ini tidak boleh kosong!'
         ];
     }
 
     public function rules()
     {
         return [
-            'idKaryawan' => 'required',
-            'idKategori' => 'required',
-            'sisaCuti' => 'required',
-            'periode' => 'required',
+            'karyawanId'=>'required',
+            'idCuti'=>'required',
+            'tanggalCuti'=>'required|array',
+            'tanggalCuti.*' => 'required',
+            'keterangan'=>'required'
         ];
     }
 }

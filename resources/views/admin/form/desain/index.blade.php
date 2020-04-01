@@ -24,13 +24,13 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Kode</th>
                                         <th>Pengaju</th>
                                         <th>Tanggal Pengajuan</th>
                                         <th>Deadline</th>
                                         <th>Jenis Desain</th>
                                         <!-- <th>Ukuran</th> -->
                                         <th>Status</th>
-                                        <th>Keterangan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -38,13 +38,13 @@
                                     @foreach($form_proses as $form)
                                         <tr>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ $no++ }}</td>
+                                            <td class="modalClick" data-id="{{ $form->id }}">{{ $form->kode }}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ $form->karyawanAll->dep }}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ Helper::setDate($form->created_at) }}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ Helper::setDate($form->tgl_perlu) }}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}"><span class="badge badge-success">{{ $form->jenisDesain->nama }}</span></td>
                                             <!-- <td class="modalClick" data-id="{{ $form->id }}">{{ $form->ukuran }}</td> -->
                                             <td class="modalClick" data-id="{{ $form->id }}">{!! Helper::statusDesain($form->stat) !!}</td>
-                                            <td class="modalClick" data-id="{{ $form->id }}">{{ $form->keterangan }}</td>
                                         
                                             <td>
                                             @if(auth()->user()->dep == 'IT')
@@ -76,6 +76,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Kode</th>
                                         <th>Pengaju</th>
                                         <th>Tanggal Pengajuan</th>
                                         <th>Deadline</th>
@@ -90,6 +91,7 @@
                                     @foreach($form_done as $form)
                                         <tr>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ $no++ }}</td>
+                                            <td class="modalClick" data-id="{{ $form->id }}">{{ $form->kode }}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ $form->user->nama }}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ Helper::setDate($form->created_at) }}</td>
                                             <td class="modalClick" data-id="{{ $form->id }}">{{ Helper::setDate($form->tgl_perlu) }}</td>
@@ -120,6 +122,12 @@
         </button>
       </div>
       <div class="modal-body">
+        <div class="form-group">
+            <label for="kode">Kode</label>
+            <div class="form-check kode">
+                
+            </div>
+        </div>
         <div class="form-group">
             <label for="karyawan_all">Pembuat</label>
             <input type="text" class="form-control karyawan_all" disabled id="karyawan_all" name="karyawan_all">
@@ -246,10 +254,12 @@
                 type: 'GET',
                 success: function(data){
                     console.log(data.status);
+                    $('.kode').empty();
                     $('.status').empty();
                     $('.jenisDesain').empty();
                     $('.keterangan_lain').empty();
                     
+                    $('.kode').append(data.kode);
                     $('.status').append(data.status);
                     $('.jenisDesain').append(data.jenisDesain);
                     $('.keterangan_lain').append(data.keterangan_lain);

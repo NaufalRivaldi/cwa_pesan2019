@@ -34,6 +34,8 @@ class FormDesainController extends Controller
         $data['menu'] = 8;
         $data['jenis_desain'] = JenisDesain::all();
         $data['karyawan'] = KaryawanAll::where('dep', auth()->user()->dep)->where('ket', '1')->get();
+        $data['kode'] = $this->generateKode();
+        $data['tglPengerjaan'] = date('Y-m-d', strtotime('+3 day', strtotime(date('Y-m-d'))));
 
         return view('admin.form.desain.form', $data);
     }
@@ -42,6 +44,7 @@ class FormDesainController extends Controller
         $id = $_GET['id'];
         $data = FormPengajuanDesain::find($id);
         $array = [
+            "kode" => $data->kode,
             "status" => helper::statusDesain($data->stat),
             "jenisDesain" => $data->jenisDesain->nama,
             "tglPengajuan" => date('Y-m-d', strtotime($data->created_at)),
@@ -64,6 +67,7 @@ class FormDesainController extends Controller
         }
         
         FormPengajuanDesain::create([
+            "kode" => $req->kode,
             "tgl_perlu" => $req->tgl_perlu,
             "qty" => $req->qty,
             "ukuran" => $req->ukuran,
@@ -148,5 +152,20 @@ class FormDesainController extends Controller
             'nik' => 'required',
             'password' => 'required',
         ], $message);
+    }
+
+    public function generateKode(){
+        $kode = 'FID';
+        $date = date('Y-m');
+        $data = FormPengajuanDesain::where('created_at', 'like', '%'.$date.'%')->orderBy('id', 'desc')->first();
+
+        if(empty($data)){
+            $kode .= date('ym').'001';
+        }else{
+            $row = explode(date('ym'), $data->kode);
+            $kode .= date('ym').$row[1]+1;
+        }
+
+        return $kode;
     }
 }
