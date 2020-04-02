@@ -102,6 +102,22 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Poling</label>
+                            <div class="col-sm-10">
+                                <select name="statusPoling" class="form-control">
+                                    <option value="">Pilih</option>
+                                    <option value="1" {{ (!empty($id))? ($karyawan->statusPoling == 1)? 'selected' : '' : '' }}>Masuk</option>
+                                    <option value="0" {{ (!empty($id))? ($karyawan->statusPoling == 0)? 'selected' : '' : '' }}>Tidak Masuk</option>
+                                </select>
+                                <!-- error -->
+                                @if($errors->has('statusPoling'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('statusPoling') }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label class="col-sm-2 col-form-label"></label>
                             <div class="col-sm-10">
                                 <input type="submit" value="Simpan" class="btn btn-primary">

@@ -30,7 +30,7 @@ class PolingController extends Controller
         $dep = $data['dep'];
         $now = date('Y-m-d');
         $periode = Periode::where('status', '1')->where('kategori','1')->where('tglMulai', '<=', $now)->where('tglSelesai', '>=', $now)->first();
-        $karyawan = KaryawanAll::where('nik', $req->nik)->where('stat','1')->where('ket','1')->whereIn('dep', $dep)->first();
+        $karyawan = KaryawanAll::where('nik', $req->nik)->where('stat','1')->where('ket','1')->where('statusPoling', '1')->whereIn('dep', $dep)->first();
         
         if (!empty($karyawan)) {                  
             if (!empty($periode)) { 

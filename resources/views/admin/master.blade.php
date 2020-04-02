@@ -13,11 +13,9 @@
 
                 @include('admin.navbar')
                 
-                <div class="container">
-                    @include('admin.defpass')
-                    @include('admin.alert')
-                    @yield('content')
-                </div>
+                @include('admin.defpass')
+                @include('admin.alert')
+                @yield('content')
             </div>
         </div>
 
