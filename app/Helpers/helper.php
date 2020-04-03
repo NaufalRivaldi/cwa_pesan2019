@@ -1310,7 +1310,7 @@ class helper{
     }
 
     public static function jmlKaryawan($dep){
-        $karyawan = KaryawanAll::where('stat', 1)->where('ket', 1)->where('dep', $dep)->get();
+        $karyawan = KaryawanAll::where('stat', 1)->where('ket', 1)->where('statusPoling', '1')->where('dep', $dep)->get();
 
         return $karyawan->count();
     }

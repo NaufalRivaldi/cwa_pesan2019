@@ -71,7 +71,7 @@
                   <div class="col-md-8">
                     <a href="{{ route('laporan.hrd.hasilpoling.detail').$url }}" class="btn btn-sm btn-primary">Detail Poling</a>
                     <a href="{{ route('laporan.hrd.hasilpoling.export').$url }}" class="btn btn-sm btn-success">Export <i class="far fa-file-excel"></i></a>
-                    <a href="{{ route('pkk.kanidat.import', ['periodeId' => $periode]) }}" class="btn btn-sm btn-warning">Set Kandidat <i class="far fa-user"></i></a>
+                    <a href="{{ route('pkk.kanidat.import', ['periodeId' => $periode]) }}" class="btn btn-sm btn-warning {{ ($persentase != '100')?'disabled':'' }}">Set Kandidat <i class="far fa-user"></i></a>
                   </div>
                   <div class="col-md-3">
                     Penilaian : {{ $persentase }}%

@@ -64,7 +64,7 @@ class LaporanHasilPolingController extends Controller
 
     public function persentase(){
         $dep = $this->dep();
-        $karyawan = KaryawanAll::where('stat', 1)->where('ket', 1)->whereIn('dep', $dep)->get();
+        $karyawan = KaryawanAll::where('stat', 1)->where('ket', 1)->where('statusPoling', '1')->whereIn('dep', $dep)->get();
         if($_GET){
             $periode = Periode::find($_GET['periodeId']);
         }else{

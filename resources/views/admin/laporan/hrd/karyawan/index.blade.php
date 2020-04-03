@@ -53,8 +53,8 @@
                                             <td>{{ $karyawan->nik }}</td>
                                             <td>{{ $karyawan->nama }}</td>
                                             <td>{{ $karyawan->dep }}</td>
-                                            <td>{{ Helper::setDate($karyawan->tglKerja) }}</td>
                                             <td>{!! Helper::statusKaryawan($karyawan->stat) !!}</td>
+                                            <td>{{ Helper::setDate($karyawan->masaKerja) }}</td>
                                             <td>{!! Helper::statusUser($karyawan->ket) !!}</td>
                                             <td>{!! Helper::statusBool($karyawan->statusPoling) !!}</td>
                                             <td>
