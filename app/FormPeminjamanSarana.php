@@ -8,6 +8,7 @@ class FormPeminjamanSarana extends Model
 {
     protected $table = 'form_peminjaman_sarana';
     protected $fillable = [
+        'kode',
         'status',
         'userId',
         'keterangan'

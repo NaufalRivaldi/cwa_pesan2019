@@ -385,6 +385,26 @@ class helper{
         return $count;
     }
 
+    public static function countVerifikasiCuti(){
+        $count = 0;
+        // hrd
+        if (auth()->user()->level == 7) {
+            $form = FormCuti::where('status', 2)->orderBy('created_at', 'desc')->get();
+        } else {
+            $form = FormCuti::where('status', 3)->orderBy('created_at', 'desc')->get();
+        }
+        
+        foreach($form as $row){
+            if(auth()->user()->level != 7){
+                    $count += 1;
+            }elseif(auth()->user()->level == 7){
+                $count += 1;
+            }
+        }
+
+        return $count;
+    }
+
     public static function countFormDesain(){
         if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'Accounting'){
             $form = FormPengajuanDesain::where('stat', '<', '4')->count();
@@ -1368,7 +1388,7 @@ class helper{
                 break;
 
             case '3':
-                $text = "<span class='badge badge-info'>Menunggu Acc AM</span>";
+                $text = "<span class='badge badge-info'>Menunggu Acc Manager</span>";
                 break;
 
             case '4':

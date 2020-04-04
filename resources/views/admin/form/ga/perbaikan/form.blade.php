@@ -24,7 +24,14 @@
                         Form Perbaikan
                     </div>
                         <form method="POST" action="{{ route('form.ga.perbaikan.store') }}">
-                            @csrf
+                            @csrf                            
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Kode<span class="text-danger">*</span></label>
+                                <label class="col-sm-5 col-form-label">{{$kodeForm}}</label>
+                                <div class="col-sm-9">
+                                    <input type="hidden" name="kode" value="{{$kodeForm}}" class="form-control col-md-6" readonly>
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Tanggal <span class="text-danger">*</span></label>
                                 <div class="col-sm-10">

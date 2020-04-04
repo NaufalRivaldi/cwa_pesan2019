@@ -17,7 +17,7 @@
                     <a href="{{ route('form.hrd.cuti.form') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i> Tambah</a> 
                     <span id="insert-menu"></span>
                     
-                    <a href="{{ route('form.hrd.cuti.generate') }}" class="btn btn-success btn-sm disabled" > Generate</a> 
+                    <a href="{{ route('form.hrd.cuti.generate') }}" class="btn btn-success btn-sm" > Generate</a> 
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

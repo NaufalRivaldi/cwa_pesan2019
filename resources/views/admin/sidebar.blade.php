@@ -175,7 +175,7 @@
                 @endif
                 @if(Helper::isVerifikasiCuti())
                 <li>
-                    <a href="{{ route('form.hrd.cuti.verifikasiCuti') }}">Verifikasi Cuti <span class="badge badge-warning"></span></a>
+                    <a href="{{ route('form.hrd.cuti.verifikasiCuti') }}">Verifikasi Cuti <span class="badge badge-warning">{{ Helper::countVerifikasiCuti() }}</span></a>
                 </li>
                 @endif
             </ul>

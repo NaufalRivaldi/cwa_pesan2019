@@ -53,6 +53,7 @@
                         <th>Departemen</th>
                         <th>Kategori</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,6 +65,9 @@
                         <td data-id="{{$form->id}}" class="dataView">{{$form->karyawan->dep}}</td>
                         <td data-id="{{$form->id}}" class="dataView">{!!Helper::getKategoriCuti($form->id)!!}</td>
                         <td data-id="{{$form->id}}" class="dataView">{!!Helper::statusFormCuti($form->status)!!}</td>
+                        <td>
+                          <button class="btn btn-sm btn-danger delete" data-id="{{$form->id}}"><i class="far fa-trash-alt"></i></button>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -300,5 +304,30 @@
       $('.idForm').val(id);
       $('.type').val(val);
     });
+
+    $(document).on('click','.delete', function() {    
+          var id = $(this).data('id');
+          swal({
+          title: 'Perhatian!',
+          text: "Apakah anda yakin menghapus data ini?",
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true
+          }).then((willDelete) => {
+            if (willDelete) {
+              $.ajax({
+                type: "POST",
+                url: "{{ route('form.hrd.cuti.formcuti.delete') }}",
+                data: {
+                  id: id,
+                  _token: '{{ csrf_token() }}'
+                },
+                success: function(data){
+                  location.reload();
+                }
+              })
+            }
+          })
+      });
 </script>
 @endsection

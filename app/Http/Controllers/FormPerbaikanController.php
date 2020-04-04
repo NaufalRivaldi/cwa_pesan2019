@@ -32,14 +32,31 @@ class FormPerbaikanController extends Controller
     public function form(){
         $data['menu'] = 8;
         $data['dateNow'] = date('Y-m-d');
+        $data['kodeForm'] = $this->kodeForm();
 
         return view('admin.form.ga.perbaikan.form', $data);
+    }    
+
+    public function kodeForm()
+    {
+        $y = date('y');
+        $m = date('m');
+        $kode = 'FGB';
+        $form = FormPerbaikanSarana::where('created_at','LIKE','%'.$y."-".$m.'%')->orderBy('id', 'desc')->first();
+        if(empty($form)){
+            $kode .= $y.$m.'001';
+        } else {
+            $row = explode($y.$m, $form->kode);
+            $kode .= $y.$m.$row[1]+1;
+        }
+        return $kode;
     }
 
     public function view(){
         $id = $_GET['id'];
         $data = FormPerbaikanSarana::find($id);
         $array = [
+            "kodeForm" => $data->kode,
             "tglPengajuan" => helper::setDate($data->tglPengajuan),
             "tglSelesai" => helper::setDate($data->tglSelesai),
             "pengaju" => $data->user->nama,
@@ -54,6 +71,7 @@ class FormPerbaikanController extends Controller
 
     public function store(FormPerbaikanRequest $req){
         FormPerbaikanSarana::create([
+            'kode' => $req->kode,            
             'tglPengajuan' => $req->tglPengajuan,
             'tglSelesai' => $req->tglPengajuan,
             'permintaan' => $req->permintaan,

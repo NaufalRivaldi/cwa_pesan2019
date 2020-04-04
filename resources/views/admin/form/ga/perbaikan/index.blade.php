@@ -27,6 +27,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Kode</th>
                                         <th>Tgl Pelaporan</th>
                                         <th>Dept</th>
                                         <th>Permintaan</th>
@@ -39,6 +40,7 @@
                                     @foreach($formProgress as $data)
                                         <tr>
                                             <td>{{ $no++ }}</td>
+                                            <td>{{ $data->kode }}</td>
                                             <td class="modalClick" data-id="{{ $data->id }}">{{ Helper::setDate($data->tglPengajuan) }}</td>
                                             <td class="modalClick" data-id="{{ $data->id }}">{{ $data->user->dep }}</td>
                                             <td class="modalClick" data-id="{{ $data->id }}">{{ $data->permintaan }}</td>
@@ -54,7 +56,7 @@
                                                 
                                             @endif
                                             @if(auth()->user()->id == $data->userId)
-                                                <a href="#" class="remove-form-perbaikan" data-id="{{ $data->id }}"><i class="btn btn-danger btn-sm far fa-trash-alt"></i></a>
+                                                <a href="#" class="btn btn-danger btn-sm remove-form-perbaikan" data-id="{{ $data->id }}"><i class="far fa-trash-alt"></i></a>
                                             @endif
                                             </td>
                                         </tr>
@@ -73,6 +75,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Kode</th>
                                         <th>Tgl Pelaporan</th>
                                         <th>Tgl Selesai</th>
                                         <th>Dept</th>
@@ -86,6 +89,7 @@
                                     @foreach($formSelesai as $data)
                                         <tr>
                                             <td>{{ $no++ }}</td>
+                                            <td>{{ $data->kode }}</td>
                                             <td class="modalClick" data-id="{{ $data->id }}">{{ Helper::setDate($data->tglPengajuan) }}</td>
                                             <td class="modalClick" data-id="{{ $data->id }}">{{ Helper::setDate($data->tglSelesai) }}</td>
                                             <td class="modalClick" data-id="{{ $data->id }}">{{ $data->user->dep }}</td>
@@ -117,8 +121,13 @@
       <div class="modal-body">
         <table class="table">
             <tr>
-                <td width="20%">Tgl Pengajuan</td>
+                <td width="20%">Kode</td>
                 <td width="1%">:</td>
+                <td class="kodeForm"></td>
+            </tr>
+            <tr>
+                <td>Tgl Pengajuan</td>
+                <td>:</td>
                 <td class="tglPengajuan"></td>
             </tr>
             <tr class="tglSelesai">
@@ -252,7 +261,9 @@
                     $('.pengaju').empty();
                     $('.status').empty();
                     $('.tglSelesai').empty();
+                    $('.kodeForm').empty();
                     
+                    $('.kodeForm').append(data.kodeForm);
                     $('.tglPengajuan').append(data.tglPengajuan);
                     $('.pengaju').append(data.pengaju);
                     $('.status').append(data.status);

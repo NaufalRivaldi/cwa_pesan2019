@@ -39,12 +39,28 @@ class FormPeminjamanController extends Controller
         $data['menu'] = 8;
         $data['dateNow'] = date('Y-m-d');
         $data['sarana'] = Sarana::all();
-    
+        $data['kodeForm'] = $this->kodeForm();
         return view('admin.form.ga.peminjaman.form', $data);
+    }
+
+    public function kodeForm()
+    {
+        $y = date('y');
+        $m = date('m');
+        $kode = 'FGA';
+        $form = FormPeminjamanSarana::where('created_at','LIKE','%'.$y."-".$m.'%')->orderBy('id', 'desc')->first();
+        if(empty($form)){
+            $kode .= $y.$m.'001';
+        } else {
+            $row = explode($y.$m, $form->kode);
+            $kode .= $y.$m.$row[1]+1;
+        }
+        return $kode;
     }
 
     public function store(FormPeminjamanRequest $req){
         FormPeminjamanSarana::create([
+            'kode' => $req->kode,
             'status' => '1',
             'userId' => auth()->user()->id
         ]);
@@ -71,7 +87,8 @@ class FormPeminjamanController extends Controller
     public function view(){
         $id = $_GET['id'];
         $data = FormPeminjamanSarana::find($id);
-        $array = [
+        $array = [            
+            "kodeForm" => $data->kode,
             "tglPengajuan" => helper::setDate($data->created_at),
             "pengaju" => $data->user->nama.' ('.$data->user->dep.')',
             "status" => helper::statusPeminjaman($data->status),
@@ -86,6 +103,7 @@ class FormPeminjamanController extends Controller
         $data = DetailFormPeminjamanSarana::find($id);
         $array = [
             "id" => $data->id,
+            "kodeForm" => $data->formPeminjaman->kode,
             "tgl" => $data->tgl,
             "keterangan" => $data->keterangan,
             "pukulA" => $data->pukulA,

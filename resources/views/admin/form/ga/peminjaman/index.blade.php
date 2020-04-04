@@ -27,6 +27,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Kode</th>
                                         <th>Tgl Pengajuan</th>
                                         <th>Pengaju</th>
                                         <th>Tgl Pinjam</th>
@@ -38,6 +39,7 @@
                                     @foreach($formProgress as $row)
                                     <tr>
                                         <td class="modalClick" data-id="{{ $row->id }}">{{ $no++ }}</td>
+                                        <td class="modalClick" data-id="{{ $row->id }}">{{ $row->kode }}</td>
                                         <td class="modalClick" data-id="{{ $row->id }}">{{ Helper::setDate($row->created_at) }}</td>
                                         <td class="modalClick" data-id="{{ $row->id }}">{{ $row->user->dep }}</td>
                                         <td class="modalClick" data-id="{{ $row->id }}">
@@ -77,6 +79,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Kode</th>
                                         <th>Tgl Pengajuan</th>
                                         <th>Pengaju</th>
                                         <th>Tgl Pinjam</th>
@@ -88,6 +91,7 @@
                                     @foreach($formSelesai as $row)
                                     <tr>
                                         <td class="modalClick" data-id="{{ $row->id }}">{{ $no++ }}</td>
+                                        <td class="modalClick" data-id="{{ $row->id }}">{{ $row->kode }}</td>
                                         <td class="modalClick" data-id="{{ $row->id }}">{{ Helper::setDate($row->created_at) }}</td>
                                         <td class="modalClick" data-id="{{ $row->id }}">{{ $row->user->dep }}</td>
                                         <td class="modalClick" data-id="{{ $row->id }}">
@@ -126,8 +130,13 @@
       <div class="modal-body">
         <table class="table">
             <tr>
-                <td width="20%">Tgl Pengajuan</td>
+                <td width="20%">Kode Form</td>
                 <td width="1%">:</td>
+                <td class="kodeForm"></td>
+            </tr>
+            <tr>
+                <td>Tgl Pengajuan</td>
+                <td>:</td>
                 <td class="tglPengajuan"></td>
             </tr>
             <tr class="tglSelesai">
@@ -323,7 +332,9 @@
                     $('.pengaju').empty();
                     $('.status').empty();
                     $('.keterangan').empty();
+                    $('.kodeForm').empty();
                     
+                    $('.kodeForm').append(data.kodeForm);
                     $('.tglPengajuan').append(data.tglPengajuan);
                     $('.pengaju').append(data.pengaju);
                     $('.status').append(data.status);
