@@ -11,6 +11,7 @@ use DB;
 use App\PKK\Periode;
 use App\PKK\Poling;
 use App\KaryawanAll;
+use App\PKK\Kanidat;
 
 class LaporanHasilPolingController extends Controller
 {
@@ -23,6 +24,17 @@ class LaporanHasilPolingController extends Controller
         $dep = $this->dep();
         $data['searchPeriode'] = Periode::orderBy('id', 'DESC')->where('kategori', 1)->get();
         $data['persentase'] = $this->persentase();
+        $data['kanidat'] = Kanidat::all();
+
+        //get
+        if($_GET){
+            $periodeId = $_GET['periodeId'];
+            $data['periode'] = $periodeId;
+        }else{
+            $periode = Periode::orderBy('id', 'DESC')->where('kategori', '1')->first();
+            $data['periode'] = $periode->id;
+        }
+
         return view('admin.laporan.hrd.laporanhasilpoling.index', $data);
     }
 
@@ -52,7 +64,7 @@ class LaporanHasilPolingController extends Controller
 
     public function persentase(){
         $dep = $this->dep();
-        $karyawan = KaryawanAll::where('stat', 1)->where('ket', 1)->whereIn('dep', $dep)->get();
+        $karyawan = KaryawanAll::where('stat', 1)->where('ket', 1)->where('statusPoling', '1')->whereIn('dep', $dep)->get();
         if($_GET){
             $periode = Periode::find($_GET['periodeId']);
         }else{

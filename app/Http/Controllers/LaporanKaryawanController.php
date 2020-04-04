@@ -51,6 +51,7 @@ class LaporanKaryawanController extends Controller
             'dep' => $req->dep,
             'stat' => $req->stat,
             'ket' => 1,
+            'statusPoling' => 1,
             'masaKerja' => $req->masaKerja
         ]);
 
@@ -64,6 +65,7 @@ class LaporanKaryawanController extends Controller
         $data->dep = $req->dep;
         $data->stat = $req->stat;
         $data->ket = 1;
+        $data->statusPoling = $req->statusPoling;
         $data->masaKerja = $req->masaKerja;
         $data->save();
 

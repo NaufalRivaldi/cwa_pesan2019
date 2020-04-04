@@ -24,6 +24,15 @@
                                     {{ csrf_field() }}
                                     <div class="row form-group">
                                         <div class="col-md-3">
+                                            <label>Kode<span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <p>{{ $kode }}</p>
+                                            <input type="hidden" name="kode" value="{{ $kode }}">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-md-3">
                                             <label>Divisi / Departemen</label>
                                         </div>
                                         <div class="col-md-9">
@@ -119,6 +128,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Kode</th>
                                         <th>Tanggal</th>
                                         <th>Departement</th>
                                         <th>PIC</th>
@@ -132,6 +142,7 @@
                                     @foreach($form as $row)
                                         <tr>
                                             <td>{{ $no++ }}</td>
+                                            <td>{{ $row->kode }}</td>
                                             <td>
                                                 {{ $row->tgl }}
                                             </td>

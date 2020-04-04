@@ -8,7 +8,7 @@ class FormPengajuanDesain extends Model
 {
     protected $table = 'form_pengajuan_desain';
     protected $fillable = [
-        'tgl_perlu', 'qty', 'ukuran', 'deskripsi', 'stat', 'keterangan', 'keterangan_lain', 'jenis_desain_id', 'user_id', 'karyawan_all_id'
+        'kode', 'tgl_perlu', 'qty', 'ukuran', 'deskripsi', 'stat', 'keterangan', 'keterangan_lain', 'jenis_desain_id', 'user_id', 'karyawan_all_id'
     ];
 
     // fk

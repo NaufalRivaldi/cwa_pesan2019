@@ -9,7 +9,7 @@
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <a href="{{route('form.hrd')}}"><li class="breadcrumb-item" aria-current="page">Form Pengajuan Desain</a></li>
+                        <a href="{{route('desainIklan')}}"><li class="breadcrumb-item" aria-current="page">Form Pengajuan Desain</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Form</li>
                     </ol>
                 </nav>
@@ -21,6 +21,11 @@
                     </div>
                         <form method="POST" action="{{ route('desainIklan.store') }}">
                             @csrf
+                            <div class="form-group">
+                                <label>Kode<span class="text-danger">*</span></label>
+                                <p>{{ $kode }}</p>
+                                <input type="hidden" name="kode" value="{{ $kode }}">
+                            </div>
                             <div class="form-group">
                                 <label>Pembuat <span class="text-danger">*</span></label>
                                 <select name="karyawan_all_id" class="form-control">
@@ -63,7 +68,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="tgl_perlu">Tanggal Diperlukan</label>
-                                        <input type="date" class="form-control" id="tgl_perlu" name="tgl_perlu">
+                                        <input type="date" class="form-control" id="tgl_perlu" name="tgl_perlu" min="{{ $tglPengerjaan }}">
+                                        <small class="text-info">*Waktu pengerjaan desain minimal 3 hari.</small>
 
                                         <!-- error -->
                                         @if($errors->has('tgl_perlu'))
@@ -98,7 +104,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="deskripsi">Deskripsi</label>
-                                        <textarea name="deskripsi" id="deskripsi" rows="8" class="form-control"></textarea>
+                                        <textarea name="deskripsi" id="deskripsi" rows="9" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>

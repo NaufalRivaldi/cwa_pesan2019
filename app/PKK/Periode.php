@@ -24,4 +24,12 @@ class Periode extends Model
     public function penilaian(){
         return $this->hasOne('App\PKK\Penilaian', 'periodeId');
     }
+
+    public function kanidat(){
+        return $this->hasMany('App\PKK\Kanidat', 'periodeId');
+    }
+
+    public function penilaianEmployee(){
+        return $this->hasMany('App\PKK\PenilaianEmployee', 'periodeId');
+    }
 }

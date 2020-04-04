@@ -40,7 +40,9 @@
                                         <th>Nama</th>
                                         <th>Departemen</th>
                                         <th>Jabatan</th>
+                                        <th>Tanggal Bekerja</th>
                                         <th>Status</th>
+                                        <th>Status Poling</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -52,7 +54,9 @@
                                             <td>{{ $karyawan->nama }}</td>
                                             <td>{{ $karyawan->dep }}</td>
                                             <td>{!! Helper::statusKaryawan($karyawan->stat) !!}</td>
+                                            <td>{{ Helper::setDate($karyawan->masaKerja) }}</td>
                                             <td>{!! Helper::statusUser($karyawan->ket) !!}</td>
+                                            <td>{!! Helper::statusBool($karyawan->statusPoling) !!}</td>
                                             <td>
                                                 @if($karyawan->ket == 1)
                                                     <a href="{{ route('laporan.hrd.karyawan.nonaktif', ['id' => $karyawan->id]) }}" class="btn btn-danger btn-sm fa fa-times-circle"></a>

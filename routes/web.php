@@ -255,6 +255,12 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::get('/export','PKK\LaporanHasilPolingController@export')->name('laporan.hrd.hasilpoling.export');
             });
 
+            Route::group(['prefix' => 'best-employee'], function(){
+                Route::get('/', 'PKK\LaporanBestEmployeeController@index')->name('laporan.hrd.penilaian.bestemp');
+                Route::get('/view/{periodeId}/{karyawanId}', 'PKK\LaporanBestEmployeeController@view')->name('laporan.hrd.penilaian.bestemp.view');
+                Route::post('/reset', 'PKK\LaporanBestEmployeeController@reset')->name('laporan.hrd.penilaian.bestemp.reset');
+            });
+
             Route::group(['prefix' => 'penilaiankabag'], function(){
                 Route::get('/', 'PKK\LaporanPenilaianKabagController@index')->name('laporan.hrd.penilaian.kabag');
                 Route::get('/{kategori}/export','PKK\LaporanPenilaianKabagController@export')->name('laporan.hrd.penilaiankabag.export');
@@ -437,6 +443,21 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::get('/', 'PKK\PenilaianKepalaBagianController@index')->name('pkk.penilaian.kabag');
                 Route::post('/store', 'PKK\PenilaianKepalaBagianController@store')->name('pkk.penilaian.kabag.store');
             });
+        });
+
+        Route::group(['prefix' => 'kanidat'], function(){
+            Route::get('/{periodeId}/import', 'PKK\KanidatController@import')->name('pkk.kanidat.import');
+            Route::get('/{id}/edit', 'PKK\KanidatController@edit')->name('pkk.kanidat.edit');
+            Route::put('/update', 'PKK\KanidatController@update')->name('pkk.kanidat.update');
+            Route::post('/destroy', 'PKK\KanidatController@destroy')->name('pkk.kanidat.destroy');
+        });
+
+        Route::group(['prefix' => 'penilaian-bestemployee'], function(){
+            Route::get('/', 'PKK\PenilaianEmployeeController@index')->name('pkk.bestemp.index');
+            Route::post('/validasi', 'PKK\PenilaianEmployeeController@validasi')->name('pkk.bestemp.validasi');
+            Route::post('/store', 'PKK\PenilaianEmployeeController@store')->name('pkk.bestemp.store');
+            Route::get('/penilaian', 'PKK\PenilaianEmployeeController@penilaian')->name('pkk.bestemp.penilaian');
+            Route::get('/{periodeId}/import', 'PKK\PenilaianEmployeeController@import')->name('pkk.bestemp.import');
         });
     });
 });

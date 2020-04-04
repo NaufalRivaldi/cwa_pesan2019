@@ -464,6 +464,17 @@ class helper{
         return $val;
     }
 
+    // set status bool
+    public static function statusBool($val){
+        if($val == 1){
+            $val = '<span class="badge badge-info">Masuk</span>';
+        }else{
+            $val = '<span class="badge badge-danger">Tidak Masuk</span>';
+        }
+
+        return $val;
+    }
+
     // set status karyawan
     public static function statusKaryawan($val){
         if($val == 1){
@@ -1192,7 +1203,7 @@ class helper{
 
     public static function polingByDepartemen($dep){
         $data['no'] = 1;
-        $data = KaryawanAll::where('dep', $dep)->where('stat', '1')->where('ket', '1')->orderBy('nama', 'ASC')->get();
+        $data = KaryawanAll::where('dep', $dep)->where('stat', '1')->where('ket', '1')->where('statusPoling', '1')->orderBy('nama', 'ASC')->get();
         return $data;
     }
 
@@ -1319,7 +1330,7 @@ class helper{
     }
 
     public static function jmlKaryawan($dep){
-        $karyawan = KaryawanAll::where('stat', 1)->where('ket', 1)->where('dep', $dep)->get();
+        $karyawan = KaryawanAll::where('stat', 1)->where('ket', 1)->where('statusPoling', '1')->where('dep', $dep)->get();
 
         return $karyawan->count();
     }

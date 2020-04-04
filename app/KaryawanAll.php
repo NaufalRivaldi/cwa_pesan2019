@@ -8,7 +8,7 @@ class KaryawanAll extends Model
 {
     protected $table = 'karyawan_all';
     protected $fillable = [
-        'id', 'nik', 'nama', 'dep', 'password', 'stat', 'ket', 'masaKerja'
+        'id', 'nik', 'nama', 'dep', 'password', 'stat', 'ket', 'masaKerja', 'statusPoling'
     ];
 
     // fk
@@ -47,5 +47,13 @@ class KaryawanAll extends Model
     public function formCuti()
     {
         return $this->hasMany('App\Forms\formcuti\FormCuti', 'karyawanId');
+    }
+
+    public function kanidat(){
+        return $this->hasMany('App\PKK\Kanidat', 'karyawanId');
+    }
+
+    public function penilaianEmployee(){
+        return $this->hasMany('App\PKK\PenilaianEmployee', 'karyawanId');
     }
 }

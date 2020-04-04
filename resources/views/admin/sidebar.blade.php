@@ -140,6 +140,7 @@
                         <li>
                             <a href="{{ url('admin/formhrd') }}">Form Umum<span class="badge badge-warning">{{ Helper::countPending() }}</span></a>
                         </li>
+                        <li>
                             <a href="{{ route('form.hrd.cuti.formcuti') }}">Form Cuti <span class="badge badge-warning">{{ Helper::countPendingCuti() }}</span></a>
                         </li>
                     </ul>
@@ -231,6 +232,9 @@
                 <li>
                     <a class="nav-link" href="{{ route('pkk.penilaian') }}"><i class="fa fa-fw fa-users"></i> Penilaian </a>
                 </li>
+                <li>
+                    <a class="nav-link" href="{{ route('pkk.bestemp.index') }}"><i class="fa fa-fw fa-users"></i> Kandidat Best Employee</a>
+                </li>
             </ul>
         </li>
 
@@ -261,7 +265,10 @@
                             <a href="{{ route('laporan.hrd.formcuti') }}">Form Cuti</a>
                         </li>
                         <li>
-                            <a href="{{ route('laporan.hrd.hasilpoling') }}">Hasil Poling</a>
+                            <a href="{{ route('laporan.hrd.hasilpoling') }}">Hasil Poling & Kandidat</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('laporan.hrd.penilaian.bestemp') }}">Hasil Best Employee</a>
                         </li>
                         <li>
                             <a href="{{ route('laporan.hrd.penilaian.kabag') }}">Hasil Penilaian Kabag</a>
