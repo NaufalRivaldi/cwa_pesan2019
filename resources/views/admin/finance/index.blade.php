@@ -46,7 +46,7 @@
                     @endif
 
                     <!-- table -->
-                    @if($dep == 'IT' || $dep == 'Finance')
+                    @if($dep == 'IT' || $dep == 'Finance' || $dep == 'SCM')
                         <h3>Download Penjualan</h3>
                         <div class="table-responsive">
                             <table class="table table-striped" id="myTable">
