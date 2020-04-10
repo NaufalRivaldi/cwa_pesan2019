@@ -19,7 +19,7 @@
                 </div>
                 <div class="card-body">
                     <!-- table -->
-                    @if($dep == 'IT' || $dep == 'Finance')
+                    @if($dep == 'IT' || $dep == 'Finance' || $dep == 'SCM')
                         <h3>Download Penjualan</h3>                        
                         <hr>
                         <div class="table-responsive">

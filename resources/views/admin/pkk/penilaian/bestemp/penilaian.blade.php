@@ -24,7 +24,7 @@
   <div class="col-md-12">
     <div class="alert alert-warning" role="alert">
       <h4 class="alert-heading">Note</h4>
-      <p>Setiap kepala bagian diharuskan memberikan penilaian kepada kandidat best employee dari departemen lain dengan skala nilai 1-10.</p>
+      <p>Kepala bagian diwajibkan memberikan penilaian kepada staffnya dan seluruh staff dari departemen lain.<br>Range penilaian (1 - 10)</p>
     </div>
   </div>
 </div>

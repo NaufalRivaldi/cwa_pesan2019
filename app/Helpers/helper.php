@@ -74,7 +74,7 @@ class helper{
 
     public static function isFinance(){
         $dep = auth()->user()->dep;
-        $data = array('Accounting', 'QA', 'GA', 'Pajak', 'Office', 'SCM');
+        $data = array('Accounting', 'QA', 'GA', 'Pajak', 'Office');
         if(!in_array($dep, $data)){
             return true;
         }else{
@@ -83,7 +83,7 @@ class helper{
     }
     public static function ubahFinance(){
         $dep = auth()->user()->dep;
-        $data = array('IT', 'Finance');
+        $data = array('IT', 'Finance', 'SCM');
         if(!in_array($dep, $data)){
             return true;
         }else{
