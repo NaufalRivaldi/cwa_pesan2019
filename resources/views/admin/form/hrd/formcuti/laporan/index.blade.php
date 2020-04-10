@@ -8,7 +8,7 @@
       
       <div class="card">
           <div class="card-header">
-              <h3>Laporan Sisa Cuti</h3>
+              <h3>Kartu Cuti</h3>
           </div>
           
           <div class="card-body">

@@ -28,7 +28,7 @@ class PenilaianEmployeeController extends Controller
     public function validasi(KanidatRequest $request){
         $nik = $request->nik;
         $password = sha1($request->password);
-        $data = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', Auth::user()->dep)->where('stat', '2')->first();
+        $data = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', Auth::user()->dep)->where('stat', '>=', '2')->first();
         
         if(!empty($data)){
             $kanidat = Kanidat::where('periodeId', $request->periodeId)->first();
