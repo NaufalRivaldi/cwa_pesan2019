@@ -87,6 +87,14 @@
                     <a href="{{ route('desainIklan') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
                 </div>
             </div>
+           
+           <div class="card text-white bg-info mb-2">
+               <div class="card-header"><i class="fas fa-file-signature"></i> Form Penanganan IT <span class="badge badge-pill badge-danger">Proses</span></div>
+               <div class="card-body">
+                   <p class="card-text">{{ Helper::countFormDesain() }} Form</p>
+                   <a href="{{ route('desainIklan') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
+               </div>
+           </div>
 
             <div class="card text-white bg-warning mb-2">
                 <div class="card-header"><i class="fas fa-file-signature"></i> Form Perbaikan Sarana <span class="badge badge-pill badge-danger">Proses</span></div>

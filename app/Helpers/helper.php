@@ -415,6 +415,17 @@ class helper{
         return $form;
     }
 
+    public static function countFormPenangananIT(){
+
+        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'Accounting'){
+            $form = FormPenangananIt::where('stat', '<', '4')->count();
+        }else{
+            $form = FormPenangananIt::where('user_id', auth()->user()->id)->where('stat', '<', '4')->count();
+        }
+        
+        return $form;
+    }
+
     public static function countFormPerbaikan(){
         if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'GA' || auth()->user()->dep == 'Accounting'){
             $form = FormPerbaikanSarana::where('status', '<' ,'4')->count();
