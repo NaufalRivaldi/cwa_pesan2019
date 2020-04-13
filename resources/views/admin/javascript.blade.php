@@ -22,7 +22,8 @@
 <script src="{{ asset('js/sweetalert.js') }}"></script>
 
 <!-- select2 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 <!-- Custom JS -->
 <script src="{{ asset('js/custom.js') }}"></script>

@@ -143,6 +143,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::post('/add', 'Forms\Cuti\CutiController@add')->name('form.hrd.cuti.add');
             Route::post('/delete', 'Forms\Cuti\CutiController@delete')->name('form.hrd.cuti.delete');
             Route::get('/generate', 'Forms\Cuti\CutiController@generate')->name('form.hrd.cuti.generate');
+            Route::get('/cari/karyawan', 'Forms\Cuti\CutiController@loadKaryawan')->name('form.hrd.cuti.loadKaryawan');
 
             Route::get('/fillCuti', 'Forms\Cuti\CutiController@fillCuti')->name('form.hrd.cuti.fillCuti');
             Route::get('/cekKaryawan', 'Forms\Cuti\CutiController@cekKaryawan')->name('form.hrd.cuti.cekKaryawan');

@@ -91,8 +91,8 @@
            <div class="card text-white bg-info mb-2">
                <div class="card-header"><i class="fas fa-file-signature"></i> Form Penanganan IT <span class="badge badge-pill badge-danger">Proses</span></div>
                <div class="card-body">
-                   <p class="card-text">{{ Helper::countFormDesain() }} Form</p>
-                   <a href="{{ route('desainIklan') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
+                   <p class="card-text">{{ Helper::countFormPenangananIT() }} Form</p>
+                   <a href="{{ route('penanganan.it') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
                </div>
            </div>
 

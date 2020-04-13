@@ -27,6 +27,7 @@ use App\PKK\Periode;
 use App\PKK\Poling;
 use App\Forms\formcuti\DetailFormCuti;
 use App\Forms\formcuti\FormCuti;
+use App\FormPenangananIt;
 
 use Hash;
 
@@ -416,11 +417,10 @@ class helper{
     }
 
     public static function countFormPenangananIT(){
-
-        if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'Accounting'){
-            $form = FormPenangananIt::where('stat', '<', '4')->count();
+        if(auth()->user()->dep == 'IT'){
+            $form = FormPenangananIt::where('stat', '1')->count();
         }else{
-            $form = FormPenangananIt::where('user_id', auth()->user()->id)->where('stat', '<', '4')->count();
+            $form = FormPenangananIt::where('user_id', auth()->user()->id)->where('stat', '1')->count();
         }
         
         return $form;

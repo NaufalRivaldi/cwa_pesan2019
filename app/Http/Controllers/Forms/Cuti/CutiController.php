@@ -142,4 +142,16 @@ class CutiController extends Controller
 
         return redirect()->route('form.hrd.cuti')->with('success', 'Data berhasil diupdate!');
     }
+
+    public function loadKaryawan(Request $req)
+    {
+        if($req->has('q')){
+            $cari = $req->q;
+        }else{
+            $cari = '';
+        }
+        $data = KaryawanAll::where('nama', 'like', '%'.$cari.'%')->get();
+
+        return response()->json($data);
+    }
 }

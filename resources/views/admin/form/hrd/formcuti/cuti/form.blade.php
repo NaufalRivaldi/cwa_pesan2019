@@ -26,10 +26,7 @@
                             <label for="selectKaryawan" class="col-sm-2 col-form-label">Karyawan</label>
                             <div class="col-sm-10">
                                 <select class="form-control karyawan" id="selectKaryawan" name="idKaryawan">
-                                <option value="">Pilih Karyawan...</option>
-                                @foreach($karyawan as $k)
-                                <option value="{{$k->id}}" {{($cuti->idKaryawan == $k->id)?'selected':''}}>{{$k->nama}}</option>
-                                @endforeach
+                                           
                                 </select>                  
                                 @if($errors->has('idKaryawan'))
                                 <div class="text-danger">
@@ -95,7 +92,7 @@
 @section('js')
 <script>
     $('document').ready(function(){
-
+            
         $('.karyawan').on('change', function(){
         var karyawanId = $(this).val();
         var dt = new Date();
@@ -124,6 +121,29 @@
             });
         });
 
+    });
+
+      $('#selectKaryawan').select2({
+      placeholder: 'Cari karyawan...',
+      theme: 'bootstrap',
+      ajax: {
+        type: 'GET',
+        url: '{{ route("form.hrd.cuti.loadKaryawan") }}',
+        dataType: 'json',
+        delay: 250,
+        processResults: function(data){
+          return {
+            results: $.map(data, function(item){
+              return {
+                text: item.nama,
+                id: item.id
+              }
+            })
+          };
+          console.log(dataa);
+        },
+        cache: true
+      }
     });
 </script>
 @endsection
