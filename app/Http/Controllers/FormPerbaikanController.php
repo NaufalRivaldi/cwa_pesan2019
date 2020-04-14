@@ -92,7 +92,7 @@ class FormPerbaikanController extends Controller
         $nik = $req->nik;
         $password = sha1($req->password);
 
-        $karyawan = KaryawanAll::where('stat', 2)->where('nik', $nik)->where('password', $password)->where('dep', 'GA')->first();
+        $karyawan = KaryawanAll::where('nik', $nik)->where('password', $password)->where('dep', 'GA')->first();
 
         if(!empty($karyawan)){
             $form = FormPerbaikanSarana::find($req->id);
