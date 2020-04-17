@@ -146,10 +146,10 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#pageIT" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">IT Support <span class="badge badge-warning">{{ (auth()->user()->dep == 'IT')? Helper::countFormDesain() : '' }}</span></a>
+                    <a href="#pageIT" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">IT Support <span class="badge badge-warning">{{ (auth()->user()->dep == 'IT')? Helper::countFormDesain() + Helper::countFormPenangananIT() : '' }}</span></a>
                     <ul class="collapse list-unstyled" id="pageIT">
                         <li>
-                            <a href="{{ route('penanganan.it') }}">Penanganan IT</a>
+                            <a href="{{ route('penanganan.it') }}">Penanganan IT <span class="badge badge-warning">{{ Helper::countFormPenangananIT() }}</span></a>
                         </li>
                         <li>
                             <a href="{{ route('desainIklan') }}">Pengajuan Desain <span class="badge badge-warning">{{ Helper::countFormDesain() }}</span></a>

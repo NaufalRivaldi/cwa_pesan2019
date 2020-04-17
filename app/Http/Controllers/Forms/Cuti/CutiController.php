@@ -106,6 +106,20 @@ class CutiController extends Controller
         return redirect()->route('form.hrd.cuti')->with('success', 'Data berhasil ditambah!');
     }
 
+    
+
+    public function update(CutiRequest $req)
+    {
+        $data = Cuti::find($req->id);
+        $data->idKaryawan=$req->idKaryawan;
+        $data->idKategori=$req->idKategori;
+        $data->sisaCuti=$req->sisaCuti;
+        $data->periode=$req->periode;
+        $data->save();
+
+        return redirect()->route('form.hrd.cuti')->with('success', 'Data berhasil diperbarui!');
+    }
+
     public function generate()
     {        
         $yearNow = date('Y');

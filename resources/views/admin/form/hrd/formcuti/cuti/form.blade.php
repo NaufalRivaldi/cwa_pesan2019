@@ -18,15 +18,19 @@
                     <a href="{{ route('form.hrd.cuti') }}" class="btn btn-success btn-sm"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('form.hrd.cuti.add')}}" method="POST">
+                    <form action="{{(!empty($cuti->id))?route('form.hrd.cuti.update'):route('form.hrd.cuti.add')}}" method="POST">
                         @csrf
-                        <input type="hidden" name="id" value="{{$cuti->id}}">
-                        
+                        @if(!empty($cuti->id))
+                          @method('PUT')
+                          <input type="hidden" name="id" value="{{$cuti->id}}">
+                        @endif
                         <div class="form-group row">
                             <label for="selectKaryawan" class="col-sm-2 col-form-label">Karyawan</label>
                             <div class="col-sm-10">
                                 <select class="form-control karyawan" id="selectKaryawan" name="idKaryawan">
-                                           
+                                    @if(!empty($cuti->id))
+                                    <option value="{{$cuti->karyawan->id}}">{{$cuti->karyawan->nama}}</option>
+                                    @endif           
                                 </select>                  
                                 @if($errors->has('idKaryawan'))
                                 <div class="text-danger">
@@ -67,7 +71,7 @@
                         <div class="form-group row">
                             <label for="selectKategori" class="col-sm-2 col-form-label">Kategori</label>
                             <div class="col-sm-10">
-                                <select class="form-control kategori" id="selectKategori" name="idKategori" disabled>
+                                <select class="form-control kategori" id="selectKategori" name="idKategori" {{($cuti->id)?'':'disabled'}}>
                                 <option value="">Pilih Kategori...</option>
                                 @foreach($kategori as $k)
                                 <option value="{{$k->id}}" {{($cuti->idKategori == $k->id)?'selected':''}}>{{$k->kategori}}</option>
@@ -80,7 +84,7 @@
                                 @endif
                             </div>
                         </div>
-                        <input type="submit" value="Tambah" class="btn btn-primary float-right">
+                        <input type="submit" value="{{($cuti->id)?'Simpah':'Tambah'}}" class="btn btn-primary float-right">
                         <input type="reset" value="Reset" class="btn btn-danger float-right mr-2">
                     </form>
                 </div>

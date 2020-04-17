@@ -43,7 +43,7 @@
                                         <td>{{$c->periode}}</td>
                                         <td>{!!Helper::statusCuti($c->status)!!}</td>
                                         <td>
-                                          <!-- <a href="{{route('form.hrd.cuti.edit', ['id'=>$c->id])}}" class="btn btn-sm btn-warning fas fa-pencil-alt"></a> -->
+                                          <a href="{{route('form.hrd.cuti.edit', ['id'=>$c->id])}}" class="btn btn-sm btn-warning fas fa-pencil-alt"></a>
                                           <button class="btn btn-sm btn-danger far fa-trash-alt delete" data-id="{{$c->id}}"></button>
                                         </td>
                                     </tr>
