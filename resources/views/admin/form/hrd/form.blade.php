@@ -67,19 +67,19 @@
                             <div class="col-sm-10">
                                 <div class="row">
                                     <div class="col-md-7">
-                                        <input type="date" name="tgl_a" class="form-control tgl_a" required>
+                                        <input name="tgl_a" id="datepicker" class="tgl_a" placeholder="dd/mm/yyyy" required onkeypress="return hanyaAngka(event)">
                                     </div>
                                     <div class="col-md-5 text-center">
-                                        <input type="time" name="time_a" class="form-control" required>
+                                        <input id="timepicker" name="time_a" class="" required placeholder="--:--" onkeyup="convertToMin(this)" maxlength="5" onkeypress="return hanyaAngka(event)">
                                     </div>
                                     <div class="col-md-12">
                                         s/d
                                     </div>
                                     <div class="col-md-7">
-                                        <input type="date" name="tgl_b" class="form-control tgl_b" required>
+                                        <input name="tgl_b" id="datepicker2" class="tgl_b" placeholder="dd/mm/yyyy" onkeypress="return hanyaAngka(event)" required>
                                     </div>
                                     <div class="col-md-5 text-center">
-                                        <input type="time" name="time_b" class="form-control">
+                                        <input id="timepicker2" name="time_b" class="" placeholder="--:--" onkeyup="convertToMin(this)" onkeypress="return hanyaAngka(event)">
                                     </div>
                                 </div>
                                 <p class="text-danger">
@@ -123,5 +123,30 @@
     $('document').ready(function(){
         
     });
+
+    function convertToMin(objek) {
+      separator = ":";
+      a = objek.value;
+      b = a.replace(/[^\d]/g, "");
+      c = "";
+      panjang = b.length;
+      j = 0;
+      for (i = panjang; i > 0; i--) {
+          j = j + 1;
+          if (((j % 2) == 1) && (j != 1)) {
+              c = b.substr(i - 1, 1) + separator + c;
+          } else {
+              c = b.substr(i - 1, 1) + c;
+          }
+      }
+      objek.value = c;
+    }   
+
+    function hanyaAngka(evt) {
+      var charCode = (evt.which) ? evt.which : event.keyCode
+      if (charCode > 31 && (charCode < 47 || charCode > 57))
+          return false;
+      return true;
+    }
 </script>
 @endsection

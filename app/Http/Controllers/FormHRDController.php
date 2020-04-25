@@ -260,10 +260,14 @@ class FormHRDController extends Controller
         if(!empty($req->lembur) && $req->lembur == 1){
             $lembur = 1;
         }
-
+        $date_a = str_replace('/', '-', $req->tgl_a);
+        $date_b = str_replace('/', '-', $req->tgl_b);
+        $tgl_a = date('Y-m-d', strtotime($date_a));
+        $tgl_b = date('Y-m-d', strtotime($date_b));
+        
         FormHRD::create([
-            'tgl_a' => $req->tgl_a.' '.$req->time_a,
-            'tgl_b' => $req->tgl_b.' '.$req->time_b,
+            'tgl_a' => $tgl_a.' '.$req->time_a,
+            'tgl_b' => $tgl_b.' '.$req->time_b,
             'keterangan' => $req->keterangan,
             'lembur' => $lembur,
             'stat' => '1',
@@ -464,8 +468,8 @@ class FormHRDController extends Controller
         $this->validate($req, [
             'kategori' => 'required',
             'karyawanall_id' => 'required|numeric',
-            'tgl_a' => 'required|date',
-            'tgl_b' => 'required|date',
+            'tgl_a' => 'required',
+            'tgl_b' => 'required',
             'time_a' => 'required',
             'keterangan' => 'required'
         ], $message);

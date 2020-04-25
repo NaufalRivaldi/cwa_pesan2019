@@ -27,6 +27,9 @@
 
 <!-- Custom JS -->
 <script src="{{ asset('js/custom.js') }}"></script>
+
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+
 <script>
     // set status notif
     $(document).ready(function(){
@@ -307,8 +310,24 @@
         $('.filter').on('change', function() {
             $('#submitFilter').submit();
         })
-    });
+        
 
+        $('#datepicker').datepicker({
+        	format: "dd/mm/yyyy"
+        });
+
+        $('#datepicker2').datepicker({
+        	format: "dd/mm/yyyy"
+        });
+        
+        $('#timepicker').timepicker({
+            showOtherMonths: true
+        });
+
+        $('#timepicker2').timepicker({
+            showOtherMonths: true
+        });
+    });
     
 </script>
 

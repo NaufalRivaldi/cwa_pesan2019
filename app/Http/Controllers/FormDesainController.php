@@ -31,12 +31,18 @@ class FormDesainController extends Controller
     }
 
     public function form(){
+        $tglPengerjaan = '';
         $data['menu'] = 8;
         $data['jenis_desain'] = JenisDesain::all();
         $data['karyawan'] = KaryawanAll::where('dep', auth()->user()->dep)->where('ket', '1')->get();
         $data['kode'] = $this->generateKode();
-        $data['tglPengerjaan'] = date('Y-m-d', strtotime('+3 day', strtotime(date('Y-m-d'))));
-
+        $date = explode('-',date('Y-m-D'));
+        if ($date[2] == 'Sun' || $date[2] == 'Mon' || $date[2] == 'Tue' || $date[2] == 'Wed') {
+            $tglPengerjaan = date('Y-m-d', strtotime('+3 day', strtotime(date('Y-m-d'))));
+        } else {
+            $tglPengerjaan = date('Y-m-d', strtotime('+4 day', strtotime(date('Y-m-d'))));
+        }
+        $data['tglPengerjaan'] = $tglPengerjaan;
         return view('admin.form.desain.form', $data);
     }
 
