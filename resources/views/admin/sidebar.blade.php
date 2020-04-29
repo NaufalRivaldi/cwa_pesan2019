@@ -23,6 +23,7 @@
         <li <?= ($menu == '13') ? 'class="active"' : '' ?>>
             <a href="#dataMaster" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-database"></i> Data Master</a>
             <ul class="collapse list-unstyled" id="dataMaster">
+                @if(Helper::isIT())
                 <li>                    
                     <a href="#masterIT" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-laptop-code"></i> IT</a>
                     <ul class="collapse list-unstyled" id="masterIT">
@@ -41,6 +42,7 @@
                         </ul>
                     </ul>
                 </li>
+                @endif
                 @if(Helper::isHRD())
                 <li>
                     <a href="#laporanHRD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-users"></i> HRD</a>
@@ -75,7 +77,7 @@
 
                 @if(Helper::isGA())
                 <li>
-                    <a href="#masterGA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> General Affair</a>
+                    <a href="#masterGA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i>  General Affair</a>
                     <ul class="collapse list-unstyled" id="masterGA">
                         <li>    
                             <a href="#masterPeminjaman" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-users"></i> Form Peminjaman</a>
@@ -84,6 +86,17 @@
                                     <a class="nav-link" href="{{ route('master.sarana.index') }}"><i class="fa fa-fw fa-users"></i> List Sarana </a>
                                 </li>
                             </ul>
+                        </li>
+                    </ul>
+                </li>
+                @endif
+
+                @if(Helper::isQA())
+                <li>
+                    <a href="#masterQA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i>  Quality Assurance</a>
+                    <ul class="collapse list-unstyled" id="masterQA">
+                        <li>    
+                            <a href="{{ route('master.masterfile.index') }}" data-toggle="tooltip" data-placement="right" title="Penambahan File QA"><i class="fas fa-file"></i> Penambahan Jenis File</a>
                         </li>
                     </ul>
                 </li>
@@ -166,6 +179,14 @@
                         @endif
                         <li>
                             <a href="{{ route('form.ga.perbaikan') }}">Perbaikan Sarana <span class="badge badge-warning">{{ Helper::countFormPerbaikan() }}</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pageQA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> Quality Assurance <span class="text-warning">*</span></a>
+                    <ul class="collapse list-unstyled" id="pageQA">
+                        <li>
+                            <a href="{{ route('form.qa.penambahanfile.index') }}">Penambahan Copy <span class="badge badge-warning">{{ Helper::countFormPerbaikan() }}</span></a>
                         </li>
                     </ul>
                 </li>
