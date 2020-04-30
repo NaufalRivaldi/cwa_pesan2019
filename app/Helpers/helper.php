@@ -55,7 +55,7 @@ class helper{
 
     public static function isLaporan(){
         $dep = auth()->user()->dep;
-        $data = array('HRD', 'GA', 'IT');
+        $data = array('HRD', 'GA', 'IT', 'QA');
         if(in_array($dep, $data)){
             return true;
         }else{
@@ -155,6 +155,26 @@ class helper{
     public static function isGA(){
         $dep = auth()->user()->dep;
         $data = array('IT', 'GA');
+        if(in_array($dep, $data)){
+            return true;                                                    
+        }else{
+            return false;
+        }
+    }
+
+    public static function isQA(){
+        $dep = auth()->user()->dep;
+        $data = array('IT', 'QA');
+        if(in_array($dep, $data)){
+            return true;                                                    
+        }else{
+            return false;
+        }
+    }
+
+    public static function isIT(){
+        $dep = auth()->user()->dep;
+        $data = array('IT');
         if(in_array($dep, $data)){
             return true;                                                    
         }else{
@@ -1379,7 +1399,7 @@ class helper{
             return $text;
     }
 
-    public static function kategoriCuti($val){
+    public static function Cuti($val){
         $text = '';
         switch ($val) {
             case '1':
@@ -1431,6 +1451,22 @@ class helper{
         $kategori = "<span class='badge badge-success'>".$data->cuti->kategoriCuti->kategori."</span>";
 
         return $kategori;
+    }
+
+    public static function kategoriFormQa($val){
+        $text = '';
+        switch ($val) {
+            case '1':
+                $text = "<span class='badge badge-primary'>Dokumen</span>";
+                break;
+
+            case '2':
+                $text = "<span class='badge badge-info'>Form</span>";
+                break;
+
+            }
+
+            return $text;
     }
 }
 

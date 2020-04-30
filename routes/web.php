@@ -204,7 +204,6 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
 
     // FORM SEMUANYA DISINI YAAA
     Route::group(['prefix' => 'form'], function(){
-
         // form GA
         Route::group(['prefix' => 'ga'], function(){
             Route::group(['prefix' => 'perbaikan-sarana'], function(){
@@ -230,6 +229,14 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::get('/edit-sarana', 'FormPeminjamanController@editSarana')->name('form.ga.peminjaman.editSarana');
                 Route::post('/delete', 'FormPeminjamanController@delete')->name('form.ga.peminjaman.delete');
                 Route::post('/delete-sarana', 'FormPeminjamanController@deleteSarana')->name('form.ga.peminjaman.delete.sarana');
+            });
+        });
+
+        Route::group(['prefix' => 'qa'], function(){
+            Route::group(['prefix' => 'penambahancopy'], function(){
+                Route::get('/', 'Forms\PenambahanFile\FormQaUsulanController@index')->name('form.qa.penambahanfile.index');
+                Route::get('/form', 'Forms\PenambahanFile\FormQaUsulanController@form')->name('form.qa.penambahanfile.form');
+                Route::get('/formDoc', 'Forms\Penambahanfile\FormQaUsulanController@formDoc')->name('form.qa.penambahanfile.formDoc');
             });
         });
 
@@ -305,7 +312,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
     });
 
     // master
-    Route::group(['prefix' => 'master', 'middleware' => ['checkDep:HRD,IT,GA']], function(){
+    Route::group(['prefix' => 'master', 'middleware' => ['checkDep:HRD,IT,GA,QA']], function(){
         Route::group(['prefix' => 'sarana', 'middleware' => ['checkDep:GA,IT']], function(){
             Route::get('/', 'Masters\SaranaController@index')->name('master.sarana.index');
             Route::get('/form', 'Masters\SaranaController@form')->name('master.sarana.form');
@@ -313,6 +320,15 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::post('/store', 'Masters\SaranaController@store')->name('master.sarana.store');
             Route::put('/update', 'Masters\SaranaController@update')->name('master.sarana.update');
             Route::post('/destroy', 'Masters\SaranaController@destroy')->name('master.sarana.destroy');
+        });
+
+        Route::group(['prefix' => 'master', 'middleware' => ['checkDep:QA,IT']], function(){
+            Route::get('/', 'Masters\MasterFileController@index')->name('master.masterfile.index');
+            Route::get('/form', 'Masters\MasterFileController@form')->name('master.masterfile.form');
+            Route::post('/store', 'Masters\MasterFileController@store')->name('master.masterfile.store');
+            Route::get('/edit/{id}', 'Masters\MasterFileController@edit')->name('master.masterfile.edit');
+            Route::put('/update', 'Masters\MasterFileController@update')->name('master.masterfile.update');
+            Route::post('/destroy', 'Masters\MasterFileController@destroy')->name('master.masterfile.destroy');
         });
     });
 

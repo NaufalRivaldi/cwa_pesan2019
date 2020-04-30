@@ -56,4 +56,9 @@ class KaryawanAll extends Model
     public function penilaianEmployee(){
         return $this->hasMany('App\PKK\PenilaianEmployee', 'karyawanId');
     }
+
+    public function formQa()
+    {
+        return $this->hasMany('App\Forms\formqa\FormQaUsulan', 'karyawanId');
+    }
 }
