@@ -39,12 +39,67 @@
         <hr>
         <div class="card">
           <div class="card-header">
-              <h3>Laporan Form Cuti</h3>
+            <h3>Laporan Form Cuti</h3>
+          </div>
+          
+          <div class="card-header">
+            @php
+              $tglA = '';
+              $tglB = '';
+              $kategoriId = '';
+              $dep = '';
+              $status = '';
+
+              if($_GET){
+                $tglA = $_GET['tglA'];
+                $tglB = $_GET['tglB'];
+                $kategoriId = $_GET['kategoriId'];
+                $dep = $_GET['dep'];
+                $status = $_GET['status'];
+              }
+            @endphp
+            <form action="" method="GET">
+              <div class="form-row">
+                <div class="col-md-2">
+                  <input type="date" name="tglA" class="form-control form-control-sm tglA" data-toggle="tooltip" data-placement="top" title="Tanggal awal" value="{{ $tglA }}">
+                </div>
+                <div class="col-md-2">
+                  <input type="date" name="tglB" class="form-control form-control-sm tglB" data-toggle="tooltip" data-placement="top" title="Tanggal akhir" value="{{ $tglB }}">
+                </div>
+                <div class="col-md-2">
+                  <select name="dep" id="dep" class="form-control form-control-sm">
+                    <option value="">Pilih Departemen</option>
+                    @foreach(Helper::allDep() as $cb)
+                      <option value="{{ $cb }}" {{ ($cb == $dep)?'selected':'' }}>{{ $cb }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <select name="kategoriId" id="ketegoriId" class="form-control form-control-sm">
+                    <option value="">Pilih Kategori</option>
+                    @foreach($kategori as $kt)
+                      <option value="{{ $kt->id }}" {{ ($kt->id == $kategoriId)?'selected':'' }}>{{ $kt->kategori }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <select name="status" id="status" class="form-control form-control-sm">
+                    <option value="">Pilih Status</option>
+                    <option value="4" {{ ($status == '4')?'selected':'' }}>Acc</option>
+                    <option value="5" {{ ($status == '5')?'selected':'' }}>Ditolak</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <button type="submit" name="btn" class="btn btn-primary btn-sm"><i class="fas fa-search"></i></button>
+                  <a href="{{ route('laporan.hrd.formcuti') }}" class="btn btn-warning btn-sm"><i class="fas fa-redo"></i></a>
+                </div>
+              </div>
+            </form>
           </div>
           
           <div class="card-body">
             <div class="table-responsive">
-              <table id="myTable" class="custom-table table table-hover">
+              <table class="myTable custom-table table table-hover">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -57,9 +112,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php $no1 = 1; @endphp
                     @foreach($formCuti as $form)
                     <tr>
-                        <td data-id="{{$form->id}}" class="dataView">{{$no++}}</td>
+                        <td data-id="{{$form->id}}" class="dataView">{{$no1++}}</td>
                         <td data-id="{{$form->id}}" class="dataView">{!!Helper::setDate($form->created_at)!!}</td>
                         <td data-id="{{$form->id}}" class="dataView">{{$form->karyawan->nama}}</td>
                         <td data-id="{{$form->id}}" class="dataView">{{$form->karyawan->dep}}</td>
@@ -306,28 +362,36 @@
     });
 
     $(document).on('click','.delete', function() {    
-          var id = $(this).data('id');
-          swal({
-          title: 'Perhatian!',
-          text: "Apakah anda yakin menghapus data ini?",
-          icon: 'warning',
-          buttons: true,
-          dangerMode: true
-          }).then((willDelete) => {
-            if (willDelete) {
-              $.ajax({
-                type: "POST",
-                url: "{{ route('form.hrd.cuti.formcuti.delete') }}",
-                data: {
-                  id: id,
-                  _token: '{{ csrf_token() }}'
-                },
-                success: function(data){
-                  location.reload();
-                }
-              })
-            }
-          })
+        var id = $(this).data('id');
+        swal({
+        title: 'Perhatian!',
+        text: "Apakah anda yakin menghapus data ini?",
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true
+        }).then((willDelete) => {
+          if (willDelete) {
+            $.ajax({
+              type: "POST",
+              url: "{{ route('form.hrd.cuti.formcuti.delete') }}",
+              data: {
+                id: id,
+                _token: '{{ csrf_token() }}'
+              },
+              success: function(data){
+                location.reload();
+              }
+            })
+          }
+        })
+    });
+
+    $(document).ready(function(){
+      $('.tglA').on('change', function(){
+        let $tglA = $(this).val();
+        $('.tglB').val($tglA);
+        $('.tglB').attr('min', $tglA);
       });
+    });
 </script>
 @endsection
