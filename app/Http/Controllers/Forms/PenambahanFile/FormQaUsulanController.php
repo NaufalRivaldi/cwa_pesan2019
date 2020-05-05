@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Forms\PenambahanFile;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\Form\QA\FormQaUsulanRequest;
 use App\Http\Controllers\Controller;
 use App\Forms\formqa\FormQaUsulan;
+use App\Forms\formqa\DetailFormQaUsulan;
 use App\Forms\formqa\MasterFile;
 use App\KaryawanAll;
 
@@ -13,6 +15,8 @@ class FormQaUsulanController extends Controller
     public function index()
     {
         $data['menu'] = '8';
+        $data['formProgress'] = FormQaUsulan::where('status', '<=', 2)->orderBy('id', 'desc')->get();
+        $data['formSelesai'] = FormQaUsulan::where('status', 3)->orderBy('id', 'desc')->get();
         return view('admin.form.qa.penambahanfile.index', $data);
     }
 
@@ -48,5 +52,43 @@ class FormQaUsulanController extends Controller
             $text .= '<option value="'.$p->id.'">'.$p->nama.'</option>';
         }
         return $text;
+    }
+
+    public function store(FormQaUsulanRequest $request)
+    {
+        FormQaUsulan::create([
+            'kode'=>$request->kode,
+            'karyawanId'=>$request->karyawanId,
+            'kategori'=>$request->kategori,
+            'keterangan'=>$request->keterangan
+        ]);
+
+        $formQa = FormQaUsulan::orderBy('id', 'desc')->first();
+        // dd($formQa);
+        for ($i=0; $i < count($request->dokumenId); $i++) { 
+            DetailFormQaUsulan::create([
+                'formId'=>$formQa->id,
+                'fileId'=>$request->dokumenId[$i],
+                'qty'=>$request->qty[$i]
+            ]);
+        }
+
+        return redirect()->route('form.qa.penambahanfile.index')->with('success', 'Form berhasil diajukan!');
+    }
+
+    public function view()
+    {
+        $id = $_GET['id'];
+        $data = FormQaUsulan::find($id);
+        $array = [
+            'kode'=>$data->kode,
+            'kategori'=>$data->kategori,
+            'keterangan'=>$data->keterangan,
+            'karyawanId'=>$data->karyawan->nama,
+            'status'=>$data->status,
+            'tanggal'=>$data->created_at
+        ];
+
+        return $array;
     }
 }

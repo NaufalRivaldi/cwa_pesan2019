@@ -21,19 +21,33 @@
                     <h3><i class="fas fa-spinner"></i> Form Progress</h3>
                     <div class="table-responsive">
                         <table class="myTable custom-table table table-hover">
-                            <thead> 
-                                <tr>
-                                    <th>No</th>
-                                    <th>Tanggal</th>
-                                    <th>Nama</th>
-                                    <th>Departemen</th>
-                                    <th>Kategori</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
+                          <thead> 
+                            <tr>
+                                <th>No</th>
+                                <th>Tanggal</th>
+                                <th>Nama</th>
+                                <th>Departemen</th>
+                                <th>Kategori</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @php $noProgress = 1 @endphp
+                            @foreach($formProgress as $row)
+                              <tr>
+                                <td class="viewModal" data-id="{{$row->id}}">{{ $noProgress++ }}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{!! Helper::setDateForm($row->created_at) !!}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{{ $row->karyawan->nama }}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{{ $row->karyawan->dep }}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{!! Helper::kategoriFormQa($row->kategori) !!}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{!! Helper::statusFormQa($row->status) !!}</td>
+                                <td>
+                                  <a href="#" class="btn-delete" data-id="{{ $row->id }}"><i class="btn btn-danger btn-sm far fa-trash-alt"></i></a>
+                                </td>
+                              </tr>
+                            @endforeach
+                          </tbody>
                         </table>
                     </div>
                 </div>
@@ -76,9 +90,9 @@
       <div class="modal-body">
         <table class="table">
           <tr>
-            <td width="20%">Tgl Pengajuan</td>
+            <td width="20%">Tanggal</td>
             <td width="1%">:</td>
-            <td class="tglPengajuan"></td>
+            <td class="tanggal"></td>
           </tr>
           <tr>
             <td>Nama</td>
@@ -89,6 +103,11 @@
             <td>Departemen</td>
             <td>:</td>
             <td class="departemen"></td>
+          </tr>
+          <tr>
+            <td>Kategori</td>
+            <td>:</td>
+            <td class="kategori"></td>
           </tr>
           <tr>
             <td>Status</td>
@@ -108,49 +127,24 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="accModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title valTitle" id="exampleModalLabel"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p class="valText">Masukkan nik dan password  untuk acc form.</p>
-        <form action="{{ route('form.hrd.cuti.formcuti.verifikasi') }}" method="post">
-          {{ csrf_field() }}
-          <input type="hidden" name="id" value="" class="idForm">
-          <input type="hidden" name="type" value="" class="type">
-          <div class="form-group">
-              <label>NIK</label>
-              <input type="text" name="nik" class="form-control" required>
-          </div>
-          <div class="form-group">
-              <label>Password</label>
-              <input type="password" name="password" class="form-control" required>
-          </div>
-          <div class="form-group alasan">
-              
-          </div>
-          <div class="form-group">
-              <input type="submit" name="btn-submit" value="Verifikasi" class="btn btn-primary float-right">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <p class="text-danger">* Dengan mengacc form ini, maka kepala bagian / leader {{auth()->user()->dep}} menyetujui atau bertanggung jawab penuh atas kebenaran isi form. </p>
-      </div>
-    </div>
-  </div>
-</div>
 @endsection
 
 @section('js')
 <script>
-    //delete
+    $(document).on('click', '.viewModal', function(){
+      var id = $(this).data('id');
+      $.ajax({
+        url : '{{ route("form.qa.penambahanfile.view") }}',
+        data: "id="+id,
+        type: 'GET',
+        success: function(data){
+          console.log(data);
+        }
+      })
+      $('#viewModal').modal('show');
+    });
 
+    //delete
     $(document).on('click','.delete',function() {
         var id = $(this).data('id');
         swal({

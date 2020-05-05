@@ -198,7 +198,6 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::post('/store', 'FormDesainController@store')->name('desainIklan.store');
             Route::post('/validasi', 'FormDesainController@validasi')->name('desainIklan.validasi');
             Route::post('/updateStatus', 'FormDesainController@updateStatus')->name('desainIklan.status');
-
         });
     });
 
@@ -236,7 +235,9 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::group(['prefix' => 'penambahancopy'], function(){
                 Route::get('/', 'Forms\PenambahanFile\FormQaUsulanController@index')->name('form.qa.penambahanfile.index');
                 Route::get('/form', 'Forms\PenambahanFile\FormQaUsulanController@form')->name('form.qa.penambahanfile.form');
-                Route::get('/formDoc', 'Forms\Penambahanfile\FormQaUsulanController@formDoc')->name('form.qa.penambahanfile.formDoc');
+                Route::get('/formDoc', 'Forms\PenambahanFile\FormQaUsulanController@formDoc')->name('form.qa.penambahanfile.formDoc');
+                Route::post('/store', 'Forms\PenambahanFile\FormQaUsulanController@store')->name('form.qa.penambahanfile.store');
+                Route::get('/view', 'Forms\PenambahanFile\FormQaUsulanController@view')->name('form.qa.penambahanfile.view');
             });
         });
 

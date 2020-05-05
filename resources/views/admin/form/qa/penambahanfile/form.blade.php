@@ -20,7 +20,7 @@
                 <div class="card-body">
                   <h2 class="text-center">FORM USULAN COPY DOKUMEN - FORMULIR</h2>
                   <hr>
-                  <form action="" method="POST">
+                  <form action="{{ route('form.qa.penambahanfile.store') }}" method="POST">
                     @csrf                     
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label">Kode Form<span class="text-danger"></span></label>
@@ -31,24 +31,34 @@
                     </div>
                     <div class="form-group">
                       <label for="selectPembuat">Pembuat <span class="text-danger">*</span></label>
-                      <select name="karyawanId" id="selectPembuat" class="form-control">
+                      <select name="karyawanId" id="selectPembuat" class="form-control" required>
                         <option value="">Pilih Pembuat...</option>
                         @foreach($pembuat as $row)
                         <option value="{{$row->id}}">{{$row->nama}}</option>
                         @endforeach
-                      </select>
+                      </select>                      
+                      @if($errors->has('karyawanId'))
+                          <div class="text-danger">
+                              {{ $errors->first('karyawanId') }}
+                          </div>
+                      @endif
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Kategori</label>
                       <div class="form-check">                      
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="kategori" id="inlineRadio1" value="1">
+                          <input class="form-check-input" type="radio" name="kategori" id="inlineRadio1" value="1" required>
                           <label class="form-check-label" for="inlineRadio1">Dokumen</label>
                         </div>
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="kategori" id="inlineRadio2" value="2">
+                          <input class="form-check-input" type="radio" name="kategori" id="inlineRadio2" value="2" required>
                           <label class="form-check-label" for="inlineRadio2">Form</label>
+                        </div>                                              
+                      @if($errors->has('kategori'))
+                        <div class="text-danger">
+                            {{ $errors->first('kategori') }}
                         </div>
+                      @endif
                       </div>
                     </div>
                     <div id="form-plus">
@@ -56,15 +66,25 @@
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label for="selectDocumentId">Pilih <span class="text-danger">*</span></label>
-                          <select name="dokumenId[]" id="selectDocumentId" class="form-control">
+                          <select name="dokumenId[]" id="selectDocumentId" class="form-control" required>
                             <option value="">Pilih Form/Dokumen</option>
-                          </select>
+                          </select>                                              
+                          @if($errors->has('dokumenId'))
+                            <div class="text-danger">
+                                {{ $errors->first('dokumenId') }}
+                            </div>
+                          @endif
                         </div>
                       </div>
                       <div class="col-sm-5">
                         <div class="form-group">
                           <label for="selectPembuat">Jumlah</label>
-                          <input type="number" name="qty[]" id="" class="form-control">
+                          <input type="number" name="qty[]" id="" class="form-control" required>
+                          @if($errors->has('qty'))
+                            <div class="text-danger">
+                                {{ $errors->first('qty') }}
+                            </div>
+                          @endif
                         </div>
                       </div>                      
                       <div class="col-sm-1">
@@ -74,14 +94,19 @@
                         </button>
                       </div>
                     </div>
+                    </div>                    
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="form-group">
                           <label for="selectPembuat">Keterangan</label>
-                          <textarea name="keterangan[]" id="" cols="30" rows="5" class="form-control"></textarea>
+                          <textarea name="keterangan" id="" cols="30" rows="5" class="form-control" required></textarea>
+                          @if($errors->has('keterangan'))
+                            <div class="text-danger">
+                                {{ $errors->first('keterangan') }}
+                            </div>
+                          @endif
                         </div>
                       </div>
-                    </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Ajukan</button>
                   </form>
@@ -103,7 +128,8 @@
                 url: '{{ route("form.qa.penambahanfile.formDoc") }}',
                 data: "id="+id,
                 type: 'GET',
-                success: function(data){                  
+                success: function(data){           
+                  $('.detailForm').remove();       
                   $('#selectDocumentId').empty();
                   $('#selectDocumentId').append(data);
                 }
@@ -116,7 +142,7 @@
     // click plus
     $('#plus').click(function (e) {
         e.preventDefault();
-        $('#form-plus').append('<div id="row'+i+'"><div class="row"><div class="col-sm-6"><div class="form-group"><label for="selectDocumentId">Pilih <span class="text-danger">*</span></label><select name="dokumenId[]" id="selectDocumentId'+i+'" class="form-control"><option value="">Pilih Form/Dokumen</option></select></div></div><div class="col-sm-5"><div class="form-group"><label for="selectPembuat">Jumlah</label><input type="number" name="qty[]" id="" class="form-control"></div></div><div class="col-sm-1"><label for="" style="color:white">asd</label><button class="btn btn-danger remove" id="'+i+'"><li class="fa fa-minus-circle"></li></button></div></div><div class="row"><div class="col-sm-12"><div class="form-group"><label for="selectPembuat">Keterangan</label><textarea name="keterangan[]" id="" cols="30" rows="5" class="form-control"></textarea></div></div></div></div>');
+        $('#form-plus').append('<div id="row'+i+'" class="detailForm"><div class="row"><div class="col-sm-6"><div class="form-group"><label for="selectDocumentId">Pilih <span class="text-danger">*</span></label><select name="dokumenId[]" id="selectDocumentId'+i+'" class="form-control"><option value="">Pilih Form/Dokumen</option></select></div></div><div class="col-sm-5"><div class="form-group"><label for="selectPembuat">Jumlah</label><input type="number" name="qty[]" id="" class="form-control"></div></div><div class="col-sm-1"><label for="" style="color:white">asd</label><button class="btn btn-danger remove" id="'+i+'"><li class="fa fa-minus-circle"></li></button></div></div></div></div>');
         var id = $('input[name="kategori"]:checked').val();
         console.log(id)
         $.ajax({
