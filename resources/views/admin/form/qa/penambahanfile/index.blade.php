@@ -29,6 +29,7 @@
                                 <th>Departemen</th>
                                 <th>Kategori</th>
                                 <th>Status</th>
+                                <th>Keterangan</th>
                                 <th>Aksi</th>
                             </tr>
                           </thead>
@@ -42,6 +43,7 @@
                                 <td class="viewModal" data-id="{{$row->id}}">{{ $row->karyawan->dep }}</td>
                                 <td class="viewModal" data-id="{{$row->id}}">{!! Helper::kategoriFormQa($row->kategori) !!}</td>
                                 <td class="viewModal" data-id="{{$row->id}}">{!! Helper::statusFormQa($row->status) !!}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{{ $row->keterangan }}</td>
                                 <td>
                                   <a href="#" class="btn-delete" data-id="{{ $row->id }}"><i class="btn btn-danger btn-sm far fa-trash-alt"></i></a>
                                 </td>
@@ -64,6 +66,7 @@
                                     <th>Departemen</th>
                                     <th>Kategori</th>
                                     <th>Status</th>
+                                    <th>Keterangan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,7 +85,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Detail Form Cuti</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Detail Penambahan Copy Dokumen</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -114,15 +117,20 @@
             <td>:</td>
             <td class="status"></td>
           </tr>
+          <tr>
+            <td>Keterangan</td>
+            <td>:</td>
+            <td class="keterangan"></td>
+          </tr>
         </table>
-        <div class="tableCuti">
-
+        <div class="form-group">
+            <label for="keterangan">Dokumen/Form :</label>
+            <div id="tabelPenambahan"></div>
         </div>
-        <div class="alasan"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success accForm" data-val="1">Acc</button>
-        <button type="button" class="btn btn-danger accForm" data-val="2">Tolak</button>
+        <button type="button" class="btn btn-success accForm btn-acc" data-val="1">Acc</button>
+        <button type="button" class="btn btn-danger accForm btn-acc" data-val="2">Tolak</button>
       </div>
     </div>
   </div>
@@ -138,14 +146,42 @@
         data: "id="+id,
         type: 'GET',
         success: function(data){
-          console.log(data);
+          $('.tanggal').empty();
+          $('.namaKaryawan').empty();
+          $('.departemen').empty();
+          $('.kategori').empty();
+          $('.status').empty();
+          $('.keterangan').empty();
+
+          $('.tanggal').append(data.tanggal);
+          $('.namaKaryawan').append(data.karyawanId);
+          $('.departemen').append(data.dep);
+          $('.kategori').append(data.kategori);
+          $('.status').append(data.status);
+          $('.keterangan').append(data.keterangan);
+          $('.btn-acc').attr('data-id', data.id);
+          if (data.status1 != 1) {
+            $('.btn-acc').remove();
+          }
+        }
+      })
+
+      $.ajax({
+        type: 'GET',
+        url: '{{ route("form.qa.penambahanfile.table") }}',
+        data: {
+            'id' : id
+        },
+        success: function(data){
+            $('#tabelPenambahan').empty();
+            $('#tabelPenambahan').append(data);
         }
       })
       $('#viewModal').modal('show');
     });
 
     //delete
-    $(document).on('click','.delete',function() {
+    $(document).on('click','.btn-delete', function() {
         var id = $(this).data('id');
         swal({
           title: 'Perhatian!',
@@ -157,7 +193,7 @@
           if (willDelete) {
             $.ajax({
               type: "POST",
-              url: "{{ route('form.hrd.cuti.formcuti.delete') }}",
+              url: "",
               data: {
                 id: id,
                 _token: '{{ csrf_token() }}'
@@ -168,8 +204,60 @@
             })
           }
         })
-      });
+    });
 
-    //view
+    $(document).on('click', '.accForm', function(){     
+      var id = $(this).data('id');
+      var val = $(this).data('val');
+      // console.log(idAcc);
+      if (val == 1) {   
+        swal({
+          title: 'Perhatian!',
+          text: "Apakah anda yakin menyetujui form ini?",
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true,
+        }).then((result) => {
+          if (result) {
+            $.ajax({
+              type: "POST",
+              url: '{{ route("form.qa.penambahanfile.acc") }}',
+              data: {
+                id: id,
+                _token: '{{ csrf_token() }}'
+              },
+              success: function(data){
+                console.log(data);
+                location.reload();
+              }
+            })
+          }
+        })
+      } else {
+        swal({
+          title: 'Perhatian!',
+          text: "Apakah anda yakin menolak form ini?",
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true,
+        }).then((willDelete) => {
+          if (willDelete) {
+            $.ajax({
+              type: "POST",
+              url: '{{ route("form.qa.penambahanfile.tolak") }}',
+              data: {
+                id: id,
+                _token: '{{ csrf_token() }}'
+              },
+              success: function(data){
+                console.log(data);
+                location.reload();
+              }
+            })
+          }
+        })
+      }
+      console.log(val);
+    });
 </script>
 @endsection

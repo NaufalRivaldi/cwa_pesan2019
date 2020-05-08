@@ -9,6 +9,7 @@ use App\Forms\formqa\FormQaUsulan;
 use App\Forms\formqa\DetailFormQaUsulan;
 use App\Forms\formqa\MasterFile;
 use App\KaryawanAll;
+use App\Helpers\helper;
 
 class FormQaUsulanController extends Controller
 {
@@ -16,7 +17,7 @@ class FormQaUsulanController extends Controller
     {
         $data['menu'] = '8';
         $data['formProgress'] = FormQaUsulan::where('status', '<=', 2)->orderBy('id', 'desc')->get();
-        $data['formSelesai'] = FormQaUsulan::where('status', 3)->orderBy('id', 'desc')->get();
+        $data['formSelesai'] = FormQaUsulan::where('status', '>=', 3)->orderBy('id', 'desc')->get();
         return view('admin.form.qa.penambahanfile.index', $data);
     }
 
@@ -60,7 +61,8 @@ class FormQaUsulanController extends Controller
             'kode'=>$request->kode,
             'karyawanId'=>$request->karyawanId,
             'kategori'=>$request->kategori,
-            'keterangan'=>$request->keterangan
+            'keterangan'=>$request->keterangan,
+            'status'=>1
         ]);
 
         $formQa = FormQaUsulan::orderBy('id', 'desc')->first();
@@ -81,14 +83,43 @@ class FormQaUsulanController extends Controller
         $id = $_GET['id'];
         $data = FormQaUsulan::find($id);
         $array = [
+            'id'=>$data->id,
             'kode'=>$data->kode,
-            'kategori'=>$data->kategori,
+            'kategori'=>Helper::kategoriFormQa($data->kategori),
             'keterangan'=>$data->keterangan,
             'karyawanId'=>$data->karyawan->nama,
-            'status'=>$data->status,
-            'tanggal'=>$data->created_at
+            'dep'=>$data->karyawan->dep,
+            'status'=>Helper::statusFormQa($data->status),
+            'status1'=>$data->status,
+            'tanggal'=>Helper::setDate($data->created_at)
         ];
 
         return $array;
+    }
+
+    public function table()
+    {
+        $id = $_GET['id'];
+        $data['no'] = 1;
+        $data['formQa'] = FormQaUsulan::find($id);
+        $data['detailFormQa'] = DetailFormQaUsulan::where('formId', $id)->get();
+
+        return view('admin.form.qa.penambahanfile.table', $data);
+    }
+
+    public function acc(Request $req)
+    {
+        // dd($req->id);
+        $data = FormQaUsulan::find($req->id);
+        $data->status = 2;
+        $data->save();
+    }
+
+    public function tolak(Request $req)
+    {
+        // dd($req->id);
+        $data = FormQaUsulan::find($req->id);
+        $data->status = 4;
+        $data->save();
     }
 }

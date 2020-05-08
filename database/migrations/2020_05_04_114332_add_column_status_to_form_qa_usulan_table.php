@@ -14,7 +14,7 @@ class AddColumnStatusToFormQaUsulanTable extends Migration
     public function up()
     {
         Schema::table('form_qa_usulan', function (Blueprint $table) {
-            DB::statement("ALTER TABLE form_qa_usulan MODIFY COLUMN status ENUM('1', '2', '3')");
+            DB::statement("ALTER TABLE form_qa_usulan MODIFY COLUMN status ENUM('1', '2', '3', '4')");
         });
     }
 

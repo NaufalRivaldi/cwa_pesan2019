@@ -238,6 +238,9 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::get('/formDoc', 'Forms\PenambahanFile\FormQaUsulanController@formDoc')->name('form.qa.penambahanfile.formDoc');
                 Route::post('/store', 'Forms\PenambahanFile\FormQaUsulanController@store')->name('form.qa.penambahanfile.store');
                 Route::get('/view', 'Forms\PenambahanFile\FormQaUsulanController@view')->name('form.qa.penambahanfile.view');
+                Route::get('/table', 'Forms\PenambahanFile\FormQaUsulanController@table')->name('form.qa.penambahanfile.table');
+                Route::post('/acc', 'Forms\PenambahanFile\FormQaUsulanController@acc')->name('form.qa.penambahanfile.acc');
+                Route::post('/tolak', 'Forms\PenambahanFile\FormQaUsulanController@tolak')->name('form.qa.penambahanfile.tolak');
             });
         });
 
