@@ -5,7 +5,7 @@
 @section('content')
     <h2>Dashboard</h2>
     <div class="row">
-        <div class="col-md-8 mb-3">
+        <div class="col-md-12 mb-3">
             <div class="card">
                 <div class="card-header">
                     <h4 class="display-4" style="font-size: 2.5em">Pengumuman Internal</h4>
@@ -59,63 +59,82 @@
                 </div>
             </div>
         </div>
-
-        <!-- card -->
+    </div>
+    
+    <div class="row">
+        @if(Helper::isVerifikasi())
         <div class="col-md-4">
-            <div class="card text-white bg-success mb-2">
-                <div class="card-header"><i class="fas fa-file-signature"></i> Form HRD <span class="badge badge-pill badge-danger">Proses</span></div>
-                <div class="card-body">
-                    <p class="card-text">{{ Helper::countPending() }} Form</p>
-                    <a href="{{ route('form.hrd') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
-                </div>
-            </div>
-
-            @if(Helper::isVerifikasi())
             <div class="card text-white bg-success mb-2">
                 <div class="card-header"><i class="fas fa-file-signature"></i> Form HRD Belum terverifikasi <span class="badge badge-pill badge-danger">Proses</span></div>
                 <div class="card-body">
+                    <b>Verifikasi</b>
                     <p class="card-text">{{ Helper::countVerifikasi() }} Form</p>
                     <a href="{{ route('verifikasi') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
                 </div>
             </div>
-            @endif
-           
-            <div class="card text-white bg-info mb-2">
-                <div class="card-header"><i class="fas fa-file-signature"></i> Form Desain <span class="badge badge-pill badge-danger">Proses</span></div>
-                <div class="card-body">
-                    <p class="card-text">{{ Helper::countFormDesain() }} Form</p>
-                    <a href="{{ route('desainIklan') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
-                </div>
-            </div>
-           
-           <div class="card text-white bg-info mb-2">
-               <div class="card-header"><i class="fas fa-file-signature"></i> Form Penanganan IT <span class="badge badge-pill badge-danger">Proses</span></div>
-               <div class="card-body">
-                   <p class="card-text">{{ Helper::countFormPenangananIT() }} Form</p>
-                   <a href="{{ route('penanganan.it') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
-               </div>
-           </div>
-
-            <div class="card text-white bg-warning mb-2">
-                <div class="card-header"><i class="fas fa-file-signature"></i> Form Perbaikan Sarana <span class="badge badge-pill badge-danger">Proses</span></div>
-                <div class="card-body">
-                    <p class="card-text">{{ Helper::countFormPerbaikan() }} Form</p>
-                    <a href="{{ route('form.ga.perbaikan') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
-                </div>
-            </div>
-
-            @if(Helper::isOffice())
-            <div class="card text-white bg-warning mb-2">
-                <div class="card-header"><i class="fas fa-file-signature"></i> Form Peminjaman Sarana <span class="badge badge-pill badge-danger">Proses</span></div>
-                <div class="card-body">
-                    <p class="card-text">{{ Helper::countFormPeminjaman() }} Form</p>
-                    <a href="{{ route('form.ga.peminjaman') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
-                </div>
-            </div>
-            @endif
         </div>
-    </div>
-    <div class="row">
-    
+        @endif
+
+        <div class="col-md-4">
+             <div class="card text-white bg-success mb-2">
+                <div class="card-header"><i class="fas fa-file-signature"></i> Form HRD <span class="badge badge-pill badge-danger">Proses</span></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Umum</b>
+                            <p class="card-text">{{ Helper::countPending() }} Form</p>
+                            <a href="{{ route('form.hrd') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
+                        </div>
+                        <div class="col-md-6">
+                            <b>Cuti</b>
+                            <p class="card-text">{{ Helper::countPendingCuti() }} Form</p>
+                            <a href="{{ route('form.hrd') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-2">
+                <div class="card-header"><i class="fas fa-file-signature"></i> Form IT <span class="badge badge-pill badge-danger">Proses</span></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Desain</b>
+                            <p class="card-text">{{ Helper::countFormDesain() }} Form</p>
+                            <a href="{{ route('desainIklan') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
+                        </div>
+                        <div class="col-md-6">
+                            <b>Penanganan</b>
+                            <p class="card-text">{{ Helper::countFormPenangananIT() }} Form</p>
+                            <a href="{{ route('penanganan.it') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-2">
+                <div class="card-header"><i class="fas fa-file-signature"></i> Form GA Sarana <span class="badge badge-pill badge-danger">Proses</span></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Perbaikan</b>
+                            <p class="card-text">{{ Helper::countFormPerbaikan() }} Form</p>
+                            <a href="{{ route('form.ga.perbaikan') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
+                        </div>
+                        @if(Helper::isOffice())
+                        <div class="col-md-6">
+                            <b>Peminjaman</b>
+                            <p class="card-text">{{ Helper::countFormPeminjaman() }} Form</p>
+                            <a href="{{ route('form.ga.peminjaman') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
