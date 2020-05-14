@@ -122,4 +122,13 @@ class FormQaUsulanController extends Controller
         $data->status = 4;
         $data->save();
     }
+
+    public function selesai($id)
+    {
+        $data = FormQaUsulan::find($id);
+        $data->status = 3;
+        $data->save();
+
+        return redirect()->route('form.qa.penambahanfile.index')->with('success', 'Form telah selesai.');
+    }
 }

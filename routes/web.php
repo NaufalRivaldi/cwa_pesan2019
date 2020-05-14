@@ -241,6 +241,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::get('/table', 'Forms\PenambahanFile\FormQaUsulanController@table')->name('form.qa.penambahanfile.table');
                 Route::post('/acc', 'Forms\PenambahanFile\FormQaUsulanController@acc')->name('form.qa.penambahanfile.acc');
                 Route::post('/tolak', 'Forms\PenambahanFile\FormQaUsulanController@tolak')->name('form.qa.penambahanfile.tolak');
+                Route::get('/{id}/selesai', 'Forms\PenambahanFile\FormQaUsulanController@selesai')->name('form.qa.penambahanfile.selesai');
             });
         });
 
@@ -311,6 +312,12 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::get('/', 'SaranaController@index')->name('laporan.ga.list.sarana');
                 Route::get('/form', 'SaranaController@form')->name('laporan.ga.sarana.form');
                 Route::get('/{id}/edit', 'SaranaController@edit')->name('laporan.ga.sarana.edit');
+            });
+        });
+
+        Route::group(['prefix'=>'qa', 'middleware' => ['checkDep:QA,IT']], function(){
+            Route::group(['prefix' => 'penambahanfile'], function(){
+                Route::get('/', 'Forms\PenambahanFile\LaporanFormQaUsulanController@index')->name('laporan.qa.penambahanfile.index');
             });
         });
     });

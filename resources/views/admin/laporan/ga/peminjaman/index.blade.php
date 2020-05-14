@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', '- Laporan HRD')
+@section('title', '- Laporan GA')
 
 @section('content')
     <div class="row">

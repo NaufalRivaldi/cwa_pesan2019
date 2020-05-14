@@ -1482,10 +1482,11 @@ class helper{
 
             case '3':
                 $text = "<span class='badge badge-success'>Selesai</span>";
-
+                break;
+                
             case '4':
-                $text = "<span class='badge badge-danger'>Ditolak</span>";
-            
+                $text = "<span class='badge badge-danger'>Ditolak</span>";            
+                break;
             }
             
 

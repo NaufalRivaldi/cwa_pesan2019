@@ -45,7 +45,11 @@
                                 <td class="viewModal" data-id="{{$row->id}}">{!! Helper::statusFormQa($row->status) !!}</td>
                                 <td class="viewModal" data-id="{{$row->id}}">{{ $row->keterangan }}</td>
                                 <td>
+                                @if($row->status == 1)
                                   <a href="#" class="btn-delete" data-id="{{ $row->id }}"><i class="btn btn-danger btn-sm far fa-trash-alt"></i></a>
+                                @else                                  
+                                  <a href="{{ route('form.qa.penambahanfile.selesai', ['id'=>$row->id]) }}" class="btn-done btn btn-sm btn-success fas fa-check" data-id="{{ $row->id }}"></a>
+                                @endif
                                 </td>
                               </tr>
                             @endforeach
@@ -59,17 +63,29 @@
                     <div class="table-responsive">
                         <table class="myTable custom-table table table-hover">
                             <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Tanggal</th>
-                                    <th>Nama</th>
-                                    <th>Departemen</th>
-                                    <th>Kategori</th>
-                                    <th>Status</th>
-                                    <th>Keterangan</th>
-                                </tr>
+                              <tr>
+                                <th>No</th>
+                                <th>Tanggal</th>
+                                <th>Nama</th>
+                                <th>Departemen</th>
+                                <th>Kategori</th>
+                                <th>Status</th>
+                                <th>Keterangan</th>
+                              </tr>
                             </thead>
                             <tbody>
+                              @php $noSelesai = 1 @endphp
+                              @foreach($formSelesai as $row)
+                              <tr>
+                                <td class="viewModal" data-id="{{$row->id}}">{{ $noSelesai++ }}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{!! Helper::setDate($row->created_at) !!}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{{ $row->karyawan->nama }}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{{ $row->karyawan->dep }}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{!! Helper::kategoriFormQa($row->kategori) !!}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{!! Helper::statusFormQa($row->status) !!}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{{ $row->keterangan }}</td>
+                              </tr>
+                              @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -129,8 +145,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success accForm btn-acc" data-val="1">Acc</button>
-        <button type="button" class="btn btn-danger accForm btn-acc" data-val="2">Tolak</button>
+        <button type="button" class="btn btn-success accForm" data-val="1">Acc</button>
+        <button type="button" class="btn btn-danger accForm" data-val="2">Tolak</button>
       </div>
     </div>
   </div>
@@ -159,9 +175,11 @@
           $('.kategori').append(data.kategori);
           $('.status').append(data.status);
           $('.keterangan').append(data.keterangan);
-          $('.btn-acc').attr('data-id', data.id);
+          $('.accForm').attr('data-id', data.id);
           if (data.status1 != 1) {
-            $('.btn-acc').remove();
+            $('.modal-footer').attr('hidden', true);
+          } else {
+            $('.modal-footer').removeAttr('hidden');
           }
         }
       })
@@ -209,7 +227,7 @@
     $(document).on('click', '.accForm', function(){     
       var id = $(this).data('id');
       var val = $(this).data('val');
-      // console.log(idAcc);
+      console.log(id)
       if (val == 1) {   
         swal({
           title: 'Perhatian!',

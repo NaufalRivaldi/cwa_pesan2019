@@ -311,6 +311,17 @@
                     </ul>
                 </li>
                 @endif
+                <li>
+                    <a href="#laporanQA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> Quality Assurance</a>
+                    <ul class="collapse list-unstyled" id="laporanQA">
+                        <li>    
+                            <a href="{{ route('laporan.qa.penambahanfile.index') }}">Penambahan Copy</a>
+                        </li>
+                    </ul>
+                </li>
+                @if(Helper::isQA())
+
+                @endif
             </ul>
         </li>
         @endif
