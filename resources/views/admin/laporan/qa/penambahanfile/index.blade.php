@@ -11,57 +11,60 @@
                       <h3 class="card-title">Laporan Penambahan Copy Dokumen - Formulir</h3>
                     </div>
                     <div class="card-header">
-                    <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                            <i class="fas fa-cog"></i> Pengaturan
-                        </button>
-                        <?php
-                            $url = '';
-                            if($_GET)
-                                $url = $_SERVER['QUERY_STRING'];
-                        ?>
+                    @php
+                      $tglA = '';
+                      $tglB = '';
+                      $kategoriId = '';
+                      $dep = '';
+                      $status = '';
+                      $url = '';
 
-                        @if($_GET)
-                        <a href="{{ url('admin/formhrd/laporan/export?'.$url) }}" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Export Excel</a>
-                        @endif
-
-                        <div class="collapse mt-2" id="collapseExample">
-                          <div class="card card-body">
-                            <form action="" method="GET">
-                              <div class="row">
-                                <div class="col-md-4">
-                                  <label><b>Tanggal Awal</b></label><br>
-                                  <input type="date" name="tgl_a" class="form-control" value="{{ (!empty($_GET['tgl_a'])) ? $_GET['tgl_a'] : '' }}" required>
-                                </div>
-                                <div class="col-md-4">
-                                <label><b>Tanggal Akhir</b></label><br>
-                                  <input type="date" name="tgl_b" class="form-control" value="{{ (!empty($_GET['tgl_b'])) ? $_GET['tgl_b'] : '' }}" required>
-                                </div>  
-                                <div class="col-md-4">
-                                  <label><b>Kategori</b></label><br>
-                                  <select class="js-example-responsive form-control" multiple="multiple" name="kategori" id="selectAll" style="width:100%">
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-4">
-                                  <label><b>Departemen</b></label>
-                                  <select name="dep" class="form-control dep-select">
-                                    <option value="All" {{ (!empty($_GET['dep'])) ? ($_GET['dep'] == 'All') ? 'selected' : '' : '' }}>All</option>
-                                    <option value="Office" {{ (!empty($_GET['dep'])) ? ($_GET['dep'] == 'Office') ? 'selected' : '' : '' }}>Office</option>
-                                    <option value="Gudang" {{ (!empty($_GET['dep'])) ? ($_GET['dep'] == 'Gudang') ? 'selected' : '' : '' }}>Gudang</option>
-                                    @foreach(Helper::allDep() as $row)
-                                        <option value="{{ $row->inisial }}" {{ (!empty($_GET['dep'])) ? ($_GET['dep'] == $row->inisial) ? 'selected' : '' : '' }}>{{ $row->inisial }}</option>
-                                    @endforeach
-                                  </select>
-                                </div>  
-                                <div class="col-md-4">
-                                  <label>&nbsp;</label><br>
-                                  <input type="submit" value="Cari Data" class="btn btn-primary">
-                                </div>
-                              </div>
-                            </form>
-                          </div>
+                      if($_GET){
+                        $tglA = $_GET['tglA'];
+                        $tglB = $_GET['tglB'];
+                        $kategoriId = $_GET['kategoriId'];
+                        $dep = $_GET['dep'];
+                        $status = $_GET['status'];
+                        $url = '?'.$_SERVER['QUERY_STRING'];
+                      }
+                    @endphp
+                    <form action="" method="GET">
+                      <div class="form-row">
+                        <div class="col-md-2">
+                          <input type="date" name="tglA" class="form-control form-control-sm tglA" data-toggle="tooltip" data-placement="top" title="Tanggal awal" value="{{ $tglA }}">
                         </div>
+                        <div class="col-md-2">
+                          <input type="date" name="tglB" class="form-control form-control-sm tglB" data-toggle="tooltip" data-placement="top" title="Tanggal akhir" value="{{ $tglB }}">
+                        </div>
+                        <div class="col-md-2">
+                          <select name="dep" id="dep" class="form-control form-control-sm">
+                            <option value="">Pilih Departemen</option>
+                            @foreach(Helper::allDep() as $cb)
+                              <option value="{{ $cb }}" {{ ($cb == $dep)?'selected':'' }}>{{ $cb }}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                        <div class="col-md-2">
+                          <select name="kategoriId" id="ketegoriId" class="form-control form-control-sm">
+                            <option value="">Pilih Kategori</option>
+                            <option value="1" {{ ($kategoriId == '1')?'selected':'' }}>Dokumen</option>
+                            <option value="2" {{ ($kategoriId == '2')?'selected':'' }}>Form</option>
+                          </select>
+                        </div>
+                        <div class="col-md-2">
+                          <select name="status" id="status" class="form-control form-control-sm">
+                            <option value="">Pilih Status</option>
+                            <option value="3" {{ ($status == '3')?'selected':'' }}>Selesai</option>
+                            <option value="4" {{ ($status == '4')?'selected':'' }}>Ditolak</option>
+                          </select>
+                        </div>
+                        <div class="col-md-2">
+                          <button type="submit" name="btn" class="btn btn-primary btn-sm"><i class="fas fa-search"></i></button>
+                          <a href="{{ route('laporan.qa.penambahanfile.index') }}" class="btn btn-warning btn-sm"><i class="fas fa-redo"></i></a>
+                          <a href="{{ route('laporan.qa.penambahanfile.export').$url }}" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i></a>
+                        </div>
+                      </div>
+                    </form>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -69,6 +72,7 @@
                                 <thead>
                                   <tr>
                                     <th>No</th>
+                                    <th>Kode</th>
                                     <th>Tgl Pengajuan</th>
                                     <th>Nama</th>
                                     <th>Dept</th>
@@ -82,6 +86,7 @@
                                   @foreach($form as $row)
                                   <tr>
                                     <td class="viewModal" data-id="{{$row->id}}">{{$no++}}</td>
+                                    <td class="viewModal" data-id="{{$row->id}}">{{$row->kode}}</td>
                                     <td class="viewModal" data-id="{{$row->id}}">{!! Helper::setDate($row->created_at) !!}</td>
                                     <td class="viewModal" data-id="{{$row->id}}">{{$row->karyawan->nama}}</td>
                                     <td class="viewModal" data-id="{{$row->id}}">{{$row->karyawan->dep}}</td>

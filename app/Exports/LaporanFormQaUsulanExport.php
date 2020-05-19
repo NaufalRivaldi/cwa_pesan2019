@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Forms\PenambahanFile;
+namespace App\Exports;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Helpers\helper;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\Exportable;
 use App\Forms\formqa\FormQaUsulan;
-use App\Cabang;
-use App\Exports\LaporanFormQaUsulanExport;
-
-class LaporanFormQaUsulanController extends Controller
+class LaporanFormQaUsulanExport implements FromView
 {
-    public function index()
+
+    use Exportable;
+    public function view(): View
     {
         $data['menu'] = 9;
         $data['form'] = FormQaUsulan::orderBy('id', 'desc')->get();
         $data['month'] = date('Y-m-01 H:i:s');
-        $data['cabang'] = Cabang::orderBy('inisial', 'asc')->get();
 
         if($_GET){
             $tglA = $_GET['tglA'];
@@ -37,11 +37,6 @@ class LaporanFormQaUsulanController extends Controller
             $data['form'] = FormQaUsulan::where('status', '>=', 3)->orderBy('id', 'desc')->get();
         }
 
-        return view('admin.laporan.qa.penambahanfile.index', $data);
-    }
-
-    public function export()
-    {
-        return (new LaporanFormQaUsulanExport)->download('laporan-penampahancopy.xlsx');
+        return view('admin.laporan.qa.penambahanfile.export', $data);
     }
 }

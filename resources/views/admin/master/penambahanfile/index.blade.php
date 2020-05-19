@@ -25,6 +25,9 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>No. Form</th>
+                                        <th>No. Revisi</th>
+                                        <th>Terbit</th>
                                         <th>Nama File</th>
                                         <th>Departemen</th>
                                         <th>Kategori</th>
@@ -36,6 +39,9 @@
                                     @foreach($masterfile as $row)
                                     <tr>
                                         <td>{{$no++}}</td>
+                                        <td>{{$row->no_form}}</td>
+                                        <td>{{$row->no_revisi}}</td>
+                                        <td>{!! Helper::setDate($row->tgl_terbit) !!}</td>
                                         <td>{{$row->nama}}</td>
                                         <td>{{$row->dep}}</td>
                                         <td>{!! Helper::kategoriFormQa($row->kategori) !!}</td>

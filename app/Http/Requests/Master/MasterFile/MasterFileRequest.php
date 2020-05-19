@@ -26,7 +26,10 @@ class MasterFileRequest extends FormRequest
         return [
             'nama'=>'required',
             'dep'=>'required',
-            'kategori'=>'required'
+            'kategori'=>'required',
+            'no_form'=>'required',
+            'no_revisi'=>'required',
+            'tgl_terbit'=>'required'
         ];
     }
 

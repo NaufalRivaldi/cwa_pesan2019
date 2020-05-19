@@ -27,6 +27,42 @@
                               <input type="hidden" name="id" value="{{ $masterfile->id }}">
                           @endif
                           <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">No Form <span class="text-danger"></span></label>
+                            <div class="col-sm-10">
+                              <input type="text" name="no_form" id="" class="form-control" value="{{$masterfile->no_form}}">
+                              <!-- error -->
+                              @if($errors->has('no_form'))
+                                  <div class="text-danger">
+                                      {{ $errors->first('no_form') }}
+                                  </div>
+                              @endif
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">No Revisi <span class="text-danger"></span></label>
+                            <div class="col-sm-10">
+                              <input type="text" name="no_revisi" id="" class="form-control" value="{{$masterfile->no_revisi}}">
+                              <!-- error -->
+                              @if($errors->has('no_revisi'))
+                                  <div class="text-danger">
+                                      {{ $errors->first('no_revisi') }}
+                                  </div>
+                              @endif
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Terbit <span class="text-danger"></span></label>
+                            <div class="col-sm-10">
+                              <input type="date" name="tgl_terbit" id="" class="form-control" value="{{$masterfile->tgl_terbit}}">
+                              <!-- error -->
+                              @if($errors->has('tgl_terbit'))
+                                  <div class="text-danger">
+                                      {{ $errors->first('tgl_terbit') }}
+                                  </div>
+                              @endif
+                            </div>
+                          </div>
+                          <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Nama File <span class="text-danger"></span></label>
                             <div class="col-sm-10">
                               <input type="text" name="nama" id="" class="form-control" value="{{$masterfile->nama}}">

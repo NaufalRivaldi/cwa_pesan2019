@@ -24,6 +24,7 @@
                           <thead> 
                             <tr>
                                 <th>No</th>
+                                <th>Kode</th>
                                 <th>Tanggal</th>
                                 <th>Nama</th>
                                 <th>Departemen</th>
@@ -38,6 +39,7 @@
                             @foreach($formProgress as $row)
                               <tr>
                                 <td class="viewModal" data-id="{{$row->id}}">{{ $noProgress++ }}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{{ $row->kode }}</td>
                                 <td class="viewModal" data-id="{{$row->id}}">{!! Helper::setDateForm($row->created_at) !!}</td>
                                 <td class="viewModal" data-id="{{$row->id}}">{{ $row->karyawan->nama }}</td>
                                 <td class="viewModal" data-id="{{$row->id}}">{{ $row->karyawan->dep }}</td>
@@ -65,6 +67,7 @@
                             <thead>
                               <tr>
                                 <th>No</th>
+                                <th>Kode</th>
                                 <th>Tanggal</th>
                                 <th>Nama</th>
                                 <th>Departemen</th>
@@ -78,7 +81,8 @@
                               @foreach($formSelesai as $row)
                               <tr>
                                 <td class="viewModal" data-id="{{$row->id}}">{{ $noSelesai++ }}</td>
-                                <td class="viewModal" data-id="{{$row->id}}">{!! Helper::setDate($row->created_at) !!}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{{ $row->kode }}</td>
+                                <td class="viewModal" data-id="{{$row->id}}">{!! Helper::setDateForm($row->created_at) !!}</td>
                                 <td class="viewModal" data-id="{{$row->id}}">{{ $row->karyawan->nama }}</td>
                                 <td class="viewModal" data-id="{{$row->id}}">{{ $row->karyawan->dep }}</td>
                                 <td class="viewModal" data-id="{{$row->id}}">{!! Helper::kategoriFormQa($row->kategori) !!}</td>

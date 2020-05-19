@@ -50,7 +50,7 @@ class FormQaUsulanController extends Controller
         $form = MasterFile::where('kategori', $kategori)->where('dep', auth()->user()->dep)->get();
         $text = '';
         foreach ($form as $p) {
-            $text .= '<option value="'.$p->id.'">'.$p->nama.'</option>';
+            $text .= '<option value="'.$p->id.'">'.$p->no_form.' - '.$p->nama.'</option>';
         }
         return $text;
     }

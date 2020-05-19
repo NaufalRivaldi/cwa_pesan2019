@@ -23,7 +23,10 @@ class MasterFileController extends Controller
             'id'=>'',
             'dep'=>'',
             'nama'=>'',
-            'kategori'=>''
+            'kategori'=>'',
+            'no_form'=>'',
+            'no_revisi'=>'',
+            'tgl_terbit'=>''
         ];
 
         return view('admin.master.penambahanfile.form', $data);
@@ -34,7 +37,10 @@ class MasterFileController extends Controller
         MasterFile::create([
             'nama'=>$request->nama,
             'dep'=>$request->dep,
-            'kategori'=>$request->kategori
+            'kategori'=>$request->kategori,
+            'no_form'=>$request->no_form,
+            'no_revisi'=>$request->no_revisi,
+            'tgl_terbit'=>$request->tgl_terbit
         ]);
 
         return redirect()->route('master.masterfile.index')->with('success', 'Data berhasil ditambah!');
@@ -53,6 +59,9 @@ class MasterFileController extends Controller
         $data->nama=$request->nama;
         $data->dep=$request->dep;
         $data->kategori=$request->kategori;
+        $data->no_form=$request->no_form;
+        $data->no_revisi=$request->no_revisi;
+        $data->tgl_terbit=$request->tgl_terbit;
         $data->save();
 
         return redirect()->route('master.masterfile.index')->with('success', 'Data berhasil diupdate!');

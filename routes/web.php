@@ -318,6 +318,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::group(['prefix'=>'qa', 'middleware' => ['checkDep:QA,IT']], function(){
             Route::group(['prefix' => 'penambahanfile'], function(){
                 Route::get('/', 'Forms\PenambahanFile\LaporanFormQaUsulanController@index')->name('laporan.qa.penambahanfile.index');
+                Route::get('/export', 'Forms\PenambahanFile\LaporanFormQaUsulanController@export')->name('laporan.qa.penambahanfile.export');
             });
         });
     });
