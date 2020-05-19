@@ -49,7 +49,7 @@
                                 <td>
                                 @if($row->status == 1)
                                   <a href="#" class="btn-delete" data-id="{{ $row->id }}"><i class="btn btn-danger btn-sm far fa-trash-alt"></i></a>
-                                @else                                  
+                                @elseif(auth()->user()->dep == 'QA')                                  
                                   <a href="{{ route('form.qa.penambahanfile.selesai', ['id'=>$row->id]) }}" class="btn-done btn btn-sm btn-success fas fa-check" data-id="{{ $row->id }}"></a>
                                 @endif
                                 </td>
@@ -180,11 +180,12 @@
           $('.status').append(data.status);
           $('.keterangan').append(data.keterangan);
           $('.accForm').attr('data-id', data.id);
-          if (data.status1 != 1) {
+          if (data.status1 != 1 || data.user != 'QA') {
             $('.modal-footer').attr('hidden', true);
           } else {
             $('.modal-footer').removeAttr('hidden');
           }
+          console.log(data.status1);
         }
       })
 
@@ -205,6 +206,7 @@
     //delete
     $(document).on('click','.btn-delete', function() {
         var id = $(this).data('id');
+        console.log(id);
         swal({
           title: 'Perhatian!',
           text: "Apakah anda yakin menghapus data ini?",
@@ -215,7 +217,7 @@
           if (willDelete) {
             $.ajax({
               type: "POST",
-              url: "",
+              url: '{{ route("form.qa.penambahanfile.destroy") }}',
               data: {
                 id: id,
                 _token: '{{ csrf_token() }}'

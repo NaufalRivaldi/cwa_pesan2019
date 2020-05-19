@@ -12,7 +12,7 @@ class MasterFileController extends Controller
     public function index()
     {
         $data['menu'] = '13';
-        $data['masterfile'] = MasterFile::orderBy('dep', 'desc')->get();
+        $data['masterfile'] = MasterFile::all();
         return view('admin.master.penambahanfile.index', $data);
     }
 
@@ -21,7 +21,6 @@ class MasterFileController extends Controller
         $data['menu'] = '13';
         $data['masterfile'] = (object)[
             'id'=>'',
-            'dep'=>'',
             'nama'=>'',
             'kategori'=>'',
             'no_form'=>'',
@@ -36,7 +35,6 @@ class MasterFileController extends Controller
     {
         MasterFile::create([
             'nama'=>$request->nama,
-            'dep'=>$request->dep,
             'kategori'=>$request->kategori,
             'no_form'=>$request->no_form,
             'no_revisi'=>$request->no_revisi,
@@ -57,7 +55,6 @@ class MasterFileController extends Controller
     {
         $data = MasterFile::find($request->id);
         $data->nama=$request->nama;
-        $data->dep=$request->dep;
         $data->kategori=$request->kategori;
         $data->no_form=$request->no_form;
         $data->no_revisi=$request->no_revisi;

@@ -29,7 +29,6 @@
                                         <th>No. Revisi</th>
                                         <th>Terbit</th>
                                         <th>Nama File</th>
-                                        <th>Departemen</th>
                                         <th>Kategori</th>
                                         <th>Action</th>
                                     </tr>
@@ -43,7 +42,6 @@
                                         <td>{{$row->no_revisi}}</td>
                                         <td>{!! Helper::setDate($row->tgl_terbit) !!}</td>
                                         <td>{{$row->nama}}</td>
-                                        <td>{{$row->dep}}</td>
                                         <td>{!! Helper::kategoriFormQa($row->kategori) !!}</td>
                                         <td>                                            
                                             <a href="{{ route('master.masterfile.edit', ['id' => $row->id]) }}" class=""><i class="btn btn-sm btn-info fas fa-cog"></i></a>

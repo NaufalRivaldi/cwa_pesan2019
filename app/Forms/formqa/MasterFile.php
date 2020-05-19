@@ -8,7 +8,7 @@ class MasterFile extends Model
 {
     protected $table = 'master_file';
     protected $fillable = [
-        'dep', 'nama', 'kategori', 'no_form', 'no_revisi', 'tgl_terbit'
+        'nama', 'kategori', 'no_form', 'no_revisi', 'tgl_terbit'
     ];
 
     public $timestamps = false;

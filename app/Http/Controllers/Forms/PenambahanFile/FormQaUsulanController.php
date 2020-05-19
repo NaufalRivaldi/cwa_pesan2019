@@ -16,8 +16,18 @@ class FormQaUsulanController extends Controller
     public function index()
     {
         $data['menu'] = '8';
-        $data['formProgress'] = FormQaUsulan::where('status', '<=', 2)->orderBy('id', 'desc')->get();
-        $data['formSelesai'] = FormQaUsulan::where('status', '>=', 3)->orderBy('id', 'desc')->get();
+        if (auth()->user()->dep == 'QA') {            
+            $data['formProgress'] = FormQaUsulan::where('status', '<=', 2)->orderBy('id', 'desc')->get();
+            $data['formSelesai'] = FormQaUsulan::where('status', '>=', 3)->orderBy('id', 'desc')->get();
+        } else {
+                       
+            $data['formProgress'] = FormQaUsulan::where('status', '<=', 2)->whereHas('karyawan', function($query){
+                $query->where('dep', auth()->user()->dep);
+            })->orderBy('id', 'desc')->get();
+            $data['formSelesai'] = FormQaUsulan::where('status', '>=', 3)->whereHas('karyawan', function($query){
+                $query->where('dep', auth()->user()->dep);
+            })->orderBy('id', 'desc')->get();
+        }
         return view('admin.form.qa.penambahanfile.index', $data);
     }
 
@@ -47,7 +57,7 @@ class FormQaUsulanController extends Controller
     public function formDoc()
     {
         $kategori = $_GET['id'];
-        $form = MasterFile::where('kategori', $kategori)->where('dep', auth()->user()->dep)->get();
+        $form = MasterFile::where('kategori', $kategori)->get();
         $text = '';
         foreach ($form as $p) {
             $text .= '<option value="'.$p->id.'">'.$p->no_form.' - '.$p->nama.'</option>';
@@ -91,7 +101,8 @@ class FormQaUsulanController extends Controller
             'dep'=>$data->karyawan->dep,
             'status'=>Helper::statusFormQa($data->status),
             'status1'=>$data->status,
-            'tanggal'=>Helper::setDate($data->created_at)
+            'tanggal'=>Helper::setDate($data->created_at),
+            'user'=>auth()->user()->dep
         ];
 
         return $array;
@@ -130,5 +141,11 @@ class FormQaUsulanController extends Controller
         $data->save();
 
         return redirect()->route('form.qa.penambahanfile.index')->with('success', 'Form telah selesai.');
+    }
+
+    public function destroy(Request $request)
+    {
+        $data = FormQaUsulan::find($request->id);
+        $data->delete();
     }
 }

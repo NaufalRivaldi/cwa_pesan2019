@@ -75,23 +75,6 @@
                             </div>
                           </div>
                           <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Departemen <span class="text-danger"></span></label>
-                            <div class="col-sm-10">
-                              <select name="dep" id="" class="form-control">
-                                <option value="">Pilih departemen...</option>
-                                @foreach(Helper::allDep() as $row)
-                                  <option value="{{ $row }}" {{($masterfile->id)?($masterfile->dep == $row)?'selected':'':''}} >{{ $row }}</option>
-                                @endforeach
-                              </select>
-                              <!-- error -->
-                              @if($errors->has('dep'))
-                                  <div class="text-danger">
-                                      {{ $errors->first('dep') }}
-                                  </div>
-                              @endif
-                            </div>
-                          </div>
-                          <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Kategori <span class="text-danger"></span></label>
                             <div class="col-sm-10">
                               <select name="kategori" id="" class="form-control">

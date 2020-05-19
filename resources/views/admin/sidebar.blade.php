@@ -186,7 +186,7 @@
                     <a href="#pageQA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> Quality Assurance <span class="text-warning">*</span></a>
                     <ul class="collapse list-unstyled" id="pageQA">
                         <li>
-                            <a href="{{ route('form.qa.penambahanfile.index') }}">Penambahan Copy <span class="badge badge-warning">{{ Helper::countFormPerbaikan() }}</span></a>
+                            <a href="{{ route('form.qa.penambahanfile.index') }}">Penambahan Copy <span class="badge badge-warning">{{Helper::countFormCopyDokumen()}}</span></a>
                         </li>
                     </ul>
                 </li>
@@ -311,6 +311,7 @@
                     </ul>
                 </li>
                 @endif
+                @if(Helper::isQA())
                 <li>
                     <a href="#laporanQA" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-signature"></i> Quality Assurance</a>
                     <ul class="collapse list-unstyled" id="laporanQA">
@@ -318,9 +319,7 @@
                             <a href="{{ route('laporan.qa.penambahanfile.index') }}">Penambahan Copy</a>
                         </li>
                     </ul>
-                </li>
-                @if(Helper::isQA())
-
+                </li>                
                 @endif
             </ul>
         </li>

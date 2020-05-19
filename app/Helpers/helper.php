@@ -28,6 +28,7 @@ use App\PKK\Poling;
 use App\Forms\formcuti\DetailFormCuti;
 use App\Forms\formcuti\FormCuti;
 use App\FormPenangananIt;
+use App\Forms\formqa\FormQaUsulan;
 
 use Hash;
 
@@ -460,6 +461,17 @@ class helper{
             $form = FormPeminjamanSarana::where('status', '<' ,'2')->count();
         }else{
             $form = FormPeminjamanSarana::where('userId', auth()->user()->id)->where('status', '<' ,'2')->count();
+        }
+        return $form;
+    }
+
+    public static function countFormCopyDokumen(){
+        if (auth()->user()->dep == 'QA') {
+            $form = FormQaUsulan::where('status', '<=' ,'2')->count();
+        } else{
+            $form = FormQaUsulan::whereHas('karyawan', function($query){
+                $query->where('dep', auth()->user()->dep);
+            })->where('status', '<=' ,'2')->count();
         }
         return $form;
     }

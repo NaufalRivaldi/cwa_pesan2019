@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnNoRevisiToMasterFile extends Migration
+class DropColumnDepartemenOnMasterFile extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,7 @@ class AddColumnNoRevisiToMasterFile extends Migration
     public function up()
     {
         Schema::table('master_file', function (Blueprint $table) {
-            $table->string('no_form');
-            $table->string('no_revisi');
-            $table->date('tgl_terbit');
+            $table->dropColumn('dep');
         });
     }
 
@@ -27,8 +25,6 @@ class AddColumnNoRevisiToMasterFile extends Migration
      */
     public function down()
     {
-        Schema::table('master_file', function (Blueprint $table) {
-            //
-        });
+        
     }
 }

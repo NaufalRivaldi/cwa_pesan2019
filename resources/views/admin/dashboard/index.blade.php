@@ -136,5 +136,20 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-2">
+                <div class="card-header"><i class="fas fa-file-signature"></i> Form QA <span class="badge badge-pill badge-danger">Proses</span></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Copy Dokumen</b>
+                            <p class="card-text">{{ Helper::countFormCopyDokumen() }} Form</p>
+                            <a href="{{ route('form.qa.penambahanfile.index') }}" class="btn btn-dark btn-sm btn-block"><i class="far fa-eye"></i> Lihat</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

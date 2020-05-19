@@ -25,7 +25,6 @@ class MasterFileRequest extends FormRequest
     {
         return [
             'nama'=>'required',
-            'dep'=>'required',
             'kategori'=>'required',
             'no_form'=>'required',
             'no_revisi'=>'required',
