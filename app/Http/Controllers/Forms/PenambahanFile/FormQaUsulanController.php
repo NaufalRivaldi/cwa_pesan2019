@@ -35,7 +35,7 @@ class FormQaUsulanController extends Controller
     {
         $data['menu'] = '8';
         $data['kodeForm'] = $this->kodeForm();
-        $data['pembuat'] = KaryawanAll::where('dep', auth()->user()->dep)->get();
+        $data['pembuat'] = KaryawanAll::where('dep', auth()->user()->dep)->where('status', 1)->get();
         return view('admin.form.qa.penambahanfile.form', $data);
     }
 
@@ -67,11 +67,16 @@ class FormQaUsulanController extends Controller
 
     public function store(FormQaUsulanRequest $request)
     {
+        if(empty($request->keterangan)) {
+            $keterangan = '-';
+        } else {
+            $keterangan = $request->keterangan;
+        } 
         FormQaUsulan::create([
             'kode'=>$request->kode,
             'karyawanId'=>$request->karyawanId,
             'kategori'=>$request->kategori,
-            'keterangan'=>$request->keterangan,
+            'keterangan'=>$keterangan,
             'status'=>1
         ]);
 

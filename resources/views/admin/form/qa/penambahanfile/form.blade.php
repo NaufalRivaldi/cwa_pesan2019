@@ -99,7 +99,7 @@
                       <div class="col-sm-12">
                         <div class="form-group">
                           <label for="selectPembuat">Keterangan</label>
-                          <textarea name="keterangan" id="" cols="30" rows="5" class="form-control" required></textarea>
+                          <textarea name="keterangan" id="" cols="30" rows="5" class="form-control"></textarea>
                           @if($errors->has('keterangan'))
                             <div class="text-danger">
                                 {{ $errors->first('keterangan') }}
