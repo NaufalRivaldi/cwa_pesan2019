@@ -241,7 +241,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
                 Route::get('/table', 'Forms\PenambahanFile\FormQaUsulanController@table')->name('form.qa.penambahanfile.table');
                 Route::post('/acc', 'Forms\PenambahanFile\FormQaUsulanController@acc')->name('form.qa.penambahanfile.acc');
                 Route::post('/tolak', 'Forms\PenambahanFile\FormQaUsulanController@tolak')->name('form.qa.penambahanfile.tolak');
-                Route::get('/{id}/selesai', 'Forms\PenambahanFile\FormQaUsulanController@selesai')->name('form.qa.penambahanfile.selesai');
+                Route::post('/selesai', 'Forms\PenambahanFile\FormQaUsulanController@selesai')->name('form.qa.penambahanfile.selesai');
                 Route::post('/destroy', 'Forms\PenambahanFile\FormQaUsulanController@destroy')->name('form.qa.penambahanfile.destroy');
             });
         });

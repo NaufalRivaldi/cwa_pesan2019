@@ -35,7 +35,7 @@ class FormQaUsulanController extends Controller
     {
         $data['menu'] = '8';
         $data['kodeForm'] = $this->kodeForm();
-        $data['pembuat'] = KaryawanAll::where('dep', auth()->user()->dep)->where('status', 1)->get();
+        $data['pembuat'] = KaryawanAll::where('dep', auth()->user()->dep)->where('ket', 1)->get();
         return view('admin.form.qa.penambahanfile.form', $data);
     }
 
@@ -67,6 +67,7 @@ class FormQaUsulanController extends Controller
 
     public function store(FormQaUsulanRequest $request)
     {
+        // dd($request->all());
         if(empty($request->keterangan)) {
             $keterangan = '-';
         } else {
@@ -77,7 +78,8 @@ class FormQaUsulanController extends Controller
             'karyawanId'=>$request->karyawanId,
             'kategori'=>$request->kategori,
             'keterangan'=>$keterangan,
-            'status'=>1
+            'status'=>1,
+            'pic'=>null
         ]);
 
         $formQa = FormQaUsulan::orderBy('id', 'desc')->first();
@@ -97,6 +99,11 @@ class FormQaUsulanController extends Controller
     {
         $id = $_GET['id'];
         $data = FormQaUsulan::find($id);
+        if ($data->pic == null) {
+            $pic = null;
+        }else{
+            $pic = $data->pic->nama;
+        }
         $array = [
             'id'=>$data->id,
             'kode'=>$data->kode,
@@ -107,6 +114,7 @@ class FormQaUsulanController extends Controller
             'status'=>Helper::statusFormQa($data->status),
             'status1'=>$data->status,
             'tanggal'=>Helper::setDate($data->created_at),
+            'pic'=>$pic,
             'user'=>auth()->user()->dep
         ];
 
@@ -139,13 +147,41 @@ class FormQaUsulanController extends Controller
         $data->save();
     }
 
-    public function selesai($id)
+    public function selesai(Request $request)
     {
-        $data = FormQaUsulan::find($id);
-        $data->status = 3;
-        $data->save();
+        // dd($request->all());
 
-        return redirect()->route('form.qa.penambahanfile.index')->with('success', 'Form telah selesai.');
+        $karyawan = KaryawanAll::where('dep', 'QA')->where('ket', 1)->where('nik', $request->nik)->where('password', sha1($request->password))->first();
+
+        if (!empty($karyawan)) {
+            $form = FormQaUsulan::find($request->form_qa_id);
+            switch ($request->form_qa_type) {
+                case '1':
+                    $form->status = 2;
+                    $form->picId = $karyawan->id;
+                    $form->save();
+                    return redirect()->route('form.qa.penambahanfile.index')->with('success', 'Form telah disetujui!');
+                    break;
+                case '2':
+                    $form->status = 4;
+                    $form->picId = $karyawan->id;
+                    $form->save();
+                    return redirect()->route('form.qa.penambahanfile.index')->with('success', 'Form telah ditolak!');
+                    break;
+                case '3':
+                    if ($karyawan->stat == 2) {
+                        $form->status = 3;
+                        $form->save();
+                        return redirect()->route('form.qa.penambahanfile.index')->with('success', 'Form telah diselesaikan!');
+                    } else {
+                        return redirect()->route('form.qa.penambahanfile.index')->with('error', 'Anda bukan kepala bagian!');
+                    }
+                    break;
+                default:
+                    return redirect()->route('form.qa.penambahanfile.index')->with('error', 'Anda bukan kepala bagian!');
+                    break;
+            }
+        }        
     }
 
     public function destroy(Request $request)

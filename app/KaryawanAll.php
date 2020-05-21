@@ -61,4 +61,9 @@ class KaryawanAll extends Model
     {
         return $this->hasMany('App\Forms\formqa\FormQaUsulan', 'karyawanId');
     }
+
+    public function formQaPIC()
+    {
+        return $this->hasMany('App\Forms\formqa\FormQaUsulan', 'picId');
+    }
 }

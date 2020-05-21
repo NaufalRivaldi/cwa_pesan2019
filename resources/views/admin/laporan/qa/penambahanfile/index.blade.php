@@ -18,6 +18,7 @@
                       $dep = '';
                       $status = '';
                       $url = '';
+                      $picId = '';
 
                       if($_GET){
                         $tglA = $_GET['tglA'];
@@ -26,6 +27,7 @@
                         $dep = $_GET['dep'];
                         $status = $_GET['status'];
                         $url = '?'.$_SERVER['QUERY_STRING'];
+                        $picId = $_GET['picId'];
                       }
                     @endphp
                     <form action="" method="GET">
@@ -59,10 +61,18 @@
                           </select>
                         </div>
                         <div class="col-md-2">
-                          <button type="submit" name="btn" class="btn btn-primary btn-sm"><i class="fas fa-search"></i></button>
-                          <a href="{{ route('laporan.qa.penambahanfile.index') }}" class="btn btn-warning btn-sm"><i class="fas fa-redo"></i></a>
-                          <a href="{{ route('laporan.qa.penambahanfile.export').$url }}" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i></a>
+                          <select name="picId" id="picId" class="form-control form-control-sm">
+                            <option value="">Pilih PIC</option>
+                            @foreach($pic as $row)
+                              <option value="{{$row->id}}" {{ ($row->id == $picId)?'selected':'' }}>{{$row->nama}}</option>
+                            @endforeach
+                          </select>
                         </div>
+                      </div>
+                      <div class="d-flex flex-row-reverse">
+                        <div class="mt-2 ml-1"><button type="submit" name="btn" class="btn btn-primary btn-sm"><i class="fas fa-search"></i></button></div>
+                        <div class="mt-2 ml-1"><a href="{{ route('laporan.qa.penambahanfile.index') }}" class="btn btn-warning btn-sm"><i class="fas fa-redo"></i></a></div>
+                        <div class="mt-2 ml-1"><a href="{{ route('laporan.qa.penambahanfile.export').$url }}" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i></a></div>
                       </div>
                     </form>
                     </div>
@@ -79,6 +89,7 @@
                                     <th>Kategori</th>
                                     <th>Status</th>
                                     <th>Keterangan</th>
+                                    <th>PIC</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -93,6 +104,7 @@
                                     <td class="viewModal" data-id="{{$row->id}}">{!! Helper::kategoriFormQa($row->kategori) !!}</td>
                                     <td class="viewModal" data-id="{{$row->id}}">{!! Helper::statusFormQa($row->status) !!}</td>
                                     <td class="viewModal" data-id="{{$row->id}}">{{$row->keterangan}}</td>
+                                    <td class="viewModal" data-id="{{$row->id}}">{{$row->pic->nama}}</td>
                                   </tr>
                                   @endforeach
                                 </tbody>

@@ -8,7 +8,7 @@ class FormQaUsulan extends Model
 {
     protected $table = 'form_qa_usulan';
     protected $fillable = [
-        'kode', 'kategori', 'keterangan', 'karyawanId', 'status'
+        'kode', 'kategori', 'keterangan', 'karyawanId', 'picId', 'status'
     ];
 
     public $timestamps = true;
@@ -21,5 +21,10 @@ class FormQaUsulan extends Model
     public function detail()
     {
         return $this->hasMany('App\Forms\formqa\DetailFormQaUsulan', 'formId');
+    }
+
+    public function pic()
+    {
+        return $this->belongsTo('App\KaryawanAll', 'picId');
     }
 }

@@ -21,7 +21,7 @@
                   <h2 class="text-center">FORM USULAN COPY DOKUMEN - FORMULIR</h2>
                   <hr>
                   <form action="{{ route('form.qa.penambahanfile.store') }}" method="POST">
-                    @csrf                     
+                    @csrf          
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label">Kode Form<span class="text-danger"></span></label>
                       <label class="col-sm-3 col-form-label">{{$kodeForm}}</label>

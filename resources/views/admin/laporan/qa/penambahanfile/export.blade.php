@@ -27,6 +27,7 @@
                     <th>Jumlah</th>
                     <th>Keterangan</th>
                     <th>Status</th>
+                    <th>PIC</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,6 +48,7 @@
                         <td>{{ $df->qty }}</td>
                         <td>{{ $df->form->keterangan }}</td>
                         <td>{!! Helper::statusFormQa($df->form->status) !!}</td>
+                        <td>{{ $df->form->pic->nama }}</td>
                     </tr>
                     @endforeach
                 @endforeach
