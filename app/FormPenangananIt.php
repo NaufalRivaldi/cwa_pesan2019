@@ -8,7 +8,7 @@ class FormPenangananIt extends Model
 {
     protected $table = 'form_penanganan_it';
     protected $fillable = [
-        'kode', 'tgl', 'masalah', 'penyelesaian', 'stat', 'user_id', 'karyawan_all_id'
+        'kode', 'tgl', 'masalah', 'penyelesaian', 'stat', 'user_id'
     ];
 
     // fk
@@ -18,5 +18,9 @@ class FormPenangananIt extends Model
 
     public function karyawanAll(){
         return $this->belongsTo('App\KaryawanAll');
+    }
+
+    public function detailFormPenangananIt(){
+        return $this->hasMany('App\DetailFormPenangananIt', 'formPenangananItId');
     }
 }

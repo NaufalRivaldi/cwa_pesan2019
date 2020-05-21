@@ -122,7 +122,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         
         Route::group(['middleware' => ['checkDep:HRD,IT']], function(){
             Route::post('/accHRD/{id}', 'FormHRDController@accHRD');
-            Route::post('/tolakHRD/{id}', 'FormHRDController@tolakHform.hrd.cuti.formcuti.detailform.hrd.cuti.formcuti.detailRD');
+            Route::post('/tolakHRD/{id}', 'FormHRDController@tolakHRD');
             Route::get('/laporan', 'FormHRDController@laporan')->name('laporan');
             Route::post('/laporan/view/', 'FormHRDController@view')->name('laporan.view');
             Route::get('/laporan/edit/{id}', 'FormHRDController@edit')->name('laporan.edit');
@@ -185,6 +185,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
     // form it
     Route::group(['prefix' => '/formit'], function(){
         Route::get('/', 'FormPenangananController@index')->name('penanganan.it');
+        Route::get('/form', 'FormPenangananController@form')->name('penanganan.it.form');
+        Route::get('/view/{id}', 'FormPenangananController@view')->name('penanganan.it.view');
         Route::get('/verifikasi/{id}', 'FormPenangananController@verifikasi')->name('penanganan.it.verifikasi');
         Route::post('/store', 'FormPenangananController@store')->name('penanganan.it.store');
         Route::get('/delete/{id}', 'FormPenangananController@delete');

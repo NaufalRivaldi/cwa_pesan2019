@@ -10,15 +10,13 @@ use App\FormPenangananIt;
 use App\Cabang;
 use App\KaryawanAll;
 use App\User;
+use App\DetailFormPenangananIt;
 
 class FormPenangananController extends Controller
 {
     public function index(){
         $data['menu'] = '8';
         $data['no'] = '1';
-        $data['kode'] = $this->generateKode();
-        $data['cabang'] = Cabang::orderBy('inisial', 'asc')->get();
-        $data['karyawan'] = KaryawanAll::where('dep', 'IT')->where('ket', '1')->get();
         
         if(auth()->user()->dep != 'IT'){
             $data['form'] = FormPenangananIt::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
@@ -27,6 +25,25 @@ class FormPenangananController extends Controller
         }
 
         return view('admin.form.it.index', $data);
+    }
+
+    public function form($id = null){
+        $data['menu'] = '8';
+        $data['kode'] = $this->generateKode();
+        $data['cabang'] = Cabang::orderBy('inisial', 'asc')->get();
+        $data['karyawan'] = KaryawanAll::where('dep', 'IT')->where('ket', '1')->get();
+        if(is_null($id)){
+            
+        }
+
+        return view('admin.form.it.form', $data);
+    }
+
+    public function view($id){
+        $data['menu'] = '8';
+        $data['formPenangananIt'] = FormPenangananIt::find($id);
+
+        return view('admin.form.it.view', $data);
     }
 
     public function store(Request $req){
@@ -38,14 +55,13 @@ class FormPenangananController extends Controller
             'kode' => $req->kode,
             'tgl' => date('Y-m-d'),
             'masalah' => $req->masalah,
-            'penyelesaian' => $req->penyelesaian,
+            'penyelesaian' => '-',
             'stat' => 1,
-            'user_id' => $user->id,
-            'karyawan_all_id' => $req->karyawan_all_id
+            'user_id' => $user->id
         ]);
         
         $form = FormPenangananIt::orderBy('id', 'desc')->first();
-        helper::notifikasiFormIt($user->id);
+        helper::notifikasiFormIt($req->cabang);
 
         return redirect()->route('penanganan.it')->with('success', 'Form berhasil diajukan.');
     }
@@ -71,10 +87,9 @@ class FormPenangananController extends Controller
         ];
 
         $this->validate($req, [
+            'kode' => 'required',
             'cabang' => 'required',
-            'karyawan_all_id' => 'required',
             'masalah' => 'required',
-            'penyelesaian' => 'required'
         ], $message);
     }
 

@@ -9,119 +9,14 @@
                 <div class="page-breadcrumb">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item active" aria-current="page">Form Penanganan IT</li>
+                            <li class="breadcrumb-item active" aria-current="page">Penanganan IT</li>
                         </ol>
                     </nav>
                 </div>            
                 <div class="card">
-                    @if(auth()->user()->dep == 'IT')
                     <div class="card-header">
-                        <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#formCollapse" role="button" aria-expanded="false" aria-controls="formCollapse"><i class="fas fa-envelope"></i> Buat Form</a> 
-                        <div class="collapse mt-3" id="formCollapse">
-                            <div class="card card-body">
-                                <form action="{{ route('penanganan.it.store') }}" method="POST">
-
-                                    {{ csrf_field() }}
-                                    <div class="row form-group">
-                                        <div class="col-md-3">
-                                            <label>Kode<span class="text-danger">*</span></label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <p>{{ $kode }}</p>
-                                            <input type="hidden" name="kode" value="{{ $kode }}">
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col-md-3">
-                                            <label>Divisi / Departemen</label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <select name="cabang" class="form-control col-6">
-                                                <option value="">Pilih</option>
-                                                @foreach(Helper::depOffice() as $row)
-                                                <option value="{{ $row }}">{{ $row }}</option>
-                                                @endforeach
-
-                                                @foreach($cabang as $row)
-                                                <option value="{{ $row->inisial }}">{{ $row->inisial.' - '.$row->nama_cabang }}</option>
-                                                @endforeach
-                                            </select>
-
-                                            <!-- error -->
-                                            @if($errors->has('cabang'))
-                                                <div class="text-danger">
-                                                    {{ $errors->first('cabang') }}
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <div class="row form-group">
-                                        <div class="col-md-3">
-                                            <label>PIC</label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <select name="karyawan_all_id" class="form-control col-6">
-                                                <option value="">Pilih PIC</option>
-                                                @foreach($karyawan as $row)
-                                                <option value="{{ $row->id }}">{{ $row->nama }}</option>
-                                                @endforeach
-                                            </select>
-
-                                            <!-- error -->
-                                            @if($errors->has('karyawan_all_id'))
-                                                <div class="text-danger">
-                                                    {{ $errors->first('karyawan_all_id') }}
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <div class="row form-group">
-                                        <div class="col-md-3">
-                                            <label>Permasalahan</label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <textarea name="masalah" rows="3" class="form-control"></textarea>
-
-                                            <!-- error -->
-                                            @if($errors->has('permasalahan'))
-                                                <div class="text-danger">
-                                                    {{ $errors->first('permasalahan') }}
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="row form-group">
-                                        <div class="col-md-3">
-                                            <label>Penyelesaian</label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <textarea name="penyelesaian" rows="5" class="form-control"></textarea>
-
-                                            <!-- error -->
-                                            @if($errors->has('penyelesaian'))
-                                                <div class="text-danger">
-                                                    {{ $errors->first('penyelesaian') }}
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <div class="row form-group">
-                                        <div class="col-md-3">
-                                            &nbsp;
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="submit" name="btn" class="btn btn-primary btn-sm" value="Ajukan">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        <a href="{{ route('penanganan.it.form') }}" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Buat Form</a>
                     </div>
-                    @endif
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="myTable" class="custom-table table table-hover">
@@ -131,7 +26,6 @@
                                         <th>Kode</th>
                                         <th>Tanggal</th>
                                         <th>Departement</th>
-                                        <th>PIC</th>
                                         <th>Permasalahan</th>
                                         <th>Penyelesaian</th>
                                         <th>Stat</th>
@@ -144,13 +38,10 @@
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $row->kode }}</td>
                                             <td>
-                                                {{ $row->tgl }}
+                                                {{ Helper::setDate($row->tgl) }}
                                             </td>
                                             <td>
                                                 {{ $row->user->dep }}
-                                            </td>
-                                            <td>
-                                                {{ $row->karyawanAll->nama }}
                                             </td>
                                             <td>
                                                 {{ $row->masalah }}
@@ -159,19 +50,13 @@
                                                 {{ $row->penyelesaian }}
                                             </td>
                                             <td>
-                                                @if($row->stat == 1)
-                                                    <span class="badge badge-info">Menunggu Verifikasi</span>
-                                                @else($row->stat == 2)
-                                                    <span class="badge badge-success">Telah di Verivikasi</span>
-                                                @endif
+                                                {!! statusFormPenangananIt($row->stat) !!}
                                             </td>
                                             <td>
-                                                @if(auth()->user()->dep == 'IT' && $row->stat == 1)
+                                                <button class="btn btn-primary btn-sm fas fa-check"></button>
+                                                <a href="{{ route('penanganan.it.view', ['id' => $row->id]) }}" class="btn btn-success btn-sm far fa-eye"></a>
+                                                @if($row->stat == 1)
                                                     <a href="#" class="delete_form_it" data-id="{{ $row->id }}"><i class="btn btn-danger btn-sm far fa-trash-alt"></i></a>
-                                                @endif
-
-                                                @if(auth()->user()->dep != 'IT' && $row->stat == 1)
-                                                    <a href="{{ route('penanganan.it.verifikasi', ['id' => $row->id]) }}" class="btn btn-success btn-sm">Verifikasi</a>
                                                 @endif
                                             </td>
                                         </tr>

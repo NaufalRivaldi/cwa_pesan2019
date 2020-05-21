@@ -289,6 +289,33 @@ ul.CTAs a {
     background-color: rgb(218, 218, 218) !important;
 }
 
+.timeline{
+    width: 100%;
+    height: auto;
+    float: left;
+    margin-top: -20px;
+    padding-top: 0;
+}
+
+.timeline-container{
+    margin-top:20px;
+}
+
+.timeline-rounded{
+    width: 25px;
+    height: 25px;
+    background-color: #f39c12;
+    border-radius: 100%;
+    position: absolute;
+}
+
+.timeline-content{
+    margin-left: 12px;
+    border-left: 1px #292929 dotted;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
 p{
     color: #000 !important;
     font-weight: 400;
