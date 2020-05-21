@@ -12,7 +12,8 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
-        "maatwebsite/excel": "^3.1"
+        "maatwebsite/excel": "^3.1",
+        "doctrine/dbal": "v2.4.2"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -39,6 +40,9 @@
         "classmap": [
             "database/seeds",
             "database/factories"
+        ],
+        "files": [
+            "app/Helpers/myHelper.php"
         ]
     },
     "autoload-dev": {

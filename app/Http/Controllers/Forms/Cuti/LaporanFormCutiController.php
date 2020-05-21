@@ -28,7 +28,11 @@ class LaporanFormCutiController extends Controller
             $dep = $_GET['dep'];
             $status = $_GET['status'];
 
-            if(empty($kategoriId)){
+            if(empty($tglA && $tglB)){
+                $data['formCuti'] = FormCuti::whereHas('karyawan', function($query) use ($dep, $kategoriId){
+                    $query->where('dep', 'like', '%'.$dep.'%');
+                })->where('status', '>=', 4)->where('status', 'like', '%'.$status.'%')->orderBy('id', 'desc')->get();
+            }else if(empty($kategoriId)){
                 $data['formCuti'] = FormCuti::whereBetween('created_at', [$tglA.' 00:00:00', $tglB.' 23:59:59'])->whereHas('karyawan', function($query) use ($dep, $kategoriId){
                     $query->where('dep', 'like', '%'.$dep.'%');
                 })->where('status', '>=', 4)->where('status', 'like', '%'.$status.'%')->orderBy('id', 'desc')->get();

@@ -965,19 +965,22 @@ class helper{
         Notifikasi::create($data);
     }
 
-    public static function notifikasiFormIt($user_id){
+    public static function notifikasiFormIt($cabang){
         $link = 'admin/formit/';
-        $ket = 'Anda telah menerima Form Penanganan IT.';
-        
+        $ket = 'Anda telah menerima Form Penanganan IT dari '.$cabang.'.';
+
+        $user = User::where('dep', 'IT')->get();
         // save notif
-        $data = [
-            "link" => $link,
-            "keterangan" => $ket,
-            "user_id" => $user_id,
-            "stat" => 1
-        ];
-    
-        Notifikasi::create($data);
+        foreach($user as $row){
+            $data = [
+                "link" => $link,
+                "keterangan" => $ket,
+                "user_id" => $row->id,
+                "stat" => 1
+            ];
+        
+            Notifikasi::create($data);
+        }
     }
 
     public static function notifikasiPengumuman($pengumuman_id, $user_id, $text){
