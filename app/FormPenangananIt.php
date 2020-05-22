@@ -13,7 +13,7 @@ class FormPenangananIt extends Model
 
     // fk
     public function user(){
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'user_id');
     }
 
     public function karyawanAll(){

@@ -187,9 +187,14 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::get('/', 'FormPenangananController@index')->name('penanganan.it');
         Route::get('/form', 'FormPenangananController@form')->name('penanganan.it.form');
         Route::get('/view/{id}', 'FormPenangananController@view')->name('penanganan.it.view');
-        Route::get('/verifikasi/{id}', 'FormPenangananController@verifikasi')->name('penanganan.it.verifikasi');
+        Route::post('/verifikasi', 'FormPenangananController@verifikasi')->name('penanganan.it.verifikasi');
+        Route::post('/status', 'FormPenangananController@status')->name('penanganan.it.status');
         Route::post('/store', 'FormPenangananController@store')->name('penanganan.it.store');
         Route::get('/delete/{id}', 'FormPenangananController@delete');
+
+        Route::group(['prefix' => 'detail', 'middleware' => ['checkDep:IT']], function(){
+            Route::delete('delete', 'DetailFormPenangananController@delete')->name('penanganan.it.detail.delete');
+        });
 
         // desain iklan
         Route::group(['prefix' => 'desain'], function(){

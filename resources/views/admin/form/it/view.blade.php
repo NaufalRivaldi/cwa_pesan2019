@@ -105,11 +105,15 @@
                                     <div class="timeline">
                                       <div class="timeline-rounded"></div>
                                       <div class="timeline-content">
-                                        <h6>{{ $row->karyawanAll->nama }}</h6>
+                                        <h6>{{ $row->karyawan->nama }}</h6>
                                         <p>
                                           {{ $row->keterangan }}
                                           <br>
-                                          <span class="badge badge-success">{{ $formPenangananIt->created_at }}</span>
+                                          <span class="badge badge-success">{{ $row->created_at }}</span>
+                                          
+                                          @if(auth()->user()->dep == 'IT')
+                                            <button data-id="{{ $row->id }}" class="btn btn-sm btn-danger fas fa-trash delete"></button>
+                                          @endif
                                         </p>
                                       </div>
                                     </div>
@@ -126,4 +130,26 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+  <script>
+    $(document).ready(function(){
+      $('.delete').on('click', function(){
+        let id = $(this).data('id');
+
+        $.ajax({
+          url: '{{ route("penanganan.it.detail.delete") }}',
+          method: 'DELETE',
+          data: {
+            'id': id,
+            '_token': '{{ csrf_token() }}'
+          },
+          success: function(){
+            location.reload();
+          }
+        });
+      });
+    });
+  </script>
 @endsection

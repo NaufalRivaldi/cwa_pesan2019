@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\form\IT\PenangananIt\VerifikasiRequest;
+
 use App\Helpers\helper;
 
 use App\FormPenangananIt;
@@ -18,10 +20,39 @@ class FormPenangananController extends Controller
         $data['menu'] = '8';
         $data['no'] = '1';
         
-        if(auth()->user()->dep != 'IT'){
-            $data['form'] = FormPenangananIt::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+        if(auth()->user()->dep == 'IT'){
+            if($_GET){
+                $tglA = $_GET['tglA'];
+                $tglB = $_GET['tglB'];
+                $dep = $_GET['dep'];
+                $stat = $_GET['stat'];
+
+                if(empty($tglA) || empty($tglB)){
+                    $data['form'] = FormPenangananIt::whereHas('user', function($query) use ($dep){
+                        $query->where('dep', 'like', '%'.$dep.'%');
+                    })->where('stat', 'like', '%'.$stat.'%')->orderBy('created_at', 'desc')->get();
+                }else{
+                    $data['form'] = FormPenangananIt::whereBetween('tgl', [$tglA, $tglB])->whereHas('user', function($query) use ($dep){
+                        $query->where('dep', 'like', '%'.$dep.'%');
+                    })->where('stat', 'like', '%'.$stat.'%')->orderBy('created_at', 'desc')->get();
+                }
+            }else{
+                $data['form'] = FormPenangananIt::orderBy('created_at', 'desc')->get();
+            }
         }else{
-            $data['form'] = FormPenangananIt::orderBy('created_at', 'desc')->get();
+            if($_GET){
+                $tglA = $_GET['tglA'];
+                $tglB = $_GET['tglB'];
+                $stat = $_GET['stat'];
+
+                if(empty($tglA) || empty($tglB)){
+                    $data['form'] = FormPenangananIt::where('user_id', auth()->user()->id)->where('stat', 'like', '%'.$stat.'%')->orderBy('created_at', 'desc')->get();
+                }else{
+                    $data['form'] = FormPenangananIt::where('user_id', auth()->user()->id)->whereBetween('tgl', [$tglA, $tglB])->where('stat', 'like', '%'.$stat.'%')->orderBy('created_at', 'desc')->get();
+                }
+            }else{
+                $data['form'] = FormPenangananIt::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+            }
         }
 
         return view('admin.form.it.index', $data);
@@ -66,12 +97,56 @@ class FormPenangananController extends Controller
         return redirect()->route('penanganan.it')->with('success', 'Form berhasil diajukan.');
     }
 
-    public function verifikasi($id){
-        $form = FormPenangananIt::find($id);
-        $form->stat = 2;
-        $form->save();
+    public function verifikasi(VerifikasiRequest $request){
+        $form = FormPenangananIt::find($request->id);
+        $karyawan = KaryawanAll::where('nik', $request->nik)->where('dep', 'IT')->first();
+        // dd($karyawan);
+
+        if(empty($karyawan)){
+            return redirect()->route('penanganan.it')->with('danger', 'Verifikasi tidak valid.');
+        }
+
+        if($request->tindakan == 1){
+            $form->stat = 2;
+            $form->save();
+            DetailFormPenangananIt::create([
+                'keterangan' => 'Sudah diacc dan sedang dilakukan proses pengerjaan.',
+                'karyawanId' => $karyawan->id,
+                'formPenangananItId' => $form->id
+            ]);
+        }else{
+            $form->stat = 4;
+            $form->save();
+            DetailFormPenangananIt::create([
+                'keterangan' => $request->keterangan,
+                'karyawanId' => $karyawan->id,
+                'formPenangananItId' => $form->id
+            ]);
+        }
 
         return redirect()->route('penanganan.it')->with('success', 'Form berhasil diverifikasi.');
+    }
+
+    public function status(Request $request){
+        $form = FormPenangananIt::find($request->id);
+        $karyawan = KaryawanAll::where('nik', $request->nik)->where('dep', 'IT')->first();
+        // dd($karyawan);
+
+        if(empty($karyawan)){
+            return redirect()->route('penanganan.it')->with('danger', 'Ubah status gagal.');
+        }
+
+        $form->stat = $request->status;
+        $form->penyelesaian = $request->keterangan;
+        $form->save();
+
+        DetailFormPenangananIt::create([
+            'keterangan' => $request->keterangan,
+            'karyawanId' => $karyawan->id,
+            'formPenangananItId' => $form->id
+        ]);
+
+        return redirect()->route('penanganan.it')->with('success', 'Status berhasil diubah.');
     }
 
     public function delete($id){
