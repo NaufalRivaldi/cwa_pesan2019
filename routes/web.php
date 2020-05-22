@@ -345,6 +345,20 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
             Route::put('/update', 'Masters\MasterFileController@update')->name('master.masterfile.update');
             Route::post('/destroy', 'Masters\MasterFileController@destroy')->name('master.masterfile.destroy');
         });
+
+        Route::group(['prefix' => 'departemen', 'middleware' => ['checkDep:HRD,IT']], function(){
+            Route::get('/', 'Masters\DepartemenController@index')->name('master.departemen.index');
+            Route::get('/form', 'Masters\DepartemenController@form')->name('master.departemen.form');
+            Route::post('/store', 'Masters\DepartemenController@store')->name('master.departemen.store');
+            Route::get('/{id}/edit', 'Masters\DepartemenController@form')->name('master.departemen.edit');
+            Route::post('/delete', 'Masters\DepartemenController@destroy')->name('master.departemen.destroy');
+            Route::put('/update', 'Masters\DepartemenController@update')->name('master.departemen.update');
+        });
+
+        Route::group(['prefix' => 'prosedur', 'middleware' => ['checkDep:QA,IT']], function(){
+            Route::get('/', 'Masters\ProsedurController@index')->name('master.prosedur.index');
+            Route::get('/form', 'Masters\ProsedurController@form')->name('master.prosedur.form');
+        });
     });
 
     // change kdoe verivikasi

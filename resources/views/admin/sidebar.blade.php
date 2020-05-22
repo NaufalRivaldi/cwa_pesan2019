@@ -23,6 +23,11 @@
         <li <?= ($menu == '13') ? 'class="active"' : '' ?>>
             <a href="#dataMaster" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-database"></i> Data Master</a>
             <ul class="collapse list-unstyled" id="dataMaster">
+                @if(Helper::isHRD())
+                <li>
+                    <a class="nav-link" href="{{ route('master.departemen.index') }}"><i class="fas fa-users"></i> Departemen </a>
+                </li>
+                @endif
                 @if(Helper::isIT())
                 <li>                    
                     <a href="#masterIT" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-laptop-code"></i> IT</a>
@@ -97,6 +102,9 @@
                     <ul class="collapse list-unstyled" id="masterQA">
                         <li>    
                             <a href="{{ route('master.masterfile.index') }}" data-toggle="tooltip" data-placement="right" title="Penambahan File QA"><i class="fas fa-file"></i> Penambahan Jenis File</a>
+                        </li>
+                        <li>    
+                            <a href="{{ route('master.prosedur.index') }}" data-toggle="tooltip" data-placement="right" title="Penambahan File QA"><i class="fas fa-file"></i> Prosedur</a>
                         </li>
                     </ul>
                 </li>

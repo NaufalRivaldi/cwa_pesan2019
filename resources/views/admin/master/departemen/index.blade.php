@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', '- Master File')
+@section('title', '- Master Departemen')
 
 @section('content')
     <div class="row">
@@ -9,14 +9,14 @@
                 <div class="page-breadcrumb">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item active" aria-current="page">Master File</li>
+                            <li class="breadcrumb-item active" aria-current="page">Master Departemen</li>
                         </ol>
                     </nav>
                 </div>
                 <div class="card">
                     <div class="container">
                         <div class="card-header row">
-                            <a href="{{ route('master.masterfile.form') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i> Tambah</a>
+                            <a href="{{ route('master.departemen.form') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i> Tambah</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -25,32 +25,21 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>No. Dokumen/Form</th>
-                                        <th>No. Revisi</th>
-                                        <th>Terbit</th>
-                                        <th>Nama File</th>
-                                        <th>Kategori</th>
-                                        <th>Action</th>
+                                        <th>Nama Departemen</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php $no = 1 @endphp
-                                    @foreach($masterfile as $row)
-                                    <tr>
-                                        <td>{{$no++}}</td>
-                                        <td>{{$row->no_form}}</td>
-                                        <td>{{$row->no_revisi}}</td>
-                                        <td>{!! Helper::setDate($row->tgl_terbit) !!}</td>
-                                        <td>{{$row->nama}}</td>
-                                        <td>{!! Helper::kategoriFormQa($row->kategori) !!}</td>
-                                        <td>                                            
-                                            <a href="{{ route('master.masterfile.edit', ['id' => $row->id]) }}" class=""><i class="btn btn-sm btn-info fas fa-cog"></i></a>
+                                    @foreach($departemen as $row)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $row->nama }}</td>
+                                            <td>
+                                              <a href="{{ route('master.departemen.edit', ['id' => $row->id]) }}" class=""><i class="btn btn-sm btn-info fas fa-cog"></i></a>
 
-                                            @if(auth()->user()->dep == 'IT' || auth()->user()->dep == 'QA')
-                                            <button class="btn btn-sm btn-danger btn-delete far fa-trash-alt" data-id="{{ $row->id }}"><i class=""></i></button>
-                                            @endif
-                                        </td>
-                                    </tr>
+                                              <button class="btn btn-sm btn-danger btn-delete far fa-trash-alt" data-id="{{ $row->id }}"><i class=""></i></button>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -67,7 +56,6 @@
     $(document).ready(function(){
         $('.btn-delete').on('click', function(){
             var id = $(this).data('id');
-            console.log(id);
             swal({
                 title: "Hapus Data?",
                 text: "Data yang dihapus tidak dapat dikembalikan!",
@@ -83,7 +71,7 @@
                             '_token': '{{ csrf_token() }}',
                             'id': id
                         },
-                        url: "{{ route('master.masterfile.destroy') }}",
+                        url: "{{ route('master.departemen.destroy') }}",
                         success: function(data){
                             location.reload();
                         }
