@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <th>No</th>
-        <th>No. Form</th>
+        <th>No. Dokumen/Form</th>
         <th>No. Revisi</th>
         <th>Terbit</th>
         <th>Nama</th>

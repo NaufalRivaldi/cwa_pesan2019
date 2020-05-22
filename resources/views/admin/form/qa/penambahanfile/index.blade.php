@@ -181,7 +181,7 @@
                     <input type="hidden" name="form_qa_type" class="form-control form_qa_type">
                     <div class="form-group">
                         <label>NIK</label>
-                        <input type="text" name="nik" class="form-control" required>
+                        <input onkeyup="convertToMin(this);" onkeypress="return hanyaAngka(event)" type="text" name="nik" class="form-control" maxlength="9" placeholder="xxxx.xxxx" required>
                     </div>
                     <div class="form-group">
                         <label>Password</label>

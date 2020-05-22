@@ -27,7 +27,7 @@
                               <input type="hidden" name="id" value="{{ $masterfile->id }}">
                           @endif
                           <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">No Form <span class="text-danger"></span></label>
+                            <label class="col-sm-2 col-form-label">No. Dokumen/Form <span class="text-danger"></span></label>
                             <div class="col-sm-10">
                               <input type="text" name="no_form" id="" class="form-control" value="{{$masterfile->no_form}}">
                               <!-- error -->

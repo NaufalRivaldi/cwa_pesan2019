@@ -181,7 +181,9 @@ class FormQaUsulanController extends Controller
                     return redirect()->route('form.qa.penambahanfile.index')->with('error', 'Anda bukan kepala bagian!');
                     break;
             }
-        }        
+        } else {
+            return redirect()->route('form.qa.penambahanfile.index')->with('error', 'NIK atau Password salah!');
+        }       
     }
 
     public function destroy(Request $request)
