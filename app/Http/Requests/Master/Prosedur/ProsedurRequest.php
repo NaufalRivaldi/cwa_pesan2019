@@ -23,10 +23,15 @@ class ProsedurRequest extends FormRequest
      */
     public function rules()
     {
+        if (!empty('fileOld')) {
+            $file = 'mimes:pdf';
+        } else {
+            $file = 'required|mimes:pdf';
+        }
         return [
             'nama'=>'required',
             'departemenId'=>'required',
-            'file'=>'required|mimetypes:application/pdf'
+            'file'=>$file
         ];
     }
 
@@ -34,7 +39,7 @@ class ProsedurRequest extends FormRequest
     {
         return [
             'required'=>'Kolom tidak boleh kosong!',
-            'mimetypes'=>'File harus berformat .pdf'
+            'mimes'=>'File harus berformat .pdf'
         ];
     }
 }

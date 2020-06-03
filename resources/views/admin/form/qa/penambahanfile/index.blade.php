@@ -275,22 +275,22 @@
     });
 
     function convertToMin(objek) {
-      separator = ".";
-      a = objek.value;
-      b = a.replace(/[^\d]/g, "");
-      c = "";
-      panjang = b.length;
-      j = 0;
-      for (i = panjang; i > 0; i--) {
-          j = j + 1;
-          if (((j % 4) == 1) && (j != 1)) {
-              c = b.substr(i - 1, 1) + separator + c;
-          } else {
-              c = b.substr(i - 1, 1) + c;
-          }
-      }
-      objek.value = c;
-  }
+        separator = ".";
+        a = objek.value;
+        b = a.replace(/[^\d]/g, "");
+        c = "";
+        panjang = b.length;
+        j = 0;
+        for (i = panjang; i > 0; i--) {
+            j = j + 1;
+            if (((j % 4) == 1) && (j != 1)) {
+                c = b.substr(i - 1, 1) + separator + c;
+            } else {
+                c = b.substr(i - 1, 1) + c;
+            }
+        }
+        objek.value = c;
+    }
 
   function hanyaAngka(evt) {
 		  var charCode = (evt.which) ? evt.which : event.keyCode

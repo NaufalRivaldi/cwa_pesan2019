@@ -103,6 +103,13 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::post('/save', 'UpdateMasterController@save');
     });
 
+    // Prosedur
+    Route::group(['prefix' => '/prosedur'], function(){
+        Route::get('/', 'Prosedur\ProsedurGlobalController@index')->name('prosedur.index');
+        Route::post('/login', 'Prosedur\ProsedurGlobalController@login')->name('prosedur.login');
+        Route::get('/{id}/view', 'Prosedur\ProsedurGlobalController@view')->name('prosedur.view');
+    });
+
     // Finance
     Route::group(['prefix' => '/finance'], function(){
         Route::get('/', 'FinanceController@index');
@@ -358,6 +365,11 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function(){
         Route::group(['prefix' => 'prosedur', 'middleware' => ['checkDep:QA,IT']], function(){
             Route::get('/', 'Masters\ProsedurController@index')->name('master.prosedur.index');
             Route::get('/form', 'Masters\ProsedurController@form')->name('master.prosedur.form');
+            Route::post('/store',  'Masters\ProsedurController@store')->name('master.prosedur.store');
+            Route::get('/{id}/edit', 'Masters\ProsedurController@form')->name('master.prosedur.edit');
+            Route::put('/update', 'Masters\ProsedurController@update')->name('master.prosedur.update');
+            Route::post('/destroy', 'Masters\ProsedurController@destroy')->name('master.prosedur.destroy');
+            Route::get('/{id}/view', 'Masters\ProsedurController@view')->name('master.prosedur.view');
         });
     });
 

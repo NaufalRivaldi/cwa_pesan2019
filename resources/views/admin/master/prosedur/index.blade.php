@@ -26,11 +26,27 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Prosedur</th>
-                                        <th>File</th>
+                                        <th>Departemen</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($prosedur as $p)
+                                      <tr>
+                                        <td>{{ $no++ }}</td>
+                                        <td>{{ $p->nama }}</td>
+                                        <td>{{ $p->departemen->nama }}</td>
+                                        <td>                                        
+                                          <a href="{{ route('master.prosedur.view', ['id' => $p->id]) }}" class=""><i class="btn btn-sm btn-warning fas fa-eye"></i></a>
+
+                                          <a href="{{ asset('file-prosedur/'.$p->file) }}" class="btn btn-success btn-sm fas fa-download" download="{{strtolower(str_replace(' ', '_', $p->nama))}}"></a>
+                                        
+                                          <a href="{{ route('master.prosedur.edit', ['id' => $p->id]) }}" class=""><i class="btn btn-sm btn-info fas fa-cog"></i></a>
+
+                                          <button class="btn btn-sm btn-danger btn-delete far fa-trash-alt" data-id="{{ $p->id }}"><i class=""></i></button>
+                                        </td>
+                                      </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -61,7 +77,7 @@
                             '_token': '{{ csrf_token() }}',
                             'id': id
                         },
-                        url: "",
+                        url: "{{ route('master.prosedur.destroy') }}",
                         success: function(data){
                             location.reload();
                         }

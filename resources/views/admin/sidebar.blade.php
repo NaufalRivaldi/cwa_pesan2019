@@ -221,8 +221,10 @@
         <li <?= ($menu == '6') ? 'class="active"' : '' ?>>
             <a href="{{ url('/admin/master') }}"><i class="fas fa-file-download"></i> Update Master</a>
         </li>
-        @endif
-        
+        @endif        
+        <li <?= ($menu == '14') ? 'class="active"' : '' ?>>
+            <a href="{{ route('prosedur.index') }}"><i class="fas fa-file"></i> Prosedur</a>
+        </li>
         @if(Helper::isMixing())
             @if(auth()->user()->dep != 'IT')
                 <li>

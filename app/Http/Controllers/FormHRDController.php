@@ -79,10 +79,10 @@ class FormHRDController extends Controller
         
         // hrd
         if(auth()->user()->level == 7){
-            $form_office = FormHRD::where('stat', 1)->whereHas('KaryawanAll', function($query){
+            $form_office = FormHRD::whereHas('KaryawanAll', function($query){
                 $query->whereIn('dep', ['Office']);
             })->orderBy('created_at', 'desc')->get();
-            $form = FormHRD::where('stat', 2)->orderBy('created_at', 'asc')->get();
+            $form = FormHRD::orderBy('created_at', 'asc')->get();
         }else{
             $form = FormHRD::whereHas('KaryawanAll', function($query){
                 $query->whereIn('dep', helper::setViewVerivikasi());

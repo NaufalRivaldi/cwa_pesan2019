@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                      <form action="" method="POST">
+                      <form action="{{ (empty($prosedur->id))?route('master.prosedur.store'):route('master.prosedur.update') }}" method="POST" enctype="multipart/form-data">
                           {{ csrf_field() }}
                           @if(!empty($prosedur->id))
                               @method('PUT')
@@ -45,7 +45,7 @@
                                   <select name="departemenId" id="departemenId" class="form-control">
                                     <option value="">Pilih Departemen...</option>
                                     @foreach($departemen as $d)
-                                      <option value="{{$d->id}}">{{$d->nama}}</option>
+                                      <option value="{{$d->id}}" {{($prosedur->departemenId == $d->id)?'selected':''}}>{{$d->nama}}</option>
                                     @endforeach
                                   </select>
                                   <!-- error -->
@@ -59,7 +59,8 @@
                           <div class="form-group row">
                               <label class="col-sm-2 col-form-label">File <span class="text-danger">*</span></label>
                               <div class="col-sm-10">
-                                  <input type="file" name="file" class="form-control" value="{{ $prosedur->file }}" required>
+                                  <input type="hidden" name="fileOld" value="{{ $prosedur->file }}">
+                                  <input type="file" name="file" class="form-control" value="{{ $prosedur->file }}" {{($prosedur->id)?'':'required'}}>
                                   <!-- error -->
                                   @if($errors->has('file'))
                                       <div class="text-danger">
