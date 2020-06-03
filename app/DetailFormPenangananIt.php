@@ -8,7 +8,7 @@ class DetailFormPenangananIt extends Model
 {
     protected $table = 'detail_form_penanganan_it';
     protected $fillable = [
-        'keterangan', 'userId', 'formPenangananItId'
+        'keterangan', 'karyawanId', 'formPenangananItId'
     ];
 
     // fk
